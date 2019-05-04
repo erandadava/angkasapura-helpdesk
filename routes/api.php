@@ -19,3 +19,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::resource('users', 'usersAPIController');
+
+Route::resource('categories', 'categoryAPIController');
+
+Route::resource('roles', 'rolesAPIController');
+
+Route::resource('priorities', 'priorityAPIController');
+
+Route::resource('ratings', 'ratingAPIController');
+
+Route::resource('issues', 'issuesAPIController');
