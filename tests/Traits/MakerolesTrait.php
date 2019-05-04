@@ -44,6 +44,7 @@ trait MakerolesTrait
         return array_merge([
             'role_name' => $fake->word,
             'is_active' => $fake->word,
+            'deleted_at' => $fake->date('Y-m-d H:i:s'),
             'created_at' => $fake->date('Y-m-d H:i:s'),
             'updated_at' => $fake->date('Y-m-d H:i:s')
         ], $rolesFields);

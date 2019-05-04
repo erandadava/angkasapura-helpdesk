@@ -8,22 +8,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class roles
  * @package App\Models
- * @version May 4, 2019, 1:41 am UTC
+ * @version May 4, 2019, 4:19 pm UTC
  *
  * @property string role_name
  * @property boolean is_active
  */
 class roles extends Model
 {
-
+    use SoftDeletes;
 
     public $table = 'roles';
-
+    
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
 
-
+    protected $dates = ['deleted_at'];
 
 
     public $fillable = [
@@ -48,8 +48,8 @@ class roles extends Model
      * @var array
      */
     public static $rules = [
-
+        
     ];
 
-
+    
 }
