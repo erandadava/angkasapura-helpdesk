@@ -29,7 +29,7 @@ class issuesDataTable extends DataTable
      */
     public function query(issues $model)
     {
-        return $model->newQuery();
+        return $model->with(['category','priority','request'])->newQuery();
     }
 
     /**
@@ -64,17 +64,14 @@ class issuesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'issue_id',
-            'cat_id',
-            'prio_id',
-            'request_id',
-            'location',
-            'prob_desc',
-            'reason_desc',
-            'complete_by',
-            'issue_date',
-            'complete_date',
-            'is_archive'
+            ['data' => 'category.cat_name', 'title' => 'Kategori'],
+            ['data' => 'issue_id', 'title' => 'Kode'],
+            ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
+            ['data' => 'request.name', 'title' => 'Request'],
+            ['data' => 'location', 'title' => 'Lokasi'],
+            ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
+            ['data' => 'complete_date', 'title' => 'Waktu Selesai'],
+            ['data' => 'complete_by', 'title' => 'Selesai Oleh'],
         ];
     }
 

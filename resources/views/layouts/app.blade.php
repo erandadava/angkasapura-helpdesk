@@ -26,7 +26,11 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
-
+    <style>
+        .ck-editor__editable {
+            min-height: 300px;  
+        }
+    </style>
     @yield('css')
 </head>
 
@@ -163,7 +167,22 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
+    <script>
+                        ClassicEditor
+                                .create( document.querySelector( '#editor' ),{
+                                    resize: {
+                                        minHeight: 300,
+                                        maxHeight: 800
+                                    }
+                                } )
+                                .then( editor => {
+                                        console.log( editor );
+                                } )
+                                .catch( error => {
+                                        console.error( error );
+                                } );
+    </script>
     @yield('scripts')
 </body>
 </html>

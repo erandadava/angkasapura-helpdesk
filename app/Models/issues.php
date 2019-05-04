@@ -78,5 +78,23 @@ class issues extends Model
         
     ];
 
-    
+    public function category()
+    {
+        return $this->hasOne('App\Models\category','id','cat_id');
+    }
+
+    public function priority()
+    {
+        return $this->hasOne('App\Models\priority','id','prio_id');
+    }
+
+    public function request()
+    {
+        return $this->hasOne('App\User','id','request_id');
+    }
+
+    public function complete()
+    {
+        return $this->hasOne('App\User','id','complete_by');
+    }
 }
