@@ -26,6 +26,7 @@ class CreateIssuesTable extends Migration
             $table->dateTime('issue_date')->nullable();
             $table->dateTime('complete_date')->nullable();
             $table->tinyInteger('is_archive')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
