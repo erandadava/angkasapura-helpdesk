@@ -17,8 +17,12 @@ class priorityDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-
-        return $dataTable->addColumn('action', 'priorities.datatables_actions');
+        return $dataTable->addColumn('action', 'priorities.datatables_actions')->editColumn('is_active', function ($inquiry) {
+            if ($inquiry->is_active == 0) return "<span class='label label-danger'>Non-Aktif</span>";
+            if ($inquiry->is_active == 1) return "<span class='label label-success'>Aktif</span>";
+            return 'Cancel';
+        })
+        ->rawColumns(['is_active','action']);
     }
 
     /**
@@ -64,8 +68,8 @@ class priorityDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'prio_name',
-            'is_active'
+            ['data' => 'prio_name', 'title' => 'Judul'],
+            ['data' => 'is_active', 'title' => 'Status'],
         ];
     }
 

@@ -18,7 +18,12 @@ class categoryDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'categories.datatables_actions');
+        return $dataTable->addColumn('action', 'categories.datatables_actions')->editColumn('is_active', function ($inquiry) {
+            if ($inquiry->is_active == 0) return "<span class='label label-danger'>Non-Aktif</span>";
+            if ($inquiry->is_active == 1) return "<span class='label label-success'>Aktif</span>";
+            return 'Cancel';
+        })
+        ->rawColumns(['is_active','action']);;
     }
 
     /**
@@ -64,8 +69,8 @@ class categoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'cat_name',
-            'is_active'
+            ['data' => 'cat_name', 'title' => 'Judul'],
+            ['data' => 'is_active', 'title' => 'Status']
         ];
     }
 

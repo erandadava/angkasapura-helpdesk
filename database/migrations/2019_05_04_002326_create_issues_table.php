@@ -15,11 +15,11 @@ class CreateIssuesTable extends Migration
     {
         Schema::create('issues', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('issue_id')->nullable(); 
-            $table->integer('cat_id')->nullable(); 
+            $table->string('issue_id')->nullable();
+            $table->integer('cat_id')->nullable();
             $table->integer('prio_id')->nullable();
-            $table->integer('request_id')->nullable(); 
-            $table->string('location')->nullable(); 
+            $table->integer('request_id')->nullable();
+            $table->string('location')->nullable();
             $table->longText('prob_desc')->nullable();
             $table->longText('reason_desc')->nullable();
             $table->integer('complete_by')->nullable();
@@ -27,6 +27,7 @@ class CreateIssuesTable extends Migration
             $table->dateTime('complete_date')->nullable();
             $table->tinyInteger('is_archive')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

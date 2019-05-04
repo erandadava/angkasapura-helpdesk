@@ -18,6 +18,7 @@ class CreateCategoryTable extends Migration
             $table->string('cat_name')->nullable();
             $table->tinyInteger('is_active')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

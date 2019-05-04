@@ -18,6 +18,7 @@ class CreatePriorityTable extends Migration
             $table->string('prio_name')->nullable();
             $table->tinyInteger('is_active')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
