@@ -3,13 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>InfyOm Laravel Generator</title>
+    <title>Angkasa Pura II - IT Helpdesk</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Bootstrap 4.0 -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -32,65 +35,132 @@
     <![endif]-->
 
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="{{ url('/home') }}"><b>InfyOm </b>Generator</a>
+
+<style type="text/css">
+    body {
+    font-family: "Lato", sans-serif;
+}
+
+
+
+.main-head{
+    height: 150px;
+    background: #FFF;
+   
+}
+
+.sidenav {
+    height: 100%;
+    background-color: #00688B;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+.main {
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+}
+
+@media screen and (max-width: 450px) {
+    .login-form{
+        margin-top: 10%;
+    }
+
+    .register-form{
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .main{
+        margin-left: 40%; 
+    }
+
+    .sidenav{
+        width: 40%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .login-form{
+        margin-top: 80%;
+    }
+
+    .register-form{
+        margin-top: 20%;
+    }
+}
+
+
+.login-main-text{
+    margin-top: 20%;
+    padding: 60px;
+    color: #fff;
+}
+
+.login-main-text h2{
+    font-weight: 300;
+}
+
+.btn-black{
+    background-color: #00688B !important;
+    color: #fff;
+}
+</style>
+
+<div class="sidenav">
+    <div class="login-main-text">
+        <h1>Angkasa Pura II <br> IT-HelpDesk </h1>
+        <h3>Login Here</h3>
     </div>
-
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
-
-        <form method="post" action="{{ url('/login') }}">
-            {!! csrf_field() !!}
-
-            <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                @if ($errors->has('email'))
-                    <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-                @endif
-            </div>
-
-            <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
-                <input type="password" class="form-control" placeholder="Password" name="password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                @if ($errors->has('password'))
-                    <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-                @endif
-
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox" name="remember"> Remember Me
-                        </label>
-                    </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                </div>
-                <!-- /.col -->
-            </div>
-        </form>
-
-        <a href="{{ url('/password/reset') }}">I forgot my password</a><br>
-        <a href="{{ url('/register') }}" class="text-center">Register a new membership</a>
-
-    </div>
-    <!-- /.login-box-body -->
 </div>
+<div class="main">
+    <div class="col-md-6 col-sm-12">
+        <div class="login-form">
+            <form method="post" action="{{ url('/login') }}">
+                {!! csrf_field() !!}
+
+                <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }} ">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
+                    @if ($errors->has('email'))
+                        <span class="help-block">
+                        <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Password" name="password">
+                    @if ($errors->has('password'))
+                        <span class="help-block">
+                        <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                
+                <button type="submit" class="btn btn-black">Login</button>
+               <!--  <button type="submit" class="btn btn-secondary">Register</button> -->
+            
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <!-- /.login-box -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <!-- AdminLTE App -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/adminlte.min.js"></script>
@@ -105,5 +175,4 @@
         });
     });
 </script>
-</body>
 </html>
