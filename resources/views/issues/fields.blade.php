@@ -29,11 +29,10 @@
     {!! Form::textarea('prob_desc', null, ['class' => 'form-control', 'id' => 'editor' ]) !!}
 </div>
 
-<!-- Reason Desc Field
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('reason_desc', 'Reason Desc:') !!}
-    {!! Form::textarea('reason_desc', null, ['class' => 'form-control']) !!}
-</div> -->
+    {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
+    {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
+</div>
 
 <!-- Complete By Field
 <div class="form-group col-sm-6">

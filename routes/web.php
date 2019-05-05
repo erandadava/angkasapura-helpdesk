@@ -21,6 +21,7 @@ Auth::routes();
 // Route::get('/home', 'HomeController@index');
 
 Route::resource('users', 'usersController');
+Route::resource('dashboard', 'dashboardController');
 Route::get('register/verify', 'Auth\RegisterController@verify')->name('verifyEmailLink');
 Route::get('register/verify/resend', 'Auth\RegisterController@showResendVerificationEmailForm')->name('showResendVerificationEmailForm');
 Route::post('register/verify/resend', 'Auth\RegisterController@resendVerificationEmail')->name('resendVerificationEmail');
