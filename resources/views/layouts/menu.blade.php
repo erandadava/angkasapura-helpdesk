@@ -1,3 +1,6 @@
+<li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
+    <a href="{!! route('dashboard.index') !!}"><i class="fa fa-edit"></i><span>Dashboard</span></a>
+</li>
 <li class="{{ Request::is('users*') ? 'active' : '' }}">
     <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>User</span></a>
 </li>
