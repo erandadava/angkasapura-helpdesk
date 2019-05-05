@@ -22,7 +22,7 @@ Route::resource('users', 'usersAPIController');
 
 Route::resource('categories', 'categoryAPIController');
 
-Route::resource('roles', 'rolesAPIController');
+
 
 Route::resource('priorities', 'priorityAPIController');
 
@@ -30,4 +30,3 @@ Route::resource('ratings', 'ratingAPIController');
 
 Route::resource('issues', 'issuesAPIController');
 
-Route::resource('roles', 'rolesAPIController');

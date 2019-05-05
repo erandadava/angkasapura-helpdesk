@@ -34,7 +34,7 @@ Route::group(['middleware' => ['web', 'auth', 'isEmailVerified']], function ()
 
 Route::resource('categories', 'categoryController');
 
-Route::resource('roles', 'rolesController');
+
 
 Route::resource('priorities', 'priorityController');
 
@@ -42,4 +42,3 @@ Route::resource('ratings', 'ratingController');
 
 Route::resource('issues', 'issuesController');
 
-Route::resource('roles', 'rolesController');

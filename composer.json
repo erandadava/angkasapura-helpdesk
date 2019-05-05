@@ -10,6 +10,7 @@
         "josiasmontag/laravel-email-verification": "^1.2",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "spatie/laravel-permission": "^2.37",
         "yajra/laravel-datatables": "1.0",
         "yajra/laravel-datatables-buttons": "3.0",
         "yajra/laravel-datatables-oracle": "8.0"
