@@ -64,8 +64,8 @@ class rolesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'role_name',
-            'is_active'
+            'name',
+            'guard_name'
         ];
     }
 

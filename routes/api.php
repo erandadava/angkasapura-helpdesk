@@ -30,3 +30,6 @@ Route::resource('ratings', 'ratingAPIController');
 
 Route::resource('issues', 'issuesAPIController');
 
+
+
+Route::resource('roles', 'rolesAPIController');
