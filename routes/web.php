@@ -29,9 +29,10 @@ Route::post('register/verify/resend', 'Auth\RegisterController@resendVerificatio
 Route::group(['middleware' => ['web', 'auth', 'isEmailVerified','role:user']], function () 
 {
 
-    Route::get('/home', 'HomeController@index');
+    
 
 });
+Route::get('/home', 'HomeController@index');
 
 Route::resource('categories', 'categoryController');
 

@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\issues;
+use App\Models\priority;
+use App\Models\category;
 use App\User;
+use DB;
+use Carbon\Carbon;
 class dashboardController extends Controller
 {
     /**
@@ -17,6 +21,37 @@ class dashboardController extends Controller
         $this->data['jumlah_keluhan'] = issues::get()->count();
         $this->data['jumlah_user'] = User::get()->count();
         $this->data['jumlah_keluhan_selesai'] = issues::where('complete_date','!=',null)->get()->count();
+        $this->data['jumlah_prioritas'] = priority::leftjoin('issues', 'priority.id', '=', 'issues.prio_id')
+        ->select('priority.id', 'priority.prio_name', DB::raw("count(issues.prio_id) as count"))
+        ->groupBy('priority.id','priority.prio_name')->get()->toJson();
+        $this->data['jumlah_kategori'] = category::leftjoin('issues', 'category.id', '=', 'issues.cat_id')
+        ->select('category.id', 'category.cat_name', DB::raw("count(issues.cat_id) as count"))
+        ->groupBy('category.id','category.cat_name')->get()->toJson();
+        $this->data['jumlah_selesai'] = issues::where('complete_date','!=',null)->count();
+        $this->data['jumlah_belum'] = issues::where('complete_date','=',null)->count();
+        $issue = issues::select('id', 'created_at')
+                ->get()
+                ->groupBy(function($date) {
+                    return Carbon::parse($date->created_at)->format('m');
+                });
+
+                $issue_count = [];
+                $issue_arr = [];
+
+                foreach ($issue as $key => $value) {
+                    $issue_count[(int)$key] = count($value);
+                }
+
+                for($i = 1; $i <= 12; $i++){
+                    if(!empty($issue_count[$i])){
+                        $issue_arr[] = $issue_count[$i];    
+                    }else{
+                        $issue_arr[] = 0;    
+                    }
+                }
+        $this->data['jumlah_bulan'] = json_encode($issue_arr);
+        // echo "<pre>";
+        // print_r($this->data['jumlah_bulan']);
         return view('dashboard.index')->with($this->data);
     }
 
