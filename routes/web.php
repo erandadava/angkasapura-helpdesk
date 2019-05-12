@@ -28,7 +28,6 @@ Route::post('register/verify/resend', 'Auth\RegisterController@resendVerificatio
 
 Route::group(['middleware' => ['web', 'auth', 'isEmailVerified','role:user']], function () 
 {
-
     
 
 });

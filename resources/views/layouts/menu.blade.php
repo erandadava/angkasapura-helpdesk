@@ -1,6 +1,8 @@
+
 <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
     <a href="{!! route('dashboard.index') !!}"><i class="fa fa-edit"></i><span>Dashboard</span></a>
 </li>
+
 <li class="{{ Request::is('users*') ? 'active' : '' }}">
     <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>User</span></a>
 </li>
@@ -24,8 +26,3 @@
 <li class="{{ Request::is('issues*') ? 'active' : '' }}">
     <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Keluhan</span></a>
 </li>
-
-<li class="{{ Request::is('roles*') ? 'active' : '' }}">
-    <a href="{!! route('roles.index') !!}"><i class="fa fa-edit"></i><span>Roles</span></a>
-</li>
-

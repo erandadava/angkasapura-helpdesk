@@ -9,6 +9,8 @@ use App\Http\Requests\UpdateusersRequest;
 use App\Repositories\usersRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasRole;
 use Response;
 
 class usersController extends AppBaseController
@@ -19,6 +21,7 @@ class usersController extends AppBaseController
     public function __construct(usersRepository $usersRepo)
     {
         $this->usersRepository = $usersRepo;
+        $this->data['role'] = \App\Models\roles::pluck('name','id')->all();
     }
 
     /**
@@ -39,7 +42,7 @@ class usersController extends AppBaseController
      */
     public function create()
     {
-        return view('users.create');
+        return view('users.create')->with($this->data);
     }
 
     /**
