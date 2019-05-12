@@ -9,6 +9,9 @@ use App\Http\Requests\UpdatecategoryRequest;
 use App\Repositories\categoryRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasRole;
 use Response;
 
 class categoryController extends AppBaseController

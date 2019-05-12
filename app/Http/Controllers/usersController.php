@@ -54,6 +54,10 @@ class usersController extends AppBaseController
         $input = $request->all();
 
         $users = $this->usersRepository->create($input);
+        
+        $akun = \App\User::find($users->id);
+        
+        $akun->assignRole($input['roles']);
 
         Flash::success('Users saved successfully.');
 

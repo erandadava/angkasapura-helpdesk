@@ -9,6 +9,9 @@ use App\Http\Requests\UpdatepriorityRequest;
 use App\Repositories\priorityRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasRole;
 use Response;
 
 class priorityController extends AppBaseController

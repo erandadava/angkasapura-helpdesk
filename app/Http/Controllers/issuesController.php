@@ -11,6 +11,9 @@ use App\Models\category;
 use App\Models\priority;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasRole;
 use Response;
 use Carbon;
 
