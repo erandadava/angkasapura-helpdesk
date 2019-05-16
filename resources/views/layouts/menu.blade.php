@@ -4,21 +4,26 @@
     </a>
 </li>
 
-<li class="{{ Request::is('users*') ? 'active' : '' }} ">
+<li class="{{ Request::is('users*') ? 'active' : '' }} treeview menu-open">
     <a href="#"><i class="fa fa-edit"></i><span>Users</span>
-<!-- <span class="pull-right-corner">
+<span class="pull-right-corner">
     <i class="fa fa-angel-left pull-right"></i>
 </span>
 </a>
 <ul class="treeview-menu">
     <li>
         <a href="{!! route('users.index') !!}"><i class="fa fa-circle"></i><span>data user</span>
-
     </li>
     <li>
         <a href="#"><i class="fa fa-circle"></i><span>Ticketing</span></a>
     </li>
-</ul></a> -->
+    <li>
+        <a href="#"><i class="fa fa-circle"></i><span>History Ticket</span></a>
+    </li>
+    <li>
+        <a href="#"><i class="fa fa-circle"></i><span>Laporan Harian</span></a>
+    </li>
+</ul></a>
 </li>
 
 <li class="{{ Request::is('categories*') ? 'active' : '' }}">
