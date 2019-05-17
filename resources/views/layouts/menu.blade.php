@@ -4,26 +4,19 @@
     </a>
 </li>
 
-<li class="{{ Request::is('users*') ? 'active' : '' }} treeview menu-open">
-    <a href="#"><i class="fa fa-edit"></i><span>Users</span>
-<span class="pull-right-corner">
-    <i class="fa fa-angel-left pull-right"></i>
-</span>
-</a>
-<ul class="treeview-menu">
-    <li>
-        <a href="{!! route('users.index') !!}"><i class="fa fa-circle"></i><span>data user</span>
-    </li>
-    <li>
-        <a href="#"><i class="fa fa-circle"></i><span>Ticketing</span></a>
-    </li>
-    <li>
-        <a href="#"><i class="fa fa-circle"></i><span>History Ticket</span></a>
-    </li>
-    <li>
-        <a href="#"><i class="fa fa-circle"></i><span>Laporan Harian</span></a>
-    </li>
-</ul></a>
+<li class="treeview active menu-open">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Users</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i> Data User</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticketing</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> History Ticket</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+          </ul>
 </li>
 
 <li class="{{ Request::is('categories*') ? 'active' : '' }}">
@@ -43,5 +36,5 @@
 </li> -->
 
 <li class="{{ Request::is('issues*') ? 'active' : '' }}">
-    <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Keluhan</span>
+    <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Keluhan</span></a>
 </li>
