@@ -39,6 +39,7 @@
 <style type="text/css">
     body {
     font-family: "Lato", sans-serif;
+    background-color: #005593;
 }
 
 
@@ -51,7 +52,7 @@
 
 .sidenav {
     height: 100%;
-    background-color: #01558f;
+    background-color: #f7f7f7;
     overflow-x: hidden;
     padding-top: 20px;
 }
@@ -101,7 +102,7 @@
 .login-main-text{
     margin-top: 20%;
     padding: 60px;
-    color: #fff;
+    color: #005593;
 }
 
 .login-main-text h2{
@@ -116,7 +117,8 @@
 
 <div class="sidenav">
     <div class="login-main-text">
-        <h1>Angkasa Pura II <br> IT-HelpDesk </h1>
+        <img src="{{asset('img/logo-ap2.jpeg')}}" style="width: 100%;">
+        <h1>IT-HelpDesk </h1>
         <h3>Login Here</h3>
     </div>
 </div>
@@ -127,7 +129,7 @@
                 {!! csrf_field() !!}
 
                 <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }} ">
-                    <label>Email</label>
+                    <label style="color: #fff;">Email</label>
                     <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -137,7 +139,7 @@
                 </div>
 
                 <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label>Password</label>
+                    <label style="color: #fff;">Password</label>
                     <input type="password" class="form-control" placeholder="Password" name="password">
                     @if ($errors->has('password'))
                         <span class="help-block">
