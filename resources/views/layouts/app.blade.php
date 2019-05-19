@@ -197,6 +197,19 @@
                                 .catch( error => {
                                         console.error( error );
                                 } );
+                                ClassicEditor
+                                .create( document.querySelector( '#editor3' ),{
+                                    resize: {
+                                        minHeight: 300,
+                                        maxHeight: 800
+                                    }
+                                } )
+                                .then( editor => {
+                                        console.log( editor );
+                                } )
+                                .catch( error => {
+                                        console.error( error );
+                                } );
     </script>
     @yield('scripts')
 </body>

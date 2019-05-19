@@ -41,6 +41,11 @@
     <p>{!! $issues->reason_desc !!}</p>
 </div>
 
+<div class="form-group">
+    {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
+    <p>{!! $issues->solution_desc !!}</p>
+</div>
+
 <!-- Complete By Field -->
 <div class="form-group">
     {!! Form::label('complete_by', 'Selesai Oleh:') !!}
@@ -77,3 +82,90 @@
     <p>{!! $issues->updated_at !!}</p>
 </div>
 
+
+@if($issues->status == 'ITSP')
+<div class="form-group col-md-2 col-sm-12">
+        <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItOPS">
+            <i class="glyphicon glyphicon-share"></i> Ajukan ke  IT OPS
+        </button>
+</div>
+@endif
+
+@if($issues->status == null)
+<div class="form-group col-md-2 col-sm-12">
+    {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+        {!! Form::hidden('status', 'ITSP', ['class' => 'form-control'])!!}
+        <button class='btn btn-default btn-md' onclick="return confirm('Yakin?')">
+            <i class="glyphicon glyphicon-share"></i> Ajukan ke  IT Support
+        </button>
+    {!! Form::close() !!}  
+</div>
+@endif
+
+
+<!-- Button untuk IT NP -->
+<div class="form-group col-md-2 col-sm-12">
+    
+        <button class='btn btn-success btn-md' data-toggle="modal" data-target="#myModal">
+            <i class="glyphicon glyphicon-folder-close"></i> Tutup Keluhan
+        </button>
+    
+</div>
+<!-- ---------------------- -->
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tutup Keluhan</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+            {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
+            <div class="form-group col-sm-12 col-lg-12">
+                {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
+                {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor3']) !!}
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
+      </div>
+    </div>
+    {!! Form::close() !!} 
+  </div>
+</div>
+
+<div id="myModalItOPS" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ajukan ke IT OPS</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+        {!! Form::hidden('status', 'ITOPS', ['class' => 'form-control'])!!} 
+        <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
+            {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
+      </div>
+    </div>
+    {!! Form::close() !!} 
+  </div>
+</div>

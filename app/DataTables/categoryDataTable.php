@@ -23,7 +23,7 @@ class categoryDataTable extends DataTable
             if ($inquiry->is_active == 1) return "<span class='label label-success'>Aktif</span>";
             return 'Cancel';
         })
-        ->rawColumns(['is_active','action']);;
+        ->rawColumns(['is_active','action']);
     }
 
     /**

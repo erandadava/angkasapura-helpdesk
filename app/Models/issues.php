@@ -46,7 +46,9 @@ class issues extends Model
         'complete_by',
         'issue_date',
         'complete_date',
-        'is_archive'
+        'is_archive',
+        'status',
+        'solution_desc'
     ];
 
     /**
