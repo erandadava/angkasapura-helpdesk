@@ -1909,16 +1909,16 @@
         },
         {
             "name": "symfony/contracts",
-            "version": "v1.0.2",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/contracts.git",
-                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf"
+                "reference": "d3636025e8253c6144358ec0a62773cae588395b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/1aa7ab2429c3d594dd70689604b5cf7421254cdf",
-                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf",
+                "url": "https://api.github.com/repos/symfony/contracts/zipball/d3636025e8253c6144358ec0a62773cae588395b",
+                "reference": "d3636025e8253c6144358ec0a62773cae588395b",
                 "shasum": ""
             },
             "require": {
@@ -1926,19 +1926,22 @@
             },
             "require-dev": {
                 "psr/cache": "^1.0",
-                "psr/container": "^1.0"
+                "psr/container": "^1.0",
+                "symfony/polyfill-intl-idn": "^1.10"
             },
             "suggest": {
                 "psr/cache": "When using the Cache contracts",
                 "psr/container": "When using the Service contracts",
                 "symfony/cache-contracts-implementation": "",
+                "symfony/event-dispatcher-implementation": "",
+                "symfony/http-client-contracts-implementation": "",
                 "symfony/service-contracts-implementation": "",
                 "symfony/translation-contracts-implementation": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -1973,7 +1976,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2018-12-05T08:06:11+00:00"
+            "time": "2019-04-27T14:29:50+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -4041,12 +4044,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/adminlte-templates.git",
-                "reference": "be6c5db6f53b1b28075eff91e71579c9243f58dd"
+                "reference": "bc81707296f169e6780360effd0834c23dfed464"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/be6c5db6f53b1b28075eff91e71579c9243f58dd",
-                "reference": "be6c5db6f53b1b28075eff91e71579c9243f58dd",
+                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/bc81707296f169e6780360effd0834c23dfed464",
+                "reference": "bc81707296f169e6780360effd0834c23dfed464",
                 "shasum": ""
             },
             "require": {
@@ -4085,7 +4088,7 @@
                 "laravel",
                 "templates"
             ],
-            "time": "2019-04-13T10:27:13+00:00"
+            "time": "2019-05-16T03:24:12+00:00"
         },
         {
             "name": "infyomlabs/laravel-generator",
@@ -4093,12 +4096,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "30e2c77d1c1c61cc497a86886ab2baa657ab1fd7"
+                "reference": "8ebc0d54710982bd6813e7f5c9a2b3f61a609f6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/30e2c77d1c1c61cc497a86886ab2baa657ab1fd7",
-                "reference": "30e2c77d1c1c61cc497a86886ab2baa657ab1fd7",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/8ebc0d54710982bd6813e7f5c9a2b3f61a609f6e",
+                "reference": "8ebc0d54710982bd6813e7f5c9a2b3f61a609f6e",
                 "shasum": ""
             },
             "require": {
@@ -4151,7 +4154,7 @@
                 "test",
                 "view"
             ],
-            "time": "2019-04-20T06:57:55+00:00"
+            "time": "2019-05-16T03:33:31+00:00"
         },
         {
             "name": "infyomlabs/swagger-generator",
@@ -5922,16 +5925,16 @@
         },
         {
             "name": "zircote/swagger-php",
-            "version": "2.0.13",
+            "version": "2.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zircote/swagger-php.git",
-                "reference": "8b42fdc3d8c5a5e0d1f8d344aa359822c9f085e0"
+                "reference": "f2a00f26796e5cd08fd812275ba2db3d1e807663"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/8b42fdc3d8c5a5e0d1f8d344aa359822c9f085e0",
-                "reference": "8b42fdc3d8c5a5e0d1f8d344aa359822c9f085e0",
+                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/f2a00f26796e5cd08fd812275ba2db3d1e807663",
+                "reference": "f2a00f26796e5cd08fd812275ba2db3d1e807663",
                 "shasum": ""
             },
             "require": {
@@ -5958,7 +5961,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache2"
+                "Apache-2.0"
             ],
             "authors": [
                 {
@@ -5980,7 +5983,7 @@
                 "rest",
                 "service discovery"
             ],
-            "time": "2017-12-01T09:22:05+00:00"
+            "time": "2019-05-17T10:10:34+00:00"
         }
     ],
     "aliases": [],
