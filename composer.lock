@@ -2388,7 +2388,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -4096,12 +4096,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "8ebc0d54710982bd6813e7f5c9a2b3f61a609f6e"
+                "reference": "a61565d39551f964158b06cedae5e1340e87ffa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/8ebc0d54710982bd6813e7f5c9a2b3f61a609f6e",
-                "reference": "8ebc0d54710982bd6813e7f5c9a2b3f61a609f6e",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/a61565d39551f964158b06cedae5e1340e87ffa4",
+                "reference": "a61565d39551f964158b06cedae5e1340e87ffa4",
                 "shasum": ""
             },
             "require": {
@@ -4154,7 +4154,7 @@
                 "test",
                 "view"
             ],
-            "time": "2019-05-16T03:33:31+00:00"
+            "time": "2019-05-20T06:28:39+00:00"
         },
         {
             "name": "infyomlabs/swagger-generator",
