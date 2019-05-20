@@ -77,6 +77,7 @@ class issuesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            ['data' => 'id','visible' => false],
             ['data' => 'category.cat_name', 'title' => 'Kategori'],
             ['data' => 'issue_id', 'title' => 'Kode'],
             ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
