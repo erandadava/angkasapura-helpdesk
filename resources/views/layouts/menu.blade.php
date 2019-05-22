@@ -15,7 +15,6 @@
             <li><a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i> Data User</a></li>
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticketing</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> History Ticket</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
           </ul>
 </li>
 
@@ -37,4 +36,67 @@
 
 <li class="{{ Request::is('issues*') ? 'active' : '' }}">
     <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Keluhan</span></a>
+</li>
+
+<li class="treeview menu-open">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>IT Administrator</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Inventaris</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
+          </ul>
+</li>
+
+<li class="treeview menu-open">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>IT Support</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Penilaian</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+          </ul>
+</li>
+
+<li class="treeview menu-open">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>IT Operasional</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Inventaris</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
+          </ul>
+</li>
+
+<li class="treeview menu-open">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>IT Non Public</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Inventaris</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
+          </ul>
 </li>
