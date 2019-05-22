@@ -18,7 +18,20 @@ class issuesDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'issues.datatables_actions');
+        return $dataTable->addColumn('action', 'issues.datatables_actions')->editColumn('status', function ($inquiry) {
+            if ($inquiry->status == null) return "<span class='label label-info'>Menunggu IT Administrator</span>";
+            if ($inquiry->status == 'RITADM') return "<span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span>";
+            if ($inquiry->status == 'AITADM') return "<span class='label label-success'>Diterima IT Administrator</span>";
+            if ($inquiry->status == 'ITSP') return "<span class='label label-info'>Diteruskan ke IT Support</span>";
+            if ($inquiry->status == 'RITSP') return "<span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Support</span>";
+            if ($inquiry->status == 'AITSP') return "<span class='label label-Warning'>Menunggu Solusi Dari IT Support</span>";
+            if ($inquiry->status == 'ITOPS') return "<span class='label label-Warning'>Menunggu Solusi Dari IT OPS</span>";
+            if ($inquiry->status == 'CLOSE') return "<span class='label label-default'>Keluhan Ditutup</span>";
+            if ($inquiry->status == 'SLITADM') return "<span class='label label-success'>Solusi Telah Diberikan IT Administrator</span>";
+            if ($inquiry->status == 'SLITOPS') return "<span class='label label-success'>Solusi Telah Diberikan IT OPS</span>";
+            return 'Cancel';
+        })
+        ->rawColumns(['status','action']);
     }
 
     /**
@@ -64,14 +77,14 @@ class issuesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            ['data' => 'id','visible' => false],
             ['data' => 'category.cat_name', 'title' => 'Kategori'],
             ['data' => 'issue_id', 'title' => 'Kode'],
             ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
             ['data' => 'request.name', 'title' => 'Request'],
             ['data' => 'location', 'title' => 'Lokasi'],
+            ['data' => 'status', 'title' => 'Status'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
-            ['data' => 'complete_date', 'title' => 'Waktu Selesai'],
-            ['data' => 'complete_by', 'title' => 'Selesai Oleh'],
         ];
     }
 

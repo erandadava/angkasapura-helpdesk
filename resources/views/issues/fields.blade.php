@@ -34,6 +34,11 @@
     {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
 </div>
 
+<div class="form-group col-sm-12 col-lg-12">
+    {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
+    {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor3']) !!}
+</div>
+
 <!-- Complete By Field
 <div class="form-group col-sm-6">
     {!! Form::label('complete_by', 'Complete By:') !!}

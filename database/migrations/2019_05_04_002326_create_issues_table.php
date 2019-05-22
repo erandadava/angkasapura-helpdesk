@@ -22,10 +22,12 @@ class CreateIssuesTable extends Migration
             $table->string('location')->nullable();
             $table->longText('prob_desc')->nullable();
             $table->longText('reason_desc')->nullable();
+            $table->longText('solution_desc')->nullable();
             $table->integer('complete_by')->nullable();
             $table->dateTime('issue_date')->nullable();
             $table->dateTime('complete_date')->nullable();
             $table->tinyInteger('is_archive')->nullable();
+            $table->enum('status',['RITADM','AITADM','ITSP','RITSP','AITSP','ITOPS', 'ITNP','CLOSE','CFUSER','SLITADM','SLITOPS','RT','ALS'])->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

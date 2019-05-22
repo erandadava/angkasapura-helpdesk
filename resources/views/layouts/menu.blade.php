@@ -4,7 +4,7 @@
     </a>
 </li>
 
-<li class="treeview active menu-open">
+<li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Users</span>
             <span class="pull-right-container">
