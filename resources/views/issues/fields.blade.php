@@ -9,7 +9,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('cat_id', 'Kategori:') !!}
     {!! Form::select('cat_id', $category, null, ['class' => 'form-control']) !!}
-</div>
+</div> 
 
 <!-- Prio Id Field -->
 <div class="form-group col-sm-6">
