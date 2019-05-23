@@ -67,7 +67,7 @@ class usersDataTable extends DataTable
             'name',
             'email',
             'password',
-            'remember_token'
+            // 'remember_token'
         ];
     }
 
