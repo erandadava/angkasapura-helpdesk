@@ -56,7 +56,6 @@
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
           </ul>
 </li>
-@else
 @endrole
 
 @role('IT Support')

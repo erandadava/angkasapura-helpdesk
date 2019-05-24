@@ -31,18 +31,15 @@ Route::group(['middleware' => ['web', 'auth', 'isEmailVerified','role:user']], f
     
 
 });
+
 Route::get('/home', 'HomeController@index');
 
 Route::resource('categories', 'categoryController');
-
-
 
 Route::resource('priorities', 'priorityController');
 
 Route::resource('ratings', 'ratingController');
 
 Route::resource('issues', 'issuesController');
-
-
 
 Route::resource('roles', 'rolesController');
