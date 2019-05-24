@@ -4,6 +4,7 @@
     </a>
 </li>
 
+@role('user')
 <li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Users</span>
@@ -17,6 +18,7 @@
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> History Ticket</a></li>
           </ul>
 </li>
+@endrole
 
 <li class="{{ Request::is('categories*') ? 'active' : '' }}">
     <a href="{!! route('categories.index') !!}"><i class="fa fa-edit"></i><span>Kategori</span></a>
@@ -38,6 +40,7 @@
     <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Keluhan</span></a>
 </li>
 
+@hasrole('IT Administrator')
 <li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Administrator</span>
@@ -53,7 +56,10 @@
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
           </ul>
 </li>
+@else
+@endrole
 
+@role('IT Support')
 <li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Support</span>
@@ -68,7 +74,9 @@
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
           </ul>
 </li>
+@endrole
 
+@role('IT Operasional')
 <li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Operasional</span>
@@ -84,7 +92,9 @@
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
           </ul>
 </li>
+@endrole
 
+@role('IT Non Public')
 <li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Non Public</span>
@@ -100,3 +110,4 @@
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
           </ul>
 </li>
+@endrole
