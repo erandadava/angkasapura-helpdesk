@@ -29,7 +29,7 @@ class usersDataTable extends DataTable
      */
     public function query(users $model)
     {
-        return $model->newQuery();
+        return $model->with(['model_has_roles.roles'])->newQuery();
     }
 
     /**
@@ -64,10 +64,10 @@ class usersDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name',
-            'email',
-            'password',
-            'remember_token'
+            ['data' => 'id', 'visible' => false],
+            ['data' => 'name', 'title' => 'Nama'],
+            ['data' => 'email', 'title' => 'Email'],
+            ['data' => 'model_has_roles.roles.name', 'title' => 'Roles'],
         ];
     }
 

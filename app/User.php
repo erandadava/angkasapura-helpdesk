@@ -29,4 +29,6 @@ class User extends Authenticatable implements CanVerifyEmailContract
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    
 }

@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css">
     <style>
         .ck-editor__editable {
-            min-height: 300px;  
+            min-height: 300px;
         }
     </style>
     @yield('css')
@@ -106,7 +106,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright © 2016 <a href="#">Company</a>.</strong> All rights reserved.
+            <strong>Copyright © Angkasa Pura, All rights reserved. In partner with Ayrio Star Mandiri. </strong>
         </footer>
 
     </div>
@@ -171,6 +171,15 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
     <script>
+    $(document).ready(function(){
+      $.fn.dataTable.ext.errMode = 'none';
+
+    });
+    try {
+      $('.select2').select2();
+    } catch (e) {
+
+    }
                         ClassicEditor
                                 .create( document.querySelector( '#editor' ),{
                                     resize: {

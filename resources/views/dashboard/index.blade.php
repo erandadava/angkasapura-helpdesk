@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-aqua"><i class="fa fa-file"></i></span>
+                            <span class="info-box-icon bg-orange"><i class="fa fa-file"></i></span>
 
                             <div class="info-box-content">
                             <span class="info-box-text">Keluhan</span>
@@ -26,18 +26,18 @@
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-orange"><i class="fa fa-users"></i></span>
+                            <span class="info-box-icon {{ $performa>50 ? 'bg-green' : 'bg-red' }}"><i class="fa fa-tachometer"></i></span>
 
                             <div class="info-box-content">
-                            <span class="info-box-text">User</span>
-                            <span class="info-box-number">{{$jumlah_user}}</span>
+                            <span class="info-box-text">Performa</span>
+                            <span class="info-box-number">{{$performa}}%</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-green"><i class="fa fa-check-square-o"></i></span>
+                            <span class="info-box-icon bg-blue"><i class="fa fa-check-square-o"></i></span>
 
                             <div class="info-box-content">
                             <span class="info-box-text">Keluhan Selesai</span>
@@ -120,14 +120,13 @@
                             <!-- /.box-body -->
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
         <div class="text-center">
-        
+
         </div>
     </div>
     @include('dashboard.script')
 @endsection
-
