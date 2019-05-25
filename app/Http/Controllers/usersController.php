@@ -58,9 +58,9 @@ class usersController extends AppBaseController
         $input['verified'] = 1;
         $input['password'] = bcrypt($input['password']);
         $users = $this->usersRepository->create($input);
-        
+
         $akun = \App\User::find($users->id);
-        
+
         $akun->assignRole($input['roles']);
 
         Flash::success('Users saved successfully.');

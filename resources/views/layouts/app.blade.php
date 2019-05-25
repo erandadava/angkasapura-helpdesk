@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css">
     <style>
         .ck-editor__editable {
-            min-height: 300px;  
+            min-height: 300px;
         }
     </style>
     @yield('css')
@@ -171,6 +171,9 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
     <script>
+    $(document).ready(function(){
+      $.fn.dataTable.ext.errMode = 'none';
+    });
                         ClassicEditor
                                 .create( document.querySelector( '#editor' ),{
                                     resize: {

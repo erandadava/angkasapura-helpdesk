@@ -27,8 +27,8 @@ class issuesController extends AppBaseController
         $this->issuesRepository = $issuesRepo;
         $this->mytime = Carbon\Carbon::now();
         $this->waktu_sekarang = $this->mytime->toDateTimeString();
-        $this->data['category'] = category::pluck('cat_name','id');
-        $this->data['priority'] = priority::pluck('prio_name','id');
+        $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
+        $this->data['priority'] = priority::where('is_active','=',1)->pluck('prio_name','id');
     }
 
     /**

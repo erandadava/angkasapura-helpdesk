@@ -20,7 +20,7 @@
 <!-- Request Id Field -->
 <div class="form-group">
     {!! Form::label('request_id', 'Request:') !!}
-    <p>{!! $issues->request->name !!}</p>
+    <p>{!! $issues->request->name ?? '' !!}</p>
 </div>
 
 <!-- Location Field -->
@@ -98,18 +98,18 @@
         <button class='btn btn-default btn-md' onclick="return confirm('Yakin?')">
             <i class="glyphicon glyphicon-share"></i> Ajukan ke  IT Support
         </button>
-    {!! Form::close() !!}  
+    {!! Form::close() !!}
 </div>
 @endif
 
 
 <!-- Button untuk IT NP -->
 <div class="form-group col-md-2 col-sm-12">
-    
+
         <button class='btn btn-success btn-md' data-toggle="modal" data-target="#myModal">
             <i class="glyphicon glyphicon-folder-close"></i> Tutup Keluhan
         </button>
-    
+
 </div>
 <!-- ---------------------- -->
 
@@ -139,7 +139,7 @@
         <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
       </div>
     </div>
-    {!! Form::close() !!} 
+    {!! Form::close() !!}
   </div>
 </div>
 
@@ -155,7 +155,7 @@
       <div class="modal-body">
         <div class="row">
         {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
-        {!! Form::hidden('status', 'ITOPS', ['class' => 'form-control'])!!} 
+        {!! Form::hidden('status', 'ITOPS', ['class' => 'form-control'])!!}
         <div class="form-group col-sm-12 col-lg-12">
             {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
             {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
@@ -166,6 +166,6 @@
         <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
       </div>
     </div>
-    {!! Form::close() !!} 
+    {!! Form::close() !!}
   </div>
 </div>
