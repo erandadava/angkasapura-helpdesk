@@ -40,7 +40,7 @@
 </li>
 @endrole
 
-@hasrole('IT Administrator')
+@role('IT Administrator')
 <li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Administrator</span>
