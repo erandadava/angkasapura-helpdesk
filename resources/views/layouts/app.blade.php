@@ -173,7 +173,13 @@
     <script>
     $(document).ready(function(){
       $.fn.dataTable.ext.errMode = 'none';
+
     });
+    try {
+      $('.select2').select2();
+    } catch (e) {
+
+    }
                         ClassicEditor
                                 .create( document.querySelector( '#editor' ),{
                                     resize: {
