@@ -158,7 +158,7 @@
             {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
         </div>
         <div class="form-group col-sm-12 col-lg-6">
-            {!! Form::label('id_it_ops', 'User :') !!}
+            {!! Form::label('id_it_ops', 'Assign User :') !!}
           </br>
             {!! Form::select('id_it_ops',$it_ops, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
         </div>
@@ -185,12 +185,8 @@
         <div class="row">
         {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
         {!! Form::hidden('status', 'ITSP', ['class' => 'form-control'])!!}
-        <div class="form-group col-sm-12 col-lg-12">
-            {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
-            {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor3']) !!}
-        </div>
         <div class="form-group col-sm-12 col-lg-6">
-            {!! Form::label('id_it_support', 'User :') !!}
+            {!! Form::label('id_it_support', 'Assign User :') !!}
           </br>
             {!! Form::select('id_it_support',$it_support, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
         </div>
