@@ -43,3 +43,5 @@ Route::resource('ratings', 'ratingController');
 Route::resource('issues', 'issuesController');
 
 Route::resource('roles', 'rolesController');
+
+Route::get('/beranda', 'webuserController@index');

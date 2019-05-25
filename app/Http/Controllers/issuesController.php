@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateissuesRequest;
 use App\Repositories\issuesRepository;
 use App\Models\category;
 use App\Models\priority;
+use App\User;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Spatie\Permission\Models\Role;
@@ -80,15 +81,16 @@ class issuesController extends AppBaseController
      */
     public function show($id)
     {
-        $issues = $this->issuesRepository->with(['category','priority','request','complete'])->findWithoutFail($id);
-
-        if (empty($issues)) {
+        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete'])->findWithoutFail($id);
+        $this->data['it_support'] = User::role('IT Support')->pluck('name','id');
+        $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
+        if (empty($this->data['issues'])) {
             Flash::error('Issues not found');
 
             return redirect(route('issues.index'));
         }
 
-        return view('issues.show')->with('issues', $issues);
+        return view('issues.show')->with($this->data);
     }
 
     /**

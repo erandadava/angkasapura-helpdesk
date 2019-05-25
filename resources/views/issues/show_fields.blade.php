@@ -93,12 +93,9 @@
 
 @if($issues->status == null)
 <div class="form-group col-md-2 col-sm-12">
-    {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
-        {!! Form::hidden('status', 'ITSP', ['class' => 'form-control'])!!}
-        <button class='btn btn-default btn-md' onclick="return confirm('Yakin?')">
+        <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItSupport">
             <i class="glyphicon glyphicon-share"></i> Ajukan ke  IT Support
         </button>
-    {!! Form::close() !!}
 </div>
 @endif
 
@@ -131,7 +128,7 @@
             {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
             <div class="form-group col-sm-12 col-lg-12">
                 {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
-                {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor3']) !!}
+                {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor']) !!}
             </div>
         </div>
       </div>
@@ -159,6 +156,43 @@
         <div class="form-group col-sm-12 col-lg-12">
             {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
             {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
+        </div>
+        <div class="form-group col-sm-12 col-lg-6">
+            {!! Form::label('id_it_ops', 'User :') !!}
+          </br>
+            {!! Form::select('id_it_ops',$it_ops, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
+      </div>
+    </div>
+    {!! Form::close() !!}
+  </div>
+</div>
+
+<div id="myModalItSupport" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ajukan ke IT OPS</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+        {!! Form::hidden('status', 'ITSP', ['class' => 'form-control'])!!}
+        <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
+            {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor3']) !!}
+        </div>
+        <div class="form-group col-sm-12 col-lg-6">
+            {!! Form::label('id_it_support', 'User :') !!}
+          </br>
+            {!! Form::select('id_it_support',$it_support, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
         </div>
         </div>
       </div>
