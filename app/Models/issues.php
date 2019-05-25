@@ -48,7 +48,9 @@ class issues extends Model
         'complete_date',
         'is_archive',
         'status',
-        'solution_desc'
+        'solution_desc',
+        'assign_it_support',
+        'assign_it_ops'
     ];
 
     /**
@@ -98,5 +100,15 @@ class issues extends Model
     public function complete()
     {
         return $this->hasOne('App\User','id','complete_by');
+    }
+
+    public function assign_it_support_relation()
+    {
+        return $this->hasOne('App\User','id','assign_it_support');
+    }
+
+    public function assign_it_ops_relation()
+    {
+        return $this->hasOne('App\User','id','assign_it_ops');
     }
 }

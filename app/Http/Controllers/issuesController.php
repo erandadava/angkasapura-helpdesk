@@ -81,7 +81,7 @@ class issuesController extends AppBaseController
      */
     public function show($id)
     {
-        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete'])->findWithoutFail($id);
+        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation'])->findWithoutFail($id);
         $this->data['it_support'] = User::role('IT Support')->pluck('name','id');
         $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
         if (empty($this->data['issues'])) {
@@ -89,7 +89,7 @@ class issuesController extends AppBaseController
 
             return redirect(route('issues.index'));
         }
-
+        
         return view('issues.show')->with($this->data);
     }
 
@@ -130,8 +130,12 @@ class issuesController extends AppBaseController
 
             return redirect(route('issues.index'));
         }
-
-        $issues = $this->issuesRepository->update($request->all(), $id);
+        $input = $request->all();
+        if($input['status'] = 'CLOSE'){
+            $input['complete_by'] = \Auth::User()->id;
+            $input['complete_date'] = $this->waktu_sekarang;
+        }
+        $issues = $this->issuesRepository->update($input, $id);
 
         Flash::success('Issues updated successfully.');
 
