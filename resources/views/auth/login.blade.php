@@ -112,6 +112,7 @@
 .btn-black{
     background-color: #01558f !important;
     color: #fff;
+    font-size: medium;
 }
 </style>
 
@@ -130,7 +131,7 @@
 
                 <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }} ">
                     <label style="color: #fff;">Email</label>
-                    <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
+                    <input style="font-size:medium;" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
                     @if ($errors->has('email'))
                         <span class="help-block">
                         <strong>{{ $errors->first('email') }}</strong>
@@ -140,7 +141,7 @@
 
                 <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                     <label style="color: #fff;">Password</label>
-                    <input type="password" class="form-control" placeholder="Password" name="password">
+                    <input style="font-size:medium;" type="password" class="form-control" placeholder="Password" name="password">
                     @if ($errors->has('password'))
                         <span class="help-block">
                         <strong>{{ $errors->first('password') }}</strong>
