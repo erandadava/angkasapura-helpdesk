@@ -112,6 +112,7 @@
 .btn-black{
     background-color: #01558f !important;
     color: #fff;
+    font-size: medium;
 }
 </style>
 
