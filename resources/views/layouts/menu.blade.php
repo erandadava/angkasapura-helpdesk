@@ -4,22 +4,6 @@
     </a>
 </li>
 
-@role('user')
-<li class="treeview menu-open">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Users</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i> Data User</a></li>
-            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticketing</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> History Ticket</a></li>
-          </ul>
-</li>
-@endrole
-
 <li class="{{ Request::is('categories*') ? 'active' : '' }}">
     <a href="{!! route('categories.index') !!}"><i class="fa fa-edit"></i><span>Kategori</span></a>
 </li>
@@ -39,6 +23,22 @@
 <li class="{{ Request::is('issues*') ? 'active' : '' }}">
     <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Keluhan</span></a>
 </li>
+
+@role('User')
+<li class="treeview menu-open">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Users</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i> Data User</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticketing</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> History Ticket</a></li>
+          </ul>
+</li>
+@endrole
 
 @hasrole('IT Administrator')
 <li class="treeview menu-open">

@@ -57,6 +57,7 @@ class model_has_roles extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
+    
      public function roles()
      {
          return $this->hasOne('App\Models\roles','id','role_id');
