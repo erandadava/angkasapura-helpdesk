@@ -131,7 +131,7 @@ class issuesController extends AppBaseController
             return redirect(route('issues.index'));
         }
         $input = $request->all();
-        if($input['status'] = 'CLOSE'){
+        if($input['status'] == 'CLOSE'){
             $input['complete_by'] = \Auth::User()->id;
             $input['complete_date'] = $this->waktu_sekarang;
         }
