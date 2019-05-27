@@ -15,8 +15,9 @@ class RolesTableSeeder extends Seeder
         
 
         \DB::table('roles')->delete();
+        
         \DB::table('roles')->insert(array (
-        0 => 
+            0 => 
             array (
                 'id' => 1,
                 'name' => 'IT Administrator',
@@ -56,7 +57,16 @@ class RolesTableSeeder extends Seeder
                 'created_at' => '2019-05-05 06:17:51',
                 'updated_at' => '2019-05-05 06:17:51',
             ),
+            5 => 
+            array (
+                'id' => 6,
+                'name' => 'Admin',
+                'guard_name' => 'web',
+                'created_at' => '2019-05-27 08:31:14',
+                'updated_at' => '2019-05-27 08:31:14',
+            ),
         ));
+        
         
     }
 }

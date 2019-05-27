@@ -4,6 +4,7 @@
     </a>
 </li>
 
+@role('Admin')
 <li class="{{ Request::is('categories*') ? 'active' : '' }}">
     <a href="{!! route('categories.index') !!}"><i class="fa fa-edit"></i><span>Kategori</span></a>
 </li>
@@ -23,7 +24,7 @@
 <li class="{{ Request::is('issues*') ? 'active' : '' }}">
     <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Keluhan</span></a>
 </li>
-
+@endrole
 @role('User')
 <li class="treeview menu-open">
           <a href="#">
@@ -49,7 +50,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Inventaris</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
@@ -67,7 +68,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Penilaian</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
@@ -84,7 +85,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Inventaris</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
@@ -102,7 +103,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Inventaris</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
