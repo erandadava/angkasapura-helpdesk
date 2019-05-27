@@ -58,6 +58,56 @@
         ]
     },
     {
+        "name": "aschmelyun/larametrics",
+        "version": "1.1.2",
+        "version_normalized": "1.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/aschmelyun/larametrics.git",
+            "reference": "3c9a5efdecdaf434db2c7bdf4b07db854c6e40c0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/aschmelyun/larametrics/zipball/3c9a5efdecdaf434db2c7bdf4b07db854c6e40c0",
+            "reference": "3c9a5efdecdaf434db2c7bdf4b07db854c6e40c0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6.4"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^5"
+        },
+        "time": "2018-11-09T10:25:13+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Aschmelyun\\Larametrics\\LarametricsServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Aschmelyun\\Larametrics\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Andrew Schmelyun",
+                "email": "me@aschmelyun.com",
+                "homepage": "https://aschmelyun.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "A self-hosted metrics and notifications platform for Laravel apps"
+    },
+    {
         "name": "dnoegel/php-xdg-base-dir",
         "version": "0.1",
         "version_normalized": "0.1.0.0",
@@ -584,17 +634,17 @@
     },
     {
         "name": "egulias/email-validator",
-        "version": "2.1.7",
-        "version_normalized": "2.1.7.0",
+        "version": "2.1.8",
+        "version_normalized": "2.1.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/egulias/EmailValidator.git",
-            "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e"
+            "reference": "c26463ff9241f27907112fbcd0c86fa670cfef98"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/709f21f92707308cdf8f9bcfa1af4cb26586521e",
-            "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e",
+            "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/c26463ff9241f27907112fbcd0c86fa670cfef98",
+            "reference": "c26463ff9241f27907112fbcd0c86fa670cfef98",
             "shasum": ""
         },
         "require": {
@@ -609,7 +659,7 @@
         "suggest": {
             "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
         },
-        "time": "2018-12-04T22:38:24+00:00",
+        "time": "2019-05-16T22:02:54+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -920,19 +970,19 @@
         "source": {
             "type": "git",
             "url": "https://github.com/InfyOmLabs/adminlte-templates.git",
-            "reference": "be6c5db6f53b1b28075eff91e71579c9243f58dd"
+            "reference": "bc81707296f169e6780360effd0834c23dfed464"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/be6c5db6f53b1b28075eff91e71579c9243f58dd",
-            "reference": "be6c5db6f53b1b28075eff91e71579c9243f58dd",
+            "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/bc81707296f169e6780360effd0834c23dfed464",
+            "reference": "bc81707296f169e6780360effd0834c23dfed464",
             "shasum": ""
         },
         "require": {
             "illuminate/support": "~5.0",
             "php": ">=5.5.9"
         },
-        "time": "2019-04-13T10:27:13+00:00",
+        "time": "2019-05-16T03:24:12+00:00",
         "type": "library",
         "extra": {
             "laravel": {
@@ -974,12 +1024,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-            "reference": "30e2c77d1c1c61cc497a86886ab2baa657ab1fd7"
+            "reference": "d85571e37a6345d79d82804f3c226fbb48678e8b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/30e2c77d1c1c61cc497a86886ab2baa657ab1fd7",
-            "reference": "30e2c77d1c1c61cc497a86886ab2baa657ab1fd7",
+            "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/d85571e37a6345d79d82804f3c226fbb48678e8b",
+            "reference": "d85571e37a6345d79d82804f3c226fbb48678e8b",
             "shasum": ""
         },
         "require": {
@@ -992,7 +1042,7 @@
             "mockery/mockery": "~0.9",
             "phpunit/phpunit": "~5.0"
         },
-        "time": "2019-04-20T06:57:55+00:00",
+        "time": "2019-05-25T04:10:49+00:00",
         "type": "library",
         "extra": {
             "laravel": {
@@ -1610,17 +1660,17 @@
     },
     {
         "name": "league/flysystem",
-        "version": "1.0.51",
-        "version_normalized": "1.0.51.0",
+        "version": "1.0.52",
+        "version_normalized": "1.0.52.0",
         "source": {
             "type": "git",
             "url": "https://github.com/thephpleague/flysystem.git",
-            "reference": "755ba7bf3fb9031e6581d091db84d78275874396"
+            "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/755ba7bf3fb9031e6581d091db84d78275874396",
-            "reference": "755ba7bf3fb9031e6581d091db84d78275874396",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c5a5097156387970e6f0ccfcdf03f752856f3391",
+            "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391",
             "shasum": ""
         },
         "require": {
@@ -1650,7 +1700,7 @@
             "spatie/flysystem-dropbox": "Allows you to use Dropbox storage",
             "srmklive/flysystem-dropbox-v2": "Allows you to use Dropbox storage for PHP 5 applications"
         },
-        "time": "2019-03-30T13:22:34+00:00",
+        "time": "2019-05-20T20:21:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2145,17 +2195,17 @@
     },
     {
         "name": "nikic/php-parser",
-        "version": "v4.2.1",
-        "version_normalized": "4.2.1.0",
+        "version": "v4.2.2",
+        "version_normalized": "4.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/nikic/PHP-Parser.git",
-            "reference": "5221f49a608808c1e4d436df32884cbc1b821ac0"
+            "reference": "1bd73cc04c3843ad8d6b0bfc0956026a151fc420"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/5221f49a608808c1e4d436df32884cbc1b821ac0",
-            "reference": "5221f49a608808c1e4d436df32884cbc1b821ac0",
+            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1bd73cc04c3843ad8d6b0bfc0956026a151fc420",
+            "reference": "1bd73cc04c3843ad8d6b0bfc0956026a151fc420",
             "shasum": ""
         },
         "require": {
@@ -2165,7 +2215,7 @@
         "require-dev": {
             "phpunit/phpunit": "^6.5 || ^7.0"
         },
-        "time": "2019-02-16T20:54:15+00:00",
+        "time": "2019-05-25T20:07:01+00:00",
         "bin": [
             "bin/php-parse"
         ],
@@ -4172,20 +4222,20 @@
     },
     {
         "name": "swagger-api/swagger-ui",
-        "version": "v3.22.1",
-        "version_normalized": "3.22.1.0",
+        "version": "v3.22.2",
+        "version_normalized": "3.22.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/swagger-api/swagger-ui.git",
-            "reference": "c38bf85e34ee46b2ad399b25c4c73668dc0d7e1d"
+            "reference": "54c045fd472a740e7ae3d26148708455fa6358b4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/c38bf85e34ee46b2ad399b25c4c73668dc0d7e1d",
-            "reference": "c38bf85e34ee46b2ad399b25c4c73668dc0d7e1d",
+            "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/54c045fd472a740e7ae3d26148708455fa6358b4",
+            "reference": "54c045fd472a740e7ae3d26148708455fa6358b4",
             "shasum": ""
         },
-        "time": "2019-04-13T01:40:36+00:00",
+        "time": "2019-05-22T01:36:53+00:00",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
@@ -4369,17 +4419,17 @@
     },
     {
         "name": "symfony/contracts",
-        "version": "v1.0.2",
-        "version_normalized": "1.0.2.0",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/contracts.git",
-            "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf"
+            "reference": "d3636025e8253c6144358ec0a62773cae588395b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/contracts/zipball/1aa7ab2429c3d594dd70689604b5cf7421254cdf",
-            "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf",
+            "url": "https://api.github.com/repos/symfony/contracts/zipball/d3636025e8253c6144358ec0a62773cae588395b",
+            "reference": "d3636025e8253c6144358ec0a62773cae588395b",
             "shasum": ""
         },
         "require": {
@@ -4387,20 +4437,23 @@
         },
         "require-dev": {
             "psr/cache": "^1.0",
-            "psr/container": "^1.0"
+            "psr/container": "^1.0",
+            "symfony/polyfill-intl-idn": "^1.10"
         },
         "suggest": {
             "psr/cache": "When using the Cache contracts",
             "psr/container": "When using the Service contracts",
             "symfony/cache-contracts-implementation": "",
+            "symfony/event-dispatcher-implementation": "",
+            "symfony/http-client-contracts-implementation": "",
             "symfony/service-contracts-implementation": "",
             "symfony/translation-contracts-implementation": ""
         },
-        "time": "2018-12-05T08:06:11+00:00",
+        "time": "2019-04-27T14:29:50+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.0-dev"
+                "dev-master": "1.1-dev"
             }
         },
         "installation-source": "dist",
@@ -6117,17 +6170,17 @@
     },
     {
         "name": "zircote/swagger-php",
-        "version": "2.0.13",
-        "version_normalized": "2.0.13.0",
+        "version": "2.0.14",
+        "version_normalized": "2.0.14.0",
         "source": {
             "type": "git",
             "url": "https://github.com/zircote/swagger-php.git",
-            "reference": "8b42fdc3d8c5a5e0d1f8d344aa359822c9f085e0"
+            "reference": "f2a00f26796e5cd08fd812275ba2db3d1e807663"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/zircote/swagger-php/zipball/8b42fdc3d8c5a5e0d1f8d344aa359822c9f085e0",
-            "reference": "8b42fdc3d8c5a5e0d1f8d344aa359822c9f085e0",
+            "url": "https://api.github.com/repos/zircote/swagger-php/zipball/f2a00f26796e5cd08fd812275ba2db3d1e807663",
+            "reference": "f2a00f26796e5cd08fd812275ba2db3d1e807663",
             "shasum": ""
         },
         "require": {
@@ -6140,7 +6193,7 @@
             "squizlabs/php_codesniffer": ">=2.7",
             "zendframework/zend-form": "<2.8"
         },
-        "time": "2017-12-01T09:22:05+00:00",
+        "time": "2019-05-17T10:10:34+00:00",
         "bin": [
             "bin/swagger"
         ],
@@ -6156,7 +6209,7 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "Apache2"
+            "Apache-2.0"
         ],
         "authors": [
             {

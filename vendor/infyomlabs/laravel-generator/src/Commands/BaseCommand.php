@@ -3,6 +3,7 @@
 namespace InfyOm\Generator\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use InfyOm\Generator\Common\CommandData;
 use InfyOm\Generator\Generators\API\APIControllerGenerator;
 use InfyOm\Generator\Generators\API\APIRequestGenerator;
@@ -137,12 +138,13 @@ class BaseCommand extends Command
 
         if ($runMigration) {
             if ($this->commandData->getOption('forceMigrate')) {
-                $this->call('migrate');
+                $this->runMigration();
             } elseif (!$this->commandData->getOption('fromTable') and !$this->isSkip('migration')) {
-                if ($this->commandData->getOption('jsonFromGUI')) {
-                    $this->call('migrate');
-                } elseif ($this->confirm("\nDo you want to migrate database? [y|N]", false)) {
-                    $this->call('migrate');
+                $requestFromConsole = (php_sapi_name() == 'cli') ? true : false;
+                if ($this->commandData->getOption('jsonFromGUI') && $requestFromConsole) {
+                    $this->runMigration();
+                } elseif ($requestFromConsole && $this->confirm("\nDo you want to migrate database? [y|N]", false)) {
+                    $this->runMigration();
                 }
             }
         }
@@ -150,6 +152,15 @@ class BaseCommand extends Command
             $this->info('Generating autoload files');
             $this->composer->dumpOptimized();
         }
+    }
+
+    public function runMigration()
+    {
+        $migrationPath = config('infyom.laravel_generator.path.migration', 'database/migrations/');
+        $path = Str::after($migrationPath, base_path()); // get path after base_path
+        $this->call('migrate', ['--path' => $path, '--force' => true]);
+
+        return true;
     }
 
     public function isSkip($skip)
