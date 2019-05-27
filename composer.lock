@@ -4,56 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b6ae54e7c6a3738ca9b74295e95e520",
+    "content-hash": "57e156d7ca0db76e61ec9b25112cfeaf",
     "packages": [
-        {
-            "name": "aschmelyun/larametrics",
-            "version": "1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/aschmelyun/larametrics.git",
-                "reference": "3c9a5efdecdaf434db2c7bdf4b07db854c6e40c0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/aschmelyun/larametrics/zipball/3c9a5efdecdaf434db2c7bdf4b07db854c6e40c0",
-                "reference": "3c9a5efdecdaf434db2c7bdf4b07db854c6e40c0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Aschmelyun\\Larametrics\\LarametricsServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Aschmelyun\\Larametrics\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andrew Schmelyun",
-                    "email": "me@aschmelyun.com",
-                    "homepage": "https://aschmelyun.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A self-hosted metrics and notifications platform for Laravel apps",
-            "time": "2018-11-09T10:25:13+00:00"
-        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
@@ -1240,16 +1192,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.2.1",
+            "version": "v4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "5221f49a608808c1e4d436df32884cbc1b821ac0"
+                "reference": "1bd73cc04c3843ad8d6b0bfc0956026a151fc420"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/5221f49a608808c1e4d436df32884cbc1b821ac0",
-                "reference": "5221f49a608808c1e4d436df32884cbc1b821ac0",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1bd73cc04c3843ad8d6b0bfc0956026a151fc420",
+                "reference": "1bd73cc04c3843ad8d6b0bfc0956026a151fc420",
                 "shasum": ""
             },
             "require": {
@@ -1287,7 +1239,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-02-16T20:54:15+00:00"
+            "time": "2019-05-25T20:07:01+00:00"
         },
         {
             "name": "orangehill/iseed",

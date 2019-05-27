@@ -6,7 +6,6 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "aschmelyun/larametrics": "^1.1",
         "fideloper/proxy": "~3.3",
         "josiasmontag/laravel-email-verification": "^1.2",
         "laravel/framework": "5.5.*",

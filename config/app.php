@@ -164,7 +164,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Lunaweb\EmailVerification\Providers\EmailVerificationServiceProvider::class,
-        Aschmelyun\Larametrics\LarametricsServiceProvider::class,
 
         /*
          * Package Service Providers...

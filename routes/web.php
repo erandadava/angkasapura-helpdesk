@@ -17,9 +17,7 @@ Route::get('/', function () {
 
 
 Auth::routes();
-Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
-    \Aschmelyun\Larametrics\Larametrics::routes();
-});
+
 
 // Route::get('/home', 'HomeController@index');
 
