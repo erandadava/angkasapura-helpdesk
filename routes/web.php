@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 
 Auth::routes();
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
+    \Aschmelyun\Larametrics\Larametrics::routes();
+});
 
 // Route::get('/home', 'HomeController@index');
 
@@ -27,7 +30,9 @@ Route::post('register/verify/resend', 'Auth\RegisterController@resendVerificatio
 
 Route::group(['middleware' => ['web', 'auth', 'isEmailVerified']], function ()
 {
-    Route::get('/home', 'HomeController@index');
+    Route::get('/home', function () {
+        return redirect('/dashboard');
+    });
 
     Route::resource('categories', 'categoryController');
     
@@ -38,7 +43,7 @@ Route::group(['middleware' => ['web', 'auth', 'isEmailVerified']], function ()
     Route::resource('issues', 'issuesController');
     
     Route::resource('roles', 'rolesController');
-    
+
     Route::resource('users', 'usersController');
 
     Route::resource('dashboard', 'dashboardController');
