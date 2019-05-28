@@ -45,7 +45,10 @@ Route::group(['middleware' => ['web', 'auth', 'isEmailVerified']], function ()
     Route::resource('users', 'usersController');
 
     Route::resource('dashboard', 'dashboardController');
+});
 
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
+    \Aschmelyun\Larametrics\Larametrics::routes();
 });
 
 
