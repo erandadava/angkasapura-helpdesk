@@ -164,7 +164,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Lunaweb\EmailVerification\Providers\EmailVerificationServiceProvider::class,
-        Aschmelyun\Larametrics\LarametricsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -187,6 +186,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Yajra\DataTables\ButtonsServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Aschmelyun\Larametrics\LarametricsServiceProvider::class,
     ],
 
     /*
