@@ -45,7 +45,7 @@ class issuesDataTable extends DataTable
         $user = Auth::user();
         $roles = $user->getRoleNames();
 
-        if($roles[0] == "IT Administrator"){
+        if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
             return $model->with(['category','priority','request'])->newQuery();
         }
         return $model->with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->newQuery();

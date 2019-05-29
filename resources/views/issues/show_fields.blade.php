@@ -58,6 +58,7 @@
     @if ($issues->status == 'CLOSE') <span class='label label-success'>Keluhan Ditutup</span> @endif
     @if ($issues->status == 'SLITADM') <span class='label label-success'>Solusi Telah Diberikan IT Administrator</span> @endif
     @if ($issues->status == 'SLITOPS') <span class='label label-success'>Solusi Telah Diberikan IT OPS</span> @endif
+    @if ($issues->status == 'RT') <span class='label label-warning'>User Telah Memberi Rating</span> @endif
     </p>
 </div>
 
@@ -110,6 +111,13 @@
 <div class="form-group">
     {!! Form::label('updated_at', 'Diubah Pada:') !!}
     <p>{!! $issues->updated_at !!}</p>
+</div>
+
+<div class="form-group">
+    {!! Form::label('rating', 'Rating:') !!}
+    <p>
+    <input id="input-6" name="input-6" class="rating rating-loading" value="{{$issues->rating->rate??0}}" data-min="0" data-max="5" data-step="1" data-readonly="true">
+    </p>
 </div>
 
 @hasrole('IT Support')
@@ -315,3 +323,53 @@
   @endif
 @endhasrole
 
+
+@hasrole('User')
+    @if($issues->status=="CLOSE") 
+    <!-- Button untuk IT NP -->
+    <div class="form-group col-md-2 col-sm-12">
+    
+            <button class='btn btn-warning btn-md' data-toggle="modal" data-target="#rate">
+                <i class="glyphicon glyphicon-star"></i> Beri Rating
+            </button>
+    
+    </div>
+    <!-- ---------------------- -->
+  <!-- Modal -->
+  <div id="rate" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Rating</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+          {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+              {!! Form::hidden('status', 'RT', ['class' => 'form-control'])!!}
+              <div class="form-group col-sm-12 col-lg-12">
+                  <center>
+                    <h3>Beri rating untuk pelayanan kami</h3>
+                    </br>
+                    <input id="input-id" name="rate" type="text" class="rating" data-size="lg" data-min="1" data-max="5" data-step="1">
+                  </center>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Kirim</button>
+        </div>
+      </div>
+      {!! Form::close() !!}
+    </div>
+  </div>
+  @endif
+@endhasrole
+
+@section('scripts')
+<script>
+  $("#input-id").rating({'size':'lg'});
+</script>
+@endsection
