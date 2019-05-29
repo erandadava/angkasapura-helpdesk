@@ -111,4 +111,8 @@ class issues extends Model
     {
         return $this->hasOne('App\User','id','assign_it_ops');
     }
+    public function rating()
+    {
+        return $this->hasOne('App\Models\rating','issues_id','id');
+    }
 }

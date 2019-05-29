@@ -20,6 +20,7 @@ use App\Http\Controllers\notifikasiController;
 use Response;
 use Carbon;
 use Auth;
+use App\Repositories\ratingRepository;
 
 class issuesController extends AppBaseController
 {
@@ -27,10 +28,11 @@ class issuesController extends AppBaseController
     private $issuesRepository;
     private $notifikasiController;
 
-    public function __construct(issuesRepository $issuesRepo, notifikasiController $notifikasiControl)
+    public function __construct(issuesRepository $issuesRepo, notifikasiController $notifikasiControl, ratingRepository $ratingRepo)
     {
         $this->issuesRepository = $issuesRepo;
         $this->notifikasiController = $notifikasiControl;
+        $this->ratingRepository = $ratingRepo;
         $this->mytime = Carbon\Carbon::now();
         $this->waktu_sekarang = $this->mytime->toDateTimeString();
         $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
@@ -94,7 +96,7 @@ class issuesController extends AppBaseController
             $this->notifikasiController->update_baca($request->n);
         } 
 
-        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation'])->findWithoutFail($id);
+        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','rating'])->findWithoutFail($id);
         $this->data['it_support'] = User::role('IT Support')->pluck('name','id');
         $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
         if (empty($this->data['issues'])) {
@@ -149,6 +151,12 @@ class issuesController extends AppBaseController
             $input['complete_date'] = $this->waktu_sekarang;
         }
         $issues = $this->issuesRepository->update($input, $id);
+        
+        if(isset($input['rate'])){
+            $input['user_id'] =  \Auth::User()->id;
+            $input['issues_id'] =  $issues->id;
+            $rating = $this->ratingRepository->create($input);
+        }
         $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);
         Flash::success('Issues updated successfully.');
 
