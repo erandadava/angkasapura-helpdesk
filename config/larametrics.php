@@ -69,7 +69,7 @@ return [
     |
     */
     'requestsToSkip' => [
-        'login'
+        
     ],
 
     /*

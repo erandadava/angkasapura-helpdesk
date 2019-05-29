@@ -5,6 +5,10 @@
 </li>
 
 @role('Admin')
+<li class="">
+    <a href="/admin/metrics"><i class="fa fa-edit"></i><span>Monitoring</span></a>
+</li>
+
 <li class="{{ Request::is('categories*') ? 'active' : '' }}">
     <a href="{!! route('categories.index') !!}"><i class="fa fa-edit"></i><span>Kategori</span></a>
 </li>
@@ -16,6 +20,7 @@
 <li class="{{ Request::is('priorities*') ? 'active' : '' }}">
     <a href="{!! route('priorities.index') !!}"><i class="fa fa-edit"></i><span>Prioritas</span></a>
 </li>
+
 
 <!-- <li class="{{ Request::is('ratings*') ? 'active' : '' }}">
     <a href="{!! route('ratings.index') !!}"><i class="fa fa-edit"></i><span>Ratings</span></a>

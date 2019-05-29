@@ -5,7 +5,7 @@ namespace App\DataTables;
 use App\Models\issues;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
-
+use Auth;
 class issuesDataTable extends DataTable
 {
     /**
@@ -41,8 +41,14 @@ class issuesDataTable extends DataTable
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(issues $model)
-    {
-        return $model->with(['category','priority','request'])->newQuery();
+    {   
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+
+        if($roles[0] == "IT Administrator"){
+            return $model->with(['category','priority','request'])->newQuery();
+        }
+        return $model->with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->newQuery();
     }
 
     /**

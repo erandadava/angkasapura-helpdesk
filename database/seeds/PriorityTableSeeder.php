@@ -44,6 +44,33 @@ class PriorityTableSeeder extends Seeder
                 'updated_at' => '2019-05-04 04:40:45',
                 'deleted_at' => NULL,
             ),
+            3 => 
+            array (
+                'id' => 4,
+                'prio_name' => 'Sedang',
+                'is_active' => 1,
+                'created_at' => '2019-05-19 16:02:30',
+                'updated_at' => '2019-05-19 16:02:38',
+                'deleted_at' => '2019-05-19 16:02:38',
+            ),
+            4 => 
+            array (
+                'id' => 5,
+                'prio_name' => 'Rendah',
+                'is_active' => 1,
+                'created_at' => '2019-05-19 16:02:46',
+                'updated_at' => '2019-05-19 16:02:46',
+                'deleted_at' => NULL,
+            ),
+            5 => 
+            array (
+                'id' => 6,
+                'prio_name' => 'Pimpinan',
+                'is_active' => 1,
+                'created_at' => '2019-05-19 16:02:59',
+                'updated_at' => '2019-05-19 16:02:59',
+                'deleted_at' => NULL,
+            ),
         ));
         
         
