@@ -31,6 +31,9 @@
         .ck-editor__editable {
             min-height: 300px;
         }
+        .notifications-menu .menu > li a p {
+            white-space: normal;
+        }
     </style>
     @yield('css')
 </head>
@@ -55,6 +58,29 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i>
+                            @if($count_notif>0) <span class="label label-danger">{{$count_notif}}</span> @endif
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li class="header">Anda memiliki {{$count_notif}} notifikasi</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                @foreach($data_notif as $dt)
+                                <li>
+                                    <a href="{{$dt->link_id}}">
+                                        {!! $dt->pesan !!} 
+                                        <p><small>{{date('d-m-Y | h:m:s', strtotime($dt->created_at)) }}</small></p>
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <!-- <li class="footer"><a href="#">View all</a></li> -->
+                        </ul>
+                    </li>
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->

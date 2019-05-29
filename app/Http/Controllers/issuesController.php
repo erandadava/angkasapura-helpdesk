@@ -9,23 +9,28 @@ use App\Http\Requests\UpdateissuesRequest;
 use App\Repositories\issuesRepository;
 use App\Models\category;
 use App\Models\priority;
+use Illuminate\Http\Request;
 use App\User;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRole;
+use App\Http\Controllers\notifikasiController;
 use Response;
 use Carbon;
+use Auth;
 
 class issuesController extends AppBaseController
 {
     /** @var  issuesRepository */
     private $issuesRepository;
+    private $notifikasiController;
 
-    public function __construct(issuesRepository $issuesRepo)
+    public function __construct(issuesRepository $issuesRepo, notifikasiController $notifikasiControl)
     {
         $this->issuesRepository = $issuesRepo;
+        $this->notifikasiController = $notifikasiControl;
         $this->mytime = Carbon\Carbon::now();
         $this->waktu_sekarang = $this->mytime->toDateTimeString();
         $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
@@ -38,8 +43,11 @@ class issuesController extends AppBaseController
      * @param issuesDataTable $issuesDataTable
      * @return Response
      */
-    public function index(issuesDataTable $issuesDataTable)
+    public function index(issuesDataTable $issuesDataTable, Request $request)
     {
+        if($request->n){
+            return $this->notifikasiController->update_baca($request->n);
+        }
         return $issuesDataTable->render('issues.index');
     }
 
@@ -67,6 +75,7 @@ class issuesController extends AppBaseController
         $issues = $this->issuesRepository->create($input);
         $kode = $issues->id.$issues->request_id.$this->mytime->format('ymdhis');
         $this->issuesRepository->update(['issue_id'=>$kode], $issues->id);
+        $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);
         Flash::success('Issues saved successfully.');
 
         return redirect(route('issues.index'));
@@ -79,8 +88,12 @@ class issuesController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+        if($request->n){
+            $this->notifikasiController->update_baca($request->n);
+        } 
+
         $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation'])->findWithoutFail($id);
         $this->data['it_support'] = User::role('IT Support')->pluck('name','id');
         $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
@@ -136,7 +149,7 @@ class issuesController extends AppBaseController
             $input['complete_date'] = $this->waktu_sekarang;
         }
         $issues = $this->issuesRepository->update($input, $id);
-
+        $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);
         Flash::success('Issues updated successfully.');
 
         return redirect(route('issues.index'));
