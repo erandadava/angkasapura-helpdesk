@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+.sidebar {
+  position: fixed;
+  top: 80px;
+  width: 250px;
+  bottom: 0;
+}
+
+.content-wrapper {
+  margin-left: 200px;
+}
