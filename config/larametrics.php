@@ -21,6 +21,8 @@ return [
         'App\Models\rating',
         'App\Models\roles',
         'App\Models\users',
+        'App\Models\cat_inventory',
+        'App\Models\inventory',
     ],
 
     /*
