@@ -21,6 +21,7 @@ use Response;
 use Carbon;
 use Auth;
 use App\Repositories\ratingRepository;
+use App\Models\issues;
 
 class issuesController extends AppBaseController
 {
@@ -185,5 +186,14 @@ class issuesController extends AppBaseController
         Flash::success('Issues deleted successfully.');
 
         return redirect(route('issues.index'));
+    }
+
+    public function historyticket(issuesDataTable $issuesDataTable, Request $request)
+    {
+        if($request->n){
+            return $this->notifikasiController->update_baca($request->n);
+        }
+        
+        return $issuesDataTable->render('issues.index');
     }
 }

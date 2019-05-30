@@ -53,3 +53,4 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
 
 Route::get('/beranda', 'webuserController@index');
+Route::get('/history', 'issuesController@historyticket');
