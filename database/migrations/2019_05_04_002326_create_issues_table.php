@@ -30,6 +30,7 @@ class CreateIssuesTable extends Migration
             $table->dateTime('complete_date')->nullable();
             $table->tinyInteger('is_archive')->nullable();
             $table->enum('status',['RITADM','AITADM','ITSP','RITSP','AITSP','ITOPS', 'ITNP','CLOSE','CFUSER','SLITADM','SLITOPS','RT','ALS'])->nullable();
+            $table->integer('dev_ser_num')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

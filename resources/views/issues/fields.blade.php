@@ -23,6 +23,22 @@
     {!! Form::text('location', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Cat Id Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('dev_ser_num', 'Serial Number/Device ID:') !!}
+    <select class="form-control" name="dev_ser_num">
+        @foreach($sernum as $key => $val)
+        <optgroup label="{{$val->nama_cat}}">
+            @foreach($val->inventory as $dt)
+                <option value="{{$dt->id}}">{{$dt->sernumid}}</option>
+            @endforeach
+        </optgroup>
+        @endforeach
+    </select>
+
+</div> 
+
+
 <!-- Prob Desc Field -->
 @hasrole('User')
 

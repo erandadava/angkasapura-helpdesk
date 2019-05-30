@@ -33,3 +33,11 @@ Route::resource('issues', 'issuesAPIController');
 
 
 Route::resource('roles', 'rolesAPIController');
+
+
+
+Route::resource('cat_inventories', 'cat_inventoryAPIController');
+
+
+
+Route::resource('inventories', 'inventoryAPIController');

@@ -50,7 +50,8 @@ class issues extends Model
         'status',
         'solution_desc',
         'assign_it_support',
-        'assign_it_ops'
+        'assign_it_ops',
+        'dev_ser_num'
     ];
 
     /**
@@ -115,4 +116,9 @@ class issues extends Model
     {
         return $this->hasOne('App\Models\rating','issues_id','id');
     }
+    public function sernum()
+    {
+        return $this->hasOne('App\Models\inventory','id','dev_ser_num');
+    }
+
 }
