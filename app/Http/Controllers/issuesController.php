@@ -21,13 +21,14 @@ use Response;
 use Carbon;
 use Auth;
 use App\Repositories\ratingRepository;
-
+use App\Models\inventory;
+use App\Models\cat_inventory;
 class issuesController extends AppBaseController
 {
     /** @var  issuesRepository */
     private $issuesRepository;
     private $notifikasiController;
-
+    
     public function __construct(issuesRepository $issuesRepo, notifikasiController $notifikasiControl, ratingRepository $ratingRepo)
     {
         $this->issuesRepository = $issuesRepo;
@@ -37,6 +38,15 @@ class issuesController extends AppBaseController
         $this->waktu_sekarang = $this->mytime->toDateTimeString();
         $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
         $this->data['priority'] = priority::where('is_active','=',1)->pluck('prio_name','id');
+        $sernum = cat_inventory::with('inventory')->get();
+        foreach ($sernum as $key => $value) {
+            foreach ($value->inventory as $keys => $val) {
+                $sernum[$key]['inventory'][$keys]['sernumid']= $val->sernumid;
+            }
+        }
+        $this->data['sernum'] = $sernum;
+        // echo "<pre>";
+        // return print_r($this->data['sernum']);
     }
 
     /**
@@ -96,7 +106,7 @@ class issuesController extends AppBaseController
             $this->notifikasiController->update_baca($request->n);
         } 
 
-        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','rating'])->findWithoutFail($id);
+        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','rating','sernum'])->findWithoutFail($id);
         $this->data['it_support'] = User::role('IT Support')->pluck('name','id');
         $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
         if (empty($this->data['issues'])) {
@@ -104,7 +114,6 @@ class issuesController extends AppBaseController
 
             return redirect(route('issues.index'));
         }
-        
         return view('issues.show')->with($this->data);
     }
 

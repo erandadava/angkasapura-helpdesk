@@ -28,6 +28,11 @@
     <p>{!! $issues->location !!}</p>
 </div>
 
+<div class="form-group">
+    {!! Form::label('dev_ser_num', 'Serial Number/Device ID:') !!}
+    <p>{!! $issues->sernum->sernumid !!}</p>
+</div>
+
 <!-- Prob Desc Field -->
 <div class="form-group">
     {!! Form::label('prob_desc', 'Deskripsi Keluhan:') !!}
