@@ -31,7 +31,7 @@
 </li>
 @endrole
 @role('User')
-<li class="treeview menu-open">
+<li class="treeview menu-menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Users</span>
             <span class="pull-right-container">
@@ -41,13 +41,13 @@
           <ul class="treeview-menu">
             <li><a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i> Data User</a></li>
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticketing</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> History Ticket</a></li>
+          <li class=""><a href="{{url('/history')}}"><i class="fa fa-circle-o"></i> History Ticket</a></li>
           </ul>
 </li>
 @endrole
 
 @role('IT Administrator')
-<li class="treeview menu-open">
+<li class="treeview menu-menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Administrator</span>
             <span class="pull-right-container">
@@ -65,7 +65,7 @@
 @endrole
 
 @role('IT Support')
-<li class="treeview menu-open">
+<li class="treeview menu-menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Support</span>
             <span class="pull-right-container">
@@ -82,7 +82,7 @@
 @endrole
 
 @role('IT Operasional')
-<li class="treeview menu-open">
+<li class="treeview menu-menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Operasional</span>
             <span class="pull-right-container">
@@ -100,7 +100,7 @@
 @endrole
 
 @role('IT Non Public')
-<li class="treeview menu-open">
+<li class="treeview menu-menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Non Public</span>
             <span class="pull-right-container">

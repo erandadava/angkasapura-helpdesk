@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\issuesDataTable;
+use App\DataTables\issuescloseDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateissuesRequest;
 use App\Http\Requests\UpdateissuesRequest;
@@ -188,12 +189,10 @@ class issuesController extends AppBaseController
         return redirect(route('issues.index'));
     }
 
-    public function historyticket(issuesDataTable $issuesDataTable, Request $request)
+    public function historyticket(issuescloseDataTable $issuescloseDataTable, Request $request)
     {
-        if($request->n){
-            return $this->notifikasiController->update_baca($request->n);
-        }
         
-        return $issuesDataTable->render('issues.index');
+        // return $this->notifikasiController->update_baca($request->n);
+        return $issuescloseDataTable->render('issues.index');
     }
 }
