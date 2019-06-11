@@ -23,6 +23,7 @@ return [
         'App\Models\users',
         'App\Models\cat_inventory',
         'App\Models\inventory',
+        'App\Models\users',
     ],
 
     /*
