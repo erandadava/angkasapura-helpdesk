@@ -42,8 +42,7 @@ class issuescloseDataTable extends DataTable
      */
     public function query(issues $model)
     {   
-
-        return $model->with(['category','priority','request'])->Where('status', '=', "CLOSE")->newQuery();
+        return $model->with(['category','priority','request'])->Where('status', '=', 'CLOSE')->newQuery();
     }
 
     /**
@@ -52,7 +51,7 @@ class issuescloseDataTable extends DataTable
      * @return \Yajra\DataTables\Html\Builder
      */
     public function html()
-    {
+    {   
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
