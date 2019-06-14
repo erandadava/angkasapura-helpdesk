@@ -18,7 +18,7 @@ class issuescloseDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'issues.datatables_actions')->editColumn('status', function ($inquiry) {
+        return $dataTable->addColumn('action', 'issues.action-close')->editColumn('status', function ($inquiry) {
             if ($inquiry->status == null) return "<span class='label label-default'>Menunggu IT Administrator</span>";
             if ($inquiry->status == 'RITADM') return "<span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span>";
             if ($inquiry->status == 'AITADM') return "<span class='label label-success'>Diterima IT Administrator</span>";
@@ -55,7 +55,7 @@ class issuescloseDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false, 'btn-edit' => false])
+            ->addAction(['width' => '120px', 'printable' => false,])
             ->parameters([
                 'dom'     => 'Bfrtip',
                 'order'   => [[0, 'desc']],
