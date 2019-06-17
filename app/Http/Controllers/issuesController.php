@@ -23,6 +23,8 @@ use Carbon;
 use Auth;
 use App\Repositories\ratingRepository;
 use App\Models\issues;
+use App\Models\inventory;
+use App\Models\cat_inventory;
 
 class issuesController extends AppBaseController
 {
@@ -39,6 +41,15 @@ class issuesController extends AppBaseController
         $this->waktu_sekarang = $this->mytime->toDateTimeString();
         $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
         $this->data['priority'] = priority::where('is_active','=',1)->pluck('prio_name','id');
+        $sernum = cat_inventory::with('inventory')->get();
+        foreach ($sernum as $key => $value) {
+            foreach ($value->inventory as $keys => $val) {
+                $sernum[$key]['inventory'][$keys]['sernumid']= $val->sernumid;
+            }
+        }
+        $this->data['sernum'] = $sernum;
+        // echo "<pre>";
+        // return print_r($this->data['sernum']);
     }
 
     /**

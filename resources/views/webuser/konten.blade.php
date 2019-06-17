@@ -53,14 +53,24 @@
               <li class="nav-item dropdown">
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
-                  <span class="notification">2</span>
+                  @if($count_notif>0) <span class="notification">{{$count_notif}}</span>@endif
                   <p class="d-lg-none d-md-block">
                     Some Actions
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Yau have 1 new ticket with high priority</a>
-                  <a class="dropdown-item" href="#">You have 1 new ticket</a>
+                  @foreach($data_notif as $dt)
+                    <li>
+                        <a class="dropdown-item" href="{{$dt->link_id}}">{!! $dt->pesan !!} 
+                            <p><small>{{date('d-m-Y | h:m:s', strtotime($dt->created_at)) }}</small></p>
+                        </a>
+                    </li>
+                  @endforeach
+                  @if($count_notif==0) 
+                    <a class="dropdown-item" href="#">
+                      Tidak Ada Notifikasi
+                    </a>
+                  @endif
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -74,7 +84,8 @@
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a href="{!! url('/logout') !!}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a>
+                  <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                 </div>
               </li>
             </ul>
