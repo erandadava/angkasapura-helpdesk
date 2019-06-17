@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\issuesDataTable;
+use App\DataTables\issuescloseDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateissuesRequest;
 use App\Http\Requests\UpdateissuesRequest;
@@ -21,14 +22,16 @@ use Response;
 use Carbon;
 use Auth;
 use App\Repositories\ratingRepository;
+use App\Models\issues;
 use App\Models\inventory;
 use App\Models\cat_inventory;
+
 class issuesController extends AppBaseController
 {
     /** @var  issuesRepository */
     private $issuesRepository;
     private $notifikasiController;
-    
+
     public function __construct(issuesRepository $issuesRepo, notifikasiController $notifikasiControl, ratingRepository $ratingRepo)
     {
         $this->issuesRepository = $issuesRepo;
@@ -106,7 +109,7 @@ class issuesController extends AppBaseController
             $this->notifikasiController->update_baca($request->n);
         } 
 
-        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','rating','sernum'])->findWithoutFail($id);
+        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','rating'])->findWithoutFail($id);
         $this->data['it_support'] = User::role('IT Support')->pluck('name','id');
         $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
         if (empty($this->data['issues'])) {
@@ -114,6 +117,7 @@ class issuesController extends AppBaseController
 
             return redirect(route('issues.index'));
         }
+        
         return view('issues.show')->with($this->data);
     }
 
@@ -194,5 +198,12 @@ class issuesController extends AppBaseController
         Flash::success('Issues deleted successfully.');
 
         return redirect(route('issues.index'));
+    }
+
+    public function historyticket(issuescloseDataTable $issuescloseDataTable, Request $request)
+    {
+        
+        // return $this->notifikasiController->update_baca($request->n);
+        return $issuescloseDataTable->render('issues.index');
     }
 }
