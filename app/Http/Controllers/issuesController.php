@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\issuesDataTable;
+use App\DataTables\penilaianDataTable;
 use App\DataTables\issuescloseDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateissuesRequest;
@@ -58,10 +59,13 @@ class issuesController extends AppBaseController
      * @param issuesDataTable $issuesDataTable
      * @return Response
      */
-    public function index(issuesDataTable $issuesDataTable, Request $request)
+    public function index(issuesDataTable $issuesDataTable, penilaianDataTable $penilaianDataTable,Request $request)
     {
         if($request->n){
             return $this->notifikasiController->update_baca($request->n);
+        }
+        if($request->p){
+            return $penilaianDataTable->render('issues.indexpenilaian');;
         }
         return $issuesDataTable->render('issues.index');
     }

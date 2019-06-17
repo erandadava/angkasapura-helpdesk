@@ -77,7 +77,7 @@
           <ul class="treeview-menu">
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Penilaian</a></li>
+            <li class=""><a href="/issues?p=a"><i class="fa fa-circle-o"></i> Penilaian</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
           </ul>
 </li>

@@ -78,6 +78,7 @@ class notifikasiController extends AppBaseController
                 case 'ITOPS':
                     $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dengan nomor keluhan <b>$keluhan->issue_id.'</b></p>";
                     $input['user_id'] = $keluhan->assign_it_ops;
+                    $notifikasi = $this->notifikasiRepository->create($input);
                     $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
                     $this->notifikasiRepository->update($input, $notifikasi->id);
                     $input['pesan'] = "<p><span class='label label-warning'>Menunggu Solusi Dari IT OPS</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
@@ -88,7 +89,11 @@ class notifikasiController extends AppBaseController
                     $input['user_id'] = $keluhan->request_id;
                     break;
                 case 'RT':
-                    $input['pesan'] = "<p><span class='label label-success'>Rating dari user</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops){
+                        $input['pesan'] = "<p><span class='label label-success'>Rating dari IT Administrator</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    }else{
+                        $input['pesan'] = "<p><span class='label label-success'>Rating dari User</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>"; 
+                    }
                     $input['user_id'] = $keluhan->complete_by;
                     break;
                 default:
