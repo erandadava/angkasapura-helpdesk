@@ -60,11 +60,9 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   @foreach($data_notif as $dt)
-                    <li>
-                        <a class="dropdown-item" href="{{$dt->link_id}}">{!! $dt->pesan !!} 
-                            <p><small>{{date('d-m-Y | h:m:s', strtotime($dt->created_at)) }}</small></p>
-                        </a>
-                    </li>
+                  <a class="dropdown-item" href="{{$dt->link_id}}">
+                    {!! $dt->pesan !!} 
+                  </a>
                   @endforeach
                   @if($count_notif==0) 
                     <a class="dropdown-item" href="#">
@@ -104,7 +102,7 @@
               	<i class="material-icons">content_copy</i>
             	</div>
             	<p class="card-category">Ticket</p>
-            	<h3 class="card-title">7
+            	<h3 class="card-title">{{$jumlah_keluhan}}
             	</h3>
           	</div>
           	<div class="card-footer">
@@ -118,12 +116,12 @@
 				
 				<div class="col-md-4 col-sm-6 col-xs-12">
           <div class="card card-stats">
-          	<div class="card-header card-header-danger card-header-icon">
+          	<div class="card-header {{ $performa>50 ? 'card-header-success' : 'card-header-danger' }} card-header-icon">
             	<div class="card-icon">
               	<i class="fa fa-tachometer"></i>
               </div>
               <p class="card-category">Performance</p>
-              <h3 class="card-title">50%</h3>
+              <h3 class="card-title">{{$performa}}%</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -140,7 +138,7 @@
                     <i class="fa fa-check-square-o"></i>
                   </div>
                   <p class="card-category">Completed Task</p>
-                  <h3 class="card-title">86</h3>
+                  <h3 class="card-title">{{$jumlah_keluhan_selesai}}</h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">

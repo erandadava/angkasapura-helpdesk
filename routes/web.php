@@ -45,6 +45,8 @@ Route::group(['middleware' => ['web', 'auth', 'isEmailVerified']], function ()
     Route::resource('users', 'usersController');
 
     Route::resource('dashboard', 'dashboardController');
+    Route::resource('catInventories', 'cat_inventoryController');
+    Route::resource('inventories', 'inventoryController');
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
