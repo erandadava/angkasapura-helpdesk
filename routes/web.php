@@ -54,3 +54,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
 Route::get('/beranda', 'webuserController@index');
 Route::get('/history', 'issuesController@historyticket');
+Route::get('/laporan_hari', 'laporanController@laporan_hari')->name('laporan_hari');
+Route::get('/laporan_bulan', 'laporanController@laporan_bulan')->name('laporan_bulan');

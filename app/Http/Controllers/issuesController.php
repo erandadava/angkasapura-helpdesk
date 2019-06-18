@@ -23,6 +23,7 @@ use Carbon;
 use Auth;
 use App\Repositories\ratingRepository;
 use App\Models\issues;
+use App\DataTables\laporanDataTable;
 
 class issuesController extends AppBaseController
 {
@@ -194,5 +195,12 @@ class issuesController extends AppBaseController
         
         // return $this->notifikasiController->update_baca($request->n);
         return $issuescloseDataTable->render('issues.index');
+    }
+
+    public function laporan(laporanDataTable $laporanDataTable, Request $request)
+    {
+
+        // return $this->notifikasiController->update_baca($request->n);
+        return $laporanDataTable->render('laporans.index');
     }
 }
