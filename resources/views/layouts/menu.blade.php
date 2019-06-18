@@ -1,4 +1,3 @@
-
 <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
     <a href="{!! route('dashboard.index') !!}"><i class="fa fa-edit"></i><span>Dashboard</span>
     </a>
@@ -29,9 +28,12 @@
 <li class="{{ Request::is('issues*') ? 'active' : '' }}">
     <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Keluhan</span></a>
 </li>
+<li class="{{ Request::is('catInventories*') ? 'active' : '' }}">
+    <a href="{!! route('catInventories.index') !!}"><i class="fa fa-edit"></i><span>Kategori Inventaris</span></a>
+</li>
 @endrole
 @role('User')
-<li class="treeview menu-menu-open">
+<li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Users</span>
             <span class="pull-right-container">
@@ -41,13 +43,13 @@
           <ul class="treeview-menu">
             <li><a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i> Data User</a></li>
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticketing</a></li>
-          <li class=""><a href="{{url('/history')}}"><i class="fa fa-circle-o"></i> History Ticket</a></li>
+            <li class=""><a href="{{url('/history')}}"><i class="fa fa-circle-o"></i> History Ticket</a></li>
           </ul>
 </li>
 @endrole
 
 @role('IT Administrator')
-<li class="treeview menu-menu-open">
+<li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Administrator</span>
             <span class="pull-right-container">
@@ -57,7 +59,7 @@
           <ul class="treeview-menu">
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Inventaris</a></li>
+            <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
           </ul>
@@ -65,7 +67,7 @@
 @endrole
 
 @role('IT Support')
-<li class="treeview menu-menu-open">
+<li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Support</span>
             <span class="pull-right-container">
@@ -75,14 +77,14 @@
           <ul class="treeview-menu">
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Penilaian</a></li>
+            <li class=""><a href="/issues?p=a"><i class="fa fa-circle-o"></i> Penilaian</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
           </ul>
 </li>
 @endrole
 
 @role('IT Operasional')
-<li class="treeview menu-menu-open">
+<li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Operasional</span>
             <span class="pull-right-container">
@@ -92,7 +94,7 @@
           <ul class="treeview-menu">
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Inventaris</a></li>
+            <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
           </ul>
@@ -100,7 +102,7 @@
 @endrole
 
 @role('IT Non Public')
-<li class="treeview menu-menu-open">
+<li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-edit"></i> <span>IT Non Public</span>
             <span class="pull-right-container">
@@ -110,7 +112,7 @@
           <ul class="treeview-menu">
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Inventaris</a></li>
+            <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
           </ul>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\issuesDataTable;
+use App\DataTables\penilaianDataTable;
 use App\DataTables\issuescloseDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateissuesRequest;
@@ -24,6 +25,8 @@ use Auth;
 use App\Repositories\ratingRepository;
 use App\Models\issues;
 use App\DataTables\laporanDataTable;
+use App\Models\inventory;
+use App\Models\cat_inventory;
 
 class issuesController extends AppBaseController
 {
@@ -40,6 +43,15 @@ class issuesController extends AppBaseController
         $this->waktu_sekarang = $this->mytime->toDateTimeString();
         $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
         $this->data['priority'] = priority::where('is_active','=',1)->pluck('prio_name','id');
+        $sernum = cat_inventory::with('inventory')->get();
+        foreach ($sernum as $key => $value) {
+            foreach ($value->inventory as $keys => $val) {
+                $sernum[$key]['inventory'][$keys]['sernumid']= $val->sernumid;
+            }
+        }
+        $this->data['sernum'] = $sernum;
+        // echo "<pre>";
+        // return print_r($this->data['sernum']);
     }
 
     /**
@@ -48,10 +60,13 @@ class issuesController extends AppBaseController
      * @param issuesDataTable $issuesDataTable
      * @return Response
      */
-    public function index(issuesDataTable $issuesDataTable, Request $request)
+    public function index(issuesDataTable $issuesDataTable, penilaianDataTable $penilaianDataTable,Request $request)
     {
         if($request->n){
             return $this->notifikasiController->update_baca($request->n);
+        }
+        if($request->p){
+            return $penilaianDataTable->render('issues.indexpenilaian');;
         }
         return $issuesDataTable->render('issues.index');
     }
