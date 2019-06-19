@@ -330,7 +330,51 @@
 
 
 @hasrole('User')
-    @if($issues->status=="CLOSE") 
+    @if(($issues->status=="CLOSE" && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status=="CLOSE" && $issues->assign_it_support == null && $issues->assign_it_ops ==null && $issues->complete_by != null)) 
+    <!-- Button untuk IT NP -->
+    <div class="form-group col-md-2 col-sm-12">
+    
+            <button class='btn btn-warning btn-md' data-toggle="modal" data-target="#rate">
+                <i class="glyphicon glyphicon-star"></i> Beri Rating
+            </button>
+    
+    </div>
+    <!-- ---------------------- -->
+  <!-- Modal -->
+  <div id="rate" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Rating</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+          {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+              {!! Form::hidden('status', 'RT', ['class' => 'form-control'])!!}
+              <div class="form-group col-sm-12 col-lg-12">
+                  <center>
+                    <h3>Beri rating untuk pelayanan kami</h3>
+                    </br>
+                    <input id="input-id" name="rate" type="text" class="rating" data-size="lg" data-min="1" data-max="5" data-step="1">
+                  </center>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Kirim</button>
+        </div>
+      </div>
+      {!! Form::close() !!}
+    </div>
+  </div>
+  @endif
+@endhasrole
+
+@hasrole('IT Administrator')
+    @if($issues->status=="CLOSE" && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops) 
     <!-- Button untuk IT NP -->
     <div class="form-group col-md-2 col-sm-12">
     

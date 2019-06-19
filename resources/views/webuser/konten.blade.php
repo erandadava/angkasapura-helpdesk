@@ -232,9 +232,7 @@
                         </label>
                       </div>
                     </td>
-                    <td>
-                      Turbo boost up core i5 terlalu banyak Turbo Lag
-                    </td>
+                    <td>Turbo boost up core i5 terlalu banyak Turbo Lag</td>
                   </tr>
                 </tbody>
               </table>

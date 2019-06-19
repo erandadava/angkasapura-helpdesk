@@ -6,7 +6,7 @@ use App\Models\issues;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Auth;
-class issuescloseDataTable extends DataTable
+class laporanDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,7 +18,7 @@ class issuescloseDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'issues.action-close')->editColumn('status', function ($inquiry) {
+        return $dataTable->addColumn('action', 'issues.datatables_actions')->editColumn('status', function ($inquiry) {
             if ($inquiry->status == null) return "<span class='label label-default'>Menunggu IT Administrator</span>";
             if ($inquiry->status == 'RITADM') return "<span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span>";
             if ($inquiry->status == 'AITADM') return "<span class='label label-success'>Diterima IT Administrator</span>";
@@ -28,7 +28,7 @@ class issuescloseDataTable extends DataTable
             if ($inquiry->status == 'ITOPS') return "<span class='label label-warning'>Menunggu Solusi Dari IT OPS</span>";
             if ($inquiry->status == 'CLOSE') return "<span class='label label-success'>Keluhan Ditutup</span>";
             if ($inquiry->status == 'SLITADM') return "<span class='label label-success'>Solusi Telah Diberikan IT Administrator</span>";
-            if ($inquiry->status == 'RT') return "<span class='label label-warning'>User Telah Memberi Rating</span>";
+            if ($inquiry->status == 'SLITOPS') return "<span class='label label-success'>Solusi Telah Diberikan IT OPS</span>";
             return 'Cancel';
         })
         ->rawColumns(['status','action']);
@@ -42,7 +42,13 @@ class issuescloseDataTable extends DataTable
      */
     public function query(issues $model)
     {   
-        return $model->with(['category','priority','request'])->Where('status', '=', 'CLOSE')->newQuery();
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+
+        if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
+            return $model->with(['category','priority','request'])->newQuery();
+        }
+        return $model->with(['category','priority','request','inventory.users'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->newQuery();
     }
 
     /**
@@ -51,11 +57,11 @@ class issuescloseDataTable extends DataTable
      * @return \Yajra\DataTables\Html\Builder
      */
     public function html()
-    {   
+    {
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false,])
+            ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'     => 'Bfrtip',
                 'order'   => [[0, 'desc']],
@@ -77,14 +83,14 @@ class issuescloseDataTable extends DataTable
     {
         return [
             ['data' => 'id','visible' => false],
-            ['data' => 'category.cat_name', 'title' => 'Kategori'],
-            ['data' => 'issue_id', 'title' => 'Kode'],
-            ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
-            ['data' => 'request.name', 'title' => 'Request'],
+            ['data' => 'users.name', 'title' => 'Name'],
             ['data' => 'location', 'title' => 'Lokasi'],
-            ['data' => 'status', 'title' => 'Status'],
+            ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
+            ['data' => 'issue_id', 'title' => 'issue ID'],
+            ['data' => 'prob_desc', 'title' => 'Keluhan'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
-        ];
+            ['data' => 'complete_date', 'title' => 'tgl Selesai'],
+        ]; 
     }
 
     /**
@@ -94,6 +100,6 @@ class issuescloseDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'issuesdatatable_' . time();
+        return 'laporandatatable_' . time();
     }
 }

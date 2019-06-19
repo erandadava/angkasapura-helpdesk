@@ -29,6 +29,7 @@ class issuesDataTable extends DataTable
             if ($inquiry->status == 'CLOSE') return "<span class='label label-success'>Keluhan Ditutup</span>";
             if ($inquiry->status == 'SLITADM') return "<span class='label label-success'>Solusi Telah Diberikan IT Administrator</span>";
             if ($inquiry->status == 'SLITOPS') return "<span class='label label-success'>Solusi Telah Diberikan IT OPS</span>";
+            if ($inquiry->status == 'RT') return "<span class='label label-warning'>User Telah Memberi Rating</span>";
             return 'Cancel';
         })
         ->rawColumns(['status','action']);
