@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasRole;
 
 class LoginController extends Controller
 {
@@ -25,13 +28,20 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+    public function redirectTo(){
+        $user = \Auth::user();
+        $roles = $user->getRoleNames();
+        if($roles[0] == 'User'){
+            return "/beranda";
+        }
+        return "/dashboard";
+    }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');

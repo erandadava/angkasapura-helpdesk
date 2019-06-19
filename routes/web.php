@@ -28,9 +28,6 @@ Route::post('register/verify/resend', 'Auth\RegisterController@resendVerificatio
 
 Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|Admin','isEmailVerified']], function ()
 {
-    Route::get('/home', function () {
-        return redirect('/dashboard');
-    });
 
     Route::resource('categories', 'categoryController');
     
@@ -49,11 +46,7 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
     
 });
 
-Route::group(['middleware' => ['role:User','isEmailVerified','isEmailVerified']], function () {
-    Route::get('/home', function () {
-        return redirect('/beranda');
-    });
-});
+
 Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|Admin|User','isEmailVerified']], function ()
 {
     Route::get('/beranda', 'webuserController@index');
