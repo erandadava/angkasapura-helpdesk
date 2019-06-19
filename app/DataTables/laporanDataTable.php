@@ -6,6 +6,8 @@ use App\Models\issues;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Auth;
+use App\Models\inventory;
+
 class laporanDataTable extends DataTable
 {
     /**
@@ -43,12 +45,15 @@ class laporanDataTable extends DataTable
     public function query(issues $model)
     {   
         $user = Auth::user();
+        $laporan = inventory::user();
         $roles = $user->getRoleNames();
 
         if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
             return $model->with(['category','priority','request'])->newQuery();
         }
-        return $model->with(['category','priority','request','inventory.users'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->newQuery();
+        return $model->with(['category','priority','request','inventory'])->where('request_id','=',$user->id)
+        ->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)
+        ->orWhere('inventory.users','=',$laporan->id)->Where('status', '=', 'CLOSE')->newQuery();
     }
 
     /**
