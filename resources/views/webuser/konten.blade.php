@@ -11,13 +11,13 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="/beranda">
               <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+              <p>IT - Helpdesk</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="#">
               <i class="material-icons">person</i>
               <p>User Profile</p>
 						</a>
@@ -31,7 +31,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Dashboard</a>
+            <a class="navbar-brand" href="/beranda">IT - Helpdesk</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -95,131 +95,182 @@
 	<div class="content">
 		<div class="container-fluid">
     	<div class="row">
-    		<div class=" col-md-4 col-sm-6 col-xs-12">
-        	<div class="card card-stats">
-          	<div class="card-header card-header-warning card-header-icon">
-            	<div class="card-icon">
-              	<i class="material-icons">content_copy</i>
-            	</div>
-            	<p class="card-category">Ticket</p>
-            	<h3 class="card-title">{{$jumlah_keluhan}}
-            	</h3>
-          	</div>
-          	<div class="card-footer">
-            	<div class="stats">
-              	<i class="material-icons text-danger">warning</i>
-              	<a href="#pablo">Get It Done...</a>
-            	</div>
-          	</div>
-        	</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="card card-stats">
-          	<div class="card-header {{ $performa>50 ? 'card-header-success' : 'card-header-danger' }} card-header-icon">
-            	<div class="card-icon">
-              	<i class="fa fa-tachometer"></i>
-              </div>
-              <p class="card-category">Performance</p>
-              <h3 class="card-title">{{$performa}}%</h3>
+				<div class="col-lg-12 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">Create Ticket </h4>
             </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">date_range</i> Last 1 Month
-              </div>
-            </div>
-          </div>
-				 </div>
-				 
-				 <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-check-square-o"></i>
-                  </div>
-                  <p class="card-category">Completed Task</p>
-                  <h3 class="card-title">{{$jumlah_keluhan_selesai}}</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">update</i> Just Updated
+
+            <div class="card-body table-responsive">
+              <form method="POST" action="http://127.0.0.1:8000/issues" class="uk-form-stacked uk-grid-large" uk-grid>
+                
+                <div class="uk-margin uk-form-grid-medium uk-width-1-2@s">
+                  <label class="uk-form-label" for="form-stacked-select">Category</label>
+                  <div class="uk-form-controls">
+                  {!! Form::token() !!}
+                  {!! Form::select('cat_id', $category, null, ['class' => 'uk-select', 'id'=>'form-stacked-select']) !!}
                   </div>
                 </div>
-              </div>
-            </div>
-        	</div>
 
-				<div class="row">
-				  <div class="col-lg-8 col-md-12">
-            <div class="card">
-              
-              <div class="card-header card-header-primary">
-                <h4 class="card-title">Your Tickets </h4>
-              </div>
+                <div class="uk-form-grid-medium uk-width-1-4@s">
+                  <label class="uk-form-label" for="form-stacked-select">Priority</label>
+                  <div class="uk-form-controls">
+                  {!! Form::hidden('request_id', Auth::id(), ['class' => 'form-control']) !!}
+                  {!! Form::hidden('usr', 'a', ['class' => 'form-control']) !!}
+                  {!! Form::select('prio_id', $priority, null, ['class' => 'uk-select', 'id'=>'form-stacked-select']) !!}
+                  </div>
+                </div>
+                <div class="uk-form-grid-medium uk-width-1-4@s">
+                  <label class="uk-form-label" for="form-stacked-select">Location</label>
+                  <div class="uk-form-controls">
+                  <select class='uk-select' id='form-stacked-select' name="dev_ser_num">
+                      @foreach($sernum as $key => $val)
+                      <optgroup label="{{$val->nama_cat}}">
+                          @foreach($val->inventory as $dt)
+                              <option value="{{$dt->id}}">{{$dt->sernumid}}</option>
+                          @endforeach
+                      </optgroup>
+                      @endforeach
+                  </select>
+                  </div>
+                </div>
 
-              <div class="card-body table-responsive">
-                <table class="table">
-                  <thead>
-                    <th>Priority</th>
-                    <th>Category</th>
-                    <th>Problem</th>
-                    <th>Location</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </thead>
+                <div class="uk-margin uk-form-grid-medium uk-width-1-2">
+                  <label class="uk-form-label" for="form-stacked-select">Location</label>
+                  <div class="uk-form-controls">
+                  {!! Form::text('location', null, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
                   
-                  <tbody>
-                    <tr>
-                      <td><span class="uk-label uk-label-danger">High</span></td>
-                      <td>System & Security</td>
-                      <td>Cpu Kemasukan Oli Buzz, Processor Turbo boost up hingga 2.5 Bar</td>
-                      <td>Terminal 3, Unit 1, Meja ABCD</td>
-                      <td><span class="uk-label">Forwarded to IT Support</span></td>
-                      <td>
-                        <a id="js-modal-prompt" class="uk-button uk-button-default" href="#">Take</a>
-                      </td>
-                    </tr>
-                  </tbody>
+                  </div>
                 </div>
+
+                <div class="uk-margin uk-form-grid-medium uk-width-1-1">
+                  <label class="uk-form-label">Problem</label>
+                  {!! Form::textarea('prob_desc', null, ['class' => 'uk-textarea', 'id' => 'editor' ]) !!}
+                </div>
+
+                <div class="uk-margin">
+                  <button type="submit" class="uk-button uk-button-primary">Send Ticket</button>
+                </div>
+
+              </form>
             </div>
           </div>
         </div>
-        <div class="col-lg-6 col-md-12">
-              <div class="card">
-                <div class="card-header card-header-warning">
-                  <h4 class="card-title">Tickets History</h4>
-                </div>
-                <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" value="" checked>
-                            <span class="form-check-sign">
-                              <span class="check"></span>
-                            </span>
-                          </div>
-                        </td>
-                        <td>Cpu Kemasukan Oli Buzz, Processor Turbo boost up hingga 2.5 Bar</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
       </div>
+
+      <div class="row">
+        <div class="col-lg-8 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <h4 class="card-title">Solved Tickets</h4>
+            </div>
+            <div class="card-body table-responsive">
+              <table class="table" style="table-layout: fixed;">
+                
+                <tbody>
+                @forelse($ticket as $key => $dt)
+                <tr>
+                    <td>{{$dt->category->cat_name}}</td>
+                    <td>{!! $dt->prob_desc !!}</td>
+                    <td> 
+                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$key}}" uk-toggle>Open</a></center>
+
+                       <div id="modal-open-solution{{$key}}" uk-modal>
+                        <div class="uk-modal-dialog">
+                          <button class="uk-modal-close-default" type="button" uk-close></button>
+                        
+                        <div class="uk-modal-header">
+                          <h2 class="uk-modal-title">Solution</h2>
+                        </div>
+                        
+                        <div class="uk-modal-body">
+                            {!! $dt->solution_desc !!}
+                        </div>
+                        <div class="uk-modal-footer uk-text-right">
+                          <a href="#modal-rating{{$key}}" class="uk-button uk-button-primary" uk-toggle>Done</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="modal-rating{{$key}}" uk-modal>
+                      <div class="uk-modal-dialog">
+                      <div class="uk-modal-header">
+                        <h2 class="uk-modal-title">Rate Me!</h2>
+                      </div>
+                      
+                      <div class="uk-modal-body">
+                      {!! Form::open(['route' => ['issues.update', $dt->id], 'method' => 'patch']) !!}
+                      {!! Form::hidden('status', 'RT', ['class' => 'form-control'])!!}
+                      {!! Form::hidden('usr', 'a', ['class' => 'form-control']) !!}
+                         <fieldset class="rating">
+                              <input type="radio" id="star5" name="rate" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                              <input type="radio" id="star4" name="rate" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                              <input type="radio" id="star3" name="rate" value="3" /><label for="star3" title="Meh">3 stars</label>
+                              <input type="radio" id="star2" name="rate" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                              <input type="radio" id="star1" name="rate" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                            </fieldset>
+                      </div>
+                      
+                      <div class="uk-modal-footer uk-text-right">
+                          <button class="uk-button uk-button-primary" uk-toggle>Done</button>
+                      </div>
+                      {!! Form::close() !!}
+                    </div>
+                    </div>
+
+                    </td>
+                  </tr>
+                @empty
+                  <tr>
+                    <td>No Data</td>
+                  </tr>
+                @endforelse
+                </tbody>
         
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-success">
+              <h4 class="card-title">Tickets History</h4>
+            </div>
+
+            <div class="card-body">
+              <table class="table" style="table-layout: fixed;">
+                <tbody>
+                 @forelse($ticket_done as $key => $dt)
+                  <tr>
+                    <td width="10%">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" disabled='disabled' checked>
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>{!! $dt->prob_desc !!}</td>
+                  </tr>
+                @empty
+                  <tr>
+                    <td>No Data</td>
+                  </tr>
+                @endforelse
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>        
 </body>
 
-<script>
-   UIkit.util.on('#js-modal-prompt', 'click', function (e) {
-           e.preventDefault();
-           e.target.blur();
-           UIkit.modal.prompt('Solution:', 'Your Solution').then(function (solution) {
-               console.log('Prompted:', solution)
-           });
-       });
-</script>
 @endsection

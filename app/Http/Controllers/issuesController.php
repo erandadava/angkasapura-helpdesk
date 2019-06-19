@@ -24,8 +24,10 @@ use Carbon;
 use Auth;
 use App\Repositories\ratingRepository;
 use App\Models\issues;
+use App\DataTables\laporanDataTable;
 use App\Models\inventory;
 use App\Models\cat_inventory;
+use Alert;
 
 class issuesController extends AppBaseController
 {
@@ -95,8 +97,14 @@ class issuesController extends AppBaseController
         $kode = $issues->id.$issues->request_id.$this->mytime->format('ymdhis');
         $this->issuesRepository->update(['issue_id'=>$kode], $issues->id);
         $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);
+        if(isset($input['usr'])){
+            Alert::success('Ticket Sent Successfully', 'Success')->autoclose(4000);
+            return redirect('/beranda');
+        }
+
         Flash::success('Issues saved successfully.');
 
+        
         return redirect(route('issues.index'));
     }
 
@@ -163,6 +171,7 @@ class issuesController extends AppBaseController
             return redirect(route('issues.index'));
         }
         $input = $request->all();
+        
         if($input['status'] == 'CLOSE'){
             $input['complete_by'] = \Auth::User()->id;
             $input['complete_date'] = $this->waktu_sekarang;
@@ -175,6 +184,10 @@ class issuesController extends AppBaseController
             $rating = $this->ratingRepository->create($input);
         }
         $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);
+        if(isset($input['usr'])){
+            Alert::success('Rating Sent Successfully', 'Thank You!')->autoclose(4000);
+            return redirect('/beranda');
+        }
         Flash::success('Issues updated successfully.');
 
         return redirect(route('issues.index'));
@@ -209,5 +222,12 @@ class issuesController extends AppBaseController
         
         // return $this->notifikasiController->update_baca($request->n);
         return $issuescloseDataTable->render('issues.index');
+    }
+
+    public function laporan(laporanDataTable $laporanDataTable, Request $request)
+    {
+
+        // return $this->notifikasiController->update_baca($request->n);
+        return $laporanDataTable->render('laporans.index');
     }
 }
