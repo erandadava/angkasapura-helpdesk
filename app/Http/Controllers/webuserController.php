@@ -9,6 +9,13 @@ use App\Models\category;
 use App\User;
 use DB;
 use Carbon\Carbon;
+use Auth;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasRole;
+use App\Models\inventory;
+use App\Models\cat_inventory;
+
 class webuserController extends Controller
 {
     /**
@@ -18,46 +25,21 @@ class webuserController extends Controller
      */
     public function index()
     {
-        $this->data['jumlah_keluhan'] = issues::get()->count();
-        $this->data['jumlah_user'] = User::get()->count();
-        $this->data['jumlah_keluhan_selesai'] = issues::where('status','=','CLOSE')->get()->count();
-        $this->data['jumlah_prioritas'] = priority::leftjoin('issues', 'priority.id', '=', 'issues.prio_id')
-        ->select('priority.id', 'priority.prio_name', DB::raw("count(issues.prio_id) as count"))
-        ->groupBy('priority.id','priority.prio_name')->get()->toJson();
-        $this->data['jumlah_kategori'] = category::leftjoin('issues', 'category.id', '=', 'issues.cat_id')
-        ->select('category.id', 'category.cat_name', DB::raw("count(issues.cat_id) as count"))
-        ->groupBy('category.id','category.cat_name')->get()->toJson();
-        $this->data['jumlah_selesai'] = issues::where('status','=','CLOSE')->count();
-        $this->data['jumlah_belum'] = issues::where('status','!=','CLOSE')->orWhere('status','=',null)->count();
-        $issue = issues::select('id', 'created_at')
-                ->get()
-                ->groupBy(function($date) {
-                    return Carbon::parse($date->created_at)->format('m');
-                });
-
-                $issue_count = [];
-                $issue_arr = [];
-
-                foreach ($issue as $key => $value) {
-                    $issue_count[(int)$key] = count($value);
-                }
-
-                for($i = 1; $i <= 12; $i++){
-                    if(!empty($issue_count[$i])){
-                        $issue_arr[] = $issue_count[$i];
-                    }else{
-                        $issue_arr[] = 0;
-                    }
-                }
-        $this->data['jumlah_bulan'] = json_encode($issue_arr);
-        if ( (int) $this->data['jumlah_belum'] > 0) {
-          $this->data['performa'] = ((int) $this->data['jumlah_selesai'] / (int) $this->data['jumlah_belum']) * 100;
-        }elseif((int) $this->data['jumlah_selesai'] > 0 && (int) $this->data['jumlah_belum'] ==0){
-          $this->data['performa'] = 100;
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
+        $this->data['priority'] = priority::where('is_active','=',1)->pluck('prio_name','id');
+        $sernum = cat_inventory::with('inventory')->get();
+        foreach ($sernum as $key => $value) {
+            foreach ($value->inventory as $keys => $val) {
+                $sernum[$key]['inventory'][$keys]['sernumid']= $val->sernumid;
+            }
         }
-        else {
-          $this->data['performa'] = 0;
-        }
+        $this->data['sernum'] = $sernum;
+
+        $this->data['ticket']=issues::with(['category','priority','request'])->where([['request_id','=',$user->id],['status','=','CLOSE']])->get();
+        $this->data['ticket_done']=issues::with(['category','priority','request'])->where([['request_id','=',$user->id],['status','=','CLOSE']])->orWhere([['request_id','=',$user->id],['status','=','RT']])->get();
+        
         return view('webuser.konten')->with($this->data);
     }
 

@@ -11,13 +11,13 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="/beranda">
               <i class="material-icons">dashboard</i>
               <p>IT - Helpdesk</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="#">
               <i class="material-icons">person</i>
               <p>User Profile</p>
 						</a>
@@ -31,7 +31,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">IT - Helpdesk</a>
+            <a class="navbar-brand" href="/beranda">IT - Helpdesk</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -53,14 +53,22 @@
               <li class="nav-item dropdown">
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
-                  <span class="notification">2</span>
+                  @if($count_notif>0) <span class="notification">{{$count_notif}}</span>@endif
                   <p class="d-lg-none d-md-block">
                     Some Actions
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Yau have 1 new ticket with high priority</a>
-                  <a class="dropdown-item" href="#">You have 1 new ticket</a>
+                  @foreach($data_notif as $dt)
+                  <a class="dropdown-item" href="{{$dt->link_id}}">
+                    {!! $dt->pesan !!} 
+                  </a>
+                  @endforeach
+                  @if($count_notif==0) 
+                    <a class="dropdown-item" href="#">
+                      Tidak Ada Notifikasi
+                    </a>
+                  @endif
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -74,7 +82,8 @@
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a href="{!! url('/logout') !!}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a>
+                  <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                 </div>
               </li>
             </ul>
@@ -93,47 +102,50 @@
             </div>
 
             <div class="card-body table-responsive">
-              
-              <form class="uk-form-stacked uk-grid-large" uk-grid>
+              <form method="POST" action="http://127.0.0.1:8000/issues" class="uk-form-stacked uk-grid-large" uk-grid>
                 
                 <div class="uk-margin uk-form-grid-medium uk-width-1-2@s">
                   <label class="uk-form-label" for="form-stacked-select">Category</label>
                   <div class="uk-form-controls">
-                    <select class="uk-select" id="form-stacked-select">
-                      <option>System & Security (Login, Antivirus, ETC)</option>
-                      <option>Application</option>
-                    </select>
+                  {!! Form::token() !!}
+                  {!! Form::select('cat_id', $category, null, ['class' => 'uk-select', 'id'=>'form-stacked-select']) !!}
                   </div>
                 </div>
 
                 <div class="uk-form-grid-medium uk-width-1-4@s">
                   <label class="uk-form-label" for="form-stacked-select">Priority</label>
                   <div class="uk-form-controls">
-                    <select class="uk-select" id="form-stacked-select">
-                      <option>Critical</option>
-                      <option>High</option>
-                      <option>Medium</option>
-                      <option>Low</option>
-                    </select>
+                  {!! Form::hidden('request_id', Auth::id(), ['class' => 'form-control']) !!}
+                  {!! Form::hidden('usr', 'a', ['class' => 'form-control']) !!}
+                  {!! Form::select('prio_id', $priority, null, ['class' => 'uk-select', 'id'=>'form-stacked-select']) !!}
                   </div>
                 </div>
-
                 <div class="uk-form-grid-medium uk-width-1-4@s">
                   <label class="uk-form-label" for="form-stacked-select">Location</label>
                   <div class="uk-form-controls">
-                    <select class="uk-select" id="form-stacked-select">
-                      <option>Terminal 3, Unit 1</option>
-                      <option>Terminal 2, Unit 2</option>
-                      <option>Terminal 1, Unit 3</option>
-                      <option>A</option>
-                    </select>
+                  <select class='uk-select' id='form-stacked-select' name="dev_ser_num">
+                      @foreach($sernum as $key => $val)
+                      <optgroup label="{{$val->nama_cat}}">
+                          @foreach($val->inventory as $dt)
+                              <option value="{{$dt->id}}">{{$dt->sernumid}}</option>
+                          @endforeach
+                      </optgroup>
+                      @endforeach
+                  </select>
+                  </div>
+                </div>
+
+                <div class="uk-margin uk-form-grid-medium uk-width-1-2">
+                  <label class="uk-form-label" for="form-stacked-select">Location</label>
+                  <div class="uk-form-controls">
+                  {!! Form::text('location', null, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
+                  
                   </div>
                 </div>
 
                 <div class="uk-margin uk-form-grid-medium uk-width-1-1">
                   <label class="uk-form-label">Problem</label>
-                  <textarea class="uk-textarea" rows="5ß" placeholder="Describe Your Problem Here">
-                  </textarea>
+                  {!! Form::textarea('prob_desc', null, ['class' => 'uk-textarea', 'id' => 'editor' ]) !!}
                 </div>
 
                 <div class="uk-margin">
@@ -153,16 +165,17 @@
               <h4 class="card-title">Solved Tickets</h4>
             </div>
             <div class="card-body table-responsive">
-              <table class="table">
+              <table class="table" style="table-layout: fixed;">
                 
                 <tbody>
-                  <tr>
-                    <td>System & Security (Login, Antivirus, ETC)</td>
-                    <td>Turbo boost up core i5 terlalu banyak Turbo Lag</td>
+                @forelse($ticket as $key => $dt)
+                <tr>
+                    <td>{{$dt->category->cat_name}}</td>
+                    <td>{!! $dt->prob_desc !!}</td>
                     <td> 
-                      <a class="uk-button uk-button-default" href="#modal-open-solution" uk-toggle>Open</a>
+                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$key}}" uk-toggle>Open</a></center>
 
-                       <div id="modal-open-solution" uk-modal>
+                       <div id="modal-open-solution{{$key}}" uk-modal>
                         <div class="uk-modal-dialog">
                           <button class="uk-modal-close-default" type="button" uk-close></button>
                         
@@ -171,40 +184,47 @@
                         </div>
                         
                         <div class="uk-modal-body">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            {!! $dt->solution_desc !!}
                         </div>
                         <div class="uk-modal-footer uk-text-right">
-                          <a href="#modal-rating" class="uk-button uk-button-primary" uk-toggle>Done</a>
+                          <a href="#modal-rating{{$key}}" class="uk-button uk-button-primary" uk-toggle>Done</a>
                         </div>
                       </div>
                     </div>
 
-                    <div id="modal-rating" uk-modal>
+                    <div id="modal-rating{{$key}}" uk-modal>
                       <div class="uk-modal-dialog">
                       <div class="uk-modal-header">
                         <h2 class="uk-modal-title">Rate Me!</h2>
                       </div>
                       
                       <div class="uk-modal-body">
-                        <form>
+                      {!! Form::open(['route' => ['issues.update', $dt->id], 'method' => 'patch']) !!}
+                      {!! Form::hidden('status', 'RT', ['class' => 'form-control'])!!}
+                      {!! Form::hidden('usr', 'a', ['class' => 'form-control']) !!}
                          <fieldset class="rating">
-                              <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-                              <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                              <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-                              <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-                              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                              <input type="radio" id="star5" name="rate" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                              <input type="radio" id="star4" name="rate" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                              <input type="radio" id="star3" name="rate" value="3" /><label for="star3" title="Meh">3 stars</label>
+                              <input type="radio" id="star2" name="rate" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                              <input type="radio" id="star1" name="rate" value="1" /><label for="star1" title="Sucks big time">1 star</label>
                             </fieldset>
-                        </form>
                       </div>
                       
                       <div class="uk-modal-footer uk-text-right">
-                          <a href="#modal-rating" class="uk-button uk-button-primary" uk-toggle>Done</a>
+                          <button class="uk-button uk-button-primary" uk-toggle>Done</button>
                       </div>
+                      {!! Form::close() !!}
                     </div>
                     </div>
 
                     </td>
                   </tr>
+                @empty
+                  <tr>
+                    <td>No Data</td>
+                  </tr>
+                @endforelse
                 </tbody>
         
               </table>
@@ -219,21 +239,27 @@
             </div>
 
             <div class="card-body">
-              <table class="table">
+              <table class="table" style="table-layout: fixed;">
                 <tbody>
+                 @forelse($ticket_done as $key => $dt)
                   <tr>
-                    <td>
+                    <td width="10%">
                       <div class="form-check">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <input class="form-check-input" type="checkbox" value="" disabled='disabled' checked>
                           <span class="form-check-sign">
                             <span class="check"></span>
                           </span>
                         </label>
                       </div>
                     </td>
-                    <td>Turbo boost up core i5 terlalu banyak Turbo Lag</td>
+                    <td>{!! $dt->prob_desc !!}</td>
                   </tr>
+                @empty
+                  <tr>
+                    <td>No Data</td>
+                  </tr>
+                @endforelse
                 </tbody>
               </table>
             </div>
