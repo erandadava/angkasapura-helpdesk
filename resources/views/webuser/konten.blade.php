@@ -13,7 +13,7 @@
           <li class="nav-item active  ">
             <a class="nav-link" href="./dashboard.html">
               <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+              <p>IT - Helpdesk</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -31,7 +31,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Dashboard</a>
+            <a class="navbar-brand" href="#pablo">IT - Helpdesk</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -86,131 +86,167 @@
 	<div class="content">
 		<div class="container-fluid">
     	<div class="row">
-    		<div class=" col-md-4 col-sm-6 col-xs-12">
-        	<div class="card card-stats">
-          	<div class="card-header card-header-warning card-header-icon">
-            	<div class="card-icon">
-              	<i class="material-icons">content_copy</i>
-            	</div>
-            	<p class="card-category">Ticket</p>
-            	<h3 class="card-title">7
-            	</h3>
-          	</div>
-          	<div class="card-footer">
-            	<div class="stats">
-              	<i class="material-icons text-danger">warning</i>
-              	<a href="#pablo">Get It Done...</a>
-            	</div>
-          	</div>
-        	</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="card card-stats">
-          	<div class="card-header card-header-danger card-header-icon">
-            	<div class="card-icon">
-              	<i class="fa fa-tachometer"></i>
-              </div>
-              <p class="card-category">Performance</p>
-              <h3 class="card-title">50%</h3>
+				<div class="col-lg-12 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">Create Ticket </h4>
             </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">date_range</i> Last 1 Month
-              </div>
-            </div>
-          </div>
-				 </div>
-				 
-				 <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-check-square-o"></i>
-                  </div>
-                  <p class="card-category">Completed Task</p>
-                  <h3 class="card-title">86</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">update</i> Just Updated
-                  </div>
-                </div>
-              </div>
-            </div>
-        	</div>
 
-				<div class="row">
-				  <div class="col-lg-8 col-md-12">
-            <div class="card">
+            <div class="card-body table-responsive">
               
-              <div class="card-header card-header-primary">
-                <h4 class="card-title">Your Tickets </h4>
-              </div>
-
-              <div class="card-body table-responsive">
-                <table class="table">
-                  <thead>
-                    <th>Priority</th>
-                    <th>Category</th>
-                    <th>Problem</th>
-                    <th>Location</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </thead>
-                  
-                  <tbody>
-                    <tr>
-                      <td><span class="uk-label uk-label-danger">High</span></td>
-                      <td>System & Security</td>
-                      <td>Cpu Kemasukan Oli Buzz, Processor Turbo boost up hingga 2.5 Bar</td>
-                      <td>Terminal 3, Unit 1, Meja ABCD</td>
-                      <td><span class="uk-label">Forwarded to IT Support</span></td>
-                      <td>
-                        <a id="js-modal-prompt" class="uk-button uk-button-default" href="#">Take</a>
-                      </td>
-                    </tr>
-                  </tbody>
+              <form class="uk-form-stacked uk-grid-large" uk-grid>
+                
+                <div class="uk-margin uk-form-grid-medium uk-width-1-2@s">
+                  <label class="uk-form-label" for="form-stacked-select">Category</label>
+                  <div class="uk-form-controls">
+                    <select class="uk-select" id="form-stacked-select">
+                      <option>System & Security (Login, Antivirus, ETC)</option>
+                      <option>Application</option>
+                    </select>
+                  </div>
                 </div>
+
+                <div class="uk-form-grid-medium uk-width-1-4@s">
+                  <label class="uk-form-label" for="form-stacked-select">Priority</label>
+                  <div class="uk-form-controls">
+                    <select class="uk-select" id="form-stacked-select">
+                      <option>Critical</option>
+                      <option>High</option>
+                      <option>Medium</option>
+                      <option>Low</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="uk-form-grid-medium uk-width-1-4@s">
+                  <label class="uk-form-label" for="form-stacked-select">Location</label>
+                  <div class="uk-form-controls">
+                    <select class="uk-select" id="form-stacked-select">
+                      <option>Terminal 3, Unit 1</option>
+                      <option>Terminal 2, Unit 2</option>
+                      <option>Terminal 1, Unit 3</option>
+                      <option>A</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="uk-margin uk-form-grid-medium uk-width-1-1">
+                  <label class="uk-form-label">Problem</label>
+                  <textarea class="uk-textarea" rows="5ß" placeholder="Describe Your Problem Here">
+                  </textarea>
+                </div>
+
+                <div class="uk-margin">
+                  <button type="submit" class="uk-button uk-button-primary">Send Ticket</button>
+                </div>
+
+              </form>
             </div>
           </div>
         </div>
-        <div class="col-lg-6 col-md-12">
-              <div class="card">
-                <div class="card-header card-header-warning">
-                  <h4 class="card-title">Tickets History</h4>
-                </div>
-                <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" value="" checked>
-                            <span class="form-check-sign">
-                              <span class="check"></span>
-                            </span>
-                          </div>
-                        </td>
-                        <td>Cpu Kemasukan Oli Buzz, Processor Turbo boost up hingga 2.5 Bar</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
       </div>
+
+      <div class="row">
+        <div class="col-lg-8 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <h4 class="card-title">Solved Tickets</h4>
+            </div>
+            <div class="card-body table-responsive">
+              <table class="table">
+                
+                <tbody>
+                  <tr>
+                    <td>System & Security (Login, Antivirus, ETC)</td>
+                    <td>Turbo boost up core i5 terlalu banyak Turbo Lag</td>
+                    <td> 
+                      <a class="uk-button uk-button-default" href="#modal-open-solution" uk-toggle>Open</a>
+
+                       <div id="modal-open-solution" uk-modal>
+                        <div class="uk-modal-dialog">
+                          <button class="uk-modal-close-default" type="button" uk-close></button>
+                        
+                        <div class="uk-modal-header">
+                          <h2 class="uk-modal-title">Solution</h2>
+                        </div>
+                        
+                        <div class="uk-modal-body">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                        <div class="uk-modal-footer uk-text-right">
+                          <a href="#modal-rating" class="uk-button uk-button-primary" uk-toggle>Done</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="modal-rating" uk-modal>
+                      <div class="uk-modal-dialog">
+                      <div class="uk-modal-header">
+                        <h2 class="uk-modal-title">Rate Me!</h2>
+                      </div>
+                      
+                      <div class="uk-modal-body">
+                        <form>
+                         <fieldset class="rating">
+                              <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                              <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                              <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                              <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                            </fieldset>
+                        </form>
+                      </div>
+                      
+                      <div class="uk-modal-footer uk-text-right">
+                          <a href="#modal-rating" class="uk-button uk-button-primary" uk-toggle>Done</a>
+                      </div>
+                    </div>
+                    </div>
+
+                    </td>
+                  </tr>
+                </tbody>
         
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-success">
+              <h4 class="card-title">Tickets History</h4>
+            </div>
+
+            <div class="card-body">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      Turbo boost up core i5 terlalu banyak Turbo Lag
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>        
 </body>
 
-<script>
-   UIkit.util.on('#js-modal-prompt', 'click', function (e) {
-           e.preventDefault();
-           e.target.blur();
-           UIkit.modal.prompt('Solution:', 'Your Solution').then(function (solution) {
-               console.log('Prompted:', solution)
-           });
-       });
-</script>
 @endsection
