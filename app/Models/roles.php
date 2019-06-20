@@ -17,7 +17,6 @@ use Eloquent as Model;
  */
 class roles extends Model
 {
-    // use SoftDeletes;
 
     public $table = 'roles';
     
