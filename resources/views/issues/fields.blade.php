@@ -51,16 +51,18 @@
 
 @hasrole('IT Support|IT Administrator|IT Operasional')
 
-@if($issues->status == 'ITOPS')
-<div class="form-group col-sm-12 col-lg-12">
-        {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
-        {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
-</div>
-@elseif($issues->status == 'CLOSE')
-<div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
-    {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor3']) !!}
-</div>
+@if(isset($issues))
+    @if($issues->status == 'ITOPS')
+    <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
+            {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
+    </div>
+    @elseif($issues->status == 'CLOSE')
+    <div class="form-group col-sm-12 col-lg-12">
+        {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
+        {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor3']) !!}
+    </div>
+    @endif
 @endif
 
 @endrole 

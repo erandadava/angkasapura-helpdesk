@@ -7,13 +7,13 @@
 <!-- Cat Id Field -->
 <div class="form-group">
     {!! Form::label('cat_id', 'Kategori:') !!}
-    <p>{!! $issues->category->cat_name !!}</p>
+    <p>{!! $issues->category->cat_name ?? '' !!}</p>
 </div>
 
 <!-- Prio Id Field -->
 <div class="form-group">
     {!! Form::label('prio_id', 'Prioritas:') !!}
-    <p>{!! $issues->priority->prio_name !!}</p>
+    <p>{!! $issues->priority->prio_name ?? '' !!}</p>
 </div>
 
 <!-- Request Id Field -->
@@ -30,7 +30,7 @@
 
 <div class="form-group">
     {!! Form::label('dev_ser_num', 'Serial Number/Device ID:') !!}
-    <p>{!! $issues->sernum->sernumid !!}</p>
+    <p>{!! $issues->sernum->sernumid ?? '' !!}</p>
 </div>
 
 <!-- Prob Desc Field -->
@@ -85,7 +85,7 @@
 <!-- Complete By Field -->
 <div class="form-group">
     {!! Form::label('complete_by', 'Selesai Oleh:') !!}
-    <p>{!! $issues->complete->name ?? ''!!}</p>
+    <p>{!! $issues->complete->name ?? '' ?? ''!!}</p>
 </div>
 
 <!-- Issue Date Field -->
