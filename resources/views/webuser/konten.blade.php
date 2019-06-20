@@ -121,7 +121,7 @@
                   </div>
                 </div>
                 <div class="uk-form-grid-medium uk-width-1-4@s">
-                  <label class="uk-form-label" for="form-stacked-select">Location</label>
+                  <label class="uk-form-label" for="form-stacked-select">Serial Number/Device ID</label>
                   <div class="uk-form-controls">
                   <select class='uk-select' id='form-stacked-select' name="dev_ser_num">
                       @foreach($sernum as $key => $val)

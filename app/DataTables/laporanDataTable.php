@@ -51,9 +51,8 @@ class laporanDataTable extends DataTable
         if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
             return $model->with(['category','priority','request'])->newQuery();
         }
-        return $model->with(['category','priority','request','inventory'])->where('request_id','=',$user->id)
-        ->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)
-        ->orWhere('inventory.users','=',$laporan->id)->Where('status', '=', 'CLOSE')->newQuery();
+        return $model->with(['category','priority','request','users'])->where('request_id','=',$user->id)
+        ->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->newQuery();
     }
 
     /**
