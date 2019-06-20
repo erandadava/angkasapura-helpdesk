@@ -226,8 +226,6 @@ class issuesController extends AppBaseController
 
     public function laporan(laporanDataTable $laporanDataTable, Request $request)
     {
-
-        // return $this->notifikasiController->update_baca($request->n);
         return $laporanDataTable->render('laporans.index');
     }
 }

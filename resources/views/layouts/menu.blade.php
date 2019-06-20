@@ -31,6 +31,11 @@
 <li class="{{ Request::is('catInventories*') ? 'active' : '' }}">
     <a href="{!! route('catInventories.index') !!}"><i class="fa fa-edit"></i><span>Kategori Inventaris</span></a>
 </li>
+
+<li class="{{ Request::is('laporans*') ? 'active' : '' }}">
+    <a href="{!! route('laporans.index') !!}"><i class="fa fa-edit"></i><span>Laporan</span></a>
+</li>
+
 @endrole
 @role('User')
 <li class="treeview menu-open">
