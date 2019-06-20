@@ -102,7 +102,7 @@
             </div>
 
             <div class="card-body table-responsive">
-              <form method="POST" action="http://127.0.0.1:8000/issues" class="uk-form-stacked uk-grid-large" uk-grid>
+              <form method="POST" action="/issues" class="uk-form-stacked uk-grid-large" uk-grid>
                 
                 <div class="uk-margin uk-form-grid-medium uk-width-1-2@s">
                   <label class="uk-form-label" for="form-stacked-select">Category</label>
