@@ -138,7 +138,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright © Angkasa Pura, All rights reserved. In partner with Ayrio Star Mandiri. </strong>
+            <strong>Copyright © {{date('Y')}} Angkasa Pura, All rights reserved. In partner with Ayrio Star Mandiri. </strong>
         </footer>
 
     </div>
