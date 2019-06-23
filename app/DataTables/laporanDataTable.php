@@ -45,15 +45,14 @@ class laporanDataTable extends DataTable
     public function query(issues $model)
     {   
         $user = Auth::user();
-        $laporan = inventory::user();
         $roles = $user->getRoleNames();
 
         if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
             return $model->with(['category','priority','request'])->newQuery();
         }
-        return $model->with(['category','priority','request','inventory'])->where('request_id','=',$user->id)
+        return $model->with(['category','priority','request'])->where('request_id','=',$user->id)
         ->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)
-        ->orWhere('inventory.users','=',$laporan->id)->Where('status', '=', 'CLOSE')->newQuery();
+        ->where('complete_date', '=','Y')->newQuery();
     }
 
     /**
@@ -88,7 +87,7 @@ class laporanDataTable extends DataTable
     {
         return [
             ['data' => 'id','visible' => false],
-            ['data' => 'users.name', 'title' => 'Name'],
+            ['data' => 'request.name', 'title' => 'Name'],
             ['data' => 'location', 'title' => 'Lokasi'],
             ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
             ['data' => 'issue_id', 'title' => 'issue ID'],
