@@ -69,6 +69,7 @@
             <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
+            <li class=""><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
           </ul>
 </li>
 @endrole
@@ -86,6 +87,7 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
             <li class=""><a href="/issues?p=a"><i class="fa fa-circle-o"></i> Penilaian</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+            <li class=""><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
           </ul>
 </li>
 @endrole
@@ -104,6 +106,7 @@
             <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
+            <li class=""><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
           </ul>
 </li>
 @endrole
@@ -119,6 +122,10 @@
           <ul class="treeview-menu">
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
+            <li class="{{ (Request::is('inventories*') && !isset($_GET['n'])) ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
+            <li class="{{ isset($_GET['n']) ? 'active' : '' }}"><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
           </ul>
 </li>
 @endrole

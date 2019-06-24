@@ -70,7 +70,9 @@ class inventory extends Model
         'made_in',
         'made_year',
         'vendor_name',
-        'is_active'
+        'is_active',
+        'tgl_pembelian',
+        'tgl_penyerahan'
     ];
 
     /**

@@ -1,7 +1,7 @@
 <!-- Cat Id Field -->
 <div class="form-group">
     {!! Form::label('cat_id', 'Category/Type Device:') !!}
-    <p>{!! $inventory->cat_id !!}</p>
+    <p>{!! $inventory->cat_inventory->nama_cat ?? '' !!}</p>
 </div>
 
 <!-- Pos Unit Field -->
@@ -32,6 +32,16 @@
 <div class="form-group">
     {!! Form::label('merk', 'Merk:') !!}
     <p>{!! $inventory->merk !!}</p>
+</div>
+
+<div class="form-group">
+    {!! Form::label('tgl_pembelian', 'Tanggal Pembelian:') !!}
+    <p>{!! $inventory->tgl_pembelian !!}</p>
+</div>
+
+<div class="form-group">
+    {!! Form::label('tgl_penyerahan', 'Tanggal Penyerahan:') !!}
+    <p>{!! $inventory->tgl_penyerahan !!}</p>
 </div>
 
 <!-- Type Alat Field -->

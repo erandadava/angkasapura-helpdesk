@@ -37,6 +37,8 @@ class InventoryTable extends Migration
             $table->string('made_year')->nullable();
             $table->string('vendor_name')->nullable();
             $table->boolean('is_active')->nullable();
+            $table->date('tgl_pembelian')->nullable();
+            $table->date('tgl_penyerahan')->nullable();
             $table->timestamps();
             $table->softDeletes();
             

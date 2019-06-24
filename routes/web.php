@@ -26,7 +26,7 @@ Route::get('register/verify', 'Auth\RegisterController@verify')->name('verifyEma
 Route::get('register/verify/resend', 'Auth\RegisterController@showResendVerificationEmailForm')->name('showResendVerificationEmailForm');
 Route::post('register/verify/resend', 'Auth\RegisterController@resendVerificationEmail')->name('resendVerificationEmail');
 
-Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|Admin','isEmailVerified']], function ()
+Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|Admin|IT Non Public','isEmailVerified']], function ()
 {
 
     Route::resource('categories', 'categoryController');
