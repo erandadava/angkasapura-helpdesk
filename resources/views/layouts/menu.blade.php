@@ -35,7 +35,9 @@
 <li class="{{ Request::is('laporans*') ? 'active' : '' }}">
     <a href="{!! route('laporans.index') !!}"><i class="fa fa-edit"></i><span>Laporan</span></a>
 </li>
-
+<li class="{{ Request::is('users*') ? 'active' : '' }}">
+    <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>User</span></a>
+</li>
 @endrole
 @role('User')
 <li class="treeview menu-open">
@@ -117,9 +119,6 @@
           <ul class="treeview-menu">
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
-            <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
           </ul>
 </li>
 @endrole

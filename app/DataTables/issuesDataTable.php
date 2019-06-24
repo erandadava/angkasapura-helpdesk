@@ -23,7 +23,7 @@ class issuesDataTable extends DataTable
             if ($inquiry->status == 'RITADM') return "<span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span>";
             if ($inquiry->status == 'AITADM') return "<span class='label label-success'>Diterima IT Administrator</span>";
             if ($inquiry->status == 'ITSP') return "<span class='label label-info'>Diteruskan ke IT Support</span>";
-            if ($inquiry->status == 'RITSP') return "<span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Support</span>";
+            if ($inquiry->status == 'RITSP') return "<span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator</span>";
             if ($inquiry->status == 'AITSP') return "<span class='label label-warning'>Menunggu Solusi Dari IT Support</span>";
             if ($inquiry->status == 'ITOPS') return "<span class='label label-warning'>Menunggu Solusi Dari IT OPS</span>";
             if ($inquiry->status == 'CLOSE') return "<span class='label label-success'>Keluhan Ditutup</span>";
@@ -48,6 +48,9 @@ class issuesDataTable extends DataTable
 
         if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
             return $model->with(['category','priority','request'])->newQuery();
+        }
+        if($roles[0] == "IT Non Public"){
+            return $model->with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->newQuery();
         }
         return $model->with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->newQuery();
     }
