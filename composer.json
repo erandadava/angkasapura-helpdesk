@@ -7,6 +7,7 @@
     "require": {
         "php": ">=7.0.0",
         "aschmelyun/larametrics": "^1.1",
+        "barryvdh/laravel-dompdf": "^0.8.4",
         "fideloper/proxy": "~3.3",
         "josiasmontag/laravel-email-verification": "^1.2",
         "laravel/framework": "5.5.*",
