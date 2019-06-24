@@ -7,6 +7,7 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Auth;
 use App\Models\inventory;
+use Carbon;
 
 class laporanDataTable extends DataTable
 {
@@ -52,7 +53,7 @@ class laporanDataTable extends DataTable
         }
         return $model->with(['category','priority','request'])->where('request_id','=',$user->id)
         ->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)
-        ->where('complete_date', '=','Y')->newQuery();
+        ->where('complete_date', '=', Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $timestemp)->monthS)->newQuery();
     }
 
     /**
@@ -93,7 +94,7 @@ class laporanDataTable extends DataTable
             ['data' => 'issue_id', 'title' => 'issue ID'],
             ['data' => 'prob_desc', 'title' => 'Keluhan'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
-            ['data' => 'complete_date', 'title' => 'tgl Selesai'],
+            ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
         ]; 
     }
 
