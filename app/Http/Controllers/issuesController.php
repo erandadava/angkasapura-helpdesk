@@ -25,6 +25,7 @@ use Auth;
 use App\Repositories\ratingRepository;
 use App\Models\issues;
 use App\DataTables\laporanDataTable;
+use App\DataTables\laporanhariDataTable;
 use App\Models\inventory;
 use App\Models\cat_inventory;
 use Alert;
@@ -227,5 +228,10 @@ class issuesController extends AppBaseController
     public function laporan(laporanDataTable $laporanDataTable, Request $request)
     {
         return $laporanDataTable->render('laporans.index');
+    }
+
+    public function laporan_hari(laporanhariDataTable $laporanhariDataTable, Request $request)
+    {
+        return $laporanhariDataTable->render('laporans.laporanhari');
     }
 }
