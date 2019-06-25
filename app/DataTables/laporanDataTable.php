@@ -45,16 +45,8 @@ class laporanDataTable extends DataTable
      */
     public function query(issues $model)
     {   
-        // $user = Auth::user();
-        // $roles = $user->getRoleNames();
-        // if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
-        //     return $model->with(['category','priority','request'])->newQuery();
-        // }
-        // return $model->with(['category','priority','request'])->where('request_id','=',$user->id)
-        // ->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)
-        // ->orWhere('complete_date', '=', $now->year)->newQuery();
-        $now = Carbon::now();
-        return $model->with(['category','priority','request'])->whereMonth('complete_date', '=', $now->month)->newQuery();
+       $now = Carbon::now();
+       return $model->with(['category','priority','request'])->whereMonth('complete_date', '=', $now->month)->newQuery();
 
     }
 

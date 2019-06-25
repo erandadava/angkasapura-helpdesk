@@ -41,7 +41,7 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
 
     Route::resource('catInventories', 'cat_inventoryController');
     Route::resource('inventories', 'inventoryController');
-    Route::get('/laporan', 'issuesController@laporan')->name('laporans.index');
+    Route::get('/laporanbulanan', 'issuesController@laporan')->name('laporans.index');
     
 });
 
