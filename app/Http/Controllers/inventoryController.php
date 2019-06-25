@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\inventoryDataTable;
+use App\DataTables\laporanInventoryDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateinventoryRequest;
 use App\Http\Requests\UpdateinventoryRequest;
@@ -11,6 +12,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 use App\Models\cat_inventory;
+use Illuminate\Http\Request;
 
 class inventoryController extends AppBaseController
 {
@@ -29,8 +31,11 @@ class inventoryController extends AppBaseController
      * @param inventoryDataTable $inventoryDataTable
      * @return Response
      */
-    public function index(inventoryDataTable $inventoryDataTable)
+    public function index(inventoryDataTable $inventoryDataTable, laporanInventoryDataTable $laporanInventoryDataTable, Request $request)
     {
+        if($request->n){
+            return $laporanInventoryDataTable->render('inventories.indexlaporan');
+        }
         return $inventoryDataTable->render('inventories.index');
     }
 
@@ -71,15 +76,15 @@ class inventoryController extends AppBaseController
      */
     public function show($id)
     {
-        $inventory = $this->inventoryRepository->findWithoutFail($id);
+        $this->data['inventory'] = $this->inventoryRepository->with('cat_inventory')->findWithoutFail($id);
 
-        if (empty($inventory)) {
+        if (empty($this->data['inventory'])) {
             Flash::error('Inventory not found');
 
             return redirect(route('inventories.index'));
         }
 
-        return view('inventories.show')->with('inventory', $inventory);
+        return view('inventories.show')->with($this->data);
     }
 
     /**

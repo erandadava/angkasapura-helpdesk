@@ -34,6 +34,16 @@
     {!! Form::text('merk', null, ['class' => 'form-control']) !!}
 </div>
 
+<div class="form-group col-sm-6">
+    {!! Form::label('tgl_pembelian', 'Tanggal Pembelian:') !!}
+    {!! Form::text('tgl_pembelian', null, ['class' => 'form-control','id'=>'tgl_pembelian']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('tgl_penyerahan', 'Tanggal Penyerahan:') !!}
+    {!! Form::text('tgl_penyerahan', null, ['class' => 'form-control','id'=>'tgl_penyerahan']) !!}
+</div>
+
 <!-- Type Alat Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('type_alat', 'Type Alat:') !!}
@@ -136,3 +146,19 @@
     {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
     <a href="{!! route('inventories.index') !!}" class="btn btn-default">Batal</a>
 </div>
+
+
+@section('scripts')
+    <script type="text/javascript">
+        $('#tgl_pembelian').datetimepicker({
+            format: 'Y-MM-DD',
+            useCurrent: false
+        });
+ 
+        $('#tgl_penyerahan').datetimepicker({
+            format: 'Y-MM-DD',
+            useCurrent: false
+        });
+    </script>
+    
+@endsection

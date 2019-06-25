@@ -2,12 +2,10 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Laporan Bulanan</h1>
-        @hasrole('User')
-            <h1 class="pull-right">
-            <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('issues.create') !!}">Add New</a>
-            </h1>
-        @endhasrole
+        <h1 class="pull-left">Laporan Inventaris</h1>
+        <h1 class="pull-right">
+           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('inventories.create') !!}">Add New</a>
+        </h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -17,7 +15,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                    @include('issues.table')
+                    @include('inventories.table')
             </div>
         </div>
         <div class="text-center">

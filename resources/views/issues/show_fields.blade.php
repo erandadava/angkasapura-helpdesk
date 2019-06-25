@@ -57,7 +57,7 @@
     @if ($issues->status == 'RITADM') <span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span> @endif
     @if ($issues->status == 'AITADM') <span class='label label-success'>Diterima IT Administrator</span> @endif
     @if ($issues->status == 'ITSP') <span class='label label-info'>Diteruskan ke IT Support</span> @endif
-    @if ($issues->status == 'RITSP') <span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Support</span> @endif
+    @if ($issues->status == 'RITSP') <span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator</span> @endif
     @if ($issues->status == 'AITSP') <span class='label label-warning'>Menunggu Solusi Dari IT Support</span> @endif
     @if ($issues->status == 'ITOPS') <span class='label label-warning'>Menunggu Solusi Dari IT OPS</span> @endif
     @if ($issues->status == 'CLOSE') <span class='label label-success'>Keluhan Ditutup</span> @endif
@@ -127,9 +127,9 @@
 
 @hasrole('IT Support')
   @if($issues->status == 'ITSP')
-  <div class="form-group col-md-2 col-sm-12">
+  <div class="form-group col-md-3 col-sm-12">
           <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItOPS">
-              <i class="glyphicon glyphicon-share"></i> Ajukan ke  IT OPS
+              <i class="glyphicon glyphicon-share"></i> Tidak Dapat Mengatasi Keluhan
           </button>
   </div>
   <div id="myModalItOPS" class="modal fade" role="dialog">
@@ -139,20 +139,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Ajukan ke IT OPS</h4>
+        <h4 class="modal-title">Tidak Dapat Mengatasi Keluhan</h4>
       </div>
       <div class="modal-body">
         <div class="row">
         {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
-        {!! Form::hidden('status', 'ITOPS', ['class' => 'form-control'])!!}
+        {!! Form::hidden('status', 'RITSP', ['class' => 'form-control'])!!}
         <div class="form-group col-sm-12 col-lg-12">
             {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
             {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
-        </div>
-        <div class="form-group col-sm-12 col-lg-6">
-            {!! Form::label('assign_it_ops', 'Assign User :') !!}
-          </br>
-            {!! Form::select('assign_it_ops',$it_ops, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
         </div>
         </div>
       </div>
@@ -202,6 +197,42 @@
       {!! Form::close() !!}
     </div>
   </div>
+
+  @endif
+
+  @if($issues->status == 'RITSP')
+  <div class="form-group col-md-2 col-sm-12">
+          <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItOPS">
+              <i class="glyphicon glyphicon-share"></i> Ajukan ke IT OPS
+          </button>
+  </div>
+  <div id="myModalItOPS" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ajukan ke IT OPS</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+        {!! Form::hidden('status', 'ITOPS', ['class' => 'form-control'])!!}
+        <div class="form-group col-sm-12 col-lg-6">
+            {!! Form::label('assign_it_ops', 'Assign User :') !!}
+          </br>
+            {!! Form::select('assign_it_ops',$it_ops, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
+      </div>
+    </div>
+    {!! Form::close() !!}
+  </div>
+</div>
 
   @endif
 @endhasrole
@@ -373,7 +404,7 @@
   @endif
 @endhasrole
 
-@hasrole('IT Administrator')
+@hasrole('IT Non Public')
     @if($issues->status=="CLOSE" && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops) 
     <!-- Button untuk IT NP -->
     <div class="form-group col-md-2 col-sm-12">

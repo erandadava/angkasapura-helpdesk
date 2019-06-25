@@ -85,16 +85,32 @@ class notifikasiController extends AppBaseController
                     $input['user_id'] = $keluhan->request_id;
                     break;
                 case 'CLOSE':
+                    if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops){
+                        $input['pesan'] = "<p><span class='label label-info'>Berikan Rating</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                        $input['user_id'] =  6;
+                        $notifikasi = $this->notifikasiRepository->create($input);
+                        $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
+                        $this->notifikasiRepository->update($input, $notifikasi->id);
+                    }
                     $input['pesan'] = "<p><span class='label label-success'>Keluhan Ditutup</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->request_id;
                     break;
                 case 'RT':
                     if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops){
-                        $input['pesan'] = "<p><span class='label label-success'>Rating dari IT Administrator</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                        $input['pesan'] = "<p><span class='label label-success'>Rating dari IT Non Public</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     }else{
                         $input['pesan'] = "<p><span class='label label-success'>Rating dari User</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>"; 
                     }
                     $input['user_id'] = $keluhan->complete_by;
+                    break;
+                case 'RITSP':
+                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = null;
+                    $notifikasi = $this->notifikasiRepository->create($input);
+                    $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
+                    $this->notifikasiRepository->update($input, $notifikasi->id);
+                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
                     break;
                 default:
                     $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";

@@ -7,6 +7,7 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Auth;
 use App\Models\inventory;
+use Carbon\Carbon;
 
 class laporanDataTable extends DataTable
 {
@@ -44,15 +45,9 @@ class laporanDataTable extends DataTable
      */
     public function query(issues $model)
     {   
-        $user = Auth::user();
-        $roles = $user->getRoleNames();
+       $now = Carbon::now();
+       return $model->with(['category','priority','request'])->whereMonth('complete_date', '=', $now->month)->newQuery();
 
-        if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
-            return $model->with(['category','priority','request'])->newQuery();
-        }
-        return $model->with(['category','priority','request'])->where('request_id','=',$user->id)
-        ->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)
-        ->where('complete_date', '=','Y')->newQuery();
     }
 
     /**
@@ -93,7 +88,7 @@ class laporanDataTable extends DataTable
             ['data' => 'issue_id', 'title' => 'issue ID'],
             ['data' => 'prob_desc', 'title' => 'Keluhan'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
-            ['data' => 'complete_date', 'title' => 'tgl Selesai'],
+            ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
         ]; 
     }
 
