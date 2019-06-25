@@ -7,7 +7,7 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Auth;
 use App\Models\inventory;
-use Carbon;
+use Carbon\Carbon;
 
 class laporanDataTable extends DataTable
 {
@@ -45,15 +45,17 @@ class laporanDataTable extends DataTable
      */
     public function query(issues $model)
     {   
-        $user = Auth::user();
-        $roles = $user->getRoleNames();
+        // $user = Auth::user();
+        // $roles = $user->getRoleNames();
+        // if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
+        //     return $model->with(['category','priority','request'])->newQuery();
+        // }
+        // return $model->with(['category','priority','request'])->where('request_id','=',$user->id)
+        // ->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)
+        // ->orWhere('complete_date', '=', $now->year)->newQuery();
+        $now = Carbon::now();
+        return $model->with(['category','priority','request'])->whereMonth('complete_date', '=', $now->month)->newQuery();
 
-        if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
-            return $model->with(['category','priority','request'])->newQuery();
-        }
-        return $model->with(['category','priority','request'])->where('request_id','=',$user->id)
-        ->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)
-        ->where('complete_date', '=', Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $timestemp)->monthS)->newQuery();
     }
 
     /**
