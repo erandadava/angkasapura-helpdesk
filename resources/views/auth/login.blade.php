@@ -126,15 +126,15 @@
 <div class="main">
     <div class="col-md-6 col-sm-12">
         <div class="login-form">
-            <form method="post" action="{{ url('/login') }}">
+            <form method="post" action="{{ url('https://developer.angkasapura2.co.id/mobile/ldap/is_valid/') }}">
                 {!! csrf_field() !!}
 
-                <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }} ">
-                    <label style="color: #fff;">Email</label>
-                    <input style="font-size:medium;" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
-                    @if ($errors->has('email'))
+                <div class="form-group has-feedback {{ $errors->has('username') ? ' has-error' : '' }} ">
+                    <label style="color: #fff;">Username</label>
+                    <input style="font-size:medium;" type="username" class="form-control" name="username" value="{{ old('username') }}" placeholder="Username">
+                    @if ($errors->has('username'))
                         <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
+                        <strong>{{ $errors->first('username') }}</strong>
                         </span>
                     @endif
                 </div>

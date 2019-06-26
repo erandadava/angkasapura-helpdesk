@@ -18,7 +18,7 @@ class User extends Authenticatable implements CanVerifyEmailContract
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username'
     ];
 
     /**
