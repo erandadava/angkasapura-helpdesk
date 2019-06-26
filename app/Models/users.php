@@ -30,7 +30,9 @@ class users extends Model
         'name',
         'email',
         'password',
-        'remember_token'
+        'remember_token',
+        'username',
+        'verified'
     ];
 
     /**
@@ -41,6 +43,7 @@ class users extends Model
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
+        'username' => 'string',
         'email' => 'string',
         'password' => 'string',
         'remember_token' => 'string'

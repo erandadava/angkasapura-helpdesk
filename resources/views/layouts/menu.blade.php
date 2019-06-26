@@ -26,15 +26,20 @@
 </li> -->
 
 <li class="{{ Request::is('issues*') ? 'active' : '' }}">
-    <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Keluhan</span></a>
+    <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Ticket</span></a>
 </li>
 <li class="{{ Request::is('catInventories*') ? 'active' : '' }}">
     <a href="{!! route('catInventories.index') !!}"><i class="fa fa-edit"></i><span>Kategori Inventaris</span></a>
 </li>
 
 <li class="{{ Request::is('laporans*') ? 'active' : '' }}">
-    <a href="{!! route('laporans.index') !!}"><i class="fa fa-edit"></i><span>Laporan</span></a>
+    <a href="{!! route('laporans.index') !!}"><i class="fa fa-edit"></i><span>Laporan Bulan</span></a>
 </li>
+
+<li class="{{ Request::is('laporans*') ? 'active' : '' }}">
+  <a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-edit"></i><span>Laporan hari</span></a>
+</li>
+
 <li class="{{ Request::is('users*') ? 'active' : '' }}">
     <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>User</span></a>
 </li>
@@ -64,10 +69,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticket</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
             <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+            <li class=""><a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="{!! route('laporans.index') !!}"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
             <li class=""><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
           </ul>
@@ -83,10 +88,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticket</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
             <li class=""><a href="/issues?p=a"><i class="fa fa-circle-o"></i> Penilaian</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+            <li class=""><a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
           </ul>
 </li>
@@ -101,10 +106,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticket</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
             <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+            <li class=""><a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="{!! route('laporans.index') !!}"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
             <li class=""><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
           </ul>
@@ -120,10 +125,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Keluhan</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticket</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Preventive</a></li>
             <li class="{{ (Request::is('inventories*') && !isset($_GET['n'])) ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
+            <li class=""><a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="{!! route('laporans.index') !!}"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
             <li class="{{ isset($_GET['n']) ? 'active' : '' }}"><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
           </ul>

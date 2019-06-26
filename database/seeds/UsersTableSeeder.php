@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
+                'username' => 'user',
                 'name' => 'user',
                 'email' => 'user@mail.com',
                 'password' => '$2y$10$p82C6qPFZQhAfzWYD0uyVuQAZxkk5nIsGbdvEUJb313J.RLARNBKO',
@@ -31,6 +32,7 @@ class UsersTableSeeder extends Seeder
             1 => 
             array (
                 'id' => 2,
+                'username' => 'IT Support',
                 'name' => 'IT Support',
                 'email' => 'itsupport@mail.com',
                 'password' => '$2y$10$Sv2/9jEKa6dRWgocWIHkaO3OgxNFoIj2ADBBlWHuCu72hgHmgqRSW',
@@ -42,6 +44,7 @@ class UsersTableSeeder extends Seeder
             2 => 
             array (
                 'id' => 3,
+                'username' => 'IT OPS',
                 'name' => 'IT OPS',
                 'email' => 'itops@mail.com',
                 'password' => '$2y$10$uMNRwZHoMzeLrnKekULWVu3JteSFCD8pHdyO/gahMdYqlKGcwtN7S',
@@ -53,6 +56,7 @@ class UsersTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 4,
+                'username' => 'IT ADMIN',
                 'name' => 'IT ADMIN',
                 'email' => 'itadmin@mail.com',
                 'password' => '$2y$10$TYDuCXX7rOiufo5IDqz4V.8oZV4IdBax7Wk3WDQzyDHUQjthDBN56',
@@ -64,6 +68,7 @@ class UsersTableSeeder extends Seeder
             4 => 
             array (
                 'id' => 5,
+                'username' => 'Admin',
                 'name' => 'Admin',
                 'email' => 'admin@mail.com',
                 'password' => '$2y$10$miQRtC92g2WZgz0D1kbcA.9ly90OL.CasDITo4eT8mGaMjaSvNrXu',
@@ -75,6 +80,7 @@ class UsersTableSeeder extends Seeder
             5 => 
             array (
                 'id' => 6,
+                'username' => 'IT Non Public',
                 'name' => 'IT Non Public',
                 'email' => 'itnonpublic@mail.com',
                 'password' => '$2y$10$jVN/5FMfNOQ/UvyeC1plTOKmlwb6i1wy3hUeG0YrH5bB0VbTspPPS',
