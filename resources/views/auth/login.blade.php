@@ -126,7 +126,7 @@
 <div class="main">
     <div class="col-md-6 col-sm-12">
         <div class="login-form">
-            <form method="post" action="{{ url('https://developer.angkasapura2.co.id/mobile/ldap/is_valid/') }}">
+            <form method="post" action="/login">
                 {!! csrf_field() !!}
 
                 <div class="form-group has-feedback {{ $errors->has('username') ? ' has-error' : '' }} ">

@@ -10,6 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements CanVerifyEmailContract
 {
+    public $timestamps = true;
     use Notifiable, CanVerifyEmail, HasRoles;
 
     /**
@@ -18,7 +19,7 @@ class User extends Authenticatable implements CanVerifyEmailContract
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username'
+        'name', 'email', 'password', 'username', 'verified', 'created_at', 'updated_at'
     ];
 
     /**
