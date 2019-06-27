@@ -112,6 +112,14 @@ class inventory extends Model
      * @var array
      */
     public static $rules = [
+
+        'cat_id' => 'required',
+        'pos_unit' => 'required',
+        'lokasi' => 'required',
+        'nama_user' => 'required',
+        'nama_perangkat' => 'required',
+        'merk' => 'required',
+        'type_alat' => 'required',
         
     ];
 
