@@ -3,11 +3,11 @@
 @section('content')
     <section class="content-header">
         <h1 class="pull-left">Penilaian</h1>
-        @hasrole('User')
             <h1 class="pull-right">
-            <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('issues.create') !!}">Add New</a>
+            <div class="btn-group">
+                <a class="btn btn-warning" style="margin-top: -10px;margin-bottom: 5px" href="/exportpdf/{{Crypt::encrypt('penilaian')}}">Export To PDF</a>
+            </div>
             </h1>
-        @endhasrole
     </section>
     <div class="content">
         <div class="clearfix"></div>
