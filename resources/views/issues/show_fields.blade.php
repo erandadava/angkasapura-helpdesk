@@ -1,103 +1,239 @@
-<!-- Issue Id Field -->
-<div class="form-group">
-    {!! Form::label('issue_id', 'ID Keluhan:') !!}
-    <p>{!! $issues->issue_id !!}</p>
+
+<div class="row">
+  <div class="col-md-3">
+    <!-- Issue Id Field -->
+    <div class="form-group">
+        {!! Form::label('issue_id', 'ID Keluhan:') !!}
+        <p>{!! $issues->issue_id !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <!-- Cat Id Field -->
+    <div class="form-group">
+        {!! Form::label('cat_id', 'Kategori:') !!}
+        <p>{!! $issues->category->cat_name ?? '' !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <!-- Prio Id Field -->
+    <div class="form-group">
+        {!! Form::label('prio_id', 'Prioritas:') !!}
+        <p>{!! $issues->priority->prio_name ?? '' !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <!-- Request Id Field -->
+    <div class="form-group">
+        {!! Form::label('request_id', 'Request:') !!}
+        <p>{!! $issues->request->name ?? '' !!}</p>
+    </div>
+  </div>
 </div>
 
-<!-- Cat Id Field -->
-<div class="form-group">
-    {!! Form::label('cat_id', 'Kategori:') !!}
-    <p>{!! $issues->category->cat_name ?? '' !!}</p>
+
+
+<div class="row">
+  <div class="col-md-3">
+    <!-- Location Field -->
+    <div class="form-group">
+        {!! Form::label('location', 'Lokasi:') !!}
+        <p>{!! $issues->location !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="form-group">
+      {!! Form::label('dev_ser_num', 'Serial Number/Device ID:') !!}
+      <p>{!! $issues->sernum->sernumid ?? '' !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    
+  </div>
+
+  <div class="col-md-3">
+    <div class="form-group">
+        {!! Form::label('status', 'Status:') !!}
+        <p>
+        @if ($issues->status == null) <span class='label label-default'>Menunggu IT Administrator</span> @endif
+        @if ($issues->status == 'RITADM') <span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span> @endif
+        @if ($issues->status == 'AITADM') <span class='label label-success'>Diterima IT Administrator</span> @endif
+        @if ($issues->status == 'ITSP') <span class='label label-info'>Diteruskan ke IT Support</span> @endif
+        @if ($issues->status == 'RITSP') <span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator</span> @endif
+        @if ($issues->status == 'AITSP') <span class='label label-warning'>Menunggu Solusi Dari IT Support</span> @endif
+        @if ($issues->status == 'ITOPS') <span class='label label-warning'>Menunggu Solusi Dari IT OPS</span> @endif
+        @if ($issues->status == 'CLOSE') <span class='label label-success'>Keluhan Ditutup</span> @endif
+        @if ($issues->status == 'SLITADM') <span class='label label-success'>Solusi Telah Diberikan IT Administrator</span> @endif
+        @if ($issues->status == 'SLITOPS') <span class='label label-success'>Solusi Telah Diberikan IT OPS</span> @endif
+        @if ($issues->status == 'RT') <span class='label label-warning'>User Telah Memberi Rating</span> @endif
+        </p>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+.rowlight{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-top: thin dotted #888;
+  border-bottom: thin dotted #888;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.colred{
+  background-color: #ce5757;
+  border-radius: .5rem;
+  color: #FFF;
+  min-height:7rem;
+}
+.colblue{
+  background-color: #005b7f;
+  border-radius: .5rem;
+  color:#fff;
+  min-height:7rem;
+}
+.colgreen{
+  background-color: #598527;
+  border-radius: .5rem;
+  color: #FFF;
+  min-height:7rem;
+}
+</style>
+<div class="row rowlight">
+  <div class="col-md-4 colred">
+    <!-- Prob Desc Field -->
+    <div class="form-group ">
+        {!! Form::label('prob_desc', 'Deskripsi Keluhan:') !!}
+        <?php if($issues->prob_desc == ""){
+        ?>
+          <p>-</p>
+        <?php
+        }else{
+        ?>
+          <p>{!! $issues->prob_desc !!}</p>
+        <?php
+        }
+        ?>
+    </div>
+  </div>
+  <div class="col-md-4 colblue">
+    <!-- Reason Desc Field -->
+    <div class="form-group">
+        {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
+        <?php if($issues->reason_desc == ""){
+        ?>
+          <p>-</p>
+        <?php
+        }else{
+        ?>
+          <p>{!! $issues->reason_desc !!}</p>
+        <?php
+        }
+        ?>
+    </div>
+  </div>
+  <div class="col-md-4 colgreen">
+    <div class="form-group">
+        {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
+        <?php if($issues->solution_desc == ""){
+        ?>
+          <p>-</p>
+        <?php
+        }else{
+        ?>
+          <p>{!! $issues->solution_desc !!}</p>
+        <?php
+        }
+        ?>
+    </div>
+  </div>
 </div>
 
-<!-- Prio Id Field -->
-<div class="form-group">
-    {!! Form::label('prio_id', 'Prioritas:') !!}
-    <p>{!! $issues->priority->prio_name ?? '' !!}</p>
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+        {!! Form::label('assign_it_support', 'Assign User IT Support:') !!}
+        <p>{!! $issues->assign_it_support_relation->name ?? '' !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="form-group">
+        {!! Form::label('assign_it_ops', 'Assign User IT Operasional:') !!}
+        <p>{!! $issues->assign_it_ops_relation->name ?? '' !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+     <!-- Complete By Field -->
+     <div class="form-group">
+        {!! Form::label('complete_by', 'Selesai Oleh:') !!}
+        <p>{!! $issues->complete->name ?? '' ?? ''!!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    
+  </div>
 </div>
 
-<!-- Request Id Field -->
-<div class="form-group">
-    {!! Form::label('request_id', 'Request:') !!}
-    <p>{!! $issues->request->name ?? '' !!}</p>
+
+
+<div class="row">
+  <div class="col-md-3">
+       <!-- Issue Date Field -->
+    <div class="form-group">
+        {!! Form::label('issue_date', 'Waktu Keluhan:') !!}
+        <p>{!! $issues->issue_date !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+     <!-- Complete Date Field -->
+     <div class="form-group">
+        {!! Form::label('complete_date', 'Waktu Selesai:') !!}
+        <p>{!! $issues->complete_date !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+      <!-- Created At Field -->
+    <div class="form-group">
+        {!! Form::label('created_at', 'Dibuat Pada:') !!}
+        <p>{!! $issues->created_at !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+      <!-- Updated At Field -->
+    <div class="form-group">
+        {!! Form::label('updated_at', 'Diubah Pada:') !!}
+        <p>{!! $issues->updated_at !!}</p>
+    </div>
+  </div>
 </div>
 
-<!-- Location Field -->
-<div class="form-group">
-    {!! Form::label('location', 'Lokasi:') !!}
-    <p>{!! $issues->location !!}</p>
-</div>
 
-<div class="form-group">
-    {!! Form::label('dev_ser_num', 'Serial Number/Device ID:') !!}
-    <p>{!! $issues->sernum->sernumid ?? '' !!}</p>
-</div>
+<div class="row">
+  <div class="col-md-4">
+  <div class="form-group">
+      {!! Form::label('rating', 'Rating:') !!}
+      <p>
+      <input id="input-6" name="input-6" class="rating rating-loading" value="{{$issues->rating->rate??0}}" data-min="0" data-max="5" data-step="1" data-readonly="true">
+      </p>
+  </div>
+  </div>
 
-<!-- Prob Desc Field -->
-<div class="form-group">
-    {!! Form::label('prob_desc', 'Deskripsi Keluhan:') !!}
-    <p>{!! $issues->prob_desc !!}</p>
-</div>
+  <div class="col-md-4">
+    
+  </div>
 
-<!-- Reason Desc Field -->
-<div class="form-group">
-    {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
-    <p>{!! $issues->reason_desc !!}</p>
-</div>
-
-<div class="form-group">
-    {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
-    <p>{!! $issues->solution_desc !!}</p>
-</div>
-
-<div class="form-group">
-    {!! Form::label('status', 'Status:') !!}
-    <p>
-    @if ($issues->status == null) <span class='label label-default'>Menunggu IT Administrator</span> @endif
-    @if ($issues->status == 'RITADM') <span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span> @endif
-    @if ($issues->status == 'AITADM') <span class='label label-success'>Diterima IT Administrator</span> @endif
-    @if ($issues->status == 'ITSP') <span class='label label-info'>Diteruskan ke IT Support</span> @endif
-    @if ($issues->status == 'RITSP') <span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator</span> @endif
-    @if ($issues->status == 'AITSP') <span class='label label-warning'>Menunggu Solusi Dari IT Support</span> @endif
-    @if ($issues->status == 'ITOPS') <span class='label label-warning'>Menunggu Solusi Dari IT OPS</span> @endif
-    @if ($issues->status == 'CLOSE') <span class='label label-success'>Keluhan Ditutup</span> @endif
-    @if ($issues->status == 'SLITADM') <span class='label label-success'>Solusi Telah Diberikan IT Administrator</span> @endif
-    @if ($issues->status == 'SLITOPS') <span class='label label-success'>Solusi Telah Diberikan IT OPS</span> @endif
-    @if ($issues->status == 'RT') <span class='label label-warning'>User Telah Memberi Rating</span> @endif
-    </p>
-</div>
-
-<div class="form-group">
-    {!! Form::label('request_id', 'Request:') !!}
-    <p>{!! $issues->request->name ?? '' !!}</p>
-</div>
-
-<div class="form-group">
-    {!! Form::label('assign_it_support', 'Assign User IT Support:') !!}
-    <p>{!! $issues->assign_it_support_relation->name ?? '' !!}</p>
-</div>
-
-<div class="form-group">
-    {!! Form::label('assign_it_ops', 'Assign User IT Operasional:') !!}
-    <p>{!! $issues->assign_it_ops_relation->name ?? '' !!}</p>
-</div>
-
-<!-- Complete By Field -->
-<div class="form-group">
-    {!! Form::label('complete_by', 'Selesai Oleh:') !!}
-    <p>{!! $issues->complete->name ?? '' ?? ''!!}</p>
-</div>
-
-<!-- Issue Date Field -->
-<div class="form-group">
-    {!! Form::label('issue_date', 'Waktu Keluhan:') !!}
-    <p>{!! $issues->issue_date !!}</p>
-</div>
-
-<!-- Complete Date Field -->
-<div class="form-group">
-    {!! Form::label('complete_date', 'Waktu Selesai:') !!}
-    <p>{!! $issues->complete_date !!}</p>
+  <div class="col-md-4">
+    
+  </div>
 </div>
 
 <!-- Is Archive Field
@@ -105,25 +241,6 @@
     {!! Form::label('is_archive', 'Is Archive:') !!}
     <p>{!! $issues->is_archive !!}</p>
 </div> -->
-
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', 'Dibuat Pada:') !!}
-    <p>{!! $issues->created_at !!}</p>
-</div>
-
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', 'Diubah Pada:') !!}
-    <p>{!! $issues->updated_at !!}</p>
-</div>
-
-<div class="form-group">
-    {!! Form::label('rating', 'Rating:') !!}
-    <p>
-    <input id="input-6" name="input-6" class="rating rating-loading" value="{{$issues->rating->rate??0}}" data-min="0" data-max="5" data-step="1" data-readonly="true">
-    </p>
-</div>
 
 @hasrole('IT Support')
   @if($issues->status == 'ITSP')
