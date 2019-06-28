@@ -120,7 +120,6 @@ class inventory extends Model
         'nama_perangkat' => 'required',
         'merk' => 'required',
         'type_alat' => 'required',
-        
     ];
 
     public function cat_inventory()
