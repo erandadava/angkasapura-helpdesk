@@ -53,91 +53,91 @@
 <!-- Sernum Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('sernum', 'Sernum:') !!}
-    {!! Form::text('sernum', null, ['class' => 'form-control']) !!}
+    {!! Form::text('sernum', null, ['class' => 'form-control' , 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Osver Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('osver', 'OS Version:') !!}
-    {!! Form::text('osver', null, ['class' => 'form-control']) !!}
+    {!! Form::text('osver', null, ['class' => 'form-control' , 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Os License Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('os_license', 'OS License:') !!}
-    {!! Form::text('os_license', null, ['class' => 'form-control']) !!}
+    {!! Form::text('os_license', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Os Status Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('os_status', 'OS Status:') !!}
-    {!! Form::text('os_status', null, ['class' => 'form-control']) !!}
+    {!! Form::text('os_status', null, ['class' => 'form-control' , 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Av Type Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('av_type', 'Antivirus Type:') !!}
-    {!! Form::text('av_type', null, ['class' => 'form-control']) !!}
+    {!! Form::text('av_type', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Av License Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('av_license', 'Antivirus License:') !!}
-    {!! Form::text('av_license', null, ['class' => 'form-control']) !!}
+    {!! Form::text('av_license', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Ms Ver Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ms_ver', 'MS Office Version:') !!}
-    {!! Form::text('ms_ver', null, ['class' => 'form-control']) !!}
+    {!! Form::text('ms_ver', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Ms Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ms_id', 'MS Office Product ID:') !!}
-    {!! Form::text('ms_id', null, ['class' => 'form-control']) !!}
+    {!! Form::text('ms_id', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Ms Status Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ms_status', 'MS Office Status:') !!}
-    {!! Form::text('ms_status', null, ['class' => 'form-control']) !!}
+    {!! Form::text('ms_status', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Tech Key Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('tech_key', 'Data Teknis Key:') !!}
-    {!! Form::text('tech_key', null, ['class' => 'form-control']) !!}
+    {!! Form::text('tech_key', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Tech Kode Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('tech_kode', 'Data Teknis Kode:') !!}
-    {!! Form::text('tech_kode', null, ['class' => 'form-control']) !!}
+    {!! Form::text('tech_kode', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Made In Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('made_in', 'Made In:') !!}
-    {!! Form::text('made_in', null, ['class' => 'form-control']) !!}
+    {!! Form::text('made_in', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Made Year Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('made_year', 'Made Year:') !!}
-    {!! Form::text('made_year', null, ['class' => 'form-control']) !!}
+    {!! Form::text('made_year', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Vendor Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('vendor_name', 'Vendor Name:') !!}
-    {!! Form::text('vendor_name', null, ['class' => 'form-control']) !!}
+    {!! Form::text('vendor_name', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 
 <div class="form-group col-sm-6">
     {!! Form::label('is_active', 'Status:') !!}
-    {!! Form::select('is_active', ['1'=>"Aktif",'0'=>"Non-Aktif"], null,['class' => 'form-control']) !!}
+    {!! Form::select('is_active', ['1'=>"Aktif",'0'=>"Non-Aktif"], null,['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 
