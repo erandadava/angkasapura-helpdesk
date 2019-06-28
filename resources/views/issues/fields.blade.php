@@ -35,8 +35,14 @@
         </optgroup>
         @endforeach
     </select>
-
 </div> 
+
+<div class="form-group col-sm-12 col-lg-12">
+    {!! Form::label('prob_desc', 'Deskripsi Keluhan:') !!}
+    {!! Form::textarea('prob_desc', null, ['class' => 'form-control', 'id' => 'editor' ]) !!}
+</div>
+
+
 
 
 <!-- Prob Desc Field -->

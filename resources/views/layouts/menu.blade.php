@@ -28,6 +28,9 @@
 <li class="{{ Request::is('issues*') ? 'active' : '' }}">
     <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Ticket</span></a>
 </li>
+<li class="{{ Request::is('inventories*') ? 'active' : '' }}">
+  <a href="{!! route('inventories.index') !!}"><i class="fa fa-edit"></i> Inventaris</a>
+</li>
 <li class="{{ Request::is('catInventories*') ? 'active' : '' }}">
     <a href="{!! route('catInventories.index') !!}"><i class="fa fa-edit"></i><span>Kategori Inventaris</span></a>
 </li>
