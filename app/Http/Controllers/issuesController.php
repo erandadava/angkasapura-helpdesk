@@ -80,6 +80,7 @@ class issuesController extends AppBaseController
      */
     public function create()
     {
+        $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
         return view('issues.create')->with($this->data);
     }
 
