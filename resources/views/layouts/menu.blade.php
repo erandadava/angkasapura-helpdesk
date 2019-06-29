@@ -134,6 +134,27 @@
             <li class=""><a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="{!! route('laporans.index') !!}"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
             <li class="{{ isset($_GET['n']) ? 'active' : '' }}"><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
+ 
+            <li class="{{ Request::is('inventories*') ? 'active' : '' }}">
+              <a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a>
+            </li>
+            
+            <li class=""><a href="/admin/metrics"><i class="fa fa-circle-o"></i><span>Monitoring</span></a></li>
+ 
+            <li class="{{ Request::is('categories*') ? 'active' : '' }}"><a href="{!! route('categories.index') !!}"><i class="fa fa-circle-o"></i><span>Kategori</span></a></li>
+
+            <li class="{{ Request::is('roles*') ? 'active' : '' }}">
+                <a href="{!! route('roles.index') !!}"><i class="fa fa-circle-o"></i><span>Roles</span></a>
+            </li>
+
+            <li class="{{ Request::is('priorities*') ? 'active' : '' }}">
+                <a href="{!! route('priorities.index') !!}"><i class="fa fa-circle-o"></i><span>Prioritas</span></a>
+            </li>
+
+            <li class="{{ Request::is('users*') ? 'active' : '' }}">
+                <a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i><span>User</span></a>
+            </li>
+
           </ul>
 </li>
 @endrole
