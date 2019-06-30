@@ -34,7 +34,7 @@ class laporanDataTable extends DataTable
             if ($inquiry->status == 'SLITOPS') return "<span class='label label-success'>Solusi Telah Diberikan IT OPS</span>";
             return 'Cancel';
         })
-        ->rawColumns(['status','action']);
+        ->rawColumns(['status','action','prob_desc']);
     }
 
     /**
