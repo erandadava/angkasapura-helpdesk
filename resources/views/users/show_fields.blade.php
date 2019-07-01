@@ -1,9 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $users->id !!}</p>
-</div>
-
 <!-- Name Field -->
 <div class="form-group">
     {!! Form::label('name', 'Name:') !!}
@@ -16,18 +10,23 @@
     <p>{!! $users->email !!}</p>
 </div>
 
-<!-- Password Field -->
+@if($users->model_has_roles->roles->name == 'IT Support' || $users->model_has_roles->roles->name == 'IT Operasional')
 <div class="form-group">
-    {!! Form::label('password', 'Password:') !!}
-    <p>{!! $users->password !!}</p>
+    {!! Form::label('ratebulan', 'Avg Rating Tahun Ini:') !!}
+    <p><span class='glyphicon glyphicon-star' style='color:orange'></span> {!! $users->ratetahun !!}</p>
 </div>
 
-<!-- Remember Token Field -->
 <div class="form-group">
-    {!! Form::label('remember_token', 'Remember Token:') !!}
-    <p>{!! $users->remember_token !!}</p>
+    {!! Form::label('ratebulan', 'Avg Rating Bulan Ini:') !!}
+    <p><span class='glyphicon glyphicon-star' style='color:orange'></span> {!! $users->ratebulan !!}</p>
 </div>
+@endif
 
+@hasrole('Admin')
+<div class="form-group">
+    {!! Form::label('roles', 'Roles:') !!}
+    <p>{!! $users->model_has_roles->roles->name !!}</p>
+</div>
 <!-- Created At Field -->
 <div class="form-group">
     {!! Form::label('created_at', 'Created At:') !!}
@@ -39,4 +38,6 @@
     {!! Form::label('updated_at', 'Updated At:') !!}
     <p>{!! $users->updated_at !!}</p>
 </div>
+@endhasrole
+
 

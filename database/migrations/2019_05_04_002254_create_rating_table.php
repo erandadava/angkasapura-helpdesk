@@ -16,6 +16,7 @@ class CreateRatingTable extends Migration
         Schema::create('rating', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id')->nullable();
+            $table->string('target_id')->nullable();
             $table->string('issues_id')->nullable();
             $table->enum('rate',[1,2,3,4,5])->nullable();
             $table->timestamps();

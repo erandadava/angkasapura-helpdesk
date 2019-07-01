@@ -183,6 +183,7 @@ class issuesController extends AppBaseController
         if(isset($input['rate'])){
             $input['user_id'] =  \Auth::User()->id;
             $input['issues_id'] =  $issues->id;
+            $input['target_id'] =  $issues->complete_by;
             $rating = $this->ratingRepository->create($input);
         }
         $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);

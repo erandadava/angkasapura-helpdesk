@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 /**
  * Class users
@@ -22,7 +23,7 @@ class users extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
+    protected $appends = ['ratetahun','ratebulan'];
 
 
 
@@ -63,6 +64,30 @@ class users extends Model
     public function model_has_roles()
     {
         return $this->hasOne('App\Models\model_has_roles','model_id','id');
+    }
+
+    public function rating()
+    {
+        return $this->hasMany('App\Models\rating','target_id','id');
+    }
+
+    public function getRatetahunAttribute()
+    {
+        $roles = $this->model_has_roles()->with('roles')->first();
+        if($roles['roles']['name'] == 'IT Support' || $roles['roles']['name'] == 'IT Operasional'){
+            return "<span class='glyphicon glyphicon-star' style='color:orange'></span> ".substr($this->rating()->whereYear('created_at', '=', Carbon::now()->year)->avg('rate')??0,0,4);
+        }
+        return null;
+        
+    }
+
+    public function getRatebulanAttribute()
+    {
+        $roles = $this->model_has_roles()->with('roles')->first();
+        if($roles['roles']['name'] == 'IT Support' || $roles['roles']['name'] == 'IT Operasional'){
+            return "<span class='glyphicon glyphicon-star' style='color:orange'></span> ".substr($this->rating()->whereMonth('created_at', '=', Carbon::now()->month)->avg('rate')??0,0,4);
+        }
+        return null;
     }
 
 }

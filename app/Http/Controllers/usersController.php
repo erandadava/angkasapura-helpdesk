@@ -12,7 +12,7 @@ use App\Http\Controllers\AppBaseController;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRole;
 use Response;
-
+use Spatie\Permission\Models\Role;
 class usersController extends AppBaseController
 {
     /** @var  usersRepository */
