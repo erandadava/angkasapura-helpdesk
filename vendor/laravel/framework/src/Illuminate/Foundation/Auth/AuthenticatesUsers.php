@@ -81,15 +81,17 @@ trait AuthenticatesUsers
                 if(count($potong)>0){
                     $role = \App\Models\roles::where('name', 'like', '%'.$potong[0].'%'.$potong[1].'%')->first();
                 }
-                $create_user = \App\User::insert([
-                    'username' => $hasil['username'],
-                    'name' => $hasil['name'],
-                    'password' => bcrypt($request->password),
-                    'verified' => 1,
-                    'created_at' => date('Y-m-d H:i:s')
-                ]);
-                $user_baru = \App\User::find(\DB::getPdo()->lastInsertId());
-                $user_baru->assignRole($role['name']);
+                if($role){
+                    $create_user = \App\User::insert([
+                        'username' => $hasil['username'],
+                        'name' => $hasil['name'],
+                        'password' => bcrypt($request->password),
+                        'verified' => 1,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ]);
+                    $user_baru = \App\User::find(\DB::getPdo()->lastInsertId());
+                    $user_baru->assignRole($role['name']);
+                }
             }
         }
 
