@@ -28,7 +28,8 @@ class priority extends Model
 
     public $fillable = [
         'prio_name',
-        'is_active'
+        'is_active',
+        'alert_time'
     ];
 
     /**

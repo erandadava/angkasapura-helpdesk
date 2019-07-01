@@ -29,7 +29,6 @@ Route::get('/exportpdf/{table}', 'pdfController@make_pdf');
 
 Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|Admin|IT Non Public','isEmailVerified']], function ()
 {
-    Route::resource('users', 'usersController');
 
     Route::resource('categories', 'categoryController');
     
@@ -46,11 +45,9 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
     
 });
 
-Route::group(['middleware' => ['role:User','isEmailVerified']], function ()
+Route::group(['middleware' => ['role:User|Admin','isEmailVerified']], function ()
 {
-    Route::resource('users', 'UsersController', [
-        'only' => ['index', 'show']
-    ]);
+    Route::resource('users', 'usersController');
 });
 
 Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|Admin|User|IT Non Public','isEmailVerified']], function ()
