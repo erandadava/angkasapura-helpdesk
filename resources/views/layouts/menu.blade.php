@@ -46,6 +46,11 @@
 <li class="{{ Request::is('users*') ? 'active' : '' }}">
     <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>User</span></a>
 </li>
+
+<li class="{{ Request::is('invenPembelians*') ? 'active' : '' }}">
+    <a href="{!! route('invenPembelians.index') !!}"><i class="fa fa-edit"></i><span>Inventory Pembelian</span></a>
+</li>
+
 @endrole
 @role('User')
 <li class="treeview menu-open">
