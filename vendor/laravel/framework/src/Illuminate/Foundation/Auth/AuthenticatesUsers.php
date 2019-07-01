@@ -20,6 +20,14 @@ trait AuthenticatesUsers
      */
     public function showLoginForm()
     {
+        if (Auth::check()) {
+            $user = \Auth::user();
+            $roles = $user->getRoleNames();
+            if($roles[0] == 'User'){
+                return redirect('/beranda');
+            }
+            return redirect('/dashboard');
+        }
         return view('auth.login');
     }
 
