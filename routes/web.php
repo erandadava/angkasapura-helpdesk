@@ -26,6 +26,7 @@ Route::get('register/verify', 'Auth\RegisterController@verify')->name('verifyEma
 Route::get('register/verify/resend', 'Auth\RegisterController@showResendVerificationEmailForm')->name('showResendVerificationEmailForm');
 Route::post('register/verify/resend', 'Auth\RegisterController@resendVerificationEmail')->name('resendVerificationEmail');
 Route::get('/exportpdf/{table}', 'pdfController@make_pdf');
+
 Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|Admin|IT Non Public','isEmailVerified']], function ()
 {
 
@@ -37,8 +38,6 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
     
     Route::resource('roles', 'rolesController');
 
-    Route::resource('users', 'usersController');
-
     Route::resource('catInventories', 'cat_inventoryController');
     Route::resource('inventories', 'inventoryController');
     Route::get('/laporanbulanan', 'issuesController@laporan')->name('laporans.index');
@@ -46,6 +45,10 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
     
 });
 
+Route::group(['middleware' => ['role:User|Admin','isEmailVerified']], function ()
+{
+    Route::resource('users', 'usersController');
+});
 
 Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|Admin|User|IT Non Public','isEmailVerified']], function ()
 {

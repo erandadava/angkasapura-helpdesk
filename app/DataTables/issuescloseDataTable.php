@@ -42,7 +42,16 @@ class issuescloseDataTable extends DataTable
      */
     public function query(issues $model)
     {   
-        return $model->with(['category','priority','request'])->Where('status', '=', 'CLOSE')->newQuery();
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        if(($roles[0] == "IT Administrator" || $roles[0] == "Admin") || ($roles[0] == "IT Support" && request()->status_jam == 1)){
+            return $model->with(['category','priority','request'])->Where('status', '=', 'CLOSE')->orWhere('status', '=', 'RT')->newQuery();
+        }
+        if($roles[0] == "IT Non Public" || $roles[0] == "IT Support"){
+            return $model->with(['category','priority','request'])->where([['complete_by','=',\DB::raw('assign_it_ops')],['status', '=', 'CLOSE']])->orWhere('status', '=', 'RT')->newQuery();
+        }
+        return $model->with(['category','priority','request'])->Where([['request_id','=',$user->id],['status', '=', 'CLOSE']])->orWhere('status', '=', 'RT')->newQuery();
+
     }
 
     /**

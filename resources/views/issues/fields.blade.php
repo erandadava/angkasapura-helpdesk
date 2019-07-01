@@ -42,17 +42,17 @@
     {!! Form::textarea('prob_desc', null, ['class' => 'form-control', 'id' => 'editor' ]) !!}
 </div>
 
-
-
-
-<!-- Prob Desc Field -->
-@hasrole('User')
-
+@hasrole('IT Non Public')
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('prob_desc', 'Deskripsi Keluhan:') !!}
-    {!! Form::textarea('prob_desc', null, ['class' => 'form-control', 'id' => 'editor' ]) !!}
+    {!! Form::hidden('status', 'ITOPS', ['class' => 'form-control'])!!}
+    {!! Form::label('assign_it_ops', 'Assign IT OPS :') !!}
+    {!! Form::select('assign_it_ops',$it_ops, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
 </div>
-@endrole
+@endhasrole
+
+
+
+
 
 
 @hasrole('IT Support|IT Administrator|IT Operasional')

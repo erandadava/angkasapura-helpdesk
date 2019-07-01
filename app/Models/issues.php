@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Carbon\Carbon;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -33,7 +33,7 @@ class issues extends Model
 
 
     protected $dates = ['deleted_at'];
-
+    protected $appends = ['statusalert'];
 
     public $fillable = [
         'issue_id',
@@ -121,4 +121,22 @@ class issues extends Model
         return $this->hasOne('App\Models\inventory','id','dev_ser_num');
     }
 
+    public function getStatusalertAttribute()
+    {
+        $time = $this->priority()->first()->alert_time;
+        $status = 0;
+        if($this->status == null){
+            $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $this->issue_date);
+            $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+            $diff_in_minutes = $to->diff($from);
+            
+            $selisih = \Carbon\Carbon::createFromTime(0, $diff_in_minutes->s, $diff_in_minutes->i);
+            $waktu_issue = \Carbon\Carbon::createFromFormat('H:i:s', $this->priority()->first()->alert_time);
+            
+            if($selisih >= $waktu_issue){
+                $status = 1;
+            }
+            return $status;
+        }
+    }
 }

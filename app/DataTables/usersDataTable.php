@@ -5,7 +5,7 @@ namespace App\DataTables;
 use App\Models\users;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
-
+use Auth; 
 class usersDataTable extends DataTable
 {
     /**
@@ -18,7 +18,7 @@ class usersDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'users.datatables_actions');
+        return $dataTable->addColumn('action', 'users.datatables_actions')->rawColumns(['ratetahun','ratebulan','action']);;
     }
 
     /**
@@ -29,6 +29,11 @@ class usersDataTable extends DataTable
      */
     public function query(users $model)
     {
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        if($roles[0] == "User"){
+            return $model->with(['model_has_roles.roles'])->where('id','=',$user->id)->newQuery();
+        }
         return $model->with(['model_has_roles.roles'])->newQuery();
     }
 
@@ -64,6 +69,8 @@ class usersDataTable extends DataTable
         return [
             ['data' => 'id', 'visible' => false],
             ['data' => 'name', 'title' => 'Nama'],
+            ['data' => 'ratetahun', 'title' => 'Avg Rating Tahun Ini'],
+            ['data' => 'ratebulan', 'title' => 'Avg Rating Bulan Ini'],
             ['data' => 'email', 'title' => 'Email'],
             ['data' => 'model_has_roles.roles.name', 'title' => 'Roles'],
         ];

@@ -80,6 +80,7 @@ class issuesController extends AppBaseController
      */
     public function create()
     {
+        $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
         return view('issues.create')->with($this->data);
     }
 
@@ -182,6 +183,7 @@ class issuesController extends AppBaseController
         if(isset($input['rate'])){
             $input['user_id'] =  \Auth::User()->id;
             $input['issues_id'] =  $issues->id;
+            $input['target_id'] =  $issues->complete_by;
             $rating = $this->ratingRepository->create($input);
         }
         $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);

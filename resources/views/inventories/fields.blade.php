@@ -134,6 +134,16 @@
     {!! Form::text('vendor_name', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
+<div class="form-group col-sm-6">
+    {!! Form::label('tgl_pembelian', 'Tanggal Pembelian:') !!}
+    {!! Form::date('tgl_pembelian', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('tgl_pembayaran', 'Tanggal Pembayaran:') !!}
+    {!! Form::date('tgl_pembayaran', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+</div>
+
 
 <div class="form-group col-sm-6">
     {!! Form::label('is_active', 'Status:') !!}

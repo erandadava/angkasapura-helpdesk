@@ -28,6 +28,7 @@ class rating extends Model
     public $fillable = [
         'user_id',
         'issues_id',
+        'target_id',
         'rate'
     ];
 

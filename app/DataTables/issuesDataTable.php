@@ -17,6 +17,32 @@ class issuesDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        
+        if($roles[0] == "IT Non Public" || $roles[0] == "Admin"){
+            return $dataTable->addColumn('action', 'issues.datatables_actions')->editColumn('status', function ($inquiry) {
+                if ($inquiry->status == null) return "<span class='label label-default'>Menunggu IT Administrator</span>";
+                if ($inquiry->status == 'RITADM') return "<span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span>";
+                if ($inquiry->status == 'AITADM') return "<span class='label label-success'>Diterima IT Administrator</span>";
+                if ($inquiry->status == 'ITSP') return "<span class='label label-info'>Diteruskan ke IT Support</span>";
+                if ($inquiry->status == 'RITSP') return "<span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator</span>";
+                if ($inquiry->status == 'AITSP') return "<span class='label label-warning'>Menunggu Solusi Dari IT Support</span>";
+                if ($inquiry->status == 'ITOPS') return "<span class='label label-warning'>Menunggu Solusi Dari IT OPS</span>";
+                if ($inquiry->status == 'CLOSE') return "<span class='label label-success'>Keluhan Ditutup</span>";
+                if ($inquiry->status == 'SLITADM') return "<span class='label label-success'>Solusi Telah Diberikan IT Administrator</span>";
+                if ($inquiry->status == 'SLITOPS') return "<span class='label label-success'>Solusi Telah Diberikan IT OPS</span>";
+                if ($inquiry->status == 'RT') return "<span class='label label-warning'>User Telah Memberi Rating</span>";
+                return 'Cancel';
+            })
+            ->order(function ($dataTable) {
+                    $dataTable->orderBy('status', 'asc');
+            })
+            ->setRowClass(function($dataTable) {
+                return $dataTable->status_alert == 0 ? '' : 'danger';
+            })
+            ->rawColumns(['status','action']);
+        }
 
         return $dataTable->addColumn('action', 'issues.datatables_actions')->editColumn('status', function ($inquiry) {
             if ($inquiry->status == null) return "<span class='label label-default'>Menunggu IT Administrator</span>";
@@ -33,6 +59,7 @@ class issuesDataTable extends DataTable
             return 'Cancel';
         })
         ->rawColumns(['status','action']);
+        
     }
 
     /**
@@ -46,11 +73,11 @@ class issuesDataTable extends DataTable
         $user = Auth::user();
         $roles = $user->getRoleNames();
 
-        if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
+        if(($roles[0] == "IT Administrator" || $roles[0] == "Admin") || ($roles[0] == "IT Support" && request()->status_jam == 1)){
             return $model->with(['category','priority','request'])->newQuery();
         }
         if($roles[0] == "IT Non Public"){
-            return $model->with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->newQuery();
+            return $model->with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->orWhere('request_id','=',$user->id)->orWhere('status','=',null)->newQuery();
         }
         return $model->with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->newQuery();
     }
@@ -72,7 +99,7 @@ class issuesDataTable extends DataTable
                 'buttons' => [
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+                    ['extend' => 'reload', 'className' => 'btn btn-default btn-ulang btn-sm no-corner',],
                 ],
             ]);
     }
@@ -86,6 +113,7 @@ class issuesDataTable extends DataTable
     {
         return [
             ['data' => 'id','visible' => false],
+            ['data' => 'statusalert','visible' => false],
             ['data' => 'category.cat_name', 'title' => 'Kategori'],
             ['data' => 'issue_id', 'title' => 'Kode'],
             ['data' => 'priority.prio_name', 'title' => 'Prioritas'],

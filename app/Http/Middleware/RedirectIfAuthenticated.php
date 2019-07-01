@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasRole;
 class RedirectIfAuthenticated
 {
     /**
@@ -18,7 +19,12 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            $user = \Auth::user();
+            $roles = $user->getRoleNames();
+            if($roles[0] == 'User'){
+                return redirect('/beranda');
+            }
+            return redirect('/dashboard');
         }
 
         return $next($request);

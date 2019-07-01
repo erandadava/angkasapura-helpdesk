@@ -17,6 +17,7 @@ class CreatePriorityTable extends Migration
             $table->increments('id');
             $table->string('prio_name')->nullable();
             $table->tinyInteger('is_active')->nullable();
+            $table->time('alert_time')->default('00:00:00');
             $table->timestamps();
             $table->softDeletes();
         });

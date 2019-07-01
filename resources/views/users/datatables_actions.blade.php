@@ -3,6 +3,7 @@
     <a href="{{ route('users.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
     </a>
+    @hasrole('Admin')
     <a href="{{ route('users.edit', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-edit"></i>
     </a>
@@ -11,5 +12,7 @@
         'class' => 'btn btn-danger btn-xs',
         'onclick' => "return confirm('Are you sure?')"
     ]) !!}
+
+    @endhasrole
 </div>
 {!! Form::close() !!}
