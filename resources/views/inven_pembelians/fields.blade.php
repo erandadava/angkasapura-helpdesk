@@ -40,12 +40,12 @@
 @section('scripts')
     <script type="text/javascript">
         $('#tgl_pembelian').datetimepicker({
-            format: 'yyyy-MM-dd HH:mm:ss',
+            format: 'YYYY-MM-DD',
             useCurrent: false
         })
 
         $('#tgl_penyerahan').datetimepicker({
-            format: 'yyyy-MM-dd HH:mm:ss',
+            format: 'YYYY-MM-DD',
             useCurrent: false
         })
     </script>
