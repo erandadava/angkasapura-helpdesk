@@ -90,7 +90,7 @@ trait AuthenticatesUsers
                         'created_at' => date('Y-m-d H:i:s')
                     ]);
                     $user_baru = \App\User::find(\DB::getPdo()->lastInsertId());
-                    $user_baru->assignRole($role['name']);
+                    $user_baru->assignRole($role['name'],'User');
                 }
             }
         }
