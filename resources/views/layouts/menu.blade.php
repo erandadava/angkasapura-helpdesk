@@ -46,6 +46,11 @@
 <li class="{{ Request::is('users*') ? 'active' : '' }}">
     <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>User</span></a>
 </li>
+
+<li class="{{ Request::is('invenPembelians*') ? 'active' : '' }}">
+    <a href="{!! route('invenPembelians.index') !!}"><i class="fa fa-edit"></i><span>Inventory Pembelian</span></a>
+</li>
+
 @endrole
 @role('User')
 <li class="treeview menu-open">
@@ -56,6 +61,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="/beranda"><i class="fa fa-circle-o"></i> Beranda</a></li>
             <li><a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i> Data User</a></li>
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticketing</a></li>
             <li class=""><a href="{{url('/history')}}"><i class="fa fa-circle-o"></i> History Ticket</a></li>

@@ -12,6 +12,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 use App\Models\cat_inventory;
+use App\Models\inven_pembelian;
 use Illuminate\Http\Request;
 
 class inventoryController extends AppBaseController
@@ -23,6 +24,7 @@ class inventoryController extends AppBaseController
     {
         $this->inventoryRepository = $inventoryRepo;
         $this->data['cat_inventory'] = cat_inventory::where('is_active','=',1)->pluck('nama_cat','id');
+        $this->data['inven_pembelian'] = inven_pembelian::where('id','!=',null)->pluck('id_inventory_fk','id');
     }
 
     /**
