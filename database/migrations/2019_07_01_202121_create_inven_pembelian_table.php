@@ -15,7 +15,6 @@ class CreateInvenPembelianTable extends Migration
     {
         Schema::create('inven_pembelian', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_inventory_fk');
             $table->string('nama_perangkat');
             $table->string('unit_kerja');
             $table->string('nama_alat');

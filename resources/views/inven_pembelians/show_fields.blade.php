@@ -4,12 +4,6 @@
     <p>{!! $invenPembelian->id !!}</p>
 </div>
 
-<!-- Id Inventory Fk Field -->
-<div class="form-group">
-    {!! Form::label('id_inventory_fk', 'Id Inventory Fk:') !!}
-    <p>{!! $invenPembelian->id_inventory_fk !!}</p>
-</div>
-
 <!-- Nama Perangkat Field -->
 <div class="form-group">
     {!! Form::label('nama_perangkat', 'Nama Perangkat:') !!}

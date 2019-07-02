@@ -35,6 +35,10 @@
     <a href="{!! route('catInventories.index') !!}"><i class="fa fa-edit"></i><span>Kategori Inventaris</span></a>
 </li>
 
+<li class="{{ Request::is('invenPembelians*') ? 'active' : '' }}">
+    <a href="{!! route('invenPembelians.index') !!}"><i class="fa fa-edit"></i><span>Pembelian Inventaris</span></a>
+</li>
+
 <li class="{{ Request::is('laporans*') ? 'active' : '' }}">
     <a href="{!! route('laporans.index') !!}"><i class="fa fa-edit"></i><span>Laporan Bulan</span></a>
 </li>
@@ -47,9 +51,6 @@
     <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>User</span></a>
 </li>
 
-<li class="{{ Request::is('invenPembelians*') ? 'active' : '' }}">
-    <a href="{!! route('invenPembelians.index') !!}"><i class="fa fa-edit"></i><span>Inventory Pembelian</span></a>
-</li>
 
 @endrole
 @role('User')
