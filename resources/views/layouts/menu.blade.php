@@ -62,6 +62,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="/beranda"><i class="fa fa-circle-o"></i> Beranda</a></li>
             <li><a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i> Data User</a></li>
             <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticketing</a></li>
             <li class=""><a href="{{url('/history')}}"><i class="fa fa-circle-o"></i> History Ticket</a></li>
