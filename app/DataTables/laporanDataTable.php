@@ -46,6 +46,7 @@ class laporanDataTable extends DataTable
     public function query(issues $model)
     {   
        $now = Carbon::now();
+       
        return $model->with(['category','priority','request'])->whereMonth('complete_date', '=', $now->month)->newQuery();
 
     }
@@ -79,14 +80,18 @@ class laporanDataTable extends DataTable
      */
     protected function getColumns()
     {
+        $jumlah_keluhan = issues::with(['product_detail.product' => function($query){
+            $query->groupBy('product_name');
+        }])->get();;
+
+        $SLA = issues::get()->count();
+
         return [
             ['data' => 'id','visible' => false],
-            ['data' => 'request.name', 'title' => 'Name'],
-            ['data' => 'location', 'title' => 'Lokasi'],
+            ['data' => 'inventory.nama_perangkat', 'title' => 'Nama Perangkat'],
             ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
-            ['data' => 'issue_id', 'title' => 'issue ID'],
-            ['data' => 'prob_desc', 'title' => 'Keluhan'],
-            ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
+            // ['data' =>  $jumlah_keluhan, 'title' => 'Jumlah Keluhan'],
+            ['data' => $SLA, 'title' => 'SLA'],
             ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
         ]; 
     }
