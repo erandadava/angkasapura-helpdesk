@@ -78,6 +78,16 @@ trait AuthenticatesUsers
             $cek = \App\User::where('username', $hasil['username'])->first();
             if(empty($cek)){
                 $potong = explode(" ",$hasil["unit_name"]);
+
+                $cek_unit_kerja = \App\Models\unit_kerja::where('nama_uk', $hasil["unit_name"])->first();
+               
+                if(!$cek_unit_kerja){
+                    $id_unit_kerja = \App\Models\unit_kerja::create(['nama_uk' => $hasil["unit_name"]])->id;
+
+                }else{
+                    $id_unit_kerja = $cek_unit_kerja['id'];
+                }
+
                 if(count($potong)>0){
                     $role = \App\Models\roles::where('name', 'like', '%'.$potong[0].'%'.$potong[1].'%')->first();
                 }
@@ -87,7 +97,8 @@ trait AuthenticatesUsers
                         'name' => $hasil['name'],
                         'password' => bcrypt($request->password),
                         'verified' => 1,
-                        'created_at' => date('Y-m-d H:i:s')
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'id_unit_kerja' => $id_unit_kerja
                     ]);
                     $user_baru = \App\User::find(\DB::getPdo()->lastInsertId());
                     $user_baru->assignRole($role['name'],'User');
