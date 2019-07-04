@@ -114,13 +114,14 @@ class issuesDataTable extends DataTable
         return [
             ['data' => 'id','visible' => false],
             ['data' => 'statusalert','visible' => false],
-            ['data' => 'category.cat_name', 'title' => 'Kategori'],
             ['data' => 'issue_id', 'title' => 'Kode'],
+            ['data' => 'request.name', 'title' => 'Request Oleh'],
             ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
-            ['data' => 'request.name', 'title' => 'Request'],
+            ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
+            ['data' => 'category.cat_name', 'title' => 'Kategori'],
             ['data' => 'location', 'title' => 'Lokasi'],
             ['data' => 'status', 'title' => 'Status'],
-            ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
+            
         ];
     }
 

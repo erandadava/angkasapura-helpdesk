@@ -92,7 +92,7 @@
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
-                                <img src="http://infyom.com/images/logo/blue_logo_150x150.jpg"
+                                <img src="{{ asset('img/aplogosm.png') }}"
                                      class="user-image" alt="User Image"/>
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                 <span class="hidden-xs">{!! Auth::user()->username !!}</span>
@@ -100,7 +100,7 @@
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
-                                    <img src="http://infyom.com/images/logo/blue_logo_150x150.jpg"
+                                    <img src="{{ asset('img/aplogosm.png') }}"
                                          class="img-circle" alt="User Image"/>
                                     <p>
                                         {!! Auth::user()->username !!}
@@ -137,8 +137,8 @@
         </div>
 
         <!-- Main Footer -->
-        <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright © {{date('Y')}} Angkasa Pura, All rights reserved. In partner with Ayrio Star Mandiri. </strong>
+        <footer class="main-footer" style="max-height: 100px;text-align: center;font-size:small;">
+            <strong>Copyright © {{date('Y')}} PT.Angkasa Pura II, All rights reserved. Supported by Ayrio Starindo Mandiri. </strong>
         </footer>
 
     </div>
