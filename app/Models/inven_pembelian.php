@@ -69,5 +69,9 @@ class inven_pembelian extends Model
         'tgl_penyerahan' => 'required'
     ];
 
+    public function unit_kerjas(){
+        return $this->hasOne('App\Models\unit_kerja','id','unit_kerja');
+    }
+
     
 }

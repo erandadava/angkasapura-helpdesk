@@ -7,7 +7,7 @@
 <!-- Unit Kerja Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('unit_kerja', 'Unit Kerja:') !!}
-    {!! Form::text('unit_kerja', null, ['class' => 'form-control']) !!}
+    {!! Form::select('unit_kerja', $data_unit, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Nama Alat Field -->
