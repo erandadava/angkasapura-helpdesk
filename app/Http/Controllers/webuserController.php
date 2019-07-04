@@ -36,7 +36,7 @@ class webuserController extends Controller
             }
         }
         $this->data['sernum'] = $sernum;
-
+        $this->data['open_ticket']=issues::with(['category','priority','request'])->where([['request_id','=',$user->id],['status','!=','CLOSE'], ['status','!=','RT']])->get();
         $this->data['ticket']=issues::with(['category','priority','request'])->where([['request_id','=',$user->id],['status','=','CLOSE']])->get();
         $this->data['ticket_done']=issues::with(['category','priority','request'])->where([['request_id','=',$user->id],['status','=','CLOSE']])->orWhere([['request_id','=',$user->id],['status','=','RT']])->get();
         

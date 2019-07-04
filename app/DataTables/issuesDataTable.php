@@ -35,9 +35,6 @@ class issuesDataTable extends DataTable
                 if ($inquiry->status == 'RT') return "<span class='label label-warning'>User Telah Memberi Rating</span>";
                 return 'Cancel';
             })
-            ->order(function ($dataTable) {
-                    $dataTable->orderBy('status', 'asc');
-            })
             ->setRowClass(function($dataTable) {
                 return $dataTable->status_alert == 0 ? '' : 'danger';
             })

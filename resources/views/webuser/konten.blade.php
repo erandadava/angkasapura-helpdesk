@@ -159,6 +159,46 @@
       </div>
 
       <div class="row">
+      <div class="col-lg-8 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-info">
+              <h4 class="card-title">Open Tickets</h4>
+            </div>
+            <div class="card-body table-responsive">
+              <table class="table" style="table-layout: fixed;">
+                
+                <tbody>
+                @forelse($open_ticket as $key => $dt)
+                <tr>
+                    <td>{{$dt->category->cat_name}}</td>
+                    <td>{!! $dt->prob_desc !!}</td>
+                    <td>
+                    @if ($dt->status == null) <span class='badge badge-primary label label-default'>Menunggu IT Administrator</span> @endif
+                    @if ($dt->status == 'RITADM') <span class='badge badge-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span> @endif
+                    @if ($dt->status == 'AITADM') <span class='badge badge-success'>Diterima IT Administrator</span> @endif
+                    @if ($dt->status == 'ITSP') <span class='badge badge-info'>Diteruskan ke IT Support</span> @endif
+                    @if ($dt->status == 'RITSP') <span class='badge badge-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator</span> @endif
+                    @if ($dt->status == 'AITSP') <span class='badge badge-warning'>Menunggu Solusi Dari IT Support</span> @endif
+                    @if ($dt->status == 'ITOPS') <span class='badge badge-warning'>Menunggu Solusi Dari IT OPS</span> @endif
+                    @if ($dt->status == 'CLOSE') <span class='badge badge-success'>Keluhan Ditutup</span> @endif
+                    @if ($dt->status == 'SLITADM') <span class='badge badge-success'>Solusi Telah Diberikan IT Administrator</span> @endif
+                    @if ($dt->status == 'SLITOPS') <span class='badge badge-success'>Solusi Telah Diberikan IT OPS</span> @endif
+                    @if ($dt->status == 'RT') <span class='badge badge-warning'>User Telah Memberi Rating</span> @endif
+                    </td>
+                    
+                  </tr>
+                @empty
+                  <tr>
+                    <td>No Data</td>
+                  </tr>
+                @endforelse
+                </tbody>
+        
+              </table>
+            </div>
+          </div>
+        </div>
+
         <div class="col-lg-8 col-md-12">
           <div class="card">
             <div class="card-header card-header-warning">

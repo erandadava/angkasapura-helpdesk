@@ -58,7 +58,13 @@ class users extends Model
     public static $rules = [
         'name' => 'required',
         'email' => 'required',
-        'password' => 'required'
+        'password' => 'required|min:6',
+        'password_confirmation' => 'required_with:password|same:password|min:6'
+    ];
+
+    public static $rulesUpdate = [
+        'name' => 'required',
+        'email' => 'required',
     ];
 
     public function model_has_roles()

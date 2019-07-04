@@ -65,3 +65,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
 
 Route::resource('invenPembelians', 'inven_pembelianController');
+
+Route::resource('pemeriksaanPerangkats', 'pemeriksaan_perangkatController');

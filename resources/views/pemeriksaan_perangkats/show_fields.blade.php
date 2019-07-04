@@ -1,0 +1,168 @@
+<!-- Id Field -->
+<div class="form-group">
+    {!! Form::label('id', 'Id:') !!}
+    <p>{!! $pemeriksaanPerangkat->id !!}</p>
+</div>
+
+<!-- Nama Pengguna Pc Field -->
+<div class="form-group">
+    {!! Form::label('nama_pengguna_pc', 'Nama Pengguna Pc:') !!}
+    <p>{!! $pemeriksaanPerangkat->nama_pengguna_pc !!}</p>
+</div>
+
+<!-- Lokasi Field -->
+<div class="form-group">
+    {!! Form::label('lokasi', 'Lokasi:') !!}
+    <p>{!! $pemeriksaanPerangkat->lokasi !!}</p>
+</div>
+
+<!-- Serial Number Field -->
+<div class="form-group">
+    {!! Form::label('serial_number', 'Serial Number:') !!}
+    <p>{!! $pemeriksaanPerangkat->serial_number !!}</p>
+</div>
+
+<!-- Tanggal Pengecekan Field -->
+<div class="form-group">
+    {!! Form::label('tanggal_pengecekan', 'Tanggal Pengecekan:') !!}
+    <p>{!! $pemeriksaanPerangkat->tanggal_pengecekan !!}</p>
+</div>
+
+<!-- Mulai Jam Pengecekan Field -->
+<div class="form-group">
+    {!! Form::label('mulai_jam_pengecekan', 'Mulai Jam Pengecekan:') !!}
+    <p>{!! $pemeriksaanPerangkat->mulai_jam_pengecekan !!}</p>
+</div>
+
+<!-- Selesai Jam Pengecekan Field -->
+<div class="form-group">
+    {!! Form::label('selesai_jam_pengecekan', 'Selesai Jam Pengecekan:') !!}
+    <p>{!! $pemeriksaanPerangkat->selesai_jam_pengecekan !!}</p>
+</div>
+
+<!-- Full Computer Name Field -->
+<div class="form-group">
+    {!! Form::label('full_computer_name', 'Full Computer Name:') !!}
+    <p>{!! $pemeriksaanPerangkat->full_computer_name !!}</p>
+</div>
+
+<!-- Join Domain Field -->
+<div class="form-group">
+    {!! Form::label('join_domain', 'Join Domain:') !!}
+    <p>{!! $pemeriksaanPerangkat->join_domain !!}</p>
+</div>
+
+<!-- Update Kaspersky Field -->
+<div class="form-group">
+    {!! Form::label('update_kaspersky', 'Update Kaspersky:') !!}
+    <p>{!! $pemeriksaanPerangkat->update_kaspersky !!}</p>
+</div>
+
+<!-- Tanggal Update Field -->
+<div class="form-group">
+    {!! Form::label('tanggal_update', 'Tanggal Update:') !!}
+    <p>{!! $pemeriksaanPerangkat->tanggal_update !!}</p>
+</div>
+
+<!-- Tipe Koneksi Field -->
+<div class="form-group">
+    {!! Form::label('tipe_koneksi', 'Tipe Koneksi:') !!}
+    <p>{!! $pemeriksaanPerangkat->tipe_koneksi !!}</p>
+</div>
+
+<!-- Tipe Ip Field -->
+<div class="form-group">
+    {!! Form::label('tipe_ip', 'Tipe Ip:') !!}
+    <p>{!! $pemeriksaanPerangkat->tipe_ip !!}</p>
+</div>
+
+<!-- Mac Address Field -->
+<div class="form-group">
+    {!! Form::label('mac_address', 'Mac Address:') !!}
+    <p>{!! $pemeriksaanPerangkat->mac_address !!}</p>
+</div>
+
+<!-- Ip Address Field -->
+<div class="form-group">
+    {!! Form::label('ip_address', 'Ip Address:') !!}
+    <p>{!! $pemeriksaanPerangkat->ip_address !!}</p>
+</div>
+
+<!-- Subnet Mask Field -->
+<div class="form-group">
+    {!! Form::label('subnet_mask', 'Subnet Mask:') !!}
+    <p>{!! $pemeriksaanPerangkat->subnet_mask !!}</p>
+</div>
+
+<!-- Gateway Field -->
+<div class="form-group">
+    {!! Form::label('gateway', 'Gateway:') !!}
+    <p>{!! $pemeriksaanPerangkat->gateway !!}</p>
+</div>
+
+<!-- Dns1 Field -->
+<div class="form-group">
+    {!! Form::label('dns1', 'Dns1:') !!}
+    <p>{!! $pemeriksaanPerangkat->dns1 !!}</p>
+</div>
+
+<!-- Dns2 Field -->
+<div class="form-group">
+    {!! Form::label('dns2', 'Dns2:') !!}
+    <p>{!! $pemeriksaanPerangkat->dns2 !!}</p>
+</div>
+
+<!-- Dns3 Field -->
+<div class="form-group">
+    {!! Form::label('dns3', 'Dns3:') !!}
+    <p>{!! $pemeriksaanPerangkat->dns3 !!}</p>
+</div>
+
+<!-- Ttd It Senior Field -->
+<div class="form-group">
+    {!! Form::label('ttd_it_senior', 'Ttd It Senior:') !!}
+    <p>{!! $pemeriksaanPerangkat->ttd_it_senior !!}</p>
+</div>
+
+<!-- Ttd Admin Aps Field -->
+<div class="form-group">
+    {!! Form::label('ttd_admin_aps', 'Ttd Admin Aps:') !!}
+    <p>{!! $pemeriksaanPerangkat->ttd_admin_aps !!}</p>
+</div>
+
+<!-- Teknisi Aps Field -->
+<div class="form-group">
+    {!! Form::label('teknisi_aps', 'Teknisi Aps:') !!}
+    <p>{!! $pemeriksaanPerangkat->teknisi_aps !!}</p>
+</div>
+
+<!-- User Field -->
+<div class="form-group">
+    {!! Form::label('user', 'User:') !!}
+    <p>{!! $pemeriksaanPerangkat->user !!}</p>
+</div>
+
+<!-- It Non Public Field -->
+<div class="form-group">
+    {!! Form::label('it_non_public', 'It Non Public:') !!}
+    <p>{!! $pemeriksaanPerangkat->it_non_public !!}</p>
+</div>
+
+<!-- Created At Field -->
+<div class="form-group">
+    {!! Form::label('created_at', 'Created At:') !!}
+    <p>{!! $pemeriksaanPerangkat->created_at !!}</p>
+</div>
+
+<!-- Updated At Field -->
+<div class="form-group">
+    {!! Form::label('updated_at', 'Updated At:') !!}
+    <p>{!! $pemeriksaanPerangkat->updated_at !!}</p>
+</div>
+
+<!-- Deleted At Field -->
+<div class="form-group">
+    {!! Form::label('deleted_at', 'Deleted At:') !!}
+    <p>{!! $pemeriksaanPerangkat->deleted_at !!}</p>
+</div>
+

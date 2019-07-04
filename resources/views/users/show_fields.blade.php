@@ -4,6 +4,12 @@
     <p>{!! $users->name !!}</p>
 </div>
 
+<div class="form-group">
+    {!! Form::label('username', 'Username:') !!}
+    <p>{!! $users->username !!}</p>
+</div>
+
+
 <!-- Email Field -->
 <div class="form-group">
     {!! Form::label('email', 'Email:') !!}
