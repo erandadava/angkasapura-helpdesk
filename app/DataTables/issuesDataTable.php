@@ -77,7 +77,8 @@ class issuesDataTable extends DataTable
             return $model->with(['category','priority','request'])->newQuery();
         }
         if($roles[0] == "IT Non Public"){
-            return $model->with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->orWhere('request_id','=',$user->id)->orWhere('status','=',null)->newQuery();
+            // return $model->with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->orWhere('request_id','=',$user->id)->orWhere('status','=',null)->newQuery();
+            return $model->with(['category','priority','request'])->newQuery();
         }
         return $model->with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->newQuery();
     }
