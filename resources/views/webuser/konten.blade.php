@@ -135,7 +135,7 @@
                   
                   </div>
                 </div>
-                <div class="uk-margin uk-form-grid-medium uk-width-1-2">
+                <div class="uk-margin uk-form-grid-medium uk-width-1-4@s">
                   <label class="uk-form-label" for="form-stacked-select">Unit Kerja</label>
                   <div class="uk-form-controls">
                   {!!  \Auth::user()->unit_kerja->nama_uk ?? ''!!}
