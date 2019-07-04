@@ -1,8 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $pemeriksaanPerangkat->id !!}</p>
-</div>
 
 <!-- Nama Pengguna Pc Field -->
 <div class="form-group">
@@ -121,31 +116,36 @@
 <!-- Ttd It Senior Field -->
 <div class="form-group">
     {!! Form::label('ttd_it_senior', 'Ttd It Senior:') !!}
-    <p>{!! $pemeriksaanPerangkat->ttd_it_senior !!}</p>
+    </br>
+    <img src="{{asset('storage/'.$pemeriksaanPerangkat->ttd_it_senior)}}" alt="" srcset="">
 </div>
 
 <!-- Ttd Admin Aps Field -->
 <div class="form-group">
     {!! Form::label('ttd_admin_aps', 'Ttd Admin Aps:') !!}
-    <p>{!! $pemeriksaanPerangkat->ttd_admin_aps !!}</p>
+    </br>
+    <img src="{{asset('storage/'.$pemeriksaanPerangkat->ttd_admin_aps)}}" alt="" srcset="">
 </div>
 
 <!-- Teknisi Aps Field -->
 <div class="form-group">
     {!! Form::label('teknisi_aps', 'Teknisi Aps:') !!}
-    <p>{!! $pemeriksaanPerangkat->teknisi_aps !!}</p>
+    </br>
+    <img src="{{asset('storage/'.$pemeriksaanPerangkat->teknisi_aps )}}" alt="" srcset="">
 </div>
 
 <!-- User Field -->
 <div class="form-group">
     {!! Form::label('user', 'User:') !!}
-    <p>{!! $pemeriksaanPerangkat->user !!}</p>
+    </br>
+    <img src="{{asset('storage/'.$pemeriksaanPerangkat->user )}}" alt="" srcset="">
 </div>
 
 <!-- It Non Public Field -->
 <div class="form-group">
     {!! Form::label('it_non_public', 'It Non Public:') !!}
-    <p>{!! $pemeriksaanPerangkat->it_non_public !!}</p>
+    </br>
+    <img src="{{asset('storage/'.$pemeriksaanPerangkat->it_non_public )}}" alt="" srcset="">
 </div>
 
 <!-- Created At Field -->
@@ -160,9 +160,4 @@
     <p>{!! $pemeriksaanPerangkat->updated_at !!}</p>
 </div>
 
-<!-- Deleted At Field -->
-<div class="form-group">
-    {!! Form::label('deleted_at', 'Deleted At:') !!}
-    <p>{!! $pemeriksaanPerangkat->deleted_at !!}</p>
-</div>
 

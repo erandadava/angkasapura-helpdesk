@@ -52,6 +52,67 @@ class pemeriksaan_perangkatController extends AppBaseController
     public function store(Createpemeriksaan_perangkatRequest $request)
     {
         $input = $request->all();
+        //dd($request->ttd_it_senior);
+        if(isset($request->ttd_it_senior)){
+            $image = str_replace('data:image/png;base64,', '', $request->ttd_it_senior);
+            $image = str_replace(' ', '+', $image);
+            $imageName = str_random(10).'.'.'png';
+            \Storage::disk('public')->put('ttditsenior/'.$imageName, base64_decode($image));
+            $input['ttd_it_senior'] = 'ttditsenior/'.$imageName;
+            // $sign = base64_decode($request->ttd_it_senior);
+            // $path = "path to file.png";
+            // $foto = file_put_contents($path, $sign);
+            // $input['ttd_it_senior'] = $foto->store('/ttditsenior');
+        }
+
+        if(isset($request->ttd_admin_aps)){
+            $image = str_replace('data:image/png;base64,', '', $request->ttd_admin_aps);
+            $image = str_replace(' ', '+', $image);
+            $imageName = str_random(10).'.'.'png';
+            \Storage::disk('public')->put('ttdadminaps/'.$imageName, base64_decode($image));
+            $input['ttd_admin_aps'] = 'ttdadminaps/'.$imageName;
+            // $sign = base64_decode($request->ttd_it_senior);
+            // $path = "path to file.png";
+            // $foto = file_put_contents($path, $sign);
+            // $input['ttd_it_senior'] = $foto->store('/ttditsenior');
+        }
+
+        if(isset($request->ttd_teknisi_aps)){
+            $image = str_replace('data:image/png;base64,', '', $request->ttd_teknisi_aps);
+            $image = str_replace(' ', '+', $image);
+            $imageName = str_random(10).'.'.'png';
+            \Storage::disk('public')->put('ttdteknisiaps/'.$imageName, base64_decode($image));
+            $input['teknisi_aps'] = 'ttdteknisiaps/'.$imageName;
+            // $sign = base64_decode($request->ttd_it_senior);
+            // $path = "path to file.png";
+            // $foto = file_put_contents($path, $sign);
+            // $input['ttd_it_senior'] = $foto->store('/ttditsenior');
+        }
+
+        if(isset($request->ttd_user)){
+            $image = str_replace('data:image/png;base64,', '', $request->ttd_user);
+            $image = str_replace(' ', '+', $image);
+            $imageName = str_random(10).'.'.'png';
+            \Storage::disk('public')->put('ttduser/'.$imageName, base64_decode($image));
+            $input['user'] = 'ttduser/'.$imageName;
+            // $sign = base64_decode($request->ttd_it_senior);
+            // $path = "path to file.png";
+            // $foto = file_put_contents($path, $sign);
+            // $input['ttd_it_senior'] = $foto->store('/ttditsenior');
+        }
+
+        if(isset($request->ttd_it_non_public)){
+            $image = str_replace('data:image/png;base64,', '', $request->ttd_it_non_public);
+            $image = str_replace(' ', '+', $image);
+            $imageName = str_random(10).'.'.'png';
+            \Storage::disk('public')->put('ttditnonpublic/'.$imageName, base64_decode($image));
+            $input['it_non_public'] = 'ttditnonpublic/'.$imageName;
+            // $sign = base64_decode($request->ttd_it_senior);
+            // $path = "path to file.png";
+            // $foto = file_put_contents($path, $sign);
+            // $input['ttd_it_senior'] = $foto->store('/ttditsenior');
+        }
+
 
         $pemeriksaanPerangkat = $this->pemeriksaanPerangkatRepository->create($input);
 

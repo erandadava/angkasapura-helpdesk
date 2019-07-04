@@ -207,12 +207,12 @@
 <!-- optionally if you need to use a theme, then include the theme JS file as mentioned below -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/themes/krajee-svg/theme.js"></script>
 
-<!-- optionally if you need translation for your language then include locale file as mentioned below -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/js/locales/<lang>.js"></script>
+
+<script src="{{asset('js/jsignature-master/src/jSignature.js')}}"></script>
     <script>
     $(document).ready(function(){
       $.fn.dataTable.ext.errMode = 'none';
-
+        
     });
     try {
       $('select').select2();
@@ -227,10 +227,10 @@
                                     }
                                 } )
                                 .then( editor => {
-                                        console.log( editor );
+                                        //console.log( editor );
                                 } )
                                 .catch( error => {
-                                        console.error( error );
+                                        //console.error( error );
                                 } );
                                 ClassicEditor
                                 .create( document.querySelector( '#editor2' ),{
@@ -240,10 +240,10 @@
                                     }
                                 } )
                                 .then( editor => {
-                                        console.log( editor );
+                                        //console.log( editor );
                                 } )
                                 .catch( error => {
-                                        console.error( error );
+                                        //console.error( error );
                                 } );
                                 ClassicEditor
                                 .create( document.querySelector( '#editor3' ),{
@@ -253,11 +253,12 @@
                                     }
                                 } )
                                 .then( editor => {
-                                        console.log( editor );
+                                        //console.log( editor );
                                 } )
                                 .catch( error => {
-                                        console.error( error );
+                                        //console.error( error );
                                 } );
+                                
     </script>
     @yield('scripts')
 </body>
