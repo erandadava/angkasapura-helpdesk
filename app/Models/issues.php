@@ -145,4 +145,9 @@ class issues extends Model
             return $status;
         }
     }
+
+    public function inventory()
+    {
+        return $this->hasOne('App\Models\inventory','id','sernum');
+    }
 }
