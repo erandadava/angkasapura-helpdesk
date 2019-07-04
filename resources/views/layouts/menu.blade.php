@@ -51,7 +51,9 @@
     <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>User</span></a>
 </li>
 
-
+<li class="{{ Request::is('unitKerjas*') ? 'active' : '' }}">
+    <a href="{!! route('unitKerjas.index') !!}"><i class="fa fa-edit"></i><span>Unit Kerja</span></a>
+</li>
 @endrole
 @role('User')
 <li class="treeview menu-open">
@@ -173,5 +175,7 @@
           </ul>
 </li>
 @endrole
+
+
 
 

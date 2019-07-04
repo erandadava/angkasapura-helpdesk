@@ -176,7 +176,11 @@
   </div>
 
   <div class="col-md-3">
-    
+     <!-- Complete By Field -->
+     <div class="form-group">
+        {!! Form::label('unit_kerja', 'Unit Kerja:') !!}
+        <p>{!! $issues->unit_kerja->nama_uk ?? '' ?? ''!!}</p>
+    </div>
   </div>
 </div>
 

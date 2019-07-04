@@ -51,7 +51,9 @@ class issues extends Model
         'solution_desc',
         'assign_it_support',
         'assign_it_ops',
-        'dev_ser_num'
+        'dev_ser_num',
+        'other_device',
+        'id_unit_kerja',
     ];
 
     /**
@@ -119,6 +121,10 @@ class issues extends Model
     public function sernum()
     {
         return $this->hasOne('App\Models\inventory','id','dev_ser_num');
+    }
+
+    public function unit_kerja(){
+        return $this->hasOne('App\Models\unit_kerja','id','id_unit_kerja');
     }
 
     public function getStatusalertAttribute()

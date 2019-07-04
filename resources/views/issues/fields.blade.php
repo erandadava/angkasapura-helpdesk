@@ -23,6 +23,18 @@
     {!! Form::text('location', null, ['class' => 'form-control']) !!}
 </div>
 
+<div class="form-group col-sm-6">
+    {!! Form::label('id_unit_kerja', 'Unit Kerja:') !!}
+    </br>
+    {!!  \Auth::user()->unit_kerja->nama_uk ?? ''!!}
+    {!! Form::hidden('id_unit_kerja', \Auth::user()->id_unit_kerja, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('other_device', 'Other Device:') !!}
+    {!! Form::text('other_device', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Cat Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('dev_ser_num', 'Serial Number/Device ID:') !!}
