@@ -80,18 +80,14 @@ class laporanDataTable extends DataTable
      */
     protected function getColumns()
     {
-        $jumlah_keluhan = issues::with(['product_detail.product' => function($query){
-            $query->groupBy('product_name');
-        }])->get();;
-
-        $SLA = issues::get()->count();
+        $jumlah_keluhan = issues::get()->count();
 
         return [
             ['data' => 'id','visible' => false],
             ['data' => 'inventory.nama_perangkat', 'title' => 'Nama Perangkat'],
             ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
-            // ['data' =>  $jumlah_keluhan, 'title' => 'Jumlah Keluhan'],
-            ['data' => $SLA, 'title' => 'SLA'],
+            ['data' =>  $jumlah_keluhan, 'title' => 'Jumlah Keluhan'],
+            // ['data' =>  $SLA, 'title' => 'SLA'],
             ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
         ]; 
     }
