@@ -24,7 +24,6 @@ class inventoryController extends AppBaseController
     {
         $this->inventoryRepository = $inventoryRepo;
         $this->data['cat_inventory'] = cat_inventory::where('is_active','=',1)->pluck('nama_cat','id');
-        $this->data['inven_pembelian'] = inven_pembelian::where('id','!=',null)->pluck('id_inventory_fk','id');
     }
 
     /**
