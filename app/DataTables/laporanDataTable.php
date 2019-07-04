@@ -34,6 +34,17 @@ class laporanDataTable extends DataTable
             if ($inquiry->status == 'SLITOPS') return "<span class='label label-success'>Solusi Telah Diberikan IT OPS</span>";
             return 'Cancel';
         })
+
+        // return $dataTable->editColumn('sernum', function ($inquiry) 
+        // {
+        //     return (int) $inquiry->sernum_count;
+        // })
+        // ->editColumn('kekuatan', function ($inquiry) 
+        // {
+        //     return ((int) $inquiry->karyawan_count / (int) $inquiry->jml_formasi)*100 ."%";
+        // })
+
+
         ->rawColumns(['status','action','prob_desc']);
     }
 
@@ -46,7 +57,8 @@ class laporanDataTable extends DataTable
     public function query(issues $model)
     {   
        $now = Carbon::now();
-       return $model->with(['category','priority','request'])->whereMonth('complete_date', '=', $now->month)->newQuery();
+    //    return $model->withCount('sernum')->whereMonth('complete_date', '=', $now->month)->newQuery();
+       return $model->with(['category','priority','request'])->withCount('sernum')->whereMonth('complete_date', '=', $now->month)->newQuery();
 
     }
 
@@ -79,14 +91,14 @@ class laporanDataTable extends DataTable
      */
     protected function getColumns()
     {
+        // $SLA = \DB::select( \DB::raw('SELECT count(issues.id) as "Jumlah Keluhan", inventory.nama_perangkat, 100-((count(issues.dev_ser_num)/30)*100) as SLA FROM issues RIGHT JOIN inventory ON issues.dev_ser_num = inventory.id GROUP BY inventory.id'));
+            
         return [
             ['data' => 'id','visible' => false],
-            ['data' => 'request.name', 'title' => 'Name'],
-            ['data' => 'location', 'title' => 'Lokasi'],
+            ['data' => 'inventory.nama_perangkat', 'title' => 'Nama Perangkat'],
             ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
-            ['data' => 'issue_id', 'title' => 'issue ID'],
-            ['data' => 'prob_desc', 'title' => 'Keluhan'],
-            ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
+            ['data' => 'sernum_count', 'title' => 'Jumlah Keluhan'],
+            // ['data' =>  $SLA, 'title' => 'SLA'],
             ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
         ]; 
     }

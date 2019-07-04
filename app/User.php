@@ -31,5 +31,7 @@ class User extends Authenticatable implements CanVerifyEmailContract
         'password', 'remember_token',
     ];
 
-    
+    public function unit_kerja(){
+        return $this->hasOne('App\Models\unit_kerja','id','id_unit_kerja');
+    }
 }

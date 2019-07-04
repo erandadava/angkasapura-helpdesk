@@ -57,6 +57,7 @@ class usersController extends AppBaseController
         $input = $request->all();
         $input['verified'] = 1;
         $input['password'] = bcrypt($input['password']);
+        $input['username'] = substr($input['email'], 0, strpos($input['email'], '@'));
         $users = $this->usersRepository->create($input);
 
         $akun = \App\User::find($users->id);
@@ -126,7 +127,8 @@ class usersController extends AppBaseController
             return redirect(route('users.index'));
         }
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
+        $input['username'] = substr($input['email'], 0, strpos($input['email'], '@'));
+        // $input['password'] = bcrypt($input['password']);
         $users = $this->usersRepository->update($input, $id);
         $akun = \App\User::find($users->id);
         $akun->assignRole($input['roles']);

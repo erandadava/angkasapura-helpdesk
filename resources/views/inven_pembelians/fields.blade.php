@@ -1,9 +1,3 @@
-{{-- <!-- Id Inventory Fk Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('id_inventory_fk', 'Id Inventory Fk:') !!}
-    {!! Form::number('id_inventory_fk', null, ['class' => 'form-control']) !!}
-</div> --}}
-
 <!-- Nama Perangkat Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('nama_perangkat', 'Nama Perangkat:') !!}
@@ -13,7 +7,7 @@
 <!-- Unit Kerja Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('unit_kerja', 'Unit Kerja:') !!}
-    {!! Form::text('unit_kerja', null, ['class' => 'form-control']) !!}
+    {!! Form::select('unit_kerja', $data_unit, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Nama Alat Field -->
@@ -34,14 +28,7 @@
     {!! Form::date('tgl_pembelian', null, ['class' => 'form-control','id'=>'tgl_pembelian']) !!}
 </div>
 
-@section('scripts')
-    <script type="text/javascript">
-        $('#tgl_pembelian').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: false
-        })
-    </script>
-@endsection
+
 
 <!-- Tgl Penyerahan Field -->
 <div class="form-group col-sm-6">
@@ -49,10 +36,16 @@
     {!! Form::date('tgl_penyerahan', null, ['class' => 'form-control','id'=>'tgl_penyerahan']) !!}
 </div>
 
+
 @section('scripts')
     <script type="text/javascript">
+        $('#tgl_pembelian').datetimepicker({
+            format: 'YYYY-MM-DD',
+            useCurrent: false
+        })
+
         $('#tgl_penyerahan').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
+            format: 'YYYY-MM-DD',
             useCurrent: false
         })
     </script>

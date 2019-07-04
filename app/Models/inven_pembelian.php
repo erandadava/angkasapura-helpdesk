@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @version July 1, 2019, 8:45 pm WIB
  *
  * @property \Illuminate\Database\Eloquent\Collection 
- * @property integer id_inventory_fk
  * @property string nama_perangkat
  * @property string unit_kerja
  * @property string nama_alat
@@ -33,7 +32,6 @@ class inven_pembelian extends Model
 
 
     public $fillable = [
-        'id_inventory_fk',
         'nama_perangkat',
         'unit_kerja',
         'nama_alat',
@@ -49,7 +47,6 @@ class inven_pembelian extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'id_inventory_fk' => 'integer',
         'nama_perangkat' => 'string',
         'unit_kerja' => 'string',
         'nama_alat' => 'string',
@@ -64,20 +61,17 @@ class inven_pembelian extends Model
      * @var array
      */
     public static $rules = [
-        // 'id_inventory_fk' => 'required',
         'nama_perangkat' => 'required',
         'unit_kerja' => 'required',
         'nama_alat' => 'required',
         'keperluan' => 'required',
-        // 'tgl_pembelian' => 'required',
+        'tgl_pembelian' => 'required',
         'tgl_penyerahan' => 'required'
     ];
 
-
-    public function inventorys()
-    {
-        return $this->hasMany('App\Models\inventory','id_inventory_fk','id');
-
+    public function unit_kerjas(){
+        return $this->hasOne('App\Models\unit_kerja','id','unit_kerja');
     }
+
     
 }

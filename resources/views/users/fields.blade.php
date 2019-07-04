@@ -10,11 +10,19 @@
     {!! Form::email('email', null, ['class' => 'form-control']) !!}
 </div>
 
+@if(empty($users->password))
 <!-- Password Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('password', 'Password:') !!}
     {!! Form::password('password', ['class' => 'form-control']) !!}
 </div>
+<!-- Password Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('password_confirmation', 'Password Confirmation:') !!}
+    {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
+</div>
+@endif
+
 
 <!-- Remember Token Field -->
 <div class="form-group col-sm-6">

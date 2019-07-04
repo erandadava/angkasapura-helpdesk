@@ -123,7 +123,7 @@ class issuesController extends AppBaseController
             $this->notifikasiController->update_baca($request->n);
         } 
 
-        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','rating'])->findWithoutFail($id);
+        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','rating','unit_kerja'])->findWithoutFail($id);
         $this->data['it_support'] = User::role('IT Support')->pluck('name','id');
         $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
         if (empty($this->data['issues'])) {

@@ -33,7 +33,8 @@ class users extends Model
         'password',
         'remember_token',
         'username',
-        'verified'
+        'verified',
+        'id_unit_kerja'
     ];
 
     /**
@@ -58,7 +59,13 @@ class users extends Model
     public static $rules = [
         'name' => 'required',
         'email' => 'required',
-        'password' => 'required'
+        'password' => 'required|min:6',
+        'password_confirmation' => 'required_with:password|same:password|min:6'
+    ];
+
+    public static $rulesUpdate = [
+        'name' => 'required',
+        'email' => 'required',
     ];
 
     public function model_has_roles()
@@ -71,6 +78,10 @@ class users extends Model
         return $this->hasMany('App\Models\rating','target_id','id');
     }
 
+    public function unit_kerja(){
+        return $this->hasOne('App\Models\unit_kerja','id','id_unit_kerja');
+    }
+    
     public function getRatetahunAttribute()
     {
         $roles = $this->model_has_roles()->with('roles')->first();

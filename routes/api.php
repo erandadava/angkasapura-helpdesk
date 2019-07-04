@@ -43,3 +43,7 @@ Route::resource('cat_inventories', 'cat_inventoryAPIController');
 Route::resource('inventories', 'inventoryAPIController');
 
 Route::resource('inven_pembelians', 'inven_pembelianAPIController');
+
+Route::resource('pemeriksaan_perangkats', 'pemeriksaan_perangkatAPIController');
+
+Route::resource('unit_kerjas', 'unit_kerjaAPIController');

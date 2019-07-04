@@ -127,11 +127,6 @@ class inventory extends Model
         return $this->hasOne('App\Models\cat_inventory','id','cat_id');
     }
 
-    public function inven_pembelian()
-    {
-        return $this->hasOne('App\Models\inven_pembelian','id','id_inventory_fk');
-    }
-
     public function getSernumidAttribute()
     {
         if($this->sernum == null && $this->tech_kode != null){
@@ -141,5 +136,10 @@ class inventory extends Model
         }else{
             return 'Sernum : '. $this->sernum . ' | Teknisi Kode : ' . $this->tech_kode;
         }
+    }
+
+    public function issues()
+    {
+        return $this->hasMany('App\Models\issues','dev_ser_num','id');
     }
 }

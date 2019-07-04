@@ -29,7 +29,7 @@ class inven_pembelianDataTable extends DataTable
      */
     public function query(inven_pembelian $model)
     {
-        return $model->newQuery();
+        return $model->with('unit_kerjas')->newQuery();
     }
 
     /**
@@ -65,12 +65,12 @@ class inven_pembelianDataTable extends DataTable
     {
         return [
             // 'id_inventory_fk',
-            'nama_perangkat',
-            'unit_kerja',
-            'nama_alat',
-            'keperluan',
-            'tgl_pembelian',
-            'tgl_penyerahan'
+            ['data' => 'nama_perangkat', 'title' => 'Nama Perangkat'],
+            ['data' => 'unit_kerjas.nama_uk', 'title' => 'Nama Perangkat'],
+            ['data' => 'nama_alat', 'title' => 'Nama Alat'],
+            ['data' => 'keperluan', 'title' => 'Keperluan'],
+            ['data' => 'tgl_pembelian', 'title' => 'Tanggal Pembelian'],
+            ['data' => 'tgl_penyerahan', 'title' => 'Tanggal Penyerahan'],
         ];
     }
 

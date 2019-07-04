@@ -19,6 +19,7 @@ class inven_pembelianController extends AppBaseController
     public function __construct(inven_pembelianRepository $invenPembelianRepo)
     {
         $this->invenPembelianRepository = $invenPembelianRepo;
+        $this->data['data_unit'] = \App\Models\unit_kerja::pluck('nama_uk','id');
     }
 
     /**
@@ -39,7 +40,7 @@ class inven_pembelianController extends AppBaseController
      */
     public function create()
     {
-        return view('inven_pembelians.create');
+        return view('inven_pembelians.create')->with($this->data);
     }
 
     /**
@@ -69,7 +70,7 @@ class inven_pembelianController extends AppBaseController
      */
     public function show($id)
     {
-        $invenPembelian = $this->invenPembelianRepository->findWithoutFail($id);
+        $invenPembelian = $this->invenPembelianRepository->with('unit_kerjas')->findWithoutFail($id);
 
         if (empty($invenPembelian)) {
             Flash::error('Inven Pembelian not found');
@@ -89,15 +90,15 @@ class inven_pembelianController extends AppBaseController
      */
     public function edit($id)
     {
-        $invenPembelian = $this->invenPembelianRepository->findWithoutFail($id);
+        $this->data['invenPembelian'] = $this->invenPembelianRepository->findWithoutFail($id);
 
-        if (empty($invenPembelian)) {
+        if (empty($this->data['invenPembelian'])) {
             Flash::error('Inven Pembelian not found');
 
             return redirect(route('invenPembelians.index'));
         }
 
-        return view('inven_pembelians.edit')->with('invenPembelian', $invenPembelian);
+        return view('inven_pembelians.edit')->with($this->data);
     }
 
     /**

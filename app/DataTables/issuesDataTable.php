@@ -35,9 +35,6 @@ class issuesDataTable extends DataTable
                 if ($inquiry->status == 'RT') return "<span class='label label-warning'>User Telah Memberi Rating</span>";
                 return 'Cancel';
             })
-            ->order(function ($dataTable) {
-                    $dataTable->orderBy('status', 'asc');
-            })
             ->setRowClass(function($dataTable) {
                 return $dataTable->status_alert == 0 ? '' : 'danger';
             })
@@ -77,7 +74,8 @@ class issuesDataTable extends DataTable
             return $model->with(['category','priority','request'])->newQuery();
         }
         if($roles[0] == "IT Non Public"){
-            return $model->with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->orWhere('request_id','=',$user->id)->orWhere('status','=',null)->newQuery();
+            // return $model->with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->orWhere('request_id','=',$user->id)->orWhere('status','=',null)->newQuery();
+            return $model->with(['category','priority','request'])->newQuery();
         }
         return $model->with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->newQuery();
     }
@@ -114,13 +112,14 @@ class issuesDataTable extends DataTable
         return [
             ['data' => 'id','visible' => false],
             ['data' => 'statusalert','visible' => false],
-            ['data' => 'category.cat_name', 'title' => 'Kategori'],
             ['data' => 'issue_id', 'title' => 'Kode'],
+            ['data' => 'request.name', 'title' => 'Request Oleh'],
             ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
-            ['data' => 'request.name', 'title' => 'Request'],
+            ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
+            ['data' => 'category.cat_name', 'title' => 'Kategori'],
             ['data' => 'location', 'title' => 'Lokasi'],
             ['data' => 'status', 'title' => 'Status'],
-            ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
+            
         ];
     }
 

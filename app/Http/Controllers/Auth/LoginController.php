@@ -37,7 +37,8 @@ class LoginController extends Controller
     public function redirectTo(){
         $user = \Auth::user();
         $roles = $user->getRoleNames();
-        if($roles[0] == 'User' && $roles[1]??'' != 'User'){
+        $rolesdua = $roles[1] ?? '';
+        if($roles[0] == 'User' && $rolesdua  != null && $rolesdua  != 'User'){
             return "/dashboard";
         }elseif($roles[0] == 'User'){
             return "/beranda";

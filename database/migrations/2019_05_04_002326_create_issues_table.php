@@ -31,6 +31,8 @@ class CreateIssuesTable extends Migration
             $table->tinyInteger('is_archive')->nullable();
             $table->enum('status',['RITADM','AITADM','ITSP','RITSP','AITSP','ITOPS', 'ITNP','CLOSE','CFUSER','SLITADM','SLITOPS','RT','ALS'])->nullable();
             $table->integer('dev_ser_num')->nullable();
+            $table->string('other_device')->nullable();
+            $table->integer('id_unit_kerja')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

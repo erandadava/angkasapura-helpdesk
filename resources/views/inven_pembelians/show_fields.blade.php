@@ -1,14 +1,4 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $invenPembelian->id !!}</p>
-</div>
 
-<!-- Id Inventory Fk Field -->
-<div class="form-group">
-    {!! Form::label('id_inventory_fk', 'Id Inventory Fk:') !!}
-    <p>{!! $invenPembelian->id_inventory_fk !!}</p>
-</div>
 
 <!-- Nama Perangkat Field -->
 <div class="form-group">
@@ -19,7 +9,7 @@
 <!-- Unit Kerja Field -->
 <div class="form-group">
     {!! Form::label('unit_kerja', 'Unit Kerja:') !!}
-    <p>{!! $invenPembelian->unit_kerja !!}</p>
+    <p>{!! $invenPembelian->unit_kerjas->nama_uk ?? '' !!}</p>
 </div>
 
 <!-- Nama Alat Field -->
