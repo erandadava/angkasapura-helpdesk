@@ -137,4 +137,9 @@ class inventory extends Model
             return 'Sernum : '. $this->sernum . ' | Teknisi Kode : ' . $this->tech_kode;
         }
     }
+
+    public function issues()
+    {
+        return $this->hasMany('App\Models\issues','dev_ser_num','id');
+    }
 }
