@@ -21,8 +21,10 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             $user = \Auth::user();
             $roles = $user->getRoleNames();
-            if($roles[0] == 'User'){
-                return redirect('/beranda');
+            if(count($roles)>0){
+                if($roles[0] == 'User'){
+                    return redirect('/beranda');
+                }
             }
             return redirect('/dashboard');
         }
