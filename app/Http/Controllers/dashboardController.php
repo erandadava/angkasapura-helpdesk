@@ -20,14 +20,14 @@ class dashboardController extends Controller
     {
         $this->data['jumlah_keluhan'] = issues::get()->count();
         $this->data['jumlah_user'] = User::get()->count();
-        $this->data['jumlah_keluhan_selesai'] = issues::where('status','=','CLOSE')->get()->count();
+        $this->data['jumlah_keluhan_selesai'] = issues::where([['status','=','CLOSE']])->orWhere([['status','=','RT']])->get()->count();
         $this->data['jumlah_prioritas'] = priority::leftjoin('issues', 'priority.id', '=', 'issues.prio_id')
         ->select('priority.id', 'priority.prio_name', DB::raw("count(issues.prio_id) as count"))
         ->groupBy('priority.id','priority.prio_name')->get()->toJson();
         $this->data['jumlah_kategori'] = category::leftjoin('issues', 'category.id', '=', 'issues.cat_id')
         ->select('category.id', 'category.cat_name', DB::raw("count(issues.cat_id) as count"))
         ->groupBy('category.id','category.cat_name')->get()->toJson();
-        $this->data['jumlah_selesai'] = issues::where('status','=','CLOSE')->count();
+        $this->data['jumlah_selesai'] = issues::where([['status','=','CLOSE']])->orWhere([['status','=','RT']])->count();
         $this->data['jumlah_belum'] = issues::where('status','!=','CLOSE')->orWhere('status','=',null)->count();
         $issue = issues::select('id', 'created_at')
                 ->get()
