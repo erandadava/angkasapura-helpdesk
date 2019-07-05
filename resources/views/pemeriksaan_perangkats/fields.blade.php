@@ -176,11 +176,11 @@
             useCurrent: false
         });
 
-        $("#signature_ttd_it_senior").jSignature();
-        $("#signature_ttd_admin_aps").jSignature();
-        $("#signature_ttd_teknisi_aps").jSignature();
-        $("#signature_ttd_user").jSignature();
-        $("#signature_ttd_it_non_public").jSignature();
+        // $("#signature_ttd_it_senior").jSignature();
+        // $("#signature_ttd_admin_aps").jSignature();
+        // $("#signature_ttd_teknisi_aps").jSignature();
+        // $("#signature_ttd_user").jSignature();
+        // $("#signature_ttd_it_non_public").jSignature();
         // console.log('halooo');
         var sigdiv = $("#signature_ttd_it_senior");
         sigdiv.jSignature();// inits the jSignature widget.
