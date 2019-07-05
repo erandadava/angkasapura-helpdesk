@@ -20,15 +20,19 @@ class laporanDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-
         return $dataTable->addColumn('action', 'laporans.datatables_actions')
         // return $dataTable->editColumn('sernum', function ($inquiry) 
         // {
         //     return (int) $inquiry->sernum_count;
         // })
-        ->editColumn('issuesjmlsla_count', function ($inquiry) 
+        ->editColumn('issuesjmlsla_count', function ($inquiry)
         {
-            $hasil = 100 - ((int) $inquiry->issuesjmlsla_count/30)*100;
+            $hasilrusak = 0;
+            foreach ($inquiry->issues as $key => $value) {
+                $interval = $value['issue_date']->diffInMinutes($value['complete_date'], true);
+                $hasilrusak += $interval*24;
+            }
+            $hasil = 100 - ((720 - (int)$hasilrusak)/720)*100;
             $hasil = number_format($hasil, 2, '.', ' ');
             return $hasil.'%';
         })
