@@ -156,4 +156,9 @@ class inventoryController extends AppBaseController
 
         return redirect(route('inventories.index'));
     }
+
+    public function laporan(laporanDataTable $laporanDataTable, Request $request)
+    {
+        return $laporanDataTable->render('laporans.index');
+    }
 }

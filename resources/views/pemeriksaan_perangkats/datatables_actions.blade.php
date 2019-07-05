@@ -3,9 +3,9 @@
     <a href="{{ route('pemeriksaanPerangkats.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
     </a>
-    <!-- <a href="{{ route('pemeriksaanPerangkats.edit', $id) }}" class='btn btn-default btn-xs'>
+    <a href="{{ route('pemeriksaanPerangkats.edit', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-edit"></i>
-    </a> -->
+    </a> 
     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', [
         'type' => 'submit',
         'class' => 'btn btn-danger btn-xs',
