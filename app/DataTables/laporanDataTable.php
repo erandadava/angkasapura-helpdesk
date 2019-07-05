@@ -96,10 +96,10 @@ class laporanDataTable extends DataTable
         return [
             ['data' => 'id','visible' => false],
             ['data' => 'inventory.nama_perangkat', 'title' => 'Nama Perangkat'],
-            ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
+            // ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
             ['data' => 'sernum_count', 'title' => 'Jumlah Keluhan'],
-            // ['data' =>  $SLA, 'title' => 'SLA'],
-            ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
+            ['data' =>  'SLA', 'title' => 'SLA'],
+            // ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
         ]; 
     }
 
