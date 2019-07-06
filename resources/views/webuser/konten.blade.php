@@ -150,7 +150,13 @@
                   
                   </div>
                 </div>
-
+                <div class="uk-margin uk-form-grid-medium uk-width-1-2">
+                    <label class="uk-form-label" for="form-stacked-select">Nomor Telepon</label>
+                    <div class="uk-form-controls">
+                    {!! Form::text('no_tlp', null, ['class' => 'uk-input', 'id'=>'form-stacked-text', 'pattern' => '\d*']) !!}
+                    
+                    </div>
+                  </div>
                 <div class="uk-margin uk-form-grid-medium uk-width-1-1">
                   <label class="uk-form-label">Problem</label>
                   {!! Form::textarea('prob_desc', null, ['class' => 'uk-textarea', 'id' => 'editor' ]) !!}
@@ -235,7 +241,22 @@
                             {!! $dt->solution_desc !!}
                         </div>
                         <div class="uk-modal-footer uk-text-right">
-                          <a href="#modal-rating{{$key}}" class="uk-button uk-button-primary" uk-toggle>Done</a>
+                            @if ($dt->status == 'SLITSP' || $dt->status == 'SLITOPS')
+                              @if(($dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops)) 
+                              {!! Form::open(['route' => ['issues.update', $dt->id], 'method' => 'patch']) !!}
+                              {!! Form::hidden('usr', 'd', ['class' => 'form-control']) !!}
+                                  {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
+                                  <button class='uk-button uk-button-primary' type="submit" onclick="return confirm('Yakin?')">
+                                    <i class="glyphicon glyphicon-check"></i> Done
+                                  </button>
+                              {!! Form::close() !!} 
+                              @endif
+                            @endif
+                            @if(($dt->status=="CLOSE" && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status=="CLOSE" && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))
+                            <a href="#modal-rating{{$key}}" class="uk-button uk-button-danger" uk-toggle>Rate</a>
+                            @endif
+                          
+                          
                         </div>
                       </div>
                     </div>

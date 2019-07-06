@@ -175,8 +175,14 @@ class issuesController extends AppBaseController
         $input = $request->all();
         
         if($input['status'] == 'CLOSE'){
-            $input['complete_by'] = \Auth::User()->id;
             $input['complete_date'] = $this->waktu_sekarang;
+        }
+        if($input['status'] == 'DLITOPS' || $input['status'] == 'DLITSP'){
+            $input['waktu_tindakan'] = $this->waktu_sekarang;
+        }
+        if($input['status'] == 'SLITOPS' || $input['status'] == 'SLITSP'){
+            $input['complete_by'] = \Auth::User()->id;
+            $input['solution_date'] = $this->waktu_sekarang;
         }
         $issues = $this->issuesRepository->update($input, $id);
         
@@ -188,7 +194,11 @@ class issuesController extends AppBaseController
         }
         $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);
         if(isset($input['usr'])){
-            Alert::success('Rating Sent Successfully', 'Thank You!')->autoclose(4000);
+            if($input['usr'] == 'a'){
+                Alert::success('Rating Sent Successfully', 'Thank You!')->autoclose(4000);
+            }else{
+                Alert::success('The issue has finished', 'Thank You!')->autoclose(4000);
+            }
             return redirect('/beranda');
         }
         Flash::success('Issues updated successfully.');

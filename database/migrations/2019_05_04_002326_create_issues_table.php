@@ -28,11 +28,14 @@ class CreateIssuesTable extends Migration
             $table->integer('complete_by')->nullable();
             $table->dateTime('issue_date')->nullable();
             $table->dateTime('complete_date')->nullable();
+            $table->dateTime('waktu_tindakan')->nullable();
+            $table->dateTime('solution_date')->nullable();
             $table->tinyInteger('is_archive')->nullable();
-            $table->enum('status',['RITADM','AITADM','ITSP','RITSP','AITSP','ITOPS', 'ITNP','CLOSE','CFUSER','SLITADM','SLITOPS','RT','ALS'])->nullable();
+            $table->enum('status',['RITADM','AITADM','ITSP','RITSP','AITSP','ITOPS', 'ITNP','CLOSE','CFUSER','SLITADM','RT','ALS','LITSP','LITOPS','DLITSP','DLITOPS','SLITSP','SLITOPS'])->nullable();
             $table->integer('dev_ser_num')->nullable();
             $table->string('other_device')->nullable();
             $table->integer('id_unit_kerja')->nullable();
+            $table->string('no_tlp')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
