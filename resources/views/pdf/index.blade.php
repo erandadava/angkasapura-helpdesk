@@ -47,7 +47,7 @@ th{
                             <td><center>{{$key+1}}</center></td>
                                 @foreach($dt as $key2 => $dt2)
                                     <td>
-                                        {{$dt2}}
+                                        {!! $dt2 !!}
                                     </td>
                                 @endforeach
                             </tr>

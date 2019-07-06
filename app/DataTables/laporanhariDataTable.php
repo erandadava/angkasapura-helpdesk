@@ -34,7 +34,13 @@ class laporanhariDataTable extends DataTable
             if ($inquiry->status == 'SLITOPS') return "<span class='label label-success'>Solusi Telah Diberikan IT OPS</span>";
             return 'Cancel';
         })
-        ->rawColumns(['status','action']);
+        ->editColumn('issue_date', function ($inquiry) {
+            return $inquiry->issue_date.' - '.$inquiry->solution_date;
+        })
+        ->editColumn('waktu_tindakan', function ($inquiry) {
+            return $inquiry->waktu_tindakan.' - '.$inquiry->complete_date;
+        })
+        ->rawColumns(['status','prob_desc','solution_desc','reason_desc','action']);
     }
 
     /**
@@ -83,10 +89,11 @@ class laporanhariDataTable extends DataTable
             ['data' => 'id','visible' => false],
             ['data' => 'request.name', 'title' => 'Name'],
             ['data' => 'location', 'title' => 'Lokasi'],
-            ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
-            ['data' => 'issue_id', 'title' => 'issue ID'],
             ['data' => 'prob_desc', 'title' => 'Keluhan'],
-            ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
+            ['data' => 'reason_desc', 'title' => 'Alasan'],
+            ['data' => 'solution_desc', 'title' => 'Solusi'],
+            ['data' => 'issue_date', 'title' => 'Waktu Tanggap'],  
+            ['data' => 'waktu_tindakan', 'title' => 'Waktu Tindakan'],
             ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
         ]; 
     }

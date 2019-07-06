@@ -69,17 +69,19 @@ class pdfController extends Controller
             case 'laporan_harian' :
                 $now = Carbon::now();
                 $get = \App\Models\issues::with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->get();
-                $head = ['Name', 'Lokasi', 'Serial Number', 'issue ID', 'Keluhan', 'Waktu Keluhan', 'Tanggal Selesai'];
+                $head = ['Name', 'Lokasi', 'Keluhan', 'Alasan', 'Solusi', 'Waktu Tanggap', 'Waktu Tindakan', 'Tanggal Selesai'];
                 $title = 'Laporan Harian';
                 foreach ($get as $key => $value) {
+                    $tanggap = $value->issue_date.' - '.$value->solution_date;
+                    $tindakan = $value->waktu_tindakan.' - '.$value->complete_date;
                     $isinya[$key]=[
                         0 => $value['request']['name'],
                         1 => $value['location'],
-                        2 => $value['inventory']['sernum'],
-                        3 => $value['issue_id'],
-                        4 => $value['prob_desc'],
-                        5 => $value['issue_date'],
-                        6 => $value['complete_date'],
+                        2 => $value['prob_desc'],
+                        3 => $value['reason_desc'],
+                        4 => $value['solution_desc'],
+                        5 => $tanggap,
+                        6 => $tindakan,
                     ];   
                 }
                 break;
