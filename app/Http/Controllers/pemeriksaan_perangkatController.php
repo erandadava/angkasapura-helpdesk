@@ -10,7 +10,7 @@ use App\Repositories\pemeriksaan_perangkatRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
-
+use Carbon\Carbon;
 class pemeriksaan_perangkatController extends AppBaseController
 {
     /** @var  pemeriksaan_perangkatRepository */
@@ -112,6 +112,17 @@ class pemeriksaan_perangkatController extends AppBaseController
             // $foto = file_put_contents($path, $sign);
             // $input['ttd_it_senior'] = $foto->store('/ttditsenior');
         }
+
+        if ($request->foto) {
+            $foto=[];
+            foreach ($request->foto as $key => $photo) {
+                $imageName = $photo;
+                $storage = \Storage::disk('public')->put('pemeriksaanperangkat/', $imageName);
+                $foto[$key] = 'pemeriksaanperangkat/'.basename($storage);
+            }
+            $input['foto'] = serialize($foto);
+        }
+        
 
 
         $pemeriksaanPerangkat = $this->pemeriksaanPerangkatRepository->create($input);
@@ -242,6 +253,11 @@ class pemeriksaan_perangkatController extends AppBaseController
             // $input['ttd_it_senior'] = $foto->store('/ttditsenior');
         }
 
+        if(isset($input['ganti_foto'])){
+            $input['foto'] = serialize($this->update_dokumen($id,'foto',$input['foto'],$pemeriksaanPerangkat->foto));
+        }else{
+            unset($input['foto']);
+        }
         $pemeriksaanPerangkat = $this->pemeriksaanPerangkatRepository->update($input, $id);
 
         Flash::success('Pemeriksaan Perangkat updated successfully.');
@@ -271,5 +287,29 @@ class pemeriksaan_perangkatController extends AppBaseController
         Flash::success('Pemeriksaan Perangkat deleted successfully.');
 
         return redirect(route('pemeriksaanPerangkats.index'));
+    }
+
+    public function update_dokumen($id,$field,$value,$valuelama){
+        // $doc_no_bpjs_tk = unserialize($this->data['karyawanOs']['doc_no_bpjs_tk']);
+        // $doc_no_bpjs_kesehatan = unserialize($this->data['karyawanOs']['doc_no_bpjs_kesehatan']);
+        // $doc_lisensi = unserialize($this->data['karyawanOs']['doc_lisensi']);
+        // $doc_no_lisensi= unserialize($this->data['karyawanOs']['doc_no_lisensi']);
+        // $doc_jangka_waktu = unserialize($this->data['karyawanOs']['doc_jangka_waktu']);
+        // $doc_no_kontrak_kerja = unserialize($this->data['karyawanOs']['doc_no_kontrak_kerja']);
+
+        //hapus file lama 
+        $filelama = $valuelama; 
+        foreach ($filelama as $key => $dt) {
+            \File::delete('storage/'.$dt);
+        }
+
+        //update field
+        $nilai=[];
+        foreach ($value as $key => $photo) {
+            $imageName = $photo;
+            $filename =  \Storage::disk('public')->put('pemeriksaanperangkat/', $imageName);
+            $nilai[$key]='pemeriksaanperangkat/'.basename($filename);
+        }
+        return $nilai;
     }
 }

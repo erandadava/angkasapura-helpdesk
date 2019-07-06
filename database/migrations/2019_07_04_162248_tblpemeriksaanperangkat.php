@@ -39,6 +39,7 @@ class Tblpemeriksaanperangkat extends Migration
             $table->string('teknisi_aps')->nullable();
             $table->string('user')->nullable();
             $table->string('it_non_public')->nullable();
+            $table->string('foto')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

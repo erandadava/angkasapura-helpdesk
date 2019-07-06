@@ -12,7 +12,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'pemeriksaanPerangkats.store', 'class' => 'form-perangkat']) !!}
+                    {!! Form::open(['route' => 'pemeriksaanPerangkats.store', 'class' => 'form-perangkat', 'enctype'=>'multipart/form-data']) !!}
 
                         @include('pemeriksaan_perangkats.fields')
 

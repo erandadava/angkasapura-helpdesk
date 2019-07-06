@@ -169,6 +169,32 @@
     @endif
     
 </div>
+
+
+@if(isset($pemeriksaanPerangkat['Foto']))
+    <div class="form-group col-sm-12 col-lg-12">
+    @foreach($pemeriksaanPerangkat['Foto'] as $key => $dt)
+            <div class="col-6 col-md-3">
+                <a href="{{'/storage/'.$dt}}"><img src="{{asset('/storage/'.$dt)}}" width="100%" alt="" srcset=""></a>
+            </div>
+    @endforeach
+    </div>
+    <div class="form-group col-sm-12 col-lg-12">
+        {!! Form::label('ganti_doc_bpjs_tk', 'Ganti Foto:') !!}
+        <input type="checkbox" id="myCheck"   name="ganti_foto" onclick="foto()">
+    </div>
+    <div class="form-group col-sm-12 col-lg-12">
+        <input  type="file"  class="foto" name="foto[]" multiple="multiple" accept="image/png, image/jpeg" disabled="disabled">
+    </div>
+@else
+    <!-- Doc No Bpjs Tk Field -->
+    <div class="form-group col-sm-12 col-lg-12">
+        {!! Form::label('doc_no_bpjs_tk', 'Foto:') !!}
+        <input  type="file"  name="foto[]" multiple="multiple" accept="image/png, image/jpeg">
+    </div>
+@endif
+
+
 <input type="hidden" name="ttd_it_senior" id="hdsignature_ttd_it_senior" />
 <input type="hidden" name="ttd_admin_aps" id="hdsignature_ttd_admin_aps" />
 <input type="hidden" name="ttd_teknisi_aps" id="hdsignature_ttd_teknisi_aps" />
@@ -263,5 +289,11 @@
             $('.form-perangkat').submit();
         });
     });
+
+
+    function foto(){
+            $(".foto").val(null);
+            $(".foto").attr('disabled', !$(".foto").attr('disabled'));
+        };
     </script>
 @endsection

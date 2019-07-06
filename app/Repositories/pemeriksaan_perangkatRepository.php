@@ -43,7 +43,7 @@ class pemeriksaan_perangkatRepository extends BaseRepository
         'ttd_admin_aps',
         'teknisi_aps',
         'user',
-        'it_non_public'
+        'it_non_public',
     ];
 
     /**
