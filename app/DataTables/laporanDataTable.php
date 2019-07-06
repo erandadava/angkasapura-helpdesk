@@ -30,9 +30,11 @@ class laporanDataTable extends DataTable
             $hasilrusak = 0;
             foreach ($inquiry->issues as $key => $value) {
                 $interval = $value['issue_date']->diffInMinutes($value['complete_date'], true);
+                $interval = (int) $interval / 60 / 24;
                 $hasilrusak += $interval*24;
             }
-            $hasil = 100 - ((720 - (int)$hasilrusak)/720)*100;
+           
+            $hasil = ((720 - $hasilrusak)/720)*100;
             $hasil = number_format($hasil, 2, '.', ' ');
             return $hasil.'%';
         })
