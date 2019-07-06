@@ -116,6 +116,7 @@ class pemeriksaan_perangkat extends Model
      */
     public static $rules = [
         'foto.*' => 'mimes:jpg,jpeg,png',
+        'foto' => 'max:3',
     ];
 
     public function getFotoAttribute()
