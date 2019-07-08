@@ -149,7 +149,11 @@ class pdfController extends Controller
         $myString = $request->exportid;
         $arr_export = explode(',', $myString);
         $now = Carbon::now();
-        $get = \App\Models\issues::with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->whereIn('id',$arr_export)->get();
+        if($roles[0] == 'IT Operasional'){
+            $get = \App\Models\issues::with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->whereIn('id',$arr_export)->get();
+        }else{
+            $get = \App\Models\issues::with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->get();
+        }
         $head = ['Nama', 'Lokasi', 'Keluhan', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
         $title = 'Laporan Harian';
         foreach ($get as $key => $value) {
