@@ -90,11 +90,11 @@ class laporanhariDataTable extends DataTable
             ['data' => 'request.name', 'title' => 'Name'],
             ['data' => 'location', 'title' => 'Lokasi'],
             ['data' => 'prob_desc', 'title' => 'Keluhan'],
-            ['data' => 'reason_desc', 'title' => 'Alasan'],
-            ['data' => 'solution_desc', 'title' => 'Solusi'],
+            ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
+            ['data' => 'waktu_tindakan', 'title' => 'Waktu Penanganan'],
+            ['data' => 'complete_date', 'title' => 'Waktu Selesai'],
             ['data' => 'issue_date', 'title' => 'Waktu Tanggap'],  
-            ['data' => 'waktu_tindakan', 'title' => 'Waktu Tindakan'],
-            ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
+            ['data' => 'solution_desc', 'title' => 'Solusi'],
         ]; 
     }
 
