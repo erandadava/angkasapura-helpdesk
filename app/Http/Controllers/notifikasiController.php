@@ -84,6 +84,31 @@ class notifikasiController extends AppBaseController
                     $input['pesan'] = "<p><span class='label label-warning'>Menunggu Solusi Dari IT OPS</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->request_id;
                     break;
+                case 'LITOPS':
+                    $input['pesan'] = "<p><span class='label label-info'>IT OPS Menuju ke Lokasi</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
+                case 'DLITOPS':
+                    $input['pesan'] = "<p><span class='label label-warning'>Sedang Dalam Tindakan IT OPS</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
+                case 'SLITOPS':
+                    $input['pesan'] = "<p><span class='label label-success'>Solusi Telah Diberikan IT OPS</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
+                
+                case 'LITSP':
+                    $input['pesan'] = "<p><span class='label label-info'>IT Support Menuju ke Lokasi</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
+                case 'DLITSP':
+                    $input['pesan'] = "<p><span class='label label-warning'>Sedang Dalam Tindakan IT Support</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
+                case 'SLITSP':
+                    $input['pesan'] = "<p><span class='label label-success'>Solusi Telah Diberikan IT Suppot</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
                 case 'CLOSE':
                     if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops){
                         $input['pesan'] = "<p><span class='label label-info'>Berikan Rating</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
@@ -92,8 +117,14 @@ class notifikasiController extends AppBaseController
                         $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
                         $this->notifikasiRepository->update($input, $notifikasi->id);
                     }
-                    $input['pesan'] = "<p><span class='label label-success'>Keluhan Ditutup</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
-                    $input['user_id'] = $keluhan->request_id;
+                    if($keluhan->assign_it_support != null && $keluhan->complete_by == $keluhan->assign_it_support){
+                        $input['pesan'] = "<p><span class='label label-success'>Keluhan Selesai</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                        $input['user_id'] = $keluhan->assign_it_support;
+                    }
+                    if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops){
+                        $input['pesan'] = "<p><span class='label label-success'>Keluhan Selesai</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                        $input['user_id'] = $keluhan->assign_it_ops;
+                    }
                     break;
                 case 'RT':
                     if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops){

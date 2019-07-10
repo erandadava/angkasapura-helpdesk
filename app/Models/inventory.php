@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 
 /**
@@ -139,6 +140,16 @@ class inventory extends Model
     }
 
     public function issues()
+    {
+        return $this->hasMany('App\Models\issues','dev_ser_num','id');
+    }
+    public function issuesjml()
+    {
+        $now = Carbon::now();
+        return $this->hasMany('App\Models\issues','dev_ser_num','id')->whereMonth('complete_date', '=', $now->month);
+    }
+
+    public function issuesjmlsla()
     {
         return $this->hasMany('App\Models\issues','dev_ser_num','id');
     }

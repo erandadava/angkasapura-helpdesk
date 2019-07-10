@@ -150,7 +150,13 @@
                   
                   </div>
                 </div>
-
+                <div class="uk-margin uk-form-grid-medium uk-width-1-2">
+                    <label class="uk-form-label" for="form-stacked-select">Nomor Telepon</label>
+                    <div class="uk-form-controls">
+                    {!! Form::text('no_tlp', null, ['class' => 'uk-input', 'id'=>'form-stacked-text', 'pattern' => '\d*']) !!}
+                    
+                    </div>
+                  </div>
                 <div class="uk-margin uk-form-grid-medium uk-width-1-1">
                   <label class="uk-form-label">Problem</label>
                   {!! Form::textarea('prob_desc', null, ['class' => 'uk-textarea', 'id' => 'editor' ]) !!}
@@ -189,10 +195,15 @@
                     @if ($dt->status == 'AITSP') <span class='badge badge-warning'>Menunggu Solusi Dari IT Support</span> @endif
                     @if ($dt->status == 'ITOPS') <span class='badge badge-warning'>Menunggu Solusi Dari IT OPS</span> @endif
                     @if ($dt->status == 'CLOSE') <span class='badge badge-success'>Keluhan Ditutup</span> @endif
-                    @if ($dt->status == 'SLITADM') <span class='badge badge-success'>Solusi Telah Diberikan IT Administrator</span> @endif
-                    @if ($dt->status == 'SLITOPS') <span class='badge badge-success'>Solusi Telah Diberikan IT OPS</span> @endif
-                    @if ($dt->status == 'RT') <span class='badge badge-warning'>User Telah Memberi Rating</span> @endif
-                    </td>
+                    @if ($issues->status == 'SLITADM') <span class='label label-success'>Solusi Telah Diberikan IT Administrator</span> @endif
+                    @if ($issues->status == 'SLITOPS') <span class='label label-success'>Solusi Telah Diberikan IT OPS</span> @endif
+                    @if ($issues->status == 'SLITSP') <span class='label label-success'>Solusi Telah Diberikan IT Support</span> @endif
+                    @if ($issues->status == 'LITOPS') <span class='label label-info'>IT OPS Menuju ke Lokasi</span> @endif
+                    @if ($issues->status == 'LITSP') <span class='label label-info'>IT Support Menuju ke Lokasi</span> @endif
+                    @if ($issues->status == 'DLITOPS') <span class='label label-warning'>Sedang Dalam Tindakan IT OPS</span> @endif
+                    @if ($issues->status == 'DLITSP') <span class='label label-warning'>Sedang Dalam Tindakan IT Support</span> @endif
+                    @if ($issues->status == 'RT') <span class='label label-warning'>User Telah Memberi Rating</span> @endif
+                  </td>
                     
                   </tr>
                 @empty
@@ -235,7 +246,22 @@
                             {!! $dt->solution_desc !!}
                         </div>
                         <div class="uk-modal-footer uk-text-right">
-                          <a href="#modal-rating{{$key}}" class="uk-button uk-button-primary" uk-toggle>Done</a>
+                            @if ($dt->status == 'SLITSP' || $dt->status == 'SLITOPS')
+                              @if(($dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops)) 
+                              {!! Form::open(['route' => ['issues.update', $dt->id], 'method' => 'patch']) !!}
+                              {!! Form::hidden('usr', 'd', ['class' => 'form-control']) !!}
+                                  {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
+                                  <button class='uk-button uk-button-primary' type="submit" onclick="return confirm('Yakin?')">
+                                    <i class="glyphicon glyphicon-check"></i> Done
+                                  </button>
+                              {!! Form::close() !!} 
+                              @endif
+                            @endif
+                            @if(($dt->status=="CLOSE" && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status=="CLOSE" && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))
+                            <a href="#modal-rating{{$key}}" class="uk-button uk-button-danger" uk-toggle>Rate</a>
+                            @endif
+                          
+                          
                         </div>
                       </div>
                     </div>

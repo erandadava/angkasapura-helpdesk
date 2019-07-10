@@ -148,6 +148,21 @@
     <img src="{{asset('storage/'.$pemeriksaanPerangkat->it_non_public )}}" alt="" srcset="">
 </div>
 
+<div class="form-group">
+    {!! Form::label('foto', 'Foto:') !!}
+    </br>
+    <div class="row">
+        @if(isset($pemeriksaanPerangkat['Foto']))
+            @foreach($pemeriksaanPerangkat['Foto'] as $key => $dt)
+                    <div class="col-6 col-md-3">
+                        <a href="{{'/storage/'.$dt}}"><img src="{{asset('/storage/'.$dt)}}" width="100%" alt="" srcset=""></a>
+                    </div>
+            @endforeach
+        @endif
+    </div>
+</div>
+
+
 <!-- Created At Field -->
 <div class="form-group">
     {!! Form::label('created_at', 'Created At:') !!}

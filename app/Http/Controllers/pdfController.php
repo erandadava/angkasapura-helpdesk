@@ -9,12 +9,14 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRole;
 use Auth;
 use Carbon\Carbon;
+
 class pdfController extends Controller
 {
     public function make_pdf($tabel){
         $user = Auth::user();
         $roles = $user->getRoleNames();
         $tabel = \Crypt::decrypt($tabel);
+        dd($tabel);
         $isinya = [];
         switch ($tabel) {
             case 'issues':
@@ -63,23 +65,6 @@ class pdfController extends Controller
                         2 => $value['nama_perangkat'],
                         3 => $value['merk'],
                         4 => $status,
-                    ];   
-                }
-                break;
-            case 'laporan_harian' :
-                $now = Carbon::now();
-                $get = \App\Models\issues::with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->get();
-                $head = ['Name', 'Lokasi', 'Serial Number', 'issue ID', 'Keluhan', 'Waktu Keluhan', 'Tanggal Selesai'];
-                $title = 'Laporan Harian';
-                foreach ($get as $key => $value) {
-                    $isinya[$key]=[
-                        0 => $value['request']['name'],
-                        1 => $value['location'],
-                        2 => $value['inventory']['sernum'],
-                        3 => $value['issue_id'],
-                        4 => $value['prob_desc'],
-                        5 => $value['issue_date'],
-                        6 => $value['complete_date'],
                     ];   
                 }
                 break;
@@ -155,6 +140,38 @@ class pdfController extends Controller
         $values = $isinya;
         $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values]);
         return $pdf->download($tabel.time().'.pdf');
+    }
 
+    public function make_pdf_laporan_harian(Request $request){
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        $isinya = [];
+        $myString = $request->exportid;
+        $arr_export = explode(',', $myString);
+        $now = Carbon::now();
+        if($roles[0] == 'IT Operasional'){
+            $get = \App\Models\issues::with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->whereIn('id',$arr_export)->get();
+        }else{
+            $get = \App\Models\issues::with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->get();
+        }
+        $head = ['Nama', 'Lokasi', 'Keluhan', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
+        $title = 'Laporan Harian';
+        foreach ($get as $key => $value) {
+            $tanggap = $value->solution_date.' - '.$value->waktu_tindakan;
+            $isinya[$key]=[
+                0 => $value['request']['name'],
+                1 => $value['location'],
+                2 => $value['prob_desc'],
+                3 => $value['issue_date'],
+                4 => $value['waktu_tindakan'],
+                5 => $value['solution_date'],
+                6 => $tanggap,
+                7 => $value['solution_desc']
+            ];   
+        }
+        $values = $isinya;
+        //return view('pdf.index')->with(['head'=>$head,'title'=>$title,'value'=>$values]);
+        $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values])->setPaper('a4', 'landscape');
+        return $pdf->download('laporan_harian'.time().'.pdf');
     }
 }

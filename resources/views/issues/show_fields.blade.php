@@ -64,11 +64,16 @@
         @if ($issues->status == 'AITADM') <span class='label label-success'>Diterima IT Administrator</span> @endif
         @if ($issues->status == 'ITSP') <span class='label label-info'>Diteruskan ke IT Support</span> @endif
         @if ($issues->status == 'RITSP') <span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator</span> @endif
-        @if ($issues->status == 'AITSP') <span class='label label-warning'>Menunggu Solusi Dari IT Support</span> @endif
-        @if ($issues->status == 'ITOPS') <span class='label label-warning'>Menunggu Solusi Dari IT OPS</span> @endif
-        @if ($issues->status == 'CLOSE') <span class='label label-success'>Keluhan Ditutup</span> @endif
+        @if ($issues->status == 'AITSP') <span class='label label-warning'>Menunggu Tindakan Dari IT Support</span> @endif
+        @if ($issues->status == 'ITOPS') <span class='label label-warning'>Menunggu Tindakan Dari IT OPS</span> @endif
+        @if ($issues->status == 'CLOSE') <span class='label label-success'>Keluhan Selesai</span> @endif
         @if ($issues->status == 'SLITADM') <span class='label label-success'>Solusi Telah Diberikan IT Administrator</span> @endif
         @if ($issues->status == 'SLITOPS') <span class='label label-success'>Solusi Telah Diberikan IT OPS</span> @endif
+        @if ($issues->status == 'SLITSP') <span class='label label-success'>Solusi Telah Diberikan IT Support</span> @endif
+        @if ($issues->status == 'LITOPS') <span class='label label-info'>IT OPS Menuju ke Lokasi</span> @endif
+        @if ($issues->status == 'LITSP') <span class='label label-info'>IT Support Menuju ke Lokasi</span> @endif
+        @if ($issues->status == 'DLITOPS') <span class='label label-warning'>Sedang Dalam Tindakan IT OPS</span> @endif
+        @if ($issues->status == 'DLITSP') <span class='label label-warning'>Sedang Dalam Tindakan IT Support</span> @endif
         @if ($issues->status == 'RT') <span class='label label-warning'>User Telah Memberi Rating</span> @endif
         </p>
     </div>
@@ -204,6 +209,29 @@
   </div>
 
   <div class="col-md-3">
+    <!-- Complete Date Field -->
+    <div class="form-group">
+       {!! Form::label('waktu_tindakan', 'Waktu Tindakan:') !!}
+       <p>{!! $issues->waktu_tindakan !!}</p>
+   </div>
+ </div>
+
+ <div class="col-md-3">
+  <!-- Complete Date Field -->
+  <div class="form-group">
+     {!! Form::label('solution_date', 'Waktu Solusi Diberikan:') !!}
+     <p>{!! $issues->solution_date !!}</p>
+ </div>
+</div>
+<div class="col-md-3">
+    <!-- Complete Date Field -->
+    <div class="form-group">
+       {!! Form::label('no_tlp', 'Nomor Telepon:') !!}
+       <p>{!! $issues->no_tlp !!}</p>
+   </div>
+  </div>
+
+  <div class="col-md-3">
       <!-- Created At Field -->
     <div class="form-group">
         {!! Form::label('created_at', 'Dibuat Pada:') !!}
@@ -248,6 +276,14 @@
 
 @hasrole('IT Support')
   @if($issues->status == 'ITSP')
+  <div class="form-group col-md-2 col-sm-12">
+    {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+        {!! Form::hidden('status', 'LITSP', ['class' => 'form-control'])!!}
+        <button class='btn btn-danger btn-md' type="submit" onclick="return confirm('Yakin?')">
+          <i class="glyphicon glyphicon-random"></i> OTW
+        </button>
+    {!! Form::close() !!} 
+  </div>
   <div class="form-group col-md-3 col-sm-12">
           <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItOPS">
               <i class="glyphicon glyphicon-share"></i> Tidak Dapat Mengatasi Keluhan
@@ -280,6 +316,56 @@
   </div>
 </div>
 
+  @endif
+
+  @if ($issues->status == "LITSP")
+    <div class="form-group col-md-2 col-sm-12">
+      {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+          {!! Form::hidden('status', 'DLITSP', ['class' => 'form-control'])!!}
+          <button class='btn btn-info btn-md' type="submit" onclick="return confirm('Yakin?')">
+            <i class="glyphicon glyphicon-wrench"></i> Mulai Kerja
+          </button>
+      {!! Form::close() !!} 
+    </div>
+  @endif
+
+  @if ($issues->status == "DLITSP")
+      <!-- Button untuk IT NP -->
+    <div class="form-group col-md-2 col-sm-12">
+    
+            <button class='btn btn-success btn-md' data-toggle="modal" data-target="#myModal">
+                <i class="glyphicon glyphicon-folder-close"></i> Solusi
+            </button>
+    
+    </div>
+    <!-- ---------------------- -->
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Solusi</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+          {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+              {!! Form::hidden('status', 'SLITSP', ['class' => 'form-control'])!!}
+              <div class="form-group col-sm-12 col-lg-12">
+                  {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
+                  {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor']) !!}
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
+        </div>
+      </div>
+      {!! Form::close() !!}
+    </div>
+  </div>
   @endif
 @endhasrole
 
@@ -437,11 +523,33 @@
 
 @hasrole('IT Operasional')
     @if($issues->status=="ITOPS") 
-    <!-- Button untuk IT NP -->
+    <div class="form-group col-md-2 col-sm-12">
+      {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+          {!! Form::hidden('status', 'LITOPS', ['class' => 'form-control'])!!}
+          <button class='btn btn-danger btn-md' type="submit" onclick="return confirm('Yakin?')">
+            <i class="glyphicon glyphicon-random"></i> OTW
+          </button>
+      {!! Form::close() !!} 
+    </div>
+  @endif
+
+  @if ($issues->status == "LITOPS")
+    <div class="form-group col-md-2 col-sm-12">
+      {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+          {!! Form::hidden('status', 'DLITOPS', ['class' => 'form-control'])!!}
+          <button class='btn btn-info btn-md' type="submit" onclick="return confirm('Yakin?')">
+            <i class="glyphicon glyphicon-wrench"></i> Mulai Kerja
+          </button>
+      {!! Form::close() !!} 
+    </div>
+  @endif
+
+  @if ($issues->status == "DLITOPS")
+      <!-- Button untuk IT NP -->
     <div class="form-group col-md-2 col-sm-12">
     
             <button class='btn btn-success btn-md' data-toggle="modal" data-target="#myModal">
-                <i class="glyphicon glyphicon-folder-close"></i> Tutup Keluhan
+                <i class="glyphicon glyphicon-folder-close"></i> Solusi
             </button>
     
     </div>
@@ -454,12 +562,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Tutup Keluhan</h4>
+          <h4 class="modal-title">Solusi</h4>
         </div>
         <div class="modal-body">
           <div class="row">
           {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
-              {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
+              {!! Form::hidden('status', 'SLITOPS', ['class' => 'form-control'])!!}
               <div class="form-group col-sm-12 col-lg-12">
                   {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
                   {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor']) !!}
@@ -476,91 +584,23 @@
   @endif
 @endhasrole
 
-@hasrole('IT Support')
-    @if($issues->status=="ITSP") 
-    <!-- Button untuk IT NP -->
-    <div class="form-group col-md-2 col-sm-12">
-    
-            <button class='btn btn-success btn-md' data-toggle="modal" data-target="#myModal">
-                <i class="glyphicon glyphicon-folder-close"></i> Tutup Keluhan
-            </button>
-    
-    </div>
-    <!-- ---------------------- -->
-  <!-- Modal -->
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Tutup Keluhan</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-          {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
-              {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
-              <div class="form-group col-sm-12 col-lg-12">
-                  {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
-                  {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor']) !!}
-              </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
-        </div>
-      </div>
-      {!! Form::close() !!}
-    </div>
-  </div>
-  @endif
-@endhasrole
-
-@hasrole('IT Administrator')
-    @if($issues->status=="") 
-    <!-- Button untuk IT NP -->
-    <div class="form-group col-md-2 col-sm-12">
-    
-            <button class='btn btn-success btn-md' data-toggle="modal" data-target="#myModal">
-                <i class="glyphicon glyphicon-folder-close"></i> Tutup Keluhan
-            </button>
-    
-    </div>
-    <!-- ---------------------- -->
-  <!-- Modal -->
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Tutup Keluhan</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-          {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
-              {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
-              <div class="form-group col-sm-12 col-lg-12">
-                  {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
-                  {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor']) !!}
-              </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
-        </div>
-      </div>
-      {!! Form::close() !!}
-    </div>
-  </div>
-  @endif
-@endhasrole
 
 
 @hasrole('User')
-    @if(($issues->status=="CLOSE" && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status=="CLOSE" && $issues->assign_it_support == null && $issues->assign_it_ops ==null && $issues->complete_by != null)) 
+    @if ($issues->status == 'SLITSP' || $issues->status == 'SLITOPS')
+      @if(($issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)) 
+          <div class="form-group col-md-2 col-sm-12">
+            {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+                {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
+                <button class='btn btn-info btn-md' type="submit" onclick="return confirm('Yakin?')">
+                  <i class="glyphicon glyphicon-check"></i> Selesai
+                </button>
+            {!! Form::close() !!} 
+          </div>
+      @endif
+    @endif
+    
+    @if(($issues->status=="CLOSE" && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status=="CLOSE" && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)) 
     <!-- Button untuk IT NP -->
     <div class="form-group col-md-2 col-sm-12">
     
@@ -604,6 +644,19 @@
 @endhasrole
 
 @hasrole('IT Non Public')
+    @if ($issues->status == 'SLITSP' || $issues->status == 'SLITOPS')
+      @if(($issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)) 
+          <div class="form-group col-md-2 col-sm-12">
+            {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+                {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
+                <button class='btn btn-info btn-md' type="submit" onclick="return confirm('Yakin?')">
+                  <i class="glyphicon glyphicon-check"></i> Selesai
+                </button>
+            {!! Form::close() !!} 
+          </div>
+      @endif
+    @endif
+
     @if($issues->status=="CLOSE" && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops) 
     <!-- Button untuk IT NP -->
     <div class="form-group col-md-2 col-sm-12">

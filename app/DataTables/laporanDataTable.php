@@ -20,30 +20,24 @@ class laporanDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-
-        return $dataTable->addColumn('action', 'issues.datatables_actions')->editColumn('status', function ($inquiry) {
-            if ($inquiry->status == null) return "<span class='label label-default'>Menunggu IT Administrator</span>";
-            if ($inquiry->status == 'RITADM') return "<span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span>";
-            if ($inquiry->status == 'AITADM') return "<span class='label label-success'>Diterima IT Administrator</span>";
-            if ($inquiry->status == 'ITSP') return "<span class='label label-info'>Diteruskan ke IT Support</span>";
-            if ($inquiry->status == 'RITSP') return "<span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Support</span>";
-            if ($inquiry->status == 'AITSP') return "<span class='label label-warning'>Menunggu Solusi Dari IT Support</span>";
-            if ($inquiry->status == 'ITOPS') return "<span class='label label-warning'>Menunggu Solusi Dari IT OPS</span>";
-            if ($inquiry->status == 'CLOSE') return "<span class='label label-success'>Keluhan Ditutup</span>";
-            if ($inquiry->status == 'SLITADM') return "<span class='label label-success'>Solusi Telah Diberikan IT Administrator</span>";
-            if ($inquiry->status == 'SLITOPS') return "<span class='label label-success'>Solusi Telah Diberikan IT OPS</span>";
-            return 'Cancel';
-        })
-
+        return $dataTable->addColumn('action', 'laporans.datatables_actions')
         // return $dataTable->editColumn('sernum', function ($inquiry) 
         // {
         //     return (int) $inquiry->sernum_count;
         // })
-        // ->editColumn('kekuatan', function ($inquiry) 
-        // {
-        //     return ((int) $inquiry->karyawan_count / (int) $inquiry->jml_formasi)*100 ."%";
-        // })
-
+        ->editColumn('issuesjmlsla_count', function ($inquiry)
+        {
+            $hasilrusak = 0;
+            foreach ($inquiry->issues as $key => $value) {
+                $interval = $value['issue_date']->diffInMinutes($value['complete_date'], true);
+                $interval = (int) $interval / 60 / 24;
+                $hasilrusak += $interval*24;
+            }
+           
+            $hasil = ((720 - $hasilrusak)/720)*100;
+            $hasil = number_format($hasil, 2, '.', ' ');
+            return $hasil.'%';
+        })
 
         ->rawColumns(['status','action','prob_desc']);
     }
@@ -51,14 +45,14 @@ class laporanDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\issues $model
+     * @param \App\Models\inventory $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(issues $model)
+    public function query(inventory $model)
     {   
-       $now = Carbon::now();
+       //$now = Carbon::now();
     //    return $model->withCount('sernum')->whereMonth('complete_date', '=', $now->month)->newQuery();
-       return $model->with(['category','priority','request'])->withCount('sernum')->whereMonth('complete_date', '=', $now->month)->newQuery();
+       return $model->with(['issues'])->withCount(['issuesjml','issuesjmlsla'])->newQuery();
 
     }
 
@@ -95,10 +89,11 @@ class laporanDataTable extends DataTable
             
         return [
             ['data' => 'id','visible' => false],
-            ['data' => 'inventory.nama_perangkat', 'title' => 'Nama Perangkat'],
+            ['data' => 'nama_perangkat', 'title' => 'Nama Perangkat'],
             // ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
-            ['data' => 'sernum_count', 'title' => 'Jumlah Keluhan'],
-            ['data' =>  'SLA', 'title' => 'SLA'],
+            ['data' => 'issuesjml_count', 'title' => 'Jumlah Keluhan'],
+            ['data' => 'issuesjmlsla_count', 'title' => 'SLA'],
+            // ['data' =>  'SLA', 'title' => 'SLA'],
             // ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
         ]; 
     }

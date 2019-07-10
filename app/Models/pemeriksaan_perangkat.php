@@ -48,6 +48,7 @@ class pemeriksaan_perangkat extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $appends = ['Foto'];
 
     public $fillable = [
         'nama_pengguna_pc',
@@ -73,7 +74,8 @@ class pemeriksaan_perangkat extends Model
         'ttd_admin_aps',
         'teknisi_aps',
         'user',
-        'it_non_public'
+        'it_non_public',
+        'foto'
     ];
 
     /**
@@ -113,8 +115,15 @@ class pemeriksaan_perangkat extends Model
      * @var array
      */
     public static $rules = [
-        
+        'foto.*' => 'mimes:jpg,jpeg,png',
+        'foto' => 'max:3',
     ];
 
-    
+    public function getFotoAttribute()
+    {
+        if(isset($this->attributes['foto'])){
+            return unserialize($this->attributes['foto']);
+        }
+        return null;
+    }
 }

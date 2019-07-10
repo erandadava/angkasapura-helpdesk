@@ -54,6 +54,9 @@ class issues extends Model
         'dev_ser_num',
         'other_device',
         'id_unit_kerja',
+        'waktu_tindakan',
+        'solution_date',
+        'no_tlp'
     ];
 
     /**
