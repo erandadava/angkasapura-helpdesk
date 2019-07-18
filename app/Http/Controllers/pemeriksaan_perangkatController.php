@@ -255,7 +255,17 @@ class pemeriksaan_perangkatController extends AppBaseController
 
         if(isset($input['ganti_foto'])){
             $input['foto'] = serialize($this->update_dokumen($id,'foto',$input['foto'],$pemeriksaanPerangkat->foto));
-        }else{
+        }
+        elseif(isset($input['foto']) && !empty($input['foto'])){
+            $foto=[];
+            foreach ($request->foto as $key => $photo) {
+                $imageName = $photo;
+                $storage = \Storage::disk('public')->put('pemeriksaanperangkat/', $imageName);
+                $foto[$key] = 'pemeriksaanperangkat/'.basename($storage);
+            }
+            $input['foto'] = serialize($foto);
+        }
+        else{
             unset($input['foto']);
         }
         $pemeriksaanPerangkat = $this->pemeriksaanPerangkatRepository->update($input, $id);
