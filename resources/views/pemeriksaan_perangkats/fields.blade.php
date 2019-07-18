@@ -121,6 +121,7 @@
     {!! Form::label('ttd_it_senior', 'Ttd IT Senior: (Optional)') !!}
     @if(empty($pemeriksaanPerangkat->ttd_it_senior))
         <div id="signature_ttd_it_senior" style='border:1px solid black;'></div>
+        <input type="hidden" name="ttd_it_senior" id="hdsignature_ttd_it_senior" />
     @else
         <img src="{{asset('storage/'.$pemeriksaanPerangkat->ttd_it_senior)}}" alt="" srcset="">
     @endif
@@ -131,6 +132,7 @@
     {!! Form::label('ttd_admin_aps', 'Ttd Admin APS: (Optional)') !!}
     @if(empty($pemeriksaanPerangkat->ttd_admin_aps))
         <div id="signature_ttd_admin_aps" style='border:1px solid black;'></div>
+        <input type="hidden" name="ttd_admin_aps" id="hdsignature_ttd_admin_aps" />
     @else
         <img src="{{asset('storage/'.$pemeriksaanPerangkat->ttd_admin_aps)}}" alt="" srcset="">
     @endif
@@ -143,6 +145,7 @@
     
     @if(empty($pemeriksaanPerangkat->teknisi_aps))
     <div id="signature_ttd_teknisi_aps" style='border:1px solid black;'></div>
+    <input type="hidden" name="ttd_teknisi_aps" id="hdsignature_ttd_teknisi_aps" />
     @else
         <img src="{{asset('storage/'.$pemeriksaanPerangkat->teknisi_aps)}}" alt="" srcset="">
     @endif
@@ -153,6 +156,7 @@
     {!! Form::label('user', 'User: (Optional)') !!}
     @if(empty($pemeriksaanPerangkat->user))
         <div id="signature_ttd_user" style='border:1px solid black;'></div>
+        <input type="hidden" name="ttd_user" id="hdsignature_ttd_user" />
     @else
         <img src="{{asset('storage/'.$pemeriksaanPerangkat->user)}}" alt="" srcset="">
     @endif
@@ -164,6 +168,7 @@
     {!! Form::label('it_non_public', 'IT Non Public: (Optional)') !!}
     @if(empty($pemeriksaanPerangkat->it_non_public))
         <div id="signature_ttd_it_non_public" style='border:1px solid black;'></div>
+        <input type="hidden" name="ttd_it_non_public" id="hdsignature_ttd_it_non_public" />
     @else
         <img src="{{asset('storage/'.$pemeriksaanPerangkat->it_non_public)}}" alt="" srcset="">
     @endif
@@ -195,11 +200,11 @@
 @endif
 
 
-<input type="hidden" name="ttd_it_senior" id="hdsignature_ttd_it_senior" />
-<input type="hidden" name="ttd_admin_aps" id="hdsignature_ttd_admin_aps" />
-<input type="hidden" name="ttd_teknisi_aps" id="hdsignature_ttd_teknisi_aps" />
-<input type="hidden" name="ttd_user" id="hdsignature_ttd_user" />
-<input type="hidden" name="ttd_it_non_public" id="hdsignature_ttd_it_non_public" />
+
+
+
+
+
 <!-- Submit Field -->
 
 <div class="form-group col-sm-12">
