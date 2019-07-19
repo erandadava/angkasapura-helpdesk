@@ -246,7 +246,7 @@
                             {!! $dt->solution_desc !!}
                         </div>
                         <div class="uk-modal-footer uk-text-right">
-                            @if ($dt->status == 'SLITSP' || $dt->status == 'SLITOPS')
+                            @if ($dt->status == 'RT')
                               @if(($dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops)) 
                               {!! Form::open(['route' => ['issues.update', $dt->id], 'method' => 'patch']) !!}
                               {!! Form::hidden('usr', 'd', ['class' => 'form-control']) !!}
@@ -257,7 +257,7 @@
                               {!! Form::close() !!} 
                               @endif
                             @endif
-                            @if(($dt->status=="CLOSE" && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status=="CLOSE" && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))
+                            @if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status=="CLOSE" && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))
                             <a href="#modal-rating{{$key}}" class="uk-button uk-button-danger" uk-toggle>Rate</a>
                             @endif
                           

@@ -16,7 +16,6 @@ class pdfController extends Controller
         $user = Auth::user();
         $roles = $user->getRoleNames();
         $tabel = \Crypt::decrypt($tabel);
-        dd($tabel);
         $isinya = [];
         switch ($tabel) {
             case 'issues':
@@ -172,6 +171,7 @@ class pdfController extends Controller
         $values = $isinya;
         //return view('pdf.index')->with(['head'=>$head,'title'=>$title,'value'=>$values]);
         $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values])->setPaper('a4', 'landscape');
-        return $pdf->download('laporan_harian'.time().'.pdf');
+        return $pdf->stream('laporan_harian'.time().'.pdf', array("Attachment" => false));
+        //$pdf->download('laporan_harian'.time().'.pdf');
     }
 }
