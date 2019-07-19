@@ -50,7 +50,7 @@ class laporanhariDataTable extends DataTable
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(issues $model)
-    {   
+    {
        $now = Carbon::now();
        return $model->with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->newQuery();
 
@@ -88,14 +88,15 @@ class laporanhariDataTable extends DataTable
         return [
             ['data' => 'id','visible' => false],
             ['data' => 'request.name', 'title' => 'Name'],
-            ['data' => 'location', 'title' => 'Lokasi'],
+            // ['data' => 'location', 'title' => 'Lokasi'],
+            ['data' => 'id_unit_kerja', 'title' => 'Unit Kerja'],
             ['data' => 'prob_desc', 'title' => 'Keluhan'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
             ['data' => 'waktu_tindakan', 'title' => 'Waktu Penanganan'],
             ['data' => 'complete_date', 'title' => 'Waktu Selesai'],
-            ['data' => 'issue_date', 'title' => 'Waktu Tanggap'],  
+            ['data' => 'issue_date', 'title' => 'Waktu Tanggap'],
             ['data' => 'solution_desc', 'title' => 'Solusi'],
-        ]; 
+        ];
     }
 
     /**

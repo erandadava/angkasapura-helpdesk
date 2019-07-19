@@ -11,17 +11,12 @@ use Carbon\Carbon;
 
 class laporanDataTable extends DataTable
 {
-    /**
-     * Build DataTable class.
-     *
-     * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
-     */
+
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
         return $dataTable->addColumn('action', 'laporans.datatables_actions')
-        // return $dataTable->editColumn('sernum', function ($inquiry) 
+        // return $dataTable->editColumn('sernum', function ($inquiry)
         // {
         //     return (int) $inquiry->sernum_count;
         // })
@@ -33,7 +28,7 @@ class laporanDataTable extends DataTable
                 $interval = (int) $interval / 60 / 24;
                 $hasilrusak += $interval*24;
             }
-           
+
             $hasil = ((720 - $hasilrusak)/720)*100;
             $hasil = number_format($hasil, 2, '.', ' ');
             return $hasil.'%';
@@ -49,7 +44,7 @@ class laporanDataTable extends DataTable
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(inventory $model)
-    {   
+    {
        //$now = Carbon::now();
     //    return $model->withCount('sernum')->whereMonth('complete_date', '=', $now->month)->newQuery();
        return $model->with(['issues'])->withCount(['issuesjml','issuesjmlsla'])->newQuery();
@@ -86,7 +81,7 @@ class laporanDataTable extends DataTable
     protected function getColumns()
     {
         // $SLA = \DB::select( \DB::raw('SELECT count(issues.id) as "Jumlah Keluhan", inventory.nama_perangkat, 100-((count(issues.dev_ser_num)/30)*100) as SLA FROM issues RIGHT JOIN inventory ON issues.dev_ser_num = inventory.id GROUP BY inventory.id'));
-            
+
         return [
             ['data' => 'id','visible' => false],
             ['data' => 'nama_perangkat', 'title' => 'Nama Perangkat'],
@@ -95,7 +90,7 @@ class laporanDataTable extends DataTable
             ['data' => 'issuesjmlsla_count', 'title' => 'SLA'],
             // ['data' =>  'SLA', 'title' => 'SLA'],
             // ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
-        ]; 
+        ];
     }
 
     /**
