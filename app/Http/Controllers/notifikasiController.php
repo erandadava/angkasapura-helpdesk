@@ -110,13 +110,13 @@ class notifikasiController extends AppBaseController
                     $input['user_id'] = $keluhan->request_id;
                     break;
                 case 'CLOSE':
-                    if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops){
-                        $input['pesan'] = "<p><span class='label label-info'>Berikan Rating</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
-                        $input['user_id'] =  6;
-                        $notifikasi = $this->notifikasiRepository->create($input);
-                        $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
-                        $this->notifikasiRepository->update($input, $notifikasi->id);
-                    }
+                    // if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops){
+                    //     $input['pesan'] = "<p><span class='label label-info'>Berikan Rating</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    //     $input['user_id'] =  $keluhan->request_id;
+                    //     $notifikasi = $this->notifikasiRepository->create($input);
+                    //     $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
+                    //     $this->notifikasiRepository->update($input, $notifikasi->id);
+                    // }
                     if($keluhan->assign_it_support != null && $keluhan->complete_by == $keluhan->assign_it_support){
                         $input['pesan'] = "<p><span class='label label-success'>Keluhan Selesai</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                         $input['user_id'] = $keluhan->assign_it_support;
@@ -127,7 +127,11 @@ class notifikasiController extends AppBaseController
                     }
                     break;
                 case 'RT':
-                    if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops){
+                    //Check issue dari it non public atau bukan
+                    $check_non = \App\Models\issues::where('id','=',$id_konten)->first();
+                    $hasil_check = \App\User::where('id',$check_non->request_id)->whereHas("roles", function($q){ $q->where("name", "IT Non Public"); })->count();
+                    
+                    if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops && $hasil_check>0){
                         $input['pesan'] = "<p><span class='label label-success'>Rating dari IT Non Public</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     }else{
                         $input['pesan'] = "<p><span class='label label-success'>Rating dari User</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>"; 

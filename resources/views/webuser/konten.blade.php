@@ -195,14 +195,14 @@
                     @if ($dt->status == 'AITSP') <span class='badge badge-warning'>Menunggu Solusi Dari IT Support</span> @endif
                     @if ($dt->status == 'ITOPS') <span class='badge badge-warning'>Menunggu Solusi Dari IT OPS</span> @endif
                     @if ($dt->status == 'CLOSE') <span class='badge badge-success'>Keluhan Ditutup</span> @endif
-                    @if ($dt->status == 'SLITADM') <span class='label label-success'>Solusi Telah Diberikan IT Administrator</span> @endif
-                    @if ($dt->status == 'SLITOPS') <span class='label label-success'>Solusi Telah Diberikan IT OPS</span> @endif
-                    @if ($dt->status == 'SLITSP') <span class='label label-success'>Solusi Telah Diberikan IT Support</span> @endif
-                    @if ($dt->status == 'LITOPS') <span class='label label-info'>IT OPS Menuju ke Lokasi</span> @endif
-                    @if ($dt->status == 'LITSP') <span class='label label-info'>IT Support Menuju ke Lokasi</span> @endif
-                    @if ($dt->status == 'DLITOPS') <span class='label label-warning'>Sedang Dalam Tindakan IT OPS</span> @endif
-                    @if ($dt->status == 'DLITSP') <span class='label label-warning'>Sedang Dalam Tindakan IT Support</span> @endif
-                    @if ($dt->status == 'RT') <span class='label label-warning'>User Telah Memberi Rating</span> @endif
+                    @if ($dt->status == 'SLITADM') <span class='badge badge-success'>Solusi Telah Diberikan IT Administrator</span> @endif
+                    @if ($dt->status == 'SLITOPS') <span class='badge badge-success'>Solusi Telah Diberikan IT OPS</span> @endif
+                    @if ($dt->status == 'SLITSP') <span class='badge badge-success'>Solusi Telah Diberikan IT Support</span> @endif
+                    @if ($dt->status == 'LITOPS') <span class='badge badge-info'>IT OPS Menuju ke Lokasi</span> @endif
+                    @if ($dt->status == 'LITSP') <span class='badge badge-info'>IT Support Menuju ke Lokasi</span> @endif
+                    @if ($dt->status == 'DLITOPS') <span class='badge badge-warning'>Sedang Dalam Tindakan IT OPS</span> @endif
+                    @if ($dt->status == 'DLITSP') <span class='badge badge-warning'>Sedang Dalam Tindakan IT Support</span> @endif
+                    @if ($dt->status == 'RT') <span class='badge badge-warning'>User Telah Memberi Rating</span> @endif
                   </td>
                     
                   </tr>
@@ -257,7 +257,7 @@
                               {!! Form::close() !!} 
                               @endif
                             @endif
-                            @if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status=="CLOSE" && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))
+                            @if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))
                             <a href="#modal-rating{{$key}}" class="uk-button uk-button-danger" uk-toggle>Rate</a>
                             @endif
                           
@@ -276,13 +276,19 @@
                       {!! Form::open(['route' => ['issues.update', $dt->id], 'method' => 'patch']) !!}
                       {!! Form::hidden('status', 'RT', ['class' => 'form-control'])!!}
                       {!! Form::hidden('usr', 'a', ['class' => 'form-control']) !!}
-                         <fieldset class="rating">
-                              <input type="radio" id="star5" name="rate" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-                              <input type="radio" id="star4" name="rate" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                              <input type="radio" id="star3" name="rate" value="3" /><label for="star3" title="Meh">3 stars</label>
-                              <input type="radio" id="star2" name="rate" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-                              <input type="radio" id="star1" name="rate" value="1" /><label for="star1" title="Sucks big time">1 star</label>
-                            </fieldset>
+                      {!! Form::hidden('rate', null, ['class' => 'ratingnya'.$dt->id]) !!}
+                      </br>
+                      <div id="rate{{$dt->id}}"></div>
+                      <script>
+                        $("#rate{{$dt->id}}").rateYo({
+                          rating: 0,
+                          fullStar: true,
+                          onChange: function (rating, rateYoInstance) {
+                            console.log(rating);
+                            $('.ratingnya{{$dt->id}}').val(rating);
+                          }
+                        });
+                      </script>
                       </div>
                       
                       <div class="uk-modal-footer uk-text-right">

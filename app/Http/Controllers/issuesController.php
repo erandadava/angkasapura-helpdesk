@@ -52,6 +52,7 @@ class issuesController extends AppBaseController
             }
         }
         $this->data['sernum'] = $sernum;
+        $this->data['data_user'] = \App\User::role('User')->pluck('name','id');
         // echo "<pre>";
         // return print_r($this->data['sernum']);
     }

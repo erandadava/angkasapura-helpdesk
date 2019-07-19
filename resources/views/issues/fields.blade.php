@@ -43,7 +43,10 @@
         @endforeach
     </select>
 </div> 
-
+<div class="form-group col-sm-6">
+    {!! Form::label('no_tlp', 'Nomor Telepon:') !!}
+    {!! Form::text('no_tlp', null, ['class' => 'form-control', 'pattern' => '\d*']) !!}
+</div>
 <div class="form-group col-sm-6">
     {!! Form::label('id_unit_kerja', 'Unit Kerja:') !!}
     </br>
@@ -102,9 +105,23 @@
         {!! Form::checkbox('is_archive', '1', null) !!} 1
     </label>
 </div> -->
-
+@hasrole('IT Support')
+  @if($issues->status == null && $status_jam == 1)
+    <div class="form-group col-sm-6">
+        {!! Form::label('request_id', 'Request Oleh:') !!}
+        {!! Form::select('request_id', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+    </div>
+  @endif
+@endhasrole
+@hasrole('IT Administrator')
+    <div class="form-group col-sm-6">
+        {!! Form::label('request_id', 'Request Oleh:') !!}
+        {!! Form::select('request_id', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+    </div>
+@endhasrole
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
     <a href="{!! route('issues.index') !!}" class="btn btn-default">Batal</a>
 </div>
+
