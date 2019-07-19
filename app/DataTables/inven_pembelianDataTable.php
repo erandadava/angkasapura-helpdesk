@@ -44,7 +44,7 @@ class inven_pembelianDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
-                'dom'     => 'Bfrtip',
+                'dom'     => 'Blfrtip',
                 'order'   => [[0, 'desc']],
                 'buttons' => [
                     ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],

@@ -40,6 +40,9 @@
         .notifications-menu .menu > li a p {
             white-space: normal;
         }
+        .dataTables_length{
+            margin-top:10px;
+        }
     </style>
     @yield('css')
 </head>
