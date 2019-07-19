@@ -150,6 +150,11 @@ class notifikasiController extends AppBaseController
             }
         }
 
+        //Untuk update notifikasi menjadi terbaca jika status close
+        if ($status == 'CLOSE') {
+            $temp_notif = \App\Models\notifikasi::where([['konten_id','=',$id_konten],['status_baca','=',0],['status','=','KELUHAN']])->update(['status_baca' => 1]);
+        }
+        
         $notifikasi = $this->notifikasiRepository->create($input);
         $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
         $this->notifikasiRepository->update($input, $notifikasi->id);
@@ -228,7 +233,7 @@ class notifikasiController extends AppBaseController
         $notifikasi = $this->notifikasiRepository->findWithoutFail($id);
 
         $input['status_baca'] = 1;
-        $notifikasi = $this->notifikasiRepository->update($input, $id);
+        $notifikasi = \App\Models\notifikasi::where([['user_id','=',$notifikasi->user_id],['konten_id','=',$notifikasi->konten_id],['status_baca','=',0],['status','=','KELUHAN']])->update($input);
 
         return $notifikasi;
     }
