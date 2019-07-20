@@ -9,14 +9,14 @@
 <div class="form-group col-sm-6">
     {!! Form::label('cat_id', 'Kategori:') !!}
     {!! Form::select('cat_id', $category, null, ['class' => 'form-control']) !!}
-</div> 
+</div>
 
 <!-- Prio Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('prio_id', 'Prioritas:') !!}
     {!! Form::select('prio_id', $priority, null, ['class' => 'form-control']) !!}
 </div>
-    
+
 <!-- Location Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('location', 'Lokasi:') !!}
@@ -42,16 +42,21 @@
         </optgroup>
         @endforeach
     </select>
-</div> 
+</div>
 <div class="form-group col-sm-6">
     {!! Form::label('no_tlp', 'Nomor Telepon:') !!}
     {!! Form::text('no_tlp', null, ['class' => 'form-control', 'pattern' => '\d*']) !!}
 </div>
-<div class="form-group col-sm-6">
+
+<!-- <div class="form-group col-sm-6">
     {!! Form::label('id_unit_kerja', 'Unit Kerja:') !!}
     </br>
     {!!  \Auth::user()->unit_kerja->nama_uk ?? ''!!}
     {!! Form::hidden('id_unit_kerja', \Auth::user()->id_unit_kerja, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
+</div> -->
+<div class="form-group col-sm-6">
+    {!! Form::label('unit_kerja', 'Unit Kerja:') !!}
+    {!! Form::select('unit_kerja', $data_unit, null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-12 col-lg-12">
@@ -88,7 +93,7 @@
     @endif
 @endif
 
-@endrole 
+@endrole
 
 <!-- Complete By Field
 <div class="form-group col-sm-6">
@@ -124,4 +129,3 @@
     {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
     <a href="{!! route('issues.index') !!}" class="btn btn-default">Batal</a>
 </div>
-

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  * @version July 4, 2019, 8:28 pm WIB
  *
- * @property \Illuminate\Database\Eloquent\Collection 
+ * @property \Illuminate\Database\Eloquent\Collection
  * @property string nama_uk
  */
 class unit_kerja extends Model
@@ -18,7 +18,7 @@ class unit_kerja extends Model
     use SoftDeletes;
 
     public $table = 'tblunitkerja';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -49,5 +49,9 @@ class unit_kerja extends Model
         'nama_uk' => 'required'
     ];
 
-    
+    public function issues()
+    {
+        return $this->hasMany('App\Models\issues','id_unit_kerja','id');
+    }
+
 }
