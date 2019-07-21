@@ -55,8 +55,8 @@
     {!! Form::hidden('id_unit_kerja', \Auth::user()->id_unit_kerja, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
 </div> -->
 <div class="form-group col-sm-6">
-    {!! Form::label('unit_kerja', 'Unit Kerja:') !!}
-    {!! Form::select('unit_kerja', $data_unit, null, ['class' => 'form-control']) !!}
+    {!! Form::label('id_unit_kerja', 'Unit Kerja:') !!}
+    {!! Form::select('id_unit_kerja', $data_unit, null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-12 col-lg-12">
