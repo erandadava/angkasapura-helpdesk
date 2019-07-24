@@ -81,7 +81,7 @@
                                 <li>
                                     <a href="{{$dt->link_id}}">
                                         {!! $dt->pesan !!} 
-                                        <p><small>{{date('d-m-Y | h:m:s', strtotime($dt->created_at)) }}</small></p>
+                                        <p><small>{{date('d-m-Y | h:i:s', strtotime($dt->created_at)) }}</small></p>
                                     </a>
                                 </li>
                                 @endforeach
