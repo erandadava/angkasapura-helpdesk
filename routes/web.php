@@ -32,18 +32,18 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
 {
 
     Route::resource('categories', 'categoryController');
-    
+
     Route::resource('priorities', 'priorityController');
-    
+
     Route::resource('ratings', 'ratingController');
-    
+
     Route::resource('roles', 'rolesController');
 
     Route::resource('catInventories', 'cat_inventoryController');
     Route::resource('inventories', 'inventoryController');
     Route::get('/laporanbulanan', 'issuesController@laporan')->name('laporans.index');
     Route::get('/laporanhari', 'issuesController@laporan_hari')->name('laporans.index.hari');
-    
+
 });
 
 Route::group(['middleware' => ['role:User|Admin','isEmailVerified']], function ()
@@ -61,9 +61,6 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     \Aschmelyun\Larametrics\Larametrics::routes();
 });
-
-
-
 
 Route::resource('invenPembelians', 'inven_pembelianController');
 
