@@ -606,7 +606,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Rating</h4>
+          <h4 class="modal-title">Penilaian</h4>
         </div>
         <div class="modal-body">
           <div class="row">
@@ -650,7 +650,7 @@
     <div class="form-group col-md-2 col-sm-12">
     
             <button class='btn btn-warning btn-md' data-toggle="modal" data-target="#rate">
-                <i class="glyphicon glyphicon-star"></i> Beri Rating
+                <i class="glyphicon glyphicon-star"></i> Penilaian
             </button>
     
     </div>

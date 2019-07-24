@@ -54,7 +54,7 @@ class laporanhariDataTable extends DataTable
     public function query(issues $model)
     {
        $now = Carbon::now();
-       return $model->with(['category','priority','request','unit_kerja'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->newQuery();
+       return $model->with(['category','priority','request','unit_kerja','complete'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->newQuery();
 
     }
 
@@ -93,10 +93,12 @@ class laporanhariDataTable extends DataTable
             // ['data' => 'location', 'title' => 'Lokasi'],
             ['data' => 'unit_kerja.nama_uk', 'title' => 'Unit Kerja'],
             ['data' => 'prob_desc', 'title' => 'Keluhan'],
+            ['data' => 'no_tlp', 'title' => 'No. HP'],
+            ['data' => 'complete.name', 'title' => 'Petugas'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
             ['data' => 'waktu_tindakan', 'title' => 'Waktu Penanganan'],
             ['data' => 'solution_date', 'title' => 'Waktu Selesai'],
-            ['data' => 'waktu_tanggap', 'title' => 'Waktu Tanggap'],
+            ['data' => 'waktu_tanggap', 'title' => 'Waktu Tanggap', 'searchable' => false],
             ['data' => 'solution_desc', 'title' => 'Solusi'],
         ];
     }

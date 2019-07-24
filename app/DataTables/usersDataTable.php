@@ -69,8 +69,8 @@ class usersDataTable extends DataTable
         return [
             ['data' => 'id', 'visible' => false],
             ['data' => 'name', 'title' => 'Nama'],
-            ['data' => 'ratetahun', 'title' => 'Rata Rata Peringkat Tahun Ini'],
-            ['data' => 'ratebulan', 'title' => 'Rata Rata Peringkat Bulan Ini'],
+            ['data' => 'ratetahun', 'title' => 'Rata Rata Peringkat Tahun Ini', 'searchable' => false],
+            ['data' => 'ratebulan', 'title' => 'Rata Rata Peringkat Bulan Ini', 'searchable' => false],
             ['data' => 'email', 'title' => 'Email'],
             ['data' => 'model_has_roles.roles.name', 'title' => 'Tugas'],
         ];

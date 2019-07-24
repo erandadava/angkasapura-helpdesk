@@ -102,7 +102,7 @@ class issuesController extends AppBaseController
         $this->issuesRepository->update(['issue_id'=>$kode], $issues->id);
         $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);
         if(isset($input['usr'])){
-            Alert::success('Ticket Sent Successfully', 'Success')->autoclose(4000);
+            Alert::success('Tiket Berhasil Dikirim', 'Sukses')->autoclose(4000);
             return redirect('/beranda');
         }
 
@@ -197,9 +197,9 @@ class issuesController extends AppBaseController
         $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);
         if(isset($input['usr'])){
             if($input['usr'] == 'a'){
-                Alert::success('Rating Sent Successfully', 'Thank You!')->autoclose(4000);
+                Alert::success('Penilain Berhasil Dikirim', 'Terima Kasih')->autoclose(4000);
             }else{
-                Alert::success('The issue has finished', 'Thank You!')->autoclose(4000);
+                Alert::success('Keluhan Telah Selesai', 'Terima Kasih')->autoclose(4000);
             }
             return redirect('/beranda');
         }
