@@ -149,11 +149,11 @@ class pdfController extends Controller
         $arr_export = explode(',', $myString);
         $now = Carbon::now();
         if($roles[0] == 'IT Operasional'){
-            $get = \App\Models\issues::with(['category','priority','request','unit_kerja'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->whereIn('id',$arr_export)->get();
+            $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->whereIn('id',$arr_export)->get();
         }else{
-            $get = \App\Models\issues::with(['category','priority','request','unit_kerja'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->get();
+            $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->get();
         }
-        $head = ['Nama', 'Unit Kerja', 'Keluhan', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
+        $head = ['Nama', 'Unit Kerja',  'Keluhan', 'No. HP', 'Petugas', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
         $title = 'Laporan Harian';
         foreach ($get as $key => $value) {;
             $finish = Carbon::parse($value->complete_date);
@@ -163,11 +163,13 @@ class pdfController extends Controller
                 0 => $value['request']['name'],
                 1 => $value['unit_kerja']['nama_uk'],
                 2 => $value['prob_desc'],
-                3 => $value['issue_date'],
-                4 => $value['waktu_tindakan'],
-                5 => $value['solution_date'],
-                6 => $tanggap,
-                7 => $value['solution_desc']
+                3 => $value['no_tlp'],
+                4 => $value['complete']['name'],
+                5 => $value['issue_date'],
+                6 => $value['waktu_tindakan'],
+                7 => $value['solution_date'],
+                8 => $tanggap,
+                9 => $value['solution_desc']
             ];   
         }
         $values = $isinya;
