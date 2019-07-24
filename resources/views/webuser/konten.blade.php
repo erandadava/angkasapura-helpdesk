@@ -69,7 +69,7 @@
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
-                    Account
+                    Akun
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
@@ -92,14 +92,14 @@
 				<div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Create Ticket </h4>
+              <h4 class="card-title">Buat Tiket </h4>
             </div>
 
             <div class="card-body table-responsive">
               <form method="POST" action="/issues" class="uk-form-stacked uk-grid-large" uk-grid>
                 
                 <div class="uk-margin uk-form-grid-medium uk-width-1-2@s">
-                  <label class="uk-form-label" for="form-stacked-select">Category</label>
+                  <label class="uk-form-label" for="form-stacked-select">Kategori</label>
                   <div class="uk-form-controls">
                   {!! Form::token() !!}
                   {!! Form::select('cat_id', $category, null, ['class' => 'uk-select', 'id'=>'form-stacked-select']) !!}
@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="uk-form-grid-medium uk-width-1-4@s">
-                  <label class="uk-form-label" for="form-stacked-select">Priority</label>
+                  <label class="uk-form-label" for="form-stacked-select">Prioritas</label>
                   <div class="uk-form-controls">
                   {!! Form::hidden('request_id', Auth::id(), ['class' => 'form-control']) !!}
                   {!! Form::hidden('usr', 'a', ['class' => 'form-control']) !!}
@@ -129,7 +129,7 @@
                   </div>
                 </div>
                 <div class="uk-margin uk-form-grid-medium uk-width-1-2">
-                  <label class="uk-form-label" for="form-stacked-select">Location</label>
+                  <label class="uk-form-label" for="form-stacked-select">Lokasi</label>
                   <div class="uk-form-controls">
                   {!! Form::text('location', null, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
                   
@@ -158,12 +158,12 @@
                     </div>
                   </div>
                 <div class="uk-margin uk-form-grid-medium uk-width-1-1">
-                  <label class="uk-form-label">Problem</label>
+                  <label class="uk-form-label">Keluhan</label>
                   {!! Form::textarea('prob_desc', null, ['class' => 'uk-textarea', 'id' => 'editor' ]) !!}
                 </div>
 
                 <div class="uk-margin">
-                  <button type="submit" class="uk-button uk-button-primary">Send Ticket</button>
+                  <button type="submit" class="uk-button uk-button-primary">Kirim Tiket</button>
                 </div>
 
               </form>
@@ -176,7 +176,7 @@
       <div class="col-lg-8 col-md-12">
           <div class="card">
             <div class="card-header card-header-info">
-              <h4 class="card-title">Open Tickets</h4>
+              <h4 class="card-title">Tiket Yang Tersedia</h4>
             </div>
             <div class="card-body table-responsive">
               <table class="table" style="table-layout: fixed;">
@@ -208,7 +208,7 @@
                   </tr>
                 @empty
                   <tr>
-                    <td>No Data</td>
+                    <td>Tidak Ada Data</td>
                   </tr>
                 @endforelse
                 </tbody>
@@ -221,7 +221,7 @@
         <div class="col-lg-8 col-md-12">
           <div class="card">
             <div class="card-header card-header-warning">
-              <h4 class="card-title">Solved Tickets</h4>
+              <h4 class="card-title">Tiket Yang Telah Ditangani</h4>
             </div>
             <div class="card-body table-responsive">
               <table class="table" style="table-layout: fixed;">
@@ -232,14 +232,14 @@
                     <td>{{$dt->category->cat_name}}</td>
                     <td>{!! $dt->prob_desc !!}</td>
                     <td> 
-                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$key}}" uk-toggle>Open</a></center>
+                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$key}}" uk-toggle>Buka</a></center>
 
                        <div id="modal-open-solution{{$key}}" uk-modal>
                         <div class="uk-modal-dialog">
                           <button class="uk-modal-close-default" type="button" uk-close></button>
                         
                         <div class="uk-modal-header">
-                          <h2 class="uk-modal-title">Solution</h2>
+                          <h2 class="uk-modal-title">Solusi</h2>
                         </div>
                         
                         <div class="uk-modal-body">
@@ -247,7 +247,7 @@
                         </div>
                         <div class="uk-modal-footer uk-text-right">
                             @if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))
-                            <a href="#modal-rating{{$key}}" class="uk-button uk-button-danger" uk-toggle>Rate</a>
+                            <a href="#modal-rating{{$key}}" class="uk-button uk-button-danger" uk-toggle>Penilaian</a>
                             @endif                   
                         </div>
                       </div>
@@ -256,7 +256,7 @@
                     <div id="modal-rating{{$key}}" uk-modal>
                       <div class="uk-modal-dialog">
                       <div class="uk-modal-header">
-                        <h2 class="uk-modal-title">Rate Me!</h2>
+                        <h2 class="uk-modal-title">Penilaian</h2>
                       </div>
                       
                       <div class="uk-modal-body">
@@ -278,7 +278,7 @@
                       
                       <div class="uk-modal-footer uk-text-right">
                           <button class='uk-button uk-button-primary' type="submit" onclick="return confirm('Yakin?')">
-                              <i class="glyphicon glyphicon-check"></i> Done
+                              <i class="glyphicon glyphicon-check"></i> Selesai
                             </button>
                         {!! Form::close() !!} 
                       </div>
@@ -289,7 +289,7 @@
                   </tr>
                 @empty
                   <tr>
-                    <td>No Data</td>
+                    <td>Tidak Ada Data/td>
                   </tr>
                 @endforelse
                 </tbody>
@@ -302,7 +302,7 @@
         <div class="col-lg-4 col-md-12">
           <div class="card">
             <div class="card-header card-header-success">
-              <h4 class="card-title">Tickets History</h4>
+              <h4 class="card-title">Histori Tiket</h4>
             </div>
 
             <div class="card-body">
@@ -324,7 +324,7 @@
                   </tr>
                 @empty
                   <tr>
-                    <td>No Data</td>
+                    <td>Tidak Ada Data</td>
                   </tr>
                 @endforelse
                 </tbody>
