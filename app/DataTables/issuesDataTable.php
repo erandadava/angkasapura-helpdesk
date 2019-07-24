@@ -19,7 +19,7 @@ class issuesDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         $user = Auth::user();
         $roles = $user->getRoleNames();
-        
+
         if($roles[0] == "IT Non Public" || $roles[0] == "Admin"){
             return $dataTable->addColumn('action', 'issues.datatables_actions')->editColumn('status', function ($inquiry) {
                 if ($inquiry->status == null) return "<span class='label label-default'>Menunggu IT Administrator</span>";
@@ -66,7 +66,7 @@ class issuesDataTable extends DataTable
             return 'Cancel';
         })
         ->rawColumns(['status','action']);
-        
+
     }
 
     /**
@@ -76,7 +76,7 @@ class issuesDataTable extends DataTable
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(issues $model)
-    {   
+    {
         $user = Auth::user();
         $roles = $user->getRoleNames();
 
@@ -123,13 +123,13 @@ class issuesDataTable extends DataTable
             ['data' => 'id','visible' => false],
             ['data' => 'statusalert','visible' => false],
             ['data' => 'issue_id', 'title' => 'Kode'],
-            ['data' => 'request.name', 'title' => 'Request Oleh'],
+            ['data' => 'request.name', 'title' => 'Permintaan Oleh'],
             ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
             ['data' => 'category.cat_name', 'title' => 'Kategori'],
             ['data' => 'location', 'title' => 'Lokasi'],
             ['data' => 'status', 'title' => 'Status'],
-            
+
         ];
     }
 

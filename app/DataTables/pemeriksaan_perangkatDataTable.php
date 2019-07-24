@@ -63,11 +63,11 @@ class pemeriksaan_perangkatDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'nama_pengguna_pc',
+            ['data' => 'nama_pengguna_pc', 'title' => 'Nama Pengguna Komputer'],
             'lokasi',
             'serial_number',
             'selesai_jam_pengecekan',
-            'full_computer_name',
+            ['data' => 'full_computer_name', 'title' => 'Nama Komputer Lengkap'],
         ];
     }
 

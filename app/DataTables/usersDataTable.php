@@ -5,7 +5,7 @@ namespace App\DataTables;
 use App\Models\users;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
-use Auth; 
+use Auth;
 class usersDataTable extends DataTable
 {
     /**
@@ -69,10 +69,10 @@ class usersDataTable extends DataTable
         return [
             ['data' => 'id', 'visible' => false],
             ['data' => 'name', 'title' => 'Nama'],
-            ['data' => 'ratetahun', 'title' => 'Avg Rating Tahun Ini'],
-            ['data' => 'ratebulan', 'title' => 'Avg Rating Bulan Ini'],
+            ['data' => 'ratetahun', 'title' => 'Rata Rata Peringkat Tahun Ini'],
+            ['data' => 'ratebulan', 'title' => 'Rata Rata Peringkat Bulan Ini'],
             ['data' => 'email', 'title' => 'Email'],
-            ['data' => 'model_has_roles.roles.name', 'title' => 'Roles'],
+            ['data' => 'model_has_roles.roles.name', 'title' => 'Tugas'],
         ];
     }
 
