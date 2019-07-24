@@ -4,7 +4,7 @@
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="azure" data-background-color="white">
-      
+
       <div class="logo">
 			<img src="{{asset('img/logo-ap2.jpeg')}}" style="width: 100%;">
       </div>
@@ -19,7 +19,7 @@
         </ul>
       </div>
     </div>
-	
+
 		<div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -55,10 +55,10 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   @foreach($data_notif as $dt)
                   <a class="dropdown-item" href="{{$dt->link_id}}">
-                    {!! $dt->pesan !!} 
+                    {!! $dt->pesan !!}
                   </a>
                   @endforeach
-                  @if($count_notif==0) 
+                  @if($count_notif==0)
                     <a class="dropdown-item" href="#">
                       Tidak Ada Notifikasi
                     </a>
@@ -97,7 +97,7 @@
 
             <div class="card-body table-responsive">
               <form method="POST" action="/issues" class="uk-form-stacked uk-grid-large" uk-grid>
-                
+
                 <div class="uk-margin uk-form-grid-medium uk-width-1-2@s">
                   <label class="uk-form-label" for="form-stacked-select">Kategori</label>
                   <div class="uk-form-controls">
@@ -132,7 +132,7 @@
                   <label class="uk-form-label" for="form-stacked-select">Lokasi</label>
                   <div class="uk-form-controls">
                   {!! Form::text('location', null, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
-                  
+
                   </div>
                 </div>
                 <div class="uk-margin uk-form-grid-medium uk-width-1-4@s">
@@ -140,21 +140,21 @@
                   <div class="uk-form-controls">
                   {!!  \Auth::user()->unit_kerja->nama_uk ?? ''!!}
                   {!! Form::hidden('id_unit_kerja', \Auth::user()->id_unit_kerja, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
-                  
+
                   </div>
                 </div>
                 <div class="uk-margin uk-form-grid-medium uk-width-1-4@s">
                   <label class="uk-form-label" for="form-stacked-select">Other Device</label>
                   <div class="uk-form-controls">
                   {!! Form::text('other_device', null, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
-                  
+
                   </div>
                 </div>
                 <div class="uk-margin uk-form-grid-medium uk-width-1-2">
                     <label class="uk-form-label" for="form-stacked-select">Nomor Telepon</label>
                     <div class="uk-form-controls">
                     {!! Form::text('no_tlp', null, ['class' => 'uk-input', 'id'=>'form-stacked-text', 'pattern' => '\d*']) !!}
-                    
+
                     </div>
                   </div>
                 <div class="uk-margin uk-form-grid-medium uk-width-1-1">
@@ -180,12 +180,12 @@
             </div>
             <div class="card-body table-responsive">
               <table class="table" style="table-layout: fixed;">
-                
+
                 <tbody>
                 @forelse($open_ticket as $key => $dt)
                 <tr>
                     <td>{{$dt->category->cat_name}}</td>
-                    <td>{!! $dt->prob_desc !!}</td>
+                    <td style="padding-top: 30px;">{!! $dt->prob_desc !!}</td>
                     <td>
                     @if ($dt->status == null) <span class='badge badge-primary label label-default'>Menunggu IT Administrator</span> @endif
                     @if ($dt->status == 'RITADM') <span class='badge badge-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span> @endif
@@ -204,7 +204,7 @@
                     @if ($dt->status == 'DLITSP') <span class='badge badge-warning'>Sedang Dalam Tindakan IT Support</span> @endif
                     @if ($dt->status == 'RT') <span class='badge badge-warning'>User Telah Memberi Rating</span> @endif
                   </td>
-                    
+
                   </tr>
                 @empty
                   <tr>
@@ -212,7 +212,7 @@
                   </tr>
                 @endforelse
                 </tbody>
-        
+
               </table>
             </div>
           </div>
@@ -225,23 +225,23 @@
             </div>
             <div class="card-body table-responsive">
               <table class="table" style="table-layout: fixed;">
-                
+
                 <tbody>
                 @forelse($ticket as $key => $dt)
                 <tr>
                     <td>{{$dt->category->cat_name}}</td>
-                    <td>{!! $dt->prob_desc !!}</td>
-                    <td> 
+                    <td style="padding-top: 30px;">{!! $dt->prob_desc !!}</td>
+                    <td>
                       <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$key}}" uk-toggle>Buka</a></center>
 
                        <div id="modal-open-solution{{$key}}" uk-modal>
                         <div class="uk-modal-dialog">
                           <button class="uk-modal-close-default" type="button" uk-close></button>
-                        
+
                         <div class="uk-modal-header">
                           <h2 class="uk-modal-title">Solusi</h2>
                         </div>
-                        
+
                         <div class="uk-modal-body">
                             {!! $dt->solution_desc !!}
                         </div>
@@ -258,7 +258,7 @@
                       <div class="uk-modal-header">
                         <h2 class="uk-modal-title">Penilaian</h2>
                       </div>
-                      
+
                       <div class="uk-modal-body">
                           {!! Form::open(['route' => ['issues.update', $dt->id], 'method' => 'patch']) !!}
                           {!! Form::hidden('usr', 'd', ['class' => 'form-control']) !!}
@@ -275,12 +275,12 @@
                         });
                       </script>
                       </div>
-                      
+
                       <div class="uk-modal-footer uk-text-right">
                           <button class='uk-button uk-button-primary' type="submit" onclick="return confirm('Yakin?')">
                               <i class="glyphicon glyphicon-check"></i> Selesai
                             </button>
-                        {!! Form::close() !!} 
+                        {!! Form::close() !!}
                       </div>
                     </div>
                     </div>
@@ -289,11 +289,11 @@
                   </tr>
                 @empty
                   <tr>
-                    <td>Tidak Ada Data/td>
+                    <td>Tidak Ada Data</td>
                   </tr>
                 @endforelse
                 </tbody>
-        
+
               </table>
             </div>
           </div>
@@ -337,7 +337,7 @@
       </div>
 
     </div>
-  </div>        
+  </div>
 </body>
 
 @endsection
