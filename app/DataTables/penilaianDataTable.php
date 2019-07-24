@@ -50,7 +50,7 @@ class penilaianDataTable extends DataTable
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(issues $model)
-    {   
+    {
         $user = Auth::user();
         $roles = $user->getRoleNames();
 
@@ -94,8 +94,8 @@ class penilaianDataTable extends DataTable
             ['data' => 'category.cat_name', 'title' => 'Kategori'],
             ['data' => 'issue_id', 'title' => 'Kode'],
             ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
-            ['data' => 'request.name', 'title' => 'Request'],
-            ['data' => 'rating.rate', 'title' => 'Rating'],
+            ['data' => 'request.name', 'title' => 'Permintaan'],
+            ['data' => 'rating.rate', 'title' => 'Penilaian'],
             ['data' => 'status', 'title' => 'Status'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
         ];

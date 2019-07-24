@@ -67,7 +67,7 @@ class priorityDataTable extends DataTable
     {
         return [
             ['data' => 'prio_name', 'title' => 'Judul'],
-            ['data' => 'alert_time', 'title' => 'Alert Time'],
+            ['data' => 'alert_time', 'title' => 'Waktu Peringatan'],
             ['data' => 'is_active', 'title' => 'Status'],
         ];
     }
