@@ -5,7 +5,7 @@
 
 @role('Admin')
 <li class="">
-    <a href="/admin/metrics"><i class="fa fa-edit"></i><span>Monitoring</span></a>
+    <a href="/admin/metrics"><i class="fa fa-edit"></i><span>Pemantauan</span></a>
 </li>
 
 <li class="{{ Request::is('categories*') ? 'active' : '' }}">
@@ -13,7 +13,7 @@
 </li>
 
 <li class="{{ Request::is('roles*') ? 'active' : '' }}">
-    <a href="{!! route('roles.index') !!}"><i class="fa fa-edit"></i><span>Roles</span></a>
+    <a href="{!! route('roles.index') !!}"><i class="fa fa-edit"></i><span>Tugas</span></a>
 </li>
 
 <li class="{{ Request::is('priorities*') ? 'active' : '' }}">
@@ -26,10 +26,10 @@
 </li> -->
 
 <li class="{{ Request::is('issues*') ? 'active' : '' }}">
-    <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Ticket</span></a>
+    <a href="{!! route('issues.index') !!}"><i class="fa fa-edit"></i><span>Tiket</span></a>
 </li>
 <li class="{{ Request::is('inventories*') ? 'active' : '' }}">
-  <a href="{!! route('inventories.index') !!}"><i class="fa fa-edit"></i> Inventaris</a>
+  <a href="{!! route('inventories.index') !!}"><i class="fa fa-edit"></i>Inventaris</a>
 </li>
 <li class="{{ Request::is('catInventories*') ? 'active' : '' }}">
     <a href="{!! route('catInventories.index') !!}"><i class="fa fa-edit"></i><span>Kategori Inventaris</span></a>
@@ -40,7 +40,7 @@
 </li>
 
 <li class="{{ Request::is('laporans*') ? 'active' : '' }}">
-    <a href="{!! route('laporans.index') !!}"><i class="fa fa-edit"></i><span>Laporan Bulan</span></a>
+    <a href="{!! route('laporans.index') !!}"><i class="fa fa-edit"></i><span>Laporan Bulanan</span></a>
 </li>
 
 <li class="{{ Request::is('laporans*') ? 'active' : '' }}">
@@ -48,7 +48,7 @@
 </li>
 
 <li class="{{ Request::is('users*') ? 'active' : '' }}">
-    <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>User</span></a>
+    <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>Pengguna</span></a>
 </li>
 
 <li class="{{ Request::is('unitKerjas*') ? 'active' : '' }}">
@@ -58,16 +58,16 @@
 @role('User')
 <li class="treeview menu-open">
           <a href="#">
-            <i class="fa fa-edit"></i> <span>Users</span>
+            <i class="fa fa-edit"></i> <span>Pengguna</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
             <li><a href="/beranda"><i class="fa fa-circle-o"></i> Beranda</a></li>
-            <li><a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i> Data User</a></li>
-            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticketing</a></li>
-            <li class=""><a href="{{url('/history')}}"><i class="fa fa-circle-o"></i> History Ticket</a></li>
+            <li><a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i> Data Pengguna</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Tiket</a></li>
+            <li class=""><a href="{{url('/history')}}"><i class="fa fa-circle-o"></i>Riwayat Tiket</a></li>
           </ul>
 </li>
 @endrole
@@ -81,11 +81,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticket</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Tiket</a></li>
             <li class="{{ Request::is('pemeriksaanPerangkats*') ? 'active' : '' }}">
-                <a href="{!! route('pemeriksaanPerangkats.index') !!}"><i class="fa fa-circle-o"></i><span>Preventive</span></a>
+                <a href="{!! route('pemeriksaanPerangkats.index') !!}"><i class="fa fa-circle-o"></i><span>Pemeriksaan Perangkat</span></a>
             </li>
-            <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
+            <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i>Inventaris</a></li>
             <li class=""><a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="{!! route('laporans.index') !!}"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
             <li class=""><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
@@ -102,9 +102,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticket</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Tiket</a></li>
             <li class="{{ Request::is('pemeriksaanPerangkats*') ? 'active' : '' }}">
-                <a href="{!! route('pemeriksaanPerangkats.index') !!}"><i class="fa fa-circle-o"></i><span>Preventive</span></a>
+                <a href="{!! route('pemeriksaanPerangkats.index') !!}"><i class="fa fa-circle-o"></i><span>Pemeriksaan Perangkat</span></a>
             </li>
             <li class=""><a href="/issues?p=a"><i class="fa fa-circle-o"></i> Penilaian</a></li>
             <li class=""><a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
@@ -122,9 +122,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticket</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Tiket</a></li>
             <li class="{{ Request::is('pemeriksaanPerangkats*') ? 'active' : '' }}">
-                <a href="{!! route('pemeriksaanPerangkats.index') !!}"><i class="fa fa-circle-o"></i><span>Preventive</span></a>
+                <a href="{!! route('pemeriksaanPerangkats.index') !!}"><i class="fa fa-circle-o"></i><span>Pemeriksaan Perangkat</span></a>
             </li>
             <li class="{{ Request::is('inventories*') ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
             <li class=""><a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
@@ -143,9 +143,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Ticket</a></li>
+            <li><a href="{!! route('issues.index') !!}"><i class="fa fa-circle-o"></i> Tiket</a></li>
             <li class="{{ Request::is('pemeriksaanPerangkats*') ? 'active' : '' }}">
-                <a href="{!! route('pemeriksaanPerangkats.index') !!}"><i class="fa fa-circle-o"></i><span>Preventive</span></a>
+                <a href="{!! route('pemeriksaanPerangkats.index') !!}"><i class="fa fa-circle-o"></i><span>Pemeriksaan Perangkat</span></a>
             </li>
             <li class="{{ (Request::is('inventories*') && !isset($_GET['n'])) ? 'active' : '' }}"><a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a></li>
             <li class=""><a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
@@ -156,12 +156,12 @@
               <a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a>
             </li>
 
-            <li class=""><a href="/admin/metrics"><i class="fa fa-circle-o"></i><span>Monitoring</span></a></li>
+            <li class=""><a href="/admin/metrics"><i class="fa fa-circle-o"></i><span>Pemantauan</span></a></li>
 
             <li class="{{ Request::is('categories*') ? 'active' : '' }}"><a href="{!! route('categories.index') !!}"><i class="fa fa-circle-o"></i><span>Kategori</span></a></li>
 
             <li class="{{ Request::is('roles*') ? 'active' : '' }}">
-                <a href="{!! route('roles.index') !!}"><i class="fa fa-circle-o"></i><span>Roles</span></a>
+                <a href="{!! route('roles.index') !!}"><i class="fa fa-circle-o"></i><span>Tugas</span></a>
             </li>
 
             <li class="{{ Request::is('priorities*') ? 'active' : '' }}">
@@ -169,7 +169,7 @@
             </li>
 
             <li class="{{ Request::is('users*') ? 'active' : '' }}">
-                <a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i><span>User</span></a>
+                <a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i><span>Pengguna</span></a>
             </li>
 
           </ul>
