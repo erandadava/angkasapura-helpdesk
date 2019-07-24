@@ -587,19 +587,7 @@
 
 
 @hasrole('User')
-    @if ($issues->status == 'RT')
-      @if(($issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)) 
-          <div class="form-group col-md-2 col-sm-12">
-            {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
-                {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
-                <button class='btn btn-info btn-md' type="submit" onclick="return confirm('Yakin?')">
-                  <i class="glyphicon glyphicon-check"></i> Selesai
-                </button>
-            {!! Form::close() !!} 
-          </div>
-      @endif
-    @endif
-    
+
     @if(($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)) 
     <!-- Button untuk IT NP -->
     <div class="form-group col-md-2 col-sm-12">
@@ -623,7 +611,7 @@
         <div class="modal-body">
           <div class="row">
           {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
-              {!! Form::hidden('status', 'RT', ['class' => 'form-control'])!!}
+          {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
               <div class="form-group col-sm-12 col-lg-12">
                   <center>
                     <h3>Beri rating untuk pelayanan kami</h3>

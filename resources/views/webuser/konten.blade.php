@@ -246,22 +246,9 @@
                             {!! $dt->solution_desc !!}
                         </div>
                         <div class="uk-modal-footer uk-text-right">
-                            @if ($dt->status == 'RT')
-                              @if(($dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops)) 
-                              {!! Form::open(['route' => ['issues.update', $dt->id], 'method' => 'patch']) !!}
-                              {!! Form::hidden('usr', 'd', ['class' => 'form-control']) !!}
-                                  {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
-                                  <button class='uk-button uk-button-primary' type="submit" onclick="return confirm('Yakin?')">
-                                    <i class="glyphicon glyphicon-check"></i> Done
-                                  </button>
-                              {!! Form::close() !!} 
-                              @endif
-                            @endif
                             @if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))
                             <a href="#modal-rating{{$key}}" class="uk-button uk-button-danger" uk-toggle>Rate</a>
-                            @endif
-                          
-                          
+                            @endif                   
                         </div>
                       </div>
                     </div>
@@ -273,18 +260,16 @@
                       </div>
                       
                       <div class="uk-modal-body">
-                      {!! Form::open(['route' => ['issues.update', $dt->id], 'method' => 'patch']) !!}
-                      {!! Form::hidden('status', 'RT', ['class' => 'form-control'])!!}
-                      {!! Form::hidden('usr', 'a', ['class' => 'form-control']) !!}
-                      {!! Form::hidden('rate', null, ['class' => 'ratingnya'.$dt->id]) !!}
-                      </br>
+                          {!! Form::open(['route' => ['issues.update', $dt->id], 'method' => 'patch']) !!}
+                          {!! Form::hidden('usr', 'd', ['class' => 'form-control']) !!}
+                          {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
+                          {!! Form::hidden('rate', null, ['class' => 'ratingnya'.$dt->id]) !!}
                       <div id="rate{{$dt->id}}"></div>
                       <script>
                         $("#rate{{$dt->id}}").rateYo({
                           rating: 0,
                           fullStar: true,
                           onChange: function (rating, rateYoInstance) {
-                            console.log(rating);
                             $('.ratingnya{{$dt->id}}').val(rating);
                           }
                         });
@@ -292,9 +277,11 @@
                       </div>
                       
                       <div class="uk-modal-footer uk-text-right">
-                          <button class="uk-button uk-button-primary" uk-toggle>Done</button>
+                          <button class='uk-button uk-button-primary' type="submit" onclick="return confirm('Yakin?')">
+                              <i class="glyphicon glyphicon-check"></i> Done
+                            </button>
+                        {!! Form::close() !!} 
                       </div>
-                      {!! Form::close() !!}
                     </div>
                     </div>
 
