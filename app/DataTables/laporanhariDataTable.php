@@ -96,7 +96,7 @@ class laporanhariDataTable extends DataTable
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
             ['data' => 'waktu_tindakan', 'title' => 'Waktu Penanganan'],
             ['data' => 'solution_date', 'title' => 'Waktu Selesai'],
-            ['data' => 'waktu_tanggap', 'title' => 'Waktu Tanggap'],
+            ['data' => 'waktu_tanggap', 'title' => 'Waktu Tanggap', 'searchable' => false],
             ['data' => 'solution_desc', 'title' => 'Solusi'],
         ];
     }

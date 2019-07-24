@@ -86,8 +86,8 @@ class laporanDataTable extends DataTable
             ['data' => 'id','visible' => false],
             ['data' => 'nama_perangkat', 'title' => 'Nama Perangkat'],
             // ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
-            ['data' => 'issuesjml_count', 'title' => 'Jumlah Keluhan'],
-            ['data' => 'issuesjmlsla_count', 'title' => 'SLA'],
+            ['data' => 'issuesjml_count', 'title' => 'Jumlah Keluhan', 'searchable' => false],
+            ['data' => 'issuesjmlsla_count', 'title' => 'SLA','searchable' => false],
             // ['data' =>  'SLA', 'title' => 'SLA'],
             // ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
         ];

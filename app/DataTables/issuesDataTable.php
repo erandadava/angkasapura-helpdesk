@@ -121,7 +121,7 @@ class issuesDataTable extends DataTable
     {
         return [
             ['data' => 'id','visible' => false],
-            ['data' => 'statusalert','visible' => false],
+            ['data' => 'statusalert','visible' => false, 'searchable' => false],
             ['data' => 'issue_id', 'title' => 'Kode'],
             ['data' => 'request.name', 'title' => 'Permintaan Oleh'],
             ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
