@@ -51,7 +51,7 @@ class dashboardController extends Controller
                 }
         $this->data['jumlah_bulan'] = json_encode($issue_arr);
         if ( (int) $this->data['jumlah_belum'] > 0) {
-          $this->data['performa'] = ((int) $this->data['jumlah_selesai'] / (int) $this->data['jumlah_belum']) * 100;
+          $this->data['performa'] =number_format(((int) $this->data['jumlah_selesai'] / (int) $this->data['jumlah_keluhan']) * 100, 0, '.', ' ');
         }elseif((int) $this->data['jumlah_selesai'] > 0 && (int) $this->data['jumlah_belum'] == 0){
           $this->data['performa'] = 100;
         }
