@@ -153,7 +153,7 @@ class pdfController extends Controller
         }else{
             $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->get();
         }
-        $head = ['Nama', 'Unit Kerja',  'Keluhan', 'No. HP', 'Petugas', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
+        $head = ['Nama', 'Unit Kerja',  'Keluhan', 'Petugas', 'No. HP', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
         $title = 'Laporan Harian';
         foreach ($get as $key => $value) {;
             $finish = Carbon::parse($value->complete_date);
@@ -163,8 +163,8 @@ class pdfController extends Controller
                 0 => $value['request']['name'],
                 1 => $value['unit_kerja']['nama_uk'],
                 2 => $value['prob_desc'],
-                3 => $value['no_tlp'],
-                4 => $value['complete']['name'],
+                3 => $value['complete']['name'],
+                4 => $value['no_tlp'],   
                 5 => $value['issue_date'],
                 6 => $value['waktu_tindakan'],
                 7 => $value['solution_date'],

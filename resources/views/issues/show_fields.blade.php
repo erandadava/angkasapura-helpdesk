@@ -46,7 +46,7 @@
 
   <div class="col-md-3">
     <div class="form-group">
-      {!! Form::label('dev_ser_num', 'Serial Number/Device ID:') !!}
+      {!! Form::label('dev_ser_num', 'Serial Number/ID Perangkat:') !!}
       <p>{!! $issues->sernum->sernumid ?? '' !!}</p>
     </div>
   </div>

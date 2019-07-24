@@ -26,13 +26,13 @@
 
 
 <div class="form-group col-sm-6">
-    {!! Form::label('other_device', 'Other Device:') !!}
+    {!! Form::label('other_device', 'Perangkat Lain:') !!}
     {!! Form::text('other_device', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Cat Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('dev_ser_num', 'Serial Number/Device ID:') !!}
+    {!! Form::label('dev_ser_num', 'Serial Number/ID Perangkat:') !!}
     <select class="form-control" name="dev_ser_num">
         @foreach($sernum as $key => $val)
         <optgroup label="{{$val->nama_cat}}">
