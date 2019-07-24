@@ -115,7 +115,7 @@
                   </div>
                 </div>
                 <div class="uk-form-grid-medium uk-width-1-4@s">
-                  <label class="uk-form-label" for="form-stacked-select">Serial Number/Device ID</label>
+                  <label class="uk-form-label" for="form-stacked-select">Serial Number/ID Perangkat</label>
                   <div class="uk-form-controls">
                   <select class='uk-select' id='form-stacked-select' name="dev_ser_num">
                       @foreach($sernum as $key => $val)
@@ -144,7 +144,7 @@
                   </div>
                 </div>
                 <div class="uk-margin uk-form-grid-medium uk-width-1-4@s">
-                  <label class="uk-form-label" for="form-stacked-select">Other Device</label>
+                  <label class="uk-form-label" for="form-stacked-select">Perangkat Lain</label>
                   <div class="uk-form-controls">
                   {!! Form::text('other_device', null, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
 

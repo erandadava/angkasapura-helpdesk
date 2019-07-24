@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Ticket</h1>
+        <h1 class="pull-left">Tiket</h1>
             <h1 class="pull-right">
                 <div class="btn-group">
                     <a class="btn btn-warning" style="margin-top: -10px;margin-bottom: 5px" href="/exportpdf/{{Crypt::encrypt('issues')}}">Export To PDF</a>
