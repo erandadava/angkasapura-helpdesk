@@ -32,8 +32,6 @@ class AppServiceProvider extends ServiceProvider
                 $usernya = Auth::user()->getRoleNames();
                 if(($usernya[0] == "IT Administrator") || ($usernya[0] == "IT Support" && $this->data['status_jam'] == 1)){
                     $data_notif = notifikasi::where([['user_id','=',null],['status_baca','=',0]])->orWhere([['user_id','=',Auth::user()->id],['status_baca','=',0]]);
-                }elseif($usernya[0] == "IT Non Public"){
-                    $data_notif = notifikasi::where([['user_id','=',6],['status_baca','=',0]]);
                 }else{
                     $data_notif = notifikasi::where([['user_id','=',Auth::user()->id],['status_baca','=',0]]);
                 }

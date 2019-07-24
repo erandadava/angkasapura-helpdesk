@@ -28,7 +28,7 @@ class dashboardController extends Controller
         ->select('category.id', 'category.cat_name', DB::raw("count(issues.cat_id) as count"))
         ->groupBy('category.id','category.cat_name')->get()->toJson();
         $this->data['jumlah_selesai'] = issues::where([['status','=','CLOSE']])->orWhere([['status','=','RT']])->count();
-        $this->data['jumlah_belum'] = issues::where('status','!=','CLOSE')->orWhere('status','=',null)->count();
+        $this->data['jumlah_belum'] = issues::where([['status','!=','CLOSE'],['status','!=','RT']])->orWhere('status','=',null)->count();
         $issue = issues::select('id', 'created_at')
                 ->get()
                 ->groupBy(function($date) {

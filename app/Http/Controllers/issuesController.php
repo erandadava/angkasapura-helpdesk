@@ -52,6 +52,8 @@ class issuesController extends AppBaseController
             }
         }
         $this->data['sernum'] = $sernum;
+        $this->data['data_user'] = \App\User::role('User')->pluck('name','id');
+        $this->data['data_unit'] = \App\Models\unit_kerja::pluck('nama_uk','id');
         // echo "<pre>";
         // return print_r($this->data['sernum']);
     }
@@ -106,7 +108,7 @@ class issuesController extends AppBaseController
 
         Flash::success('Issues saved successfully.');
 
-        
+
         return redirect(route('issues.index'));
     }
 
@@ -121,7 +123,7 @@ class issuesController extends AppBaseController
     {
         if($request->n){
             $this->notifikasiController->update_baca($request->n);
-        } 
+        }
 
         $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','rating','unit_kerja'])->findWithoutFail($id);
         $this->data['it_support'] = User::role('IT Support')->pluck('name','id');
@@ -131,7 +133,7 @@ class issuesController extends AppBaseController
 
             return redirect(route('issues.index'));
         }
-        
+
         return view('issues.show')->with($this->data);
     }
 
@@ -173,7 +175,7 @@ class issuesController extends AppBaseController
             return redirect(route('issues.index'));
         }
         $input = $request->all();
-        
+
         if($input['status'] == 'CLOSE'){
             $input['complete_date'] = $this->waktu_sekarang;
         }
@@ -185,7 +187,7 @@ class issuesController extends AppBaseController
             $input['solution_date'] = $this->waktu_sekarang;
         }
         $issues = $this->issuesRepository->update($input, $id);
-        
+
         if(isset($input['rate'])){
             $input['user_id'] =  \Auth::User()->id;
             $input['issues_id'] =  $issues->id;
@@ -232,7 +234,7 @@ class issuesController extends AppBaseController
 
     public function historyticket(issuescloseDataTable $issuescloseDataTable, Request $request)
     {
-        
+
         // return $this->notifikasiController->update_baca($request->n);
         return $issuescloseDataTable->render('issues.index');
     }

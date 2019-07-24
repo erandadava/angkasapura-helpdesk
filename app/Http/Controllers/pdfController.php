@@ -16,7 +16,6 @@ class pdfController extends Controller
         $user = Auth::user();
         $roles = $user->getRoleNames();
         $tabel = \Crypt::decrypt($tabel);
-        dd($tabel);
         $isinya = [];
         switch ($tabel) {
             case 'issues':
@@ -150,17 +149,19 @@ class pdfController extends Controller
         $arr_export = explode(',', $myString);
         $now = Carbon::now();
         if($roles[0] == 'IT Operasional'){
-            $get = \App\Models\issues::with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->whereIn('id',$arr_export)->get();
+            $get = \App\Models\issues::with(['category','priority','request','unit_kerja'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->whereIn('id',$arr_export)->get();
         }else{
-            $get = \App\Models\issues::with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->get();
+            $get = \App\Models\issues::with(['category','priority','request','unit_kerja'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->get();
         }
-        $head = ['Nama', 'Lokasi', 'Keluhan', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
+        $head = ['Nama', 'Unit Kerja', 'Keluhan', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
         $title = 'Laporan Harian';
-        foreach ($get as $key => $value) {
-            $tanggap = $value->solution_date.' - '.$value->waktu_tindakan;
+        foreach ($get as $key => $value) {;
+            $finish = Carbon::parse($value->complete_date);
+            $totalDuration = $finish->diffInSeconds(Carbon::parse($value->waktu_tindakan));
+            $tanggap = gmdate('H:i:s', $totalDuration);
             $isinya[$key]=[
                 0 => $value['request']['name'],
-                1 => $value['location'],
+                1 => $value['unit_kerja']['nama_uk'],
                 2 => $value['prob_desc'],
                 3 => $value['issue_date'],
                 4 => $value['waktu_tindakan'],
@@ -172,6 +173,7 @@ class pdfController extends Controller
         $values = $isinya;
         //return view('pdf.index')->with(['head'=>$head,'title'=>$title,'value'=>$values]);
         $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values])->setPaper('a4', 'landscape');
-        return $pdf->download('laporan_harian'.time().'.pdf');
+        return $pdf->stream('laporan_harian'.time().'.pdf', array("Attachment" => false));
+        //$pdf->download('laporan_harian'.time().'.pdf');
     }
 }

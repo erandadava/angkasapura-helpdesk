@@ -34,12 +34,14 @@ class laporanhariDataTable extends DataTable
             if ($inquiry->status == 'SLITOPS') return "<span class='label label-success'>Solusi Telah Diberikan IT OPS</span>";
             return 'Cancel';
         })
-        ->editColumn('issue_date', function ($inquiry) {
-            return $inquiry->issue_date.' - '.$inquiry->solution_date;
+        ->editColumn('waktu_tanggap', function ($inquiry) {
+            $finish = Carbon::parse($inquiry->solution_date);
+            $totalDuration = $finish->diffInSeconds(Carbon::parse($inquiry->waktu_tindakan));
+            return gmdate('H:i:s', $totalDuration);
         })
-        ->editColumn('waktu_tindakan', function ($inquiry) {
-            return $inquiry->waktu_tindakan.' - '.$inquiry->complete_date;
-        })
+        // ->editColumn('waktu_tindakan', function ($inquiry) {
+        //     return $inquiry->waktu_tindakan.' - '.$inquiry->complete_date;
+        // })
         ->rawColumns(['status','prob_desc','solution_desc','reason_desc','action']);
     }
 
@@ -50,9 +52,9 @@ class laporanhariDataTable extends DataTable
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(issues $model)
-    {   
+    {
        $now = Carbon::now();
-       return $model->with(['category','priority','request'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->newQuery();
+       return $model->with(['category','priority','request','unit_kerja'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->newQuery();
 
     }
 
@@ -68,7 +70,7 @@ class laporanhariDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
-                'dom'     => 'Bfrtip',
+                'dom'     => 'Blfrtip',
                 'order'   => [[0, 'desc']],
                 'buttons' => [
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -88,14 +90,15 @@ class laporanhariDataTable extends DataTable
         return [
             ['data' => 'id','visible' => false],
             ['data' => 'request.name', 'title' => 'Name'],
-            ['data' => 'location', 'title' => 'Lokasi'],
+            // ['data' => 'location', 'title' => 'Lokasi'],
+            ['data' => 'unit_kerja.nama_uk', 'title' => 'Unit Kerja'],
             ['data' => 'prob_desc', 'title' => 'Keluhan'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
             ['data' => 'waktu_tindakan', 'title' => 'Waktu Penanganan'],
-            ['data' => 'complete_date', 'title' => 'Waktu Selesai'],
-            ['data' => 'issue_date', 'title' => 'Waktu Tanggap'],  
+            ['data' => 'solution_date', 'title' => 'Waktu Selesai'],
+            ['data' => 'waktu_tanggap', 'title' => 'Waktu Tanggap'],
             ['data' => 'solution_desc', 'title' => 'Solusi'],
-        ]; 
+        ];
     }
 
     /**

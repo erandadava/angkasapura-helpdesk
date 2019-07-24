@@ -27,7 +27,7 @@ class issues extends Model
     use SoftDeletes;
 
     public $table = 'issues';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -85,7 +85,7 @@ class issues extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
     public function category()
@@ -138,10 +138,10 @@ class issues extends Model
             $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $this->issue_date);
             $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
             $diff_in_minutes = $to->diff($from);
-            
+
             $selisih = \Carbon\Carbon::createFromTime(0, $diff_in_minutes->s, $diff_in_minutes->i);
             $waktu_issue = \Carbon\Carbon::createFromFormat('H:i:s', $this->priority()->first()->alert_time);
-            
+
             if($selisih >= $waktu_issue){
                 $status = 1;
             }
@@ -153,4 +153,5 @@ class issues extends Model
     {
         return $this->hasOne('App\Models\inventory','id','sernum');
     }
+
 }

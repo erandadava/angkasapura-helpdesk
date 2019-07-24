@@ -587,7 +587,7 @@
 
 
 @hasrole('User')
-    @if ($issues->status == 'SLITSP' || $issues->status == 'SLITOPS')
+    @if ($issues->status == 'RT')
       @if(($issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)) 
           <div class="form-group col-md-2 col-sm-12">
             {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
@@ -600,7 +600,7 @@
       @endif
     @endif
     
-    @if(($issues->status=="CLOSE" && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status=="CLOSE" && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)) 
+    @if(($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)) 
     <!-- Button untuk IT NP -->
     <div class="form-group col-md-2 col-sm-12">
     
@@ -644,7 +644,7 @@
 @endhasrole
 
 @hasrole('IT Non Public')
-    @if ($issues->status == 'SLITSP' || $issues->status == 'SLITOPS')
+    @if ($issues->status == 'RT')
       @if(($issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)) 
           <div class="form-group col-md-2 col-sm-12">
             {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
@@ -657,7 +657,7 @@
       @endif
     @endif
 
-    @if($issues->status=="CLOSE" && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops) 
+    @if($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops) 
     <!-- Button untuk IT NP -->
     <div class="form-group col-md-2 col-sm-12">
     
