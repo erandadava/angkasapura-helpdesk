@@ -44,7 +44,7 @@
 </li>
 
 <li class="{{ Request::is('laporans*') ? 'active' : '' }}">
-  <a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-edit"></i><span>Laporan hari</span></a>
+  <a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-edit"></i><span>Laporan harian</span></a>
 </li>
 
 <li class="{{ Request::is('users*') ? 'active' : '' }}">
@@ -151,13 +151,13 @@
             <li class=""><a href="{!! route('laporans.index.hari') !!}"><i class="fa fa-circle-o"></i> Laporan Harian</a></li>
             <li class=""><a href="{!! route('laporans.index') !!}"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
             <li class="{{ isset($_GET['n']) ? 'active' : '' }}"><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
- 
+
             <li class="{{ Request::is('inventories*') ? 'active' : '' }}">
               <a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a>
             </li>
-            
+
             <li class=""><a href="/admin/metrics"><i class="fa fa-circle-o"></i><span>Monitoring</span></a></li>
- 
+
             <li class="{{ Request::is('categories*') ? 'active' : '' }}"><a href="{!! route('categories.index') !!}"><i class="fa fa-circle-o"></i><span>Kategori</span></a></li>
 
             <li class="{{ Request::is('roles*') ? 'active' : '' }}">
@@ -175,7 +175,3 @@
           </ul>
 </li>
 @endrole
-
-
-
-
