@@ -131,6 +131,7 @@ class usersController extends AppBaseController
         // $input['password'] = bcrypt($input['password']);
         $users = $this->usersRepository->update($input, $id);
         $akun = \App\User::find($users->id);
+        $akun->removeRole($akun->roles->first());
         $akun->assignRole($input['roles']);
 
         Flash::success('Users updated successfully.');
