@@ -46,7 +46,7 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
 
 });
 
-Route::group(['middleware' => ['role:User|Admin','isEmailVerified']], function ()
+Route::group(['middleware' => ['role:User|Admin|IT Non Public','isEmailVerified']], function ()
 {
     Route::resource('users', 'usersController');
 });

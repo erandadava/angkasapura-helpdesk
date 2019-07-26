@@ -26,7 +26,7 @@ class pdfController extends Controller
                 }else{
                     $get = \App\Models\issues::with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->get();
                 }
-                $head = ['Kategori', 'Kode', 'Prioritas', 'Request', 'Lokasi', 'Status', 'Waktu Keluhan'];
+                $head = ['Kode', 'Permintaan Oleh', 'Prioritas', 'Waktu Keluhan', 'Kategori', 'Lokasi', 'Status'];
                 $title = 'Ticket';
                 foreach ($get as $key => $value) {
                     if ($value['status'] == null){ $status = 'Menunggu IT Administrator';};
@@ -41,13 +41,13 @@ class pdfController extends Controller
                     if ($value['status'] == 'SLITOPS'){ $status = "Solusi Telah Diberikan IT OPS";}
                     if ($value['status'] == 'RT'){ $status = "User Telah Memberi Rating";}
                     $isinya[$key]=[
-                        0 => $value['category']['cat_name'],
-                        1 => $value['issue_id'],
+                        0 => $value['issue_id'],
+                        1 => $value['request']['name'],
                         2 => $value['priority']['prio_name'],
-                        3 => $value['request']['name'],
-                        4 => $value['location'],
-                        5 => $status,
-                        6 => $value['issue_date'],
+                        3 => $value['issue_date'],
+                        4 => $value['category']['cat_name'],
+                        5 => $value['location'],
+                        6 => $status
                     ];   
                 }
                 break; 
@@ -69,18 +69,25 @@ class pdfController extends Controller
                 break;
             case 'laporan_bulanan' :
                 $now = Carbon::now();
-                $get = \App\Models\issues::with(['category','priority','request'])->whereMonth('complete_date', '=', $now->month)->get();
-                $head = ['Name', 'Lokasi', 'Serial Number', 'issue ID', 'Keluhan', 'Waktu Keluhan', 'Tanggal Selesai'];
+                $get = \App\Models\inventory::with(['issues'])->withCount(['issuesjml','issuesjmlsla'])->get();
+                $head = ['Nama Perangkat', 'Jumlah Keluhan', 'SLA'];
                 $title = 'Laporan Bulanan';
                 foreach ($get as $key => $value) {
+                    $hasilrusak = 0;
+                    foreach ($value->issues as $keys => $values) {
+                        $interval = $values['issue_date']->diffInMinutes($values['complete_date'], true);
+                        $interval = (int) $interval / 60 / 24;
+                        $hasilrusak += $interval*24;
+                    }
+                    $hasil = ((720 - $hasilrusak)/720)*100;
+                    $hasil = number_format($hasil, 2, '.', ' ');
+                    $hasil = $hasil.'%';
+
+
                     $isinya[$key]=[
-                        0 => $value['request']['name'],
-                        1 => $value['location'],
-                        2 => $value['inventory']['sernum'],
-                        3 => $value['issue_id'],
-                        4 => $value['prob_desc'],
-                        5 => $value['issue_date'],
-                        6 => $value['complete_date'],
+                        0 => $value['nama_perangkat'],
+                        1 => $value['issuesjml_count'],
+                        2 => $hasil
                     ];   
                 }
             break;
@@ -107,7 +114,7 @@ class pdfController extends Controller
                 }else{
                     $get = \App\Models\issues::with(['category','priority','request','rating'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['assign_it_ops','=',$user->id],['status','=','RT']])->orWhere([['assign_it_support','=',$user->id],['status','=','RT']])->get();
                 }
-                $head = ['Kategori', 'Kode', 'Prioritas', 'Request', 'Rating', 'Status', 'Waktu Keluhan'];
+                $head = ['Kategori', 'Kode', 'Prioritas', 'Permintaan', 'Penialaian', 'Status', 'Waktu Keluhan'];
                 $title = 'Penilaian';
                 foreach ($get as $key => $value) {
                     if ($value['status'] == null){ $status = 'Menunggu IT Administrator';};
@@ -138,7 +145,7 @@ class pdfController extends Controller
         }
         $values = $isinya;
         $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values]);
-        return $pdf->download($tabel.time().'.pdf');
+        return $pdf->stream($tabel.time().'.pdf');
     }
 
     public function make_pdf_laporan_harian(Request $request){

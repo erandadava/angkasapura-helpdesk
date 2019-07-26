@@ -156,8 +156,6 @@
               <a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a>
             </li>
 
-            <li class=""><a href="/admin/metrics"><i class="fa fa-circle-o"></i><span>Pemantauan</span></a></li>
-
             <li class="{{ Request::is('categories*') ? 'active' : '' }}"><a href="{!! route('categories.index') !!}"><i class="fa fa-circle-o"></i><span>Kategori</span></a></li>
 
             <li class="{{ Request::is('roles*') ? 'active' : '' }}">

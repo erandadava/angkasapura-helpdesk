@@ -43,6 +43,10 @@
         .dataTables_length{
             margin-top:10px;
         }
+        div.dataTables_wrapper div.dataTables_processing{
+            z-index: 999;
+            background-color: white;
+        }
     </style>
     @yield('css')
 </head>

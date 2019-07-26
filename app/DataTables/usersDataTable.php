@@ -6,6 +6,7 @@ use App\Models\users;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Auth;
+use Carbon\Carbon;
 class usersDataTable extends DataTable
 {
     /**
@@ -18,7 +19,43 @@ class usersDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'users.datatables_actions')->rawColumns(['ratetahun','ratebulan','action']);;
+        return $dataTable->addColumn('action', 'users.datatables_actions')->addColumn('rate_tahun', function($model){
+            $rolesnya = $model->model_has_roles->roles->name;
+            $dt = \App\Models\users::where('id','=',$model->id)->whereHas('rating', function($q){
+                $q->whereYear('created_at', '=', Carbon::now()->year);
+            })->first();
+            if($dt){
+                $rate = 0;
+                foreach($dt->rating as $dts){
+                    $rate += $dts->rate;
+                }
+                if(count($dt->rating) != 0){
+                    $rate = $rate/count($dt->rating);
+                }
+                if($rolesnya == 'IT Support' || $rolesnya == 'IT Operasional'){
+                    return "<span class='glyphicon glyphicon-star' style='color:orange'></span> ".substr((String)$rate,0,4);
+                }
+            }
+          })->addColumn('rate_bulan', function($model){
+            $rolesnya = $model->model_has_roles->roles->name;
+            $dt = \App\Models\users::where('id','=',$model->id)->whereHas('rating', function($q){
+                $q->whereMonth('created_at', '=', Carbon::now()->month);
+            })->first();
+            if($dt){
+                $rate = 0;
+                foreach($dt->rating as $dts){
+                    $rate += $dts->rate;
+                }
+                if(count($dt->rating) != 0){
+                    $rate = $rate/count($dt->rating);
+                   
+                }
+                if($rolesnya == 'IT Support' || $rolesnya == 'IT Operasional'){
+                    
+                    return "<span class='glyphicon glyphicon-star' style='color:orange'></span> ".substr((String)$rate,0,4);
+                }
+            }
+          })->rawColumns(['rate_tahun','rate_bulan','action']);
     }
 
     /**
@@ -32,7 +69,7 @@ class usersDataTable extends DataTable
         $user = Auth::user();
         $roles = $user->getRoleNames();
         if($roles[0] == "User"){
-            return $model->with(['model_has_roles.roles'])->where('id','=',$user->id)->newQuery();
+            return $model->with(['model_has_roles.roles','rating'])->where('id','=',$user->id)->newQuery();
         }
         return $model->with(['model_has_roles.roles'])->newQuery();
     }
@@ -69,8 +106,8 @@ class usersDataTable extends DataTable
         return [
             ['data' => 'id', 'visible' => false],
             ['data' => 'name', 'title' => 'Nama'],
-            ['data' => 'ratetahun', 'title' => 'Rata Rata Peringkat Tahun Ini', 'searchable' => false],
-            ['data' => 'ratebulan', 'title' => 'Rata Rata Peringkat Bulan Ini', 'searchable' => false],
+            ['data' => 'rate_tahun', 'title' => 'Rata Rata Peringkat Tahun Ini', 'searchable' => false],
+            ['data' => 'rate_bulan', 'title' => 'Rata Rata Peringkat Bulan Ini', 'searchable' => false],
             ['data' => 'email', 'title' => 'Email'],
             ['data' => 'model_has_roles.roles.name', 'title' => 'Tugas'],
         ];
