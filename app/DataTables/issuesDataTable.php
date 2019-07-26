@@ -97,12 +97,19 @@ class issuesDataTable extends DataTable
      */
     public function html()
     {
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        $search = true;
+        if($roles[0] == 'IT Operasional' || $roles[0] == 'User'){
+            $search = false;
+        }
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'     => 'Blfrtip',
+                'bFilter' => $search,
                 'order'   => [[0, 'desc']],
                 'buttons' => [
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
