@@ -37,7 +37,7 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
 
     Route::resource('ratings', 'ratingController');
 
-    Route::resource('roles', 'rolesController');
+    Route::resource('roles', 'rolesController',['only' => ['index', 'show']]);
 
     Route::resource('catInventories', 'cat_inventoryController');
     Route::resource('inventories', 'inventoryController');
