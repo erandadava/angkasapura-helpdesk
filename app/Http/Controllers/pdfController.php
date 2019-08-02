@@ -163,7 +163,7 @@ class pdfController extends Controller
         $head = ['Nama', 'Unit Kerja',  'Keluhan', 'Petugas', 'No. HP', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
         $title = 'Laporan Harian';
         foreach ($get as $key => $value) {;
-            $finish = Carbon::parse($value->complete_date);
+            $finish = Carbon::parse($value->solution_date);
             $totalDuration = $finish->diffInSeconds(Carbon::parse($value->waktu_tindakan));
             $tanggap = gmdate('H:i:s', $totalDuration);
             $isinya[$key]=[

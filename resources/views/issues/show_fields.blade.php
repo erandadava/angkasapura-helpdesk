@@ -280,42 +280,10 @@
     {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
         {!! Form::hidden('status', 'LITSP', ['class' => 'form-control'])!!}
         <button class='btn btn-danger btn-md' type="submit" onclick="return confirm('Yakin?')">
-          <i class="glyphicon glyphicon-random"></i> OTW
+          <i class="glyphicon glyphicon-random"></i> Menuju Lokasi
         </button>
     {!! Form::close() !!} 
   </div>
-  <div class="form-group col-md-3 col-sm-12">
-          <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItOPS">
-              <i class="glyphicon glyphicon-share"></i> Tidak Dapat Mengatasi Keluhan
-          </button>
-  </div>
-  <div id="myModalItOPS" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Tidak Dapat Mengatasi Keluhan</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-        {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
-        {!! Form::hidden('status', 'RITSP', ['class' => 'form-control'])!!}
-        <div class="form-group col-sm-12 col-lg-12">
-            {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
-            {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
-        </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
-      </div>
-    </div>
-    {!! Form::close() !!}
-  </div>
-</div>
-
   @endif
 
   @if ($issues->status == "LITSP")
@@ -366,6 +334,40 @@
       {!! Form::close() !!}
     </div>
   </div>
+  @endif
+
+  @if ($issues->status == 'LITSP' || $issues->status == 'DLITSP')
+    <div class="form-group col-md-3 col-sm-12">
+      <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItOPS">
+          <i class="glyphicon glyphicon-share"></i> Tidak Dapat Mengatasi Keluhan
+      </button>
+    </div>
+    <div id="myModalItOPS" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Tidak Dapat Mengatasi Keluhan</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+      {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+      {!! Form::hidden('status', 'RITSP', ['class' => 'form-control'])!!}
+      <div class="form-group col-sm-12 col-lg-12">
+          {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
+          {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
+      </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
+    </div>
+    </div>
+    {!! Form::close() !!}
+    </div>
+    </div>
   @endif
 @endhasrole
 
@@ -527,7 +529,7 @@
       {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
           {!! Form::hidden('status', 'LITOPS', ['class' => 'form-control'])!!}
           <button class='btn btn-danger btn-md' type="submit" onclick="return confirm('Yakin?')">
-            <i class="glyphicon glyphicon-random"></i> OTW
+            <i class="glyphicon glyphicon-random"></i> Menuju Lokasi
           </button>
       {!! Form::close() !!} 
     </div>
