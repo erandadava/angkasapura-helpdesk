@@ -198,8 +198,8 @@
                     @if ($dt->status == 'SLITADM') <span class='badge badge-success'>Solusi Telah Diberikan IT Administrator</span> @endif
                     @if ($dt->status == 'SLITOPS') <span class='badge badge-success'>Solusi Telah Diberikan IT OPS</span> @endif
                     @if ($dt->status == 'SLITSP') <span class='badge badge-success'>Solusi Telah Diberikan IT Support</span> @endif
-                    @if ($dt->status == 'LITOPS') <span class='badge badge-info'>IT OPS Menuju ke Lokasi</span> @endif
-                    @if ($dt->status == 'LITSP') <span class='badge badge-info'>IT Support Menuju ke Lokasi</span> @endif
+                    @if ($dt->status == 'LITOPS') <span class='badge badge-info'>IT OPS Menuju ke Lokasi</span></br><small><b>Oleh : {{$dt->assign_it_ops_relation->name??""}}</b></small>@endif
+                    @if ($dt->status == 'LITSP') <span class='badge badge-info'>IT Support Menuju ke Lokasi</span></br><small><b>Oleh : {{$dt->assign_it_support_relation->name??""}}</b></small>@endif
                     @if ($dt->status == 'DLITOPS') <span class='badge badge-warning'>Sedang Dalam Tindakan IT OPS</span> @endif
                     @if ($dt->status == 'DLITSP') <span class='badge badge-warning'>Sedang Dalam Tindakan IT Support</span> @endif
                     @if ($dt->status == 'RT') <span class='badge badge-warning'>User Telah Memberi Rating</span> @endif
