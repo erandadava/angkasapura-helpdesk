@@ -232,7 +232,7 @@
                     <td>{{$dt->category->cat_name}}</td>
                     <td style="padding-top: 30px;">{!! $dt->prob_desc !!}</td>
                     <td>
-                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$key}}" uk-toggle>Buka</a></center>
+                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$key}}" uk-toggle>Buka</a></br>@if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))<span class="badge badge-pill badge-warning">Beri Penilaian</span>@endif </center>
 
                        <div id="modal-open-solution{{$key}}" uk-modal>
                         <div class="uk-modal-dialog">

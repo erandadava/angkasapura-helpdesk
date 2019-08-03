@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
         date_default_timezone_set('Asia/Jakarta');
         $date = date('H:i:s', time());
         $this->data['status_jam'] = 0;
-        if($date >= '17:30:00'){
+        if($date >= '16:30:00'){
             $this->data['status_jam'] = 1;
         }
         request()->merge(['status_jam' => $this->data['status_jam']]);

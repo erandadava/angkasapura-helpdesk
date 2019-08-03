@@ -267,8 +267,60 @@
                                 .catch( error => {
                                         //console.error( error );
                                 } );
-                                
     </script>
+    @hasrole('IT Administrator|IT Support')
+        <script>
+        //For time alert 
+            function createCookie(name,value,days) {
+                if (days) {
+                    var end = new Date().toLocaleString("en-US", {hour12: false,timeZone: "Asia/Jakarta"});
+                    end = new Date(end);
+                    end.setHours(23,59,59,9999);
+                    var expires = "; expires="+end.toGMTString();
+                }
+                else var expires = "";
+                document.cookie = name+"="+value+expires+"; path=/";
+            }
+
+            function readCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0;i < ca.length;i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                }
+                return null;
+            }
+
+            t= setInterval(function () {
+                check_time()
+            }, 1000);
+
+            function check_time(){
+                var today = new Date().toLocaleString("en-US", {hour12: false,timeZone: "Asia/Jakarta"}),
+                today = new Date(today),
+                h = today.getHours(),
+                m = today.getMinutes(),
+                s = today.getSeconds();
+
+                var alert_delegasi = readCookie('alertdelegasi');
+                if(alert_delegasi == null){
+                    hm =  h + ":" + m + ":" + s;
+
+                    if(hm >= "16:30:00")
+                    {
+                        clearInterval(t);
+                        if(!alert('Waktunya delegasi IT Administrator  diberikan ke IT Support. \nTekan OK untuk memperbarui hak akses')){
+                            createCookie('alertdelegasi','true',1);
+                            window.location.reload();
+                        }
+                    } 
+                }
+                
+            }
+        </script>
+    @endhasrole
     @yield('scripts')
 </body>
 </html>
