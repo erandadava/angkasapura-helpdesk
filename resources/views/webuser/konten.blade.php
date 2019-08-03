@@ -89,6 +89,18 @@
 	<div class="content">
 		<div class="container-fluid">
     	<div class="row">
+        @if (count($ticket_solution)>0)
+        <div class="col-12">
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p><strong>Berikan penilaian Anda terhadap layanan kami.</strong></p>
+                @foreach ($ticket_solution as $item)
+                  <a href="#modal-open-solution{{$item->id}}" uk-toggle><p style="text-decoration : underline">Beri penilaian untuk keluhan {{$item->issue_id}}</p></a>
+                @endforeach
+                <b>Terima Kasih</b>
+            </div>
+          </div>
+        @endif
 				<div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
@@ -232,9 +244,9 @@
                     <td>{{$dt->category->cat_name}}</td>
                     <td style="padding-top: 30px;">{!! $dt->prob_desc !!}</td>
                     <td>
-                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$key}}" uk-toggle>Buka</a></br>@if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))<span class="badge badge-pill badge-warning">Beri Penilaian</span>@endif </center>
+                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$dt->id}}" uk-toggle>Buka</a></br>@if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))<span class="badge badge-pill badge-warning">Beri Penilaian</span>@endif </center>
 
-                       <div id="modal-open-solution{{$key}}" uk-modal>
+                       <div id="modal-open-solution{{$dt->id}}" uk-modal>
                         <div class="uk-modal-dialog">
                           <button class="uk-modal-close-default" type="button" uk-close></button>
 

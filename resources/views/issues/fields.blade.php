@@ -113,15 +113,15 @@
 @hasrole('IT Support')
   @if($issues->status == null && $status_jam == 1)
     <div class="form-group col-sm-6">
-        {!! Form::label('request_id', 'Request Oleh:') !!}
-        {!! Form::select('request_id', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+        {!! Form::label('request_id_user', 'Request Oleh:') !!}
+        {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
     </div>
   @endif
 @endhasrole
 @hasrole('IT Administrator')
     <div class="form-group col-sm-6">
-        {!! Form::label('request_id', 'Request Oleh:') !!}
-        {!! Form::select('request_id', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+        {!! Form::label('request_id_user', 'Request Oleh:') !!}
+        {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
     </div>
 @endhasrole
 <!-- Submit Field -->
