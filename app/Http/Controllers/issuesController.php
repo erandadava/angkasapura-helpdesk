@@ -199,7 +199,7 @@ class issuesController extends AppBaseController
             if($input['usr'] == 'a'){
                 Alert::success('Penilain Berhasil Dikirim', 'Terima Kasih')->autoclose(4000);
             }else{
-                Alert::success('Keluhan Telah Selesai', 'Terima Kasih')->autoclose(4000);
+                Alert::success('Keluhan Telah Selesai', 'Terima Kasih telah memberikan nilai')->autoclose(4000);
             }
             return redirect('/beranda');
         }
