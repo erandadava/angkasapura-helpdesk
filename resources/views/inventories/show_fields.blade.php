@@ -34,10 +34,10 @@
     <p>{!! $inventory->merk !!}</p>
 </div>
 
-<div class="form-group">
+<!-- <div class="form-group">
     {!! Form::label('tgl_pembelian', 'Tanggal Pembelian:') !!}
     <p>{!! $inventory->tgl_pembelian !!}</p>
-</div>
+</div> -->
 
 <div class="form-group">
     {!! Form::label('tgl_penyerahan', 'Tanggal Penyerahan:') !!}
@@ -45,10 +45,10 @@
 </div>
 
 <!-- Type Alat Field -->
-<div class="form-group">
+<!-- <div class="form-group">
     {!! Form::label('type_alat', 'Type Alat:') !!}
     <p>{!! $inventory->type_alat !!}</p>
-</div>
+</div> -->
 
 <!-- Sernum Field -->
 <div class="form-group">
@@ -105,16 +105,16 @@
 </div>
 
 <!-- Tech Key Field -->
-<div class="form-group">
+<!-- <div class="form-group">
     {!! Form::label('tech_key', 'Data Teknis Key:') !!}
     <p>{!! $inventory->tech_key !!}</p>
-</div>
+</div> -->
 
-<!-- Tech Kode Field -->
+<!-- Tech Kode Field --><!-- 
 <div class="form-group">
     {!! Form::label('tech_kode', 'Data Teknis Kode:') !!}
     <p>{!! $inventory->tech_kode !!}</p>
-</div>
+</div> -->
 
 <!-- Made In Field -->
 <div class="form-group">
@@ -129,10 +129,10 @@
 </div>
 
 <!-- Vendor Name Field -->
-<div class="form-group">
+<!-- <div class="form-group">
     {!! Form::label('vendor_name', 'Vendor Name:') !!}
     <p>{!! $inventory->vendor_name !!}</p>
-</div>
+</div> -->
 
 <!-- Is Active Field -->
 <div class="form-group">
