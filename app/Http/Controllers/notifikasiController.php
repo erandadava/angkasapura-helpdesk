@@ -11,7 +11,10 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use \App\Models\issues;
+use \App\Models\notifikasi;
 use Illuminate\Support\Facades\Crypt;
+use Auth;
+use Carbon\Carbon;
 
 class notifikasiController extends AppBaseController
 {
@@ -265,5 +268,25 @@ class notifikasiController extends AppBaseController
         Flash::success('Notifikasi deleted successfully.');
 
         return redirect(route('notifikasis.index'));
+    }
+
+    public function realtime_notification(Request $request){
+        if(isset(Auth::user()->id)){
+            $usernya = Auth::user()->getRoleNames();
+            if(($usernya[0] == "IT Administrator") || ($usernya[0] == "IT Support" && $request->status_jam == 1)){
+                $this->data['data_notif'] = notifikasi::where([['user_id','=',null],['status_baca','=',0]])->orWhere([['user_id','=',Auth::user()->id],['status_baca','=',0]])->get();
+            }else{
+                $this->data['data_notif'] = notifikasi::where([['user_id','=',Auth::user()->id],['status_baca','=',0]])->get();
+            }
+            
+            $this->data['count_notif'] = $this->data['data_notif']->count();
+            
+            if($this->data['data_notif'] && count($this->data['data_notif'])>0){
+                foreach ($this->data['data_notif'] as $key => $value) {
+                    $this->data['data_notif'][$key]['created_at'] = $value['created_at']->format('d M Y H:i');
+                }
+            }
+            return $this->sendResponse($this->data, 'Notifikasi send successfully');
+        } 
     }
 }

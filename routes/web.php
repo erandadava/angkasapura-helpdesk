@@ -67,3 +67,5 @@ Route::resource('invenPembelians', 'inven_pembelianController');
 Route::resource('pemeriksaanPerangkats', 'pemeriksaan_perangkatController');
 
 Route::resource('unitKerjas', 'unit_kerjaController');
+
+Route::get('/notif', 'notifikasiController@realtime_notification');

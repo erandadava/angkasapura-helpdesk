@@ -33,6 +33,7 @@
     <!-- optionally if you need to use a theme, then include the theme CSS file as mentioned below -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" href="{{asset('js/clockpicker/dist/bootstrap-clockpicker.css')}}">
     <style>
         .ck-editor__editable {
             min-height: 300px;
@@ -80,15 +81,8 @@
                         <li class="header">Anda memiliki {{$count_notif}} notifikasi</li>
                         <li>
                             <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                @foreach($data_notif as $dt)
-                                <li>
-                                    <a href="{{$dt->link_id}}">
-                                        {!! $dt->pesan !!} 
-                                        <p><small>{{date('d-m-Y | H:i:s', strtotime($dt->created_at)) }}</small></p>
-                                    </a>
-                                </li>
-                                @endforeach
+                            <ul class="menu" id="notif">
+
                             </ul>
                         </li>
                         <!-- <li class="footer"><a href="#">View all</a></li> -->
@@ -218,13 +212,38 @@
 
 
 <script src="{{asset('js/jsignature-master/src/jSignature.js')}}"></script>
+
+<script src="{{asset('js/clockpicker/dist/bootstrap-clockpicker.min.js')}}"></script>
     <script>
     $(document).ready(function(){
       $.fn.dataTable.ext.errMode = 'none';
-        
     });
+
+    //For notification
+        var previous_notif = 0 ;
+        function get_notif(){
+            $.ajax({
+                dataType: "json",
+                url: "/notif",
+                success: function (data) {
+                    $("#notif").html('');
+                    $.each(data.data.data_notif, function( key, element ) {
+                        console.log('test');
+                        $("#notif").append("<li><a href='"+element.link_id+"'>"+element.pesan+"<p><small>"+element.created_at+"</small></p></a></li>");
+                    });
+                    
+                }
+            });
+        }
+        
+        setInterval(function(){
+            get_notif();
+        },1000);
+
+
     try {
       $('select').select2();
+      $('.clockpicker').clockpicker();
     } catch (e) {
 
     }

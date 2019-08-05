@@ -27,13 +27,23 @@
 <!-- Mulai Jam Pengecekan Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('mulai_jam_pengecekan', 'Jam Mulai Pengecekan:') !!}
-    {!! Form::text('mulai_jam_pengecekan', null, ['class' => 'form-control', 'id' => 'jam_mulai']) !!}
+    <div class="input-group clockpicker" data-align="top" data-autoclose="true">
+        <input type="text" name="mulai_jam_pengecekan" class="form-control">
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-time"></span>
+        </span>
+    </div>
 </div>
 
 <!-- Selesai Jam Pengecekan Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('selesai_jam_pengecekan', 'Jam Selesai Pengecekan:') !!}
-    {!! Form::text('selesai_jam_pengecekan', null, ['class' => 'form-control', 'id' => 'jam_selesai']) !!}
+    <div class="input-group clockpicker" data-align="top" data-autoclose="true">
+        <input type="text" name="selesai_jam_pengecekan" class="form-control">
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-time"></span>
+        </span>
+    </div>
 </div>
 
 <!-- Full Computer Name Field -->
