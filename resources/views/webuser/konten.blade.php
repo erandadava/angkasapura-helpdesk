@@ -45,24 +45,14 @@
             </form> -->
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link count_notif" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
-                  @if($count_notif>0) <span class="notification">{{$count_notif}}</span>@endif
                   <p class="d-lg-none d-md-block">
                     Some Actions
                   </p>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  @foreach($data_notif as $dt)
-                  <a class="dropdown-item" href="{{$dt->link_id}}">
-                    {!! $dt->pesan !!}
-                  </a>
-                  @endforeach
-                  @if($count_notif==0)
-                    <a class="dropdown-item" href="#">
-                      Tidak Ada Notifikasi
-                    </a>
-                  @endif
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="notif">
+
                 </div>
               </li>
               <li class="nav-item dropdown">

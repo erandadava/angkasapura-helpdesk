@@ -281,11 +281,6 @@ class notifikasiController extends AppBaseController
             
             $this->data['count_notif'] = $this->data['data_notif']->count();
             
-            if($this->data['data_notif'] && count($this->data['data_notif'])>0){
-                foreach ($this->data['data_notif'] as $key => $value) {
-                    $this->data['data_notif'][$key]['created_at'] = $value['created_at']->format('d M Y H:i');
-                }
-            }
             return $this->sendResponse($this->data, 'Notifikasi send successfully');
         } 
     }

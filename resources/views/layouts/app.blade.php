@@ -34,6 +34,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="{{asset('js/clockpicker/dist/bootstrap-clockpicker.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <style>
         .ck-editor__editable {
             min-height: 300px;
@@ -48,6 +49,7 @@
             z-index: 999;
             background-color: white;
         }
+
     </style>
     @yield('css')
 </head>
@@ -73,19 +75,18 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                     <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="count_notif">
                         <i class="fa fa-bell-o"></i>
-                            @if($count_notif>0) <span class="label label-danger">{{$count_notif}}</span> @endif
                         </a>
                         <ul class="dropdown-menu">
-                        <li class="header">Anda memiliki {{$count_notif}} notifikasi</li>
+                        <li class="header" id="header_notif"></li>
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu" id="notif">
 
                             </ul>
                         </li>
-                        <!-- <li class="footer"><a href="#">View all</a></li> -->
+                        <li class="footer"><a href="#" onclick="get_notif();">Segarkan</a></li>
                         </ul>
                     </li>
                         <!-- User Account Menu -->
@@ -226,19 +227,27 @@
                 dataType: "json",
                 url: "/notif",
                 success: function (data) {
-                    $("#notif").html('');
-                    $.each(data.data.data_notif, function( key, element ) {
-                        console.log('test');
-                        $("#notif").append("<li><a href='"+element.link_id+"'>"+element.pesan+"<p><small>"+element.created_at+"</small></p></a></li>");
-                    });
-                    
+                    $('#header_notif').html('');
+                    $('#header_notif').html("Anda memiliki "+data.data.data_notif.length+" notifikasi");
+                    if(data.data.data_notif.length != previous_notif){
+                        $("#notif").html('');
+                        $(".number_notif").remove();
+                        previous_notif = data.data.data_notif.length;
+                        $.each(data.data.data_notif, function( key, element ) {
+                            var date = new Date(element.created_at);
+                            var dt = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + " | " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                            $("#notif").append("<li><a href='"+element.link_id+"'>"+element.pesan+"<p><small>"+dt+"</small></p></a></li>");
+                            $('#count_notif').append("<span class='label label-danger number_notif animated heartBeat'>"+data.data.count_notif+"</span>");
+                        });
+                    }      
                 }
             });
         }
         
+        get_notif();
         setInterval(function(){
             get_notif();
-        },1000);
+        },60000);
 
 
     try {
