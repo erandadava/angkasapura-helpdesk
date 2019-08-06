@@ -15,6 +15,7 @@ class CreateIssuesTable extends Migration
     {
         Schema::create('issues', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('assign_it_admin')->nullable();
             $table->string('assign_it_support')->nullable();
             $table->string('assign_it_ops')->nullable();
             $table->string('issue_id')->nullable();
@@ -31,7 +32,7 @@ class CreateIssuesTable extends Migration
             $table->dateTime('waktu_tindakan')->nullable();
             $table->dateTime('solution_date')->nullable();
             $table->tinyInteger('is_archive')->nullable();
-            $table->enum('status',['RITADM','AITADM','ITSP','RITSP','AITSP','ITOPS', 'ITNP','CLOSE','CFUSER','SLITADM','RT','ALS','LITSP','LITOPS','DLITSP','DLITOPS','SLITSP','SLITOPS'])->nullable();
+            $table->enum('status',['RITADM','AITADM','ITADM','ITSP','RITSP','AITSP','ITOPS', 'ITNP','CLOSE','CFUSER','SLITADM','RT','ALS','LITADM','LITSP','LITOPS','DLITADM','DLITSP','DLITOPS','SLITSP','SLITOPS'])->nullable();
             $table->integer('dev_ser_num')->nullable();
             $table->string('other_device')->nullable();
             $table->integer('id_unit_kerja')->nullable();

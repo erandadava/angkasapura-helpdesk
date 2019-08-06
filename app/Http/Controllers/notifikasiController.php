@@ -274,9 +274,9 @@ class notifikasiController extends AppBaseController
         if(isset(Auth::user()->id)){
             $usernya = Auth::user()->getRoleNames();
             if(($usernya[0] == "IT Administrator") || ($usernya[0] == "IT Support" && $request->status_jam == 1)){
-                $this->data['data_notif'] = notifikasi::where([['user_id','=',null],['status_baca','=',0]])->orWhere([['user_id','=',Auth::user()->id],['status_baca','=',0]])->get();
+                $this->data['data_notif'] = notifikasi::where([['user_id','=',null],['status_baca','=',0]])->orWhere([['user_id','=',Auth::user()->id],['status_baca','=',0]])->latest()->get();
             }else{
-                $this->data['data_notif'] = notifikasi::where([['user_id','=',Auth::user()->id],['status_baca','=',0]])->get();
+                $this->data['data_notif'] = notifikasi::where([['user_id','=',Auth::user()->id],['status_baca','=',0]])->latest()->get();
             }
             
             $this->data['count_notif'] = $this->data['data_notif']->count();

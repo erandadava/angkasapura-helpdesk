@@ -160,6 +160,13 @@
 <div class="row">
   <div class="col-md-3">
     <div class="form-group">
+        {!! Form::label('assign_it_admin', 'Assign User IT Administrator:') !!}
+        <p>{!! $issues->assign_it_admin_relation->name ?? '' !!}</p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="form-group">
         {!! Form::label('assign_it_support', 'Assign User IT Support:') !!}
         <p>{!! $issues->assign_it_support_relation->name ?? '' !!}</p>
     </div>
@@ -179,7 +186,11 @@
         <p>{!! $issues->complete->name ?? '' ?? ''!!}</p>
     </div>
   </div>
+</div>
 
+
+
+<div class="row">
   <div class="col-md-3">
      <!-- Complete By Field -->
      <div class="form-group">
@@ -187,11 +198,7 @@
         <p>{!! $issues->unit_kerja->nama_uk ?? '' ?? ''!!}</p>
     </div>
   </div>
-</div>
-
-
-
-<div class="row">
+  
   <div class="col-md-3">
        <!-- Issue Date Field -->
     <div class="form-group">
@@ -215,39 +222,42 @@
        <p>{!! $issues->waktu_tindakan !!}</p>
    </div>
  </div>
-
- <div class="col-md-3">
-  <!-- Complete Date Field -->
-  <div class="form-group">
-     {!! Form::label('solution_date', 'Waktu Solusi Diberikan:') !!}
-     <p>{!! $issues->solution_date !!}</p>
- </div>
-</div>
-<div class="col-md-3">
-    <!-- Complete Date Field -->
-    <div class="form-group">
-       {!! Form::label('no_tlp', 'Nomor Telepon:') !!}
-       <p>{!! $issues->no_tlp !!}</p>
-   </div>
-  </div>
-
-  <div class="col-md-3">
-      <!-- Created At Field -->
-    <div class="form-group">
-        {!! Form::label('created_at', 'Dibuat Pada:') !!}
-        <p>{!! $issues->created_at !!}</p>
-    </div>
-  </div>
-
-  <div class="col-md-3">
-      <!-- Updated At Field -->
-    <div class="form-group">
-        {!! Form::label('updated_at', 'Diubah Pada:') !!}
-        <p>{!! $issues->updated_at !!}</p>
-    </div>
-  </div>
 </div>
 
+<div class="row">
+    <div class="col-md-3">
+        <!-- Complete Date Field -->
+        <div class="form-group">
+           {!! Form::label('solution_date', 'Waktu Solusi Diberikan:') !!}
+           <p>{!! $issues->solution_date !!}</p>
+       </div>
+      </div>
+      <div class="col-md-3">
+          <!-- Complete Date Field -->
+          <div class="form-group">
+             {!! Form::label('no_tlp', 'Nomor Telepon:') !!}
+             <p>{!! $issues->no_tlp !!}</p>
+         </div>
+        </div>
+      
+        <div class="col-md-3">
+            <!-- Created At Field -->
+          <div class="form-group">
+              {!! Form::label('created_at', 'Dibuat Pada:') !!}
+              <p>{!! $issues->created_at !!}</p>
+          </div>
+        </div>
+      
+        <div class="col-md-3">
+            <!-- Updated At Field -->
+          <div class="form-group">
+              {!! Form::label('updated_at', 'Diubah Pada:') !!}
+              <p>{!! $issues->updated_at !!}</p>
+          </div>
+        </div>
+      </div>
+      
+</div>
 
 <div class="row">
   <div class="col-md-4">
