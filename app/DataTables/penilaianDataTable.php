@@ -57,7 +57,7 @@ class penilaianDataTable extends DataTable
         if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
             return $model->with(['category','priority','request','rating'])->where('status','=','RT')->newQuery();
         }
-        return $model->with(['category','priority','request','rating'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['assign_it_ops','=',$user->id],['status','=','RT']])->orWhere([['assign_it_support','=',$user->id],['status','=','RT']])->newQuery();
+        return $model->with(['category','priority','request','rating'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['request_id','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_ops','=',$user->id],['status','=','RT']])->orWhere([['assign_it_ops','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_support','=',$user->id],['status','=','RT']])->orWhere([['assign_it_support','=',$user->id],['status','=','CLOSE']])->newQuery();
     }
 
     /**

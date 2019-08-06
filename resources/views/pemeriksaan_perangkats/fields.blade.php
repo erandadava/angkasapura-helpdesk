@@ -227,7 +227,7 @@
     $(document).ready(function(){
         $('#tanggal_pengecekan').datetimepicker({
             format: 'Y-MM-DD',
-            useCurrent: false
+            useCurrent: true
         });
         $('#tanggal_update').datetimepicker({
             format: 'Y-MM-DD',

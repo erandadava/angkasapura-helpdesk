@@ -301,14 +301,23 @@
           </div>
         </div>
 
-        <div class="col-lg-4 col-md-12">
+        <div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-header card-header-success">
               <h4 class="card-title">Histori Tiket</h4>
             </div>
 
-            <div class="card-body">
+            <div class="card-body"> 
               <table class="table" style="table-layout: fixed;">
+                <thead>
+                    <tr>
+                      <th></th>
+                      <th>Deskripsi Keluhan</th>
+                      <th>Solusi Keluhan</th>
+                      <th>User Yang Menangani</th>
+                      <th>Waktu Selesai</th>
+                    </tr>
+                </thead>
                 <tbody>
                  @forelse($ticket_done as $key => $dt)
                   <tr>
@@ -323,6 +332,9 @@
                       </div>
                     </td>
                     <td>{!! $dt->prob_desc !!}</td>
+                    <td>{!! $dt->solution_desc !!}</td>
+                    <td>{!! $dt->complete->name !!}</td>
+                    <td>{!! $dt->complete_date !!}</td>
                   </tr>
                 @empty
                   <tr>
