@@ -66,6 +66,8 @@ class notifikasiController extends AppBaseController
             $input['status'] = $tipe;
             $input['konten_id'] = $id_konten;
             $keluhan = issues::find($id_konten);
+            // $name = issues::find($permintaan);
+            // dd($permintaan);
             // $id_konten = Crypt::encrypt($id_konten);
             $link = "/issues";
             switch ($status) {
