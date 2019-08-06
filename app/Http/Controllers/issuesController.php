@@ -97,6 +97,10 @@ class issuesController extends AppBaseController
     {
         $input = $request->all();
         $input['issue_date'] = $this->waktu_sekarang;
+        if($request->untuk_user){
+            $input['request_id'] = $request->request_id_user;
+        }
+
         $issues = $this->issuesRepository->create($input);
         $kode = $issues->id.$issues->request_id.$this->mytime->format('ymdhis');
         $this->issuesRepository->update(['issue_id'=>$kode], $issues->id);
