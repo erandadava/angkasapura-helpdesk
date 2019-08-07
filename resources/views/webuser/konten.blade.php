@@ -197,7 +197,7 @@
                     @if ($dt->status == 'RITSP') <span class='badge badge-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> @endif
                     @if ($dt->status == 'AITSP') <span class='badge badge-warning'>Menunggu Tindakan Dari IT Support</span> @endif
                     @if ($dt->status == 'ITOPS') <span class='badge badge-warning'>Menunggu Tindakan Dari IT OPS</span> @endif
-                    @if ($dt->status == 'CLOSE') <span class='badge badge-success'>Hasil Tindakan</span> @endif
+                    @if ($dt->status == 'CLOSE') <span class='badge badge-success'>Keluhan Selesai</span> @endif
                     @if ($dt->status == 'SLITADM') <span class='badge badge-success'>Solusi Telah Diberikan IT Administrator</span> @endif
                     @if ($dt->status == 'SLITOPS') <span class='badge badge-success'>Solusi Telah Diberikan IT OPS</span> @endif
                     @if ($dt->status == 'SLITSP') <span class='badge badge-success'>Solusi Telah Diberikan IT Support</span> @endif
