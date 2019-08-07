@@ -156,9 +156,33 @@ class pdfController extends Controller
         $arr_export = explode(',', $myString);
         $now = Carbon::now();
         if($roles[0] == 'IT Operasional'){
-            $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->whereIn('id',$arr_export)->get();
+            $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
+            ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->whereIn('id',$arr_export)
+            ->get();
         }else{
-            $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->get();
+            if($roles[0] == "IT Non Public"){
+                $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
+                ->whereColumn('assign_it_ops', 'complete_by')
+                ->where([['status','=','CLOSE']])
+                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->orWhereColumn('assign_it_support', 'complete_by')
+                ->where([['status','=','CLOSE']])
+                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->get();
+            }else{
+                $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
+                ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->get();
+            }
+
+            
         }
         $head = ['Nama', 'Unit Kerja',  'Keluhan', 'Petugas', 'No. HP', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
         $title = 'Laporan Harian';

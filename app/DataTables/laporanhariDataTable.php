@@ -8,7 +8,7 @@ use Yajra\DataTables\EloquentDataTable;
 use Auth;
 use App\Models\inventory;
 use Carbon\Carbon;
-
+use DB;
 class laporanhariDataTable extends DataTable
 {
     /**
@@ -62,8 +62,27 @@ class laporanhariDataTable extends DataTable
      */
     public function query(issues $model)
     {
-       $now = Carbon::now();
-       return $model->with(['category','priority','request','unit_kerja','complete'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->newQuery();
+        $now = Carbon::now();
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        if($roles[0] == "IT Non Public"){
+            return $model->with(['category','priority','request','unit_kerja','complete'])
+            ->whereColumn('assign_it_ops', 'complete_by')
+            ->where([['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->orWhereColumn('assign_it_support', 'complete_by')
+            ->where([['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->newQuery();
+        }
+        return $model->with(['category','priority','request','unit_kerja','complete'])
+                                                                                    ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+                                                                                    ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                                                                                    ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+                                                                                    ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                                                                                    ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+                                                                                    ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                                                                                    ->newQuery();
 
     }
 
