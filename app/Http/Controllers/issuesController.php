@@ -140,7 +140,7 @@ class issuesController extends AppBaseController
         $issues = $this->issuesRepository->create($input);
         $kode = $issues->id.$issues->request_id.$this->mytime->format('ymdhis');
         $this->issuesRepository->update(['issue_id'=>$kode], $issues->id);
-        $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id, $issues->request_id);
+        $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id,$issues->request_id);
         if(isset($input['usr'])){
             Alert::success('Tiket Berhasil Dikirim', 'Sukses')->autoclose(4000);
             return redirect('/beranda');
@@ -235,7 +235,7 @@ class issuesController extends AppBaseController
             $input['target_id'] =  $issues->complete_by;
             $rating = $this->ratingRepository->create($input);
         }
-        $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);
+        $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id, $issues->request_id);
         if(isset($input['usr'])){
             if($input['usr'] == 'a'){
                 Alert::success('Penilain Berhasil Dikirim', 'Terima Kasih')->autoclose(4000);
