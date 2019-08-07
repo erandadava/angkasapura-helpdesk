@@ -168,6 +168,7 @@ class issuesController extends AppBaseController
         $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','assign_it_admin_relation','rating','unit_kerja'])->findWithoutFail($id);
         $this->data['it_support'] = User::role('IT Support')->pluck('name','id');
         $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
+        $this->data['it_admin'] = User::role('IT Administrator')->pluck('name','id');
         if (empty($this->data['issues'])) {
             Flash::error('Issues not found');
 
@@ -219,10 +220,10 @@ class issuesController extends AppBaseController
         if($input['status'] == 'CLOSE'){
             $input['complete_date'] = $this->waktu_sekarang;
         }
-        if($input['status'] == 'DLITOPS' || $input['status'] == 'DLITSP'){
+        if($input['status'] == 'DLITOPS' || $input['status'] == 'DLITSP' || $input['status'] == 'DLITADM'){
             $input['waktu_tindakan'] = $this->waktu_sekarang;
         }
-        if($input['status'] == 'SLITOPS' || $input['status'] == 'SLITSP'){
+        if($input['status'] == 'SLITOPS' || $input['status'] == 'SLITSP' || $input['status'] == 'SLITADM'){
             $input['complete_by'] = \Auth::User()->id;
             $input['solution_date'] = $this->waktu_sekarang;
         }

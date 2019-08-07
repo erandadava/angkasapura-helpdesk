@@ -287,6 +287,7 @@
     <p>{!! $issues->is_archive !!}</p>
 </div> -->
 
+{{-- UNTUK IT SUPPORT --}}
 @hasrole('IT Support')
   @if($issues->status == 'ITSP')
   <div class="form-group col-md-2 col-sm-12">
@@ -384,12 +385,22 @@
   @endif
 @endhasrole
 
+
+{{-- UNTUK IT ADMIN --}}
 @hasrole('IT Administrator')
   @if($issues->status == null)
-  <div class="form-group col-md-2 col-sm-12">
+  <div class="row">
+      <div class="form-group col-md-2 col-sm-6">
           <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItSupport">
               <i class="glyphicon glyphicon-share"></i> Ajukan ke  IT Support
           </button>
+      </div>
+
+      <div class="form-group col-md-2 col-sm-6">
+          <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItAdmNull">
+              <i class="glyphicon glyphicon-share"></i> Ajukan ke  IT Administrator
+          </button>
+      </div>
   </div>
 
   <div id="myModalItSupport" class="modal fade" role="dialog">
@@ -419,11 +430,39 @@
       {!! Form::close() !!}
     </div>
   </div>
+
+<div id="myModalItAdmNull" class="modal fade" role="dialog">
+<div class="modal-dialog modal-lg">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Ajukan ke IT Administrator</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+      {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+      {!! Form::hidden('status', 'ITADM', ['class' => 'form-control'])!!}
+      <div class="form-group col-sm-12 col-lg-6">
+          {!! Form::label('assign_it_admin', 'Assign User :') !!}
+        </br>
+          {!! Form::select('assign_it_admin',$it_admin, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+      </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
+    </div>
+  </div>
+  {!! Form::close() !!}
+</div>
+</div>
 
   @endif
   
 
-  @if($issues->status == 'RITSP')
+  @if($issues->status == 'RITSP' || $issues->status == 'RITADM')
   <div class="form-group col-md-2 col-sm-12">
           <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItOPS">
               <i class="glyphicon glyphicon-share"></i> Ajukan ke IT OPS
@@ -460,13 +499,119 @@
   @endif
 @endhasrole
 
+@hasrole('IT Administrator')
+  @if($issues->status == 'ITADM')
+  <div class="form-group col-md-2 col-sm-12">
+    {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+        {!! Form::hidden('status', 'LITADM', ['class' => 'form-control'])!!}
+        <button class='btn btn-danger btn-md' type="submit" onclick="return confirm('Yakin?')">
+          <i class="glyphicon glyphicon-random"></i> Menuju Lokasi
+        </button>
+    {!! Form::close() !!} 
+  </div>
+  @endif
 
+  @if ($issues->status == "LITADM")
+    <div class="form-group col-md-2 col-sm-12">
+      {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+          {!! Form::hidden('status', 'DLITADM', ['class' => 'form-control'])!!}
+          <button class='btn btn-info btn-md' type="submit" onclick="return confirm('Yakin?')">
+            <i class="glyphicon glyphicon-wrench"></i> Mulai Kerja
+          </button>
+      {!! Form::close() !!} 
+    </div>
+  @endif
+
+  @if ($issues->status == "DLITADM")
+      <!-- Button untuk IT NP -->
+    <div class="form-group col-md-2 col-sm-12">
+    
+            <button class='btn btn-success btn-md' data-toggle="modal" data-target="#myModalItadmdl">
+                <i class="glyphicon glyphicon-folder-close"></i> Solusi
+            </button>
+    
+    </div>
+    <!-- ---------------------- -->
+  <!-- Modal -->
+  <div id="myModalItadmdl" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Solusi</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+          {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+              {!! Form::hidden('status', 'SLITADM', ['class' => 'form-control'])!!}
+              <div class="form-group col-sm-12 col-lg-12">
+                  {!! Form::label('solution_desc', 'Deskripsi Solusi:') !!}
+                  {!! Form::textarea('solution_desc', null, ['class' => 'form-control', 'id' => 'editor']) !!}
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
+        </div>
+      </div>
+      {!! Form::close() !!}
+    </div>
+  </div>
+  @endif
+
+  @if ($issues->status == 'LITADM' || $issues->status == 'DLITADM')
+    <div class="form-group col-md-3 col-sm-12">
+      <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItAdmSl">
+          <i class="glyphicon glyphicon-share"></i> Tidak Dapat Mengatasi Keluhan
+      </button>
+    </div>
+    <div id="myModalItAdmSl" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Tidak Dapat Mengatasi Keluhan</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+      {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+      {!! Form::hidden('status', 'RITADM', ['class' => 'form-control'])!!}
+      <div class="form-group col-sm-12 col-lg-12">
+          {!! Form::label('reason_desc', 'Deskripsi Alasan:') !!}
+          {!! Form::textarea('reason_desc', null, ['class' => 'form-control', 'id' => 'editor2']) !!}
+      </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
+    </div>
+    </div>
+    {!! Form::close() !!}
+    </div>
+    </div>
+  @endif
+@endhasrole
+
+
+{{-- UNTUK IT SUPPORT SAAT JAM 16:30:00 --}}
 @hasrole('IT Support')
   @if($issues->status == null && $status_jam == 1)
-  <div class="form-group col-md-2 col-sm-12">
+  <div class="row">
+      <div class="form-group col-md-2 col-sm-6">
           <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItSupport">
               <i class="glyphicon glyphicon-share"></i> Ajukan ke  IT Support
           </button>
+      </div>
+
+      <div class="form-group col-md-2 col-sm-6">
+          <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItAdmNull">
+              <i class="glyphicon glyphicon-share"></i> Ajukan ke  IT Administrator
+          </button>
+      </div>
   </div>
 
   <div id="myModalItSupport" class="modal fade" role="dialog">
@@ -497,8 +642,36 @@
     </div>
   </div>
 
+<div id="myModalItAdmNull" class="modal fade" role="dialog">
+<div class="modal-dialog modal-lg">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Ajukan ke IT Administrator</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+      {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+      {!! Form::hidden('status', 'ITADM', ['class' => 'form-control'])!!}
+      <div class="form-group col-sm-12 col-lg-6">
+          {!! Form::label('assign_it_admin', 'Assign User :') !!}
+        </br>
+          {!! Form::select('assign_it_admin',$it_admin, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+      </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Simpan</button>
+    </div>
+  </div>
+  {!! Form::close() !!}
+</div>
+</div>
+
   @endif
-  @if($issues->status == 'RITSP')
+  @if($issues->status == 'RITSP' || $issues->status == 'RITADM')
   <div class="form-group col-md-2 col-sm-12">
           <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItOPS">
               <i class="glyphicon glyphicon-share"></i> Ajukan ke IT OPS
@@ -535,7 +708,7 @@
   @endif
 @endhasrole
 
-
+{{-- UNTUK IT OPS --}}
 @hasrole('IT Operasional')
     @if($issues->status=="ITOPS") 
     <div class="form-group col-md-2 col-sm-12">
@@ -600,7 +773,7 @@
 @endhasrole
 
 
-
+{{-- UNTUK USER --}}
 @hasrole('User')
 
     @if(($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)) 
