@@ -189,19 +189,22 @@
                     <td>{{$dt->category->cat_name}}</td>
                     <td style="padding-top: 30px;">{!! $dt->prob_desc !!}</td>
                     <td>
-                    @if ($dt->status == null) <span class='badge badge-primary label label-default'>Menunggu IT Administrator</span> @endif
-                    @if ($dt->status == 'RITADM') <span class='badge badge-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span> @endif
+                    @if ($dt->status == null) <span class='badge badge-default'>Menunggu IT Administrator</span> @endif
                     @if ($dt->status == 'AITADM') <span class='badge badge-success'>Diterima IT Administrator</span> @endif
+                    @if ($dt->status == 'ITADM') <span class='badge badge-info'>Diteruskan ke IT Administrator</span> @endif
                     @if ($dt->status == 'ITSP') <span class='badge badge-info'>Diteruskan ke IT Support</span> @endif
-                    @if ($dt->status == 'RITSP') <span class='badge badge-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator</span> @endif
-                    @if ($dt->status == 'AITSP') <span class='badge badge-warning'>Menunggu Solusi Dari IT Support</span> @endif
-                    @if ($dt->status == 'ITOPS') <span class='badge badge-warning'>Menunggu Solusi Dari IT OPS</span> @endif
-                    @if ($dt->status == 'CLOSE') <span class='badge badge-success'>Keluhan Ditutup</span> @endif
+                    @if ($dt->status == 'RITADM') <span class='badge badge-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Administrator</span> @endif
+                    @if ($dt->status == 'RITSP') <span class='badge badge-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> @endif
+                    @if ($dt->status == 'AITSP') <span class='badge badge-warning'>Menunggu Tindakan Dari IT Support</span> @endif
+                    @if ($dt->status == 'ITOPS') <span class='badge badge-warning'>Menunggu Tindakan Dari IT OPS</span> @endif
+                    @if ($dt->status == 'CLOSE') <span class='badge badge-success'>Hasil Tindakan</span> @endif
                     @if ($dt->status == 'SLITADM') <span class='badge badge-success'>Solusi Telah Diberikan IT Administrator</span> @endif
                     @if ($dt->status == 'SLITOPS') <span class='badge badge-success'>Solusi Telah Diberikan IT OPS</span> @endif
                     @if ($dt->status == 'SLITSP') <span class='badge badge-success'>Solusi Telah Diberikan IT Support</span> @endif
-                    @if ($dt->status == 'LITOPS') <span class='badge badge-info'>IT OPS Menuju ke Lokasi</span></br><small><b>Oleh : {{$dt->assign_it_ops_relation->name??""}}</b></small>@endif
-                    @if ($dt->status == 'LITSP') <span class='badge badge-info'>IT Support Menuju ke Lokasi</span></br><small><b>Oleh : {{$dt->assign_it_support_relation->name??""}}</b></small>@endif
+                    @if ($dt->status == 'LITADM') <span class='badge badge-info'>IT Administrator Menuju ke Lokasi</span></br><small><b>Oleh : {{$dt->assign_it_admin_relation->name??""}}</b></small> @endif
+                    @if ($dt->status == 'LITOPS') <span class='badge badge-info'>IT OPS Menuju ke Lokasi</span></br><small><b>Oleh : {{$dt->assign_it_ops_relation->name??""}}</b></small> @endif
+                    @if ($dt->status == 'LITSP') <span class='badge badge-info'>IT Support Menuju ke Lokasi</span></br><small><b>Oleh : {{$dt->assign_it_support_relation->name??""}}</b></small> @endif
+                    @if ($dt->status == 'DLITADM') <span class='badge badge-warning'>Sedang Dalam Tindakan IT Administrator</span> @endif
                     @if ($dt->status == 'DLITOPS') <span class='badge badge-warning'>Sedang Dalam Tindakan IT OPS</span> @endif
                     @if ($dt->status == 'DLITSP') <span class='badge badge-warning'>Sedang Dalam Tindakan IT Support</span> @endif
                     @if ($dt->status == 'RT') <span class='badge badge-warning'>User Telah Memberi Rating</span> @endif

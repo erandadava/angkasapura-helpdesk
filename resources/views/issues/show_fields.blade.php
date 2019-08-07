@@ -59,22 +59,25 @@
     <div class="form-group">
         {!! Form::label('status', 'Status:') !!}
         <p>
-        @if ($issues->status == null) <span class='label label-default'>Menunggu IT Administrator</span> @endif
-        @if ($issues->status == 'RITADM') <span class='label label-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span> @endif
-        @if ($issues->status == 'AITADM') <span class='label label-success'>Diterima IT Administrator</span> @endif
-        @if ($issues->status == 'ITSP') <span class='label label-info'>Diteruskan ke IT Support</span> @endif
-        @if ($issues->status == 'RITSP') <span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator</span> @endif
-        @if ($issues->status == 'AITSP') <span class='label label-warning'>Menunggu Tindakan Dari IT Support</span> @endif
-        @if ($issues->status == 'ITOPS') <span class='label label-warning'>Menunggu Tindakan Dari IT OPS</span> @endif
-        @if ($issues->status == 'CLOSE') <span class='label label-success'>Keluhan Selesai</span> @endif
-        @if ($issues->status == 'SLITADM') <span class='label label-success'>Solusi Telah Diberikan IT Administrator</span> @endif
-        @if ($issues->status == 'SLITOPS') <span class='label label-success'>Solusi Telah Diberikan IT OPS</span> @endif
-        @if ($issues->status == 'SLITSP') <span class='label label-success'>Solusi Telah Diberikan IT Support</span> @endif
-        @if ($issues->status == 'LITOPS') <span class='label label-info'>IT OPS Menuju ke Lokasi</span> @endif
-        @if ($issues->status == 'LITSP') <span class='label label-info'>IT Support Menuju ke Lokasi</span> @endif
-        @if ($issues->status == 'DLITOPS') <span class='label label-warning'>Sedang Dalam Tindakan IT OPS</span> @endif
-        @if ($issues->status == 'DLITSP') <span class='label label-warning'>Sedang Dalam Tindakan IT Support</span> @endif
-        @if ($issues->status == 'RT') <span class='label label-warning'>User Telah Memberi Rating</span> @endif
+            @if ($issues->status == null) <span class='label label-default'>Menunggu IT Administrator</span> @endif
+            @if ($issues->status == 'AITADM') <span class='label label-success'>Diterima IT Administrator</span> @endif
+            @if ($issues->status == 'ITADM') <span class='label label-info'>Diteruskan ke IT Administrator</span> @endif
+            @if ($issues->status == 'ITSP') <span class='label label-info'>Diteruskan ke IT Support</span> @endif
+            @if ($issues->status == 'RITADM') <span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Administrator</span> @endif
+            @if ($issues->status == 'RITSP') <span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> @endif
+            @if ($issues->status == 'AITSP') <span class='label label-warning'>Menunggu Tindakan Dari IT Support</span> @endif
+            @if ($issues->status == 'ITOPS') <span class='label label-warning'>Menunggu Tindakan Dari IT OPS</span> @endif
+            @if ($issues->status == 'CLOSE') <span class='label label-success'>Hasil Tindakan</span> @endif
+            @if ($issues->status == 'SLITADM') <span class='label label-success'>Solusi Telah Diberikan IT Administrator</span> @endif
+            @if ($issues->status == 'SLITOPS') <span class='label label-success'>Solusi Telah Diberikan IT OPS</span> @endif
+            @if ($issues->status == 'SLITSP') <span class='label label-success'>Solusi Telah Diberikan IT Support</span> @endif
+            @if ($issues->status == 'LITADM') <span class='label label-info'>IT Administrator Menuju ke Lokasi</span> @endif
+            @if ($issues->status == 'LITOPS') <span class='label label-info'>IT OPS Menuju ke Lokasi</span> @endif
+            @if ($issues->status == 'LITSP') <span class='label label-info'>IT Support Menuju ke Lokasi</span> @endif
+            @if ($issues->status == 'DLITADM') <span class='label label-warning'>Sedang Dalam Tindakan IT Administrator</span> @endif
+            @if ($issues->status == 'DLITOPS') <span class='label label-warning'>Sedang Dalam Tindakan IT OPS</span> @endif
+            @if ($issues->status == 'DLITSP') <span class='label label-warning'>Sedang Dalam Tindakan IT Support</span> @endif
+            @if ($issues->status == 'RT') <span class='label label-warning'>User Telah Memberi Rating</span> @endif
         </p>
     </div>
   </div>

@@ -1,6 +1,11 @@
 @hasrole('IT Administrator|IT Non Public|User')
     {!! Form::hidden('request_id', Auth::id(), ['class' => 'form-control']) !!}
 @endhasrole
+@hasrole('IT Support')
+    @if ($status_jam == 1)
+        {!! Form::hidden('request_id', Auth::id(), ['class' => 'form-control']) !!}
+    @endif
+@endhasrole
 <!-- Issue Id Field
 <div class="form-group col-sm-6">
     {!! Form::label('issue_id', 'Issue Id:') !!}
@@ -75,6 +80,15 @@
 @endif
 @endhasrole
 
+@hasrole('IT Support')
+@if (isset($petugas) && $status_jam == 1)
+    <div class="form-group col-sm-12 col-lg-12">
+        {!! Form::label('assign_petugas', 'Assign Petugas :') !!}
+        {!! Form::select('assign_petugas',$petugas, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+    </div>
+@endif
+@endhasrole
+
 
 
 
@@ -115,14 +129,16 @@
 </div> -->
 @if (!isset($issues))
     @hasrole('IT Support')
-    @if($issues->status == null && $status_jam == 1)
+    @if($status_jam == 1)
     <div class="form-group col-sm-6">
         {!! Form::label('untuk_user', 'Untuk user?') !!}
         </br>
         <input type="checkbox" name="untuk_user" onclick="us();" value="1"> Ya
         </br>
-        {!! Form::label('request_id_user', 'Request Oleh:') !!}
-        {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2 select-data-user', 'style'=>'width:100%;']) !!}
+        <div class="select-data-user">
+                {!! Form::label('request_id_user', 'Request Oleh:') !!}
+                {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+        </div>
     </div>
     @endif
     @endhasrole

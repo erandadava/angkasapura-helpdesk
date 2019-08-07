@@ -81,24 +81,24 @@ class issuesController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
         // $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
         if(Auth::check()){
             $user = Auth::user();
             $roles = $user->getRoleNames();
-            if($roles[0] == "IT Administrator"){
-                $get_petugas = User::whereHas("roles", function($q){ $q->where("name", "IT Administrator")->orWhere("name", "IT Support"); })->get()->sortBy(function ($user, $key) {
+            if(($roles[0] == "IT Administrator") || ($roles[0] == "IT Support" && $request->status_jam == 1)){
+                    $get_petugas = User::whereHas("roles", function($q){ $q->where("name", "IT Administrator")->orWhere("name", "IT Support"); })->get()->sortBy(function ($user, $key) {
                     return $user->roles->pluck('id')->min();
                 });
             }elseif($roles[0] == "IT Non Public"){
-                $get_petugas = User::whereHas("roles", function($q){ $q->where("name", "IT Administrator")->orWhere("name", "IT Support")->orWhere("name", "IT Support")->orWhere("name", "IT Operasional"); })->get()->sortBy(function ($user, $key) {
+                    $get_petugas = User::whereHas("roles", function($q){ $q->where("name", "IT Administrator")->orWhere("name", "IT Support")->orWhere("name", "IT Support")->orWhere("name", "IT Operasional"); })->get()->sortBy(function ($user, $key) {
                     return $user->roles->pluck('id')->min();
                 });
             }
         }
         $this->data['petugas'] =[];
-        if($get_petugas){
+        if(isset($get_petugas)){
             foreach ($get_petugas as $key => $value) {
                 $this->data['petugas'][$value['id']] = $value['name'].' | '.$value['roles'][0]['name'];
             }

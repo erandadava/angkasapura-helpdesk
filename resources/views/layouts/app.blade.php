@@ -331,12 +331,11 @@
                 h = today.getHours(),
                 m = today.getMinutes(),
                 s = today.getSeconds();
-
+                var lebih = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 16, 30, 0);
+                var kurang = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
                 var alert_delegasi = readCookie('alertdelegasi');
                 if(alert_delegasi == null){
-                    hm =  h + ":" + m + ":" + s;
-
-                    if(hm >= "16:30:00")
+                    if(today.getTime() >= lebih.getTime() && today.getTime() <= kurang.getTime())
                     {
                         clearInterval(t);
                         if(!alert('Waktunya delegasi IT Administrator  diberikan ke IT Support. \nTekan OK untuk memperbarui hak akses')){
