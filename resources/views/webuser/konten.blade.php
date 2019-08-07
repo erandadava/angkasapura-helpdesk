@@ -189,7 +189,7 @@
                     <td>{{$dt->category->cat_name}}</td>
                     <td style="padding-top: 30px;">{!! $dt->prob_desc !!}</td>
                     <td>
-                    @if ($dt->status == null) <span class='badge badge-default'>Menunggu IT Administrator</span> @endif
+                    @if ($dt->status == null) <span class='badge badge-light'>Menunggu IT Administrator</span> @endif
                     @if ($dt->status == 'AITADM') <span class='badge badge-success'>Diterima IT Administrator</span> @endif
                     @if ($dt->status == 'ITADM') <span class='badge badge-info'>Diteruskan ke IT Administrator</span> @endif
                     @if ($dt->status == 'ITSP') <span class='badge badge-info'>Diteruskan ke IT Support</span> @endif
@@ -237,7 +237,7 @@
                     <td>{{$dt->category->cat_name}}</td>
                     <td style="padding-top: 30px;">{!! $dt->prob_desc !!}</td>
                     <td>
-                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$dt->id}}" uk-toggle>Buka</a></br>@if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))<span class="badge badge-pill badge-warning">Beri Penilaian</span>@endif </center>
+                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$dt->id}}" uk-toggle>Buka</a></br>@if(($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_admin != null && $dt->complete_by == $dt->assign_it_admin))<span class="badge badge-pill badge-warning">Beri Penilaian</span>@endif </center>
 
                        <div id="modal-open-solution{{$dt->id}}" uk-modal>
                         <div class="uk-modal-dialog">
@@ -251,7 +251,7 @@
                             {!! $dt->solution_desc !!}
                         </div>
                         <div class="uk-modal-footer uk-text-right">
-                            @if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))
+                            @if(($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_admin != null && $dt->complete_by == $dt->assign_it_admin))
                             <a href="#modal-rating{{$key}}" class="uk-button uk-button-danger" uk-toggle>Penilaian</a>
                             @endif                   
                         </div>
