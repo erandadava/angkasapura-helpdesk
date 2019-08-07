@@ -1,4 +1,11 @@
-{!! Form::hidden('request_id', Auth::id(), ['class' => 'form-control']) !!}
+@hasrole('IT Administrator|IT Non Public|User')
+    {!! Form::hidden('request_id', Auth::id(), ['class' => 'form-control']) !!}
+@endhasrole
+@hasrole('IT Support')
+    @if ($status_jam == 1)
+        {!! Form::hidden('request_id', Auth::id(), ['class' => 'form-control']) !!}
+    @endif
+@endhasrole
 <!-- Issue Id Field
 <div class="form-group col-sm-6">
     {!! Form::label('issue_id', 'Issue Id:') !!}
@@ -48,28 +55,38 @@
     {!! Form::text('no_tlp', null, ['class' => 'form-control', 'pattern' => '\d*']) !!}
 </div>
 
-<!-- <div class="form-group col-sm-6">
+<div class="form-group col-sm-6">
     {!! Form::label('id_unit_kerja', 'Unit Kerja:') !!}
     </br>
     {!!  \Auth::user()->unit_kerja->nama_uk ?? ''!!}
     {!! Form::hidden('id_unit_kerja', \Auth::user()->id_unit_kerja, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
-</div> -->
-<div class="form-group col-sm-6">
+</div>
+{{-- <div class="form-group col-sm-6">
     {!! Form::label('id_unit_kerja', 'Unit Kerja:') !!}
     {!! Form::select('id_unit_kerja', $data_unit, null, ['class' => 'form-control']) !!}
-</div>
+</div> --}}
 
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('prob_desc', 'Deskripsi Keluhan:') !!}
     {!! Form::textarea('prob_desc', null, ['class' => 'form-control', 'id' => 'editor' ]) !!}
 </div>
 
-@hasrole('IT Non Public')
-<div class="form-group col-sm-12 col-lg-12">
-    {!! Form::hidden('status', 'ITOPS', ['class' => 'form-control'])!!}
-    {!! Form::label('assign_it_ops', 'Assign IT OPS :') !!}
-    {!! Form::select('assign_it_ops',$it_ops, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
-</div>
+@hasrole('IT Administrator|IT Non Public')
+@if (isset($petugas))
+    <div class="form-group col-sm-12 col-lg-12">
+        {!! Form::label('assign_petugas', 'Assign Petugas :') !!}
+        {!! Form::select('assign_petugas',$petugas, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+    </div>
+@endif
+@endhasrole
+
+@hasrole('IT Support')
+@if (isset($petugas) && $status_jam == 1)
+    <div class="form-group col-sm-12 col-lg-12">
+        {!! Form::label('assign_petugas', 'Assign Petugas :') !!}
+        {!! Form::select('assign_petugas',$petugas, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+    </div>
+@endif
 @endhasrole
 
 
@@ -110,22 +127,52 @@
         {!! Form::checkbox('is_archive', '1', null) !!} 1
     </label>
 </div> -->
-@hasrole('IT Support')
-  @if($issues->status == null && $status_jam == 1)
+@if (!isset($issues))
+    @hasrole('IT Support')
+    @if($status_jam == 1)
     <div class="form-group col-sm-6">
-        {!! Form::label('request_id', 'Request Oleh:') !!}
-        {!! Form::select('request_id', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+        {!! Form::label('untuk_user', 'Untuk user?') !!}
+        </br>
+        <input type="checkbox" name="untuk_user" onclick="us();" value="1"> Ya
+        </br>
+        <div class="select-data-user">
+                {!! Form::label('request_id_user', 'Request Oleh:') !!}
+                {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+        </div>
     </div>
-  @endif
-@endhasrole
-@hasrole('IT Administrator')
+    @endif
+    @endhasrole
+    @hasrole('IT Administrator')
     <div class="form-group col-sm-6">
-        {!! Form::label('request_id', 'Request Oleh:') !!}
-        {!! Form::select('request_id', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+        {!! Form::label('untuk_user', 'Untuk user?') !!}
+        </br>
+        <input type="checkbox" name="untuk_user" onclick="us();" value="1"> Ya
+        </br>
+        <div class="select-data-user">
+                {!! Form::label('request_id_user', 'Request Oleh:') !!}
+                {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+        </div>
     </div>
-@endhasrole
+    @endhasrole
+@endif
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
     <a href="{!! route('issues.index') !!}" class="btn btn-default">Batal</a>
 </div>
+@section('scripts')
+    <script type="text/javascript">
+        var status = 0;
+        $(".select-data-user").hide();
+        var us = function untuk_user(){
+            $(".select-data-user").val('');
+            if(status == 0){
+                status = 1;
+                $(".select-data-user").show();
+            }else{
+                status = 0;
+                $(".select-data-user").hide();
+            }
+        };
+    </script>
+@endsection

@@ -11,7 +11,10 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use \App\Models\issues;
+use \App\Models\notifikasi;
 use Illuminate\Support\Facades\Crypt;
+use Auth;
+use Carbon\Carbon;
 
 class notifikasiController extends AppBaseController
 {
@@ -63,9 +66,20 @@ class notifikasiController extends AppBaseController
             $input['status'] = $tipe;
             $input['konten_id'] = $id_konten;
             $keluhan = issues::find($id_konten);
+            // $name = issues::find($permintaan);
+            // dd($permintaan);
             // $id_konten = Crypt::encrypt($id_konten);
             $link = "/issues";
             switch ($status) {
+                case 'ITADM':
+                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->assign_it_admin;
+                    $notifikasi = $this->notifikasiRepository->create($input);
+                    $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
+                    $this->notifikasiRepository->update($input, $notifikasi->id);
+                    $input['pesan'] = "<p><span class='label label-info'>Keluhan Diteruskan ke IT Administrator</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
                 case 'ITSP':
                     $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->assign_it_support;
@@ -76,7 +90,7 @@ class notifikasiController extends AppBaseController
                     $input['user_id'] = $keluhan->request_id;
                     break;
                 case 'ITOPS':
-                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dengan nomor keluhan <b>$keluhan->issue_id.'</b></p>";
+                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->assign_it_ops;
                     $notifikasi = $this->notifikasiRepository->create($input);
                     $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
@@ -84,6 +98,20 @@ class notifikasiController extends AppBaseController
                     $input['pesan'] = "<p><span class='label label-warning'>Menunggu Solusi Dari IT OPS</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->request_id;
                     break;
+
+                case 'LITADM':
+                    $input['pesan'] = "<p><span class='label label-info'>IT Administrator Menuju ke Lokasi</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
+                case 'DLITADM':
+                    $input['pesan'] = "<p><span class='label label-warning'>Sedang Dalam Tindakan IT Administrator</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
+                case 'SLITADM':
+                    $input['pesan'] = "<p><span class='label label-success'>Solusi Telah Diberikan IT Administrator</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
+
                 case 'LITOPS':
                     $input['pesan'] = "<p><span class='label label-info'>IT OPS Menuju ke Lokasi</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->request_id;
@@ -117,6 +145,7 @@ class notifikasiController extends AppBaseController
                     //     $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
                     //     $this->notifikasiRepository->update($input, $notifikasi->id);
                     // }
+                    //Check issue dari it non public atau bukan
                     if($keluhan->assign_it_support != null && $keluhan->complete_by == $keluhan->assign_it_support){
                         $input['pesan'] = "<p><span class='label label-success'>Keluhan Selesai</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                         $input['user_id'] = $keluhan->assign_it_support;
@@ -125,18 +154,19 @@ class notifikasiController extends AppBaseController
                         $input['pesan'] = "<p><span class='label label-success'>Keluhan Selesai</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                         $input['user_id'] = $keluhan->assign_it_ops;
                     }
+                    if($keluhan->assign_it_admin != null && $keluhan->complete_by == $keluhan->assign_it_admin){
+                        $input['pesan'] = "<p><span class='label label-success'>Keluhan Selesai</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                        $input['user_id'] = $keluhan->assign_it_admin;
+                    }
                     break;
                 case 'RT':
                     //Check issue dari it non public atau bukan
                     $check_non = \App\Models\issues::where('id','=',$id_konten)->first();
-                    $hasil_check = \App\User::where('id',$check_non->request_id)->whereHas("roles", function($q){ $q->where("name", "IT Non Public"); })->count();
+                    $hasil_check = \App\User::where('id',$check_non->request_id)->with('roles')->first();
                     
-                    if($keluhan->assign_it_ops != null && $keluhan->complete_by == $keluhan->assign_it_ops && $hasil_check>0){
-                        $input['pesan'] = "<p><span class='label label-success'>Rating dari IT Non Public</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
-                    }else{
-                        $input['pesan'] = "<p><span class='label label-success'>Rating dari User</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>"; 
-                    }
+                    $input['pesan'] = "<p><span class='label label-success'>Rating dari ".$hasil_check->name .'-'. $hasil_check->roles[0]['name']??''."</span><small><b>$keluhan->issue_id</b></small></p>"; 
                     $input['user_id'] = $keluhan->complete_by;
+
                     break;
                 case 'RITSP':
                     $input['pesan'] = "<p><span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
@@ -145,6 +175,15 @@ class notifikasiController extends AppBaseController
                     $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
                     $this->notifikasiRepository->update($input, $notifikasi->id);
                     $input['pesan'] = "<p><span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = $keluhan->request_id;
+                    break;
+                case 'RITADM':
+                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Administrator</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['user_id'] = null;
+                    $notifikasi = $this->notifikasiRepository->create($input);
+                    $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
+                    $this->notifikasiRepository->update($input, $notifikasi->id);
+                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Administrator</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->request_id;
                     break;
                 default:
@@ -162,6 +201,18 @@ class notifikasiController extends AppBaseController
         $notifikasi = $this->notifikasiRepository->create($input);
         $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
         $this->notifikasiRepository->update($input, $notifikasi->id);
+
+        if($status == 'CLOSE'){
+            //Untuk rating
+            $check_non = \App\Models\issues::where('id','=',$id_konten)->first();
+            $hasil_check = \App\User::where('id',$check_non->request_id)->with('roles')->first();
+            $user_role = $hasil_check->roles[0]['name']??'';
+            $input['pesan'] = "<p><span class='label label-success'>Rating dari ".$hasil_check->name .' - '.$user_role."</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>"; 
+            $input['user_id'] = $keluhan->complete_by;
+            $notifikasi = $this->notifikasiRepository->create($input);
+            $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
+            $this->notifikasiRepository->update($input, $notifikasi->id);
+        }
 
         return $notifikasi;
     }
@@ -265,5 +316,20 @@ class notifikasiController extends AppBaseController
         Flash::success('Notifikasi deleted successfully.');
 
         return redirect(route('notifikasis.index'));
+    }
+
+    public function realtime_notification(Request $request){
+        if(isset(Auth::user()->id)){
+            $usernya = Auth::user()->getRoleNames();
+            if(($usernya[0] == "IT Administrator") || ($usernya[0] == "IT Support" && $request->status_jam == 1)){
+                $this->data['data_notif'] = notifikasi::where([['user_id','=',null],['status_baca','=',0]])->orWhere([['user_id','=',Auth::user()->id],['status_baca','=',0]])->latest()->get();
+            }else{
+                $this->data['data_notif'] = notifikasi::where([['user_id','=',Auth::user()->id],['status_baca','=',0]])->latest()->get();
+            }
+            
+            $this->data['count_notif'] = $this->data['data_notif']->count();
+            
+            return $this->sendResponse($this->data, 'Notifikasi send successfully');
+        } 
     }
 }

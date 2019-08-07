@@ -45,10 +45,10 @@
 </div>
 
 <!-- Type Alat Field -->
-<div class="form-group col-sm-6">
+<!-- <div class="form-group col-sm-6">
     {!! Form::label('type_alat', 'Type Alat:') !!}
     {!! Form::text('type_alat', null, ['class' => 'form-control']) !!}
-</div>
+</div> -->
 
 <!-- Sernum Field -->
 <div class="form-group col-sm-6">
@@ -105,16 +105,16 @@
 </div>
 
 <!-- Tech Key Field -->
-<div class="form-group col-sm-6">
+<!-- <div class="form-group col-sm-6">
     {!! Form::label('tech_key', 'Data Teknis Key:') !!}
     {!! Form::text('tech_key', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
-
+ -->
 <!-- Tech Kode Field -->
-<div class="form-group col-sm-6">
+<!-- <div class="form-group col-sm-6">
     {!! Form::label('tech_kode', 'Data Teknis Kode:') !!}
     {!! Form::text('tech_kode', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
-</div>
+</div> -->
 
 <!-- Made In Field -->
 <div class="form-group col-sm-6">
@@ -129,15 +129,15 @@
 </div>
 
 <!-- Vendor Name Field -->
-<div class="form-group col-sm-6">
+<!-- <div class="form-group col-sm-6">
     {!! Form::label('vendor_name', 'Vendor Name:') !!}
     {!! Form::text('vendor_name', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
-</div>
+</div> -->
 
-<div class="form-group col-sm-6">
+<!-- <div class="form-group col-sm-6">
     {!! Form::label('tgl_pembayaran', 'Tanggal Pembayaran:') !!}
     {!! Form::text('tgl_pembayaran', null, ['class' => 'form-control', 'placeholder' => 'optional','id'=>'tgl_pembayaran']) !!}
-</div>
+</div> -->
 
 
 <div class="form-group col-sm-6">

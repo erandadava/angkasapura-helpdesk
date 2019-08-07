@@ -51,6 +51,7 @@ class issues extends Model
         'solution_desc',
         'assign_it_support',
         'assign_it_ops',
+        'assign_it_admin',
         'dev_ser_num',
         'other_device',
         'id_unit_kerja',
@@ -116,6 +117,11 @@ class issues extends Model
     public function assign_it_ops_relation()
     {
         return $this->hasOne('App\User','id','assign_it_ops');
+    }
+
+    public function assign_it_admin_relation()
+    {
+        return $this->hasOne('App\User','id','assign_it_admin');
     }
     public function rating()
     {

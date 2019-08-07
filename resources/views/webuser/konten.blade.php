@@ -45,24 +45,14 @@
             </form> -->
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link count_notif" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
-                  @if($count_notif>0) <span class="notification">{{$count_notif}}</span>@endif
                   <p class="d-lg-none d-md-block">
                     Some Actions
                   </p>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  @foreach($data_notif as $dt)
-                  <a class="dropdown-item" href="{{$dt->link_id}}">
-                    {!! $dt->pesan !!}
-                  </a>
-                  @endforeach
-                  @if($count_notif==0)
-                    <a class="dropdown-item" href="#">
-                      Tidak Ada Notifikasi
-                    </a>
-                  @endif
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="notif">
+
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -89,6 +79,18 @@
 	<div class="content">
 		<div class="container-fluid">
     	<div class="row">
+        @if (count($ticket_solution)>0)
+        <div class="col-12">
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p><strong>Berikan penilaian Anda terhadap layanan kami.</strong></p>
+                @foreach ($ticket_solution as $item)
+                  <a href="#modal-open-solution{{$item->id}}" uk-toggle><p style="text-decoration : underline">Beri penilaian untuk keluhan {{$item->issue_id}}</p></a>
+                @endforeach
+                <b>Terima Kasih</b>
+            </div>
+          </div>
+        @endif
 				<div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
@@ -187,19 +189,22 @@
                     <td>{{$dt->category->cat_name}}</td>
                     <td style="padding-top: 30px;">{!! $dt->prob_desc !!}</td>
                     <td>
-                    @if ($dt->status == null) <span class='badge badge-primary label label-default'>Menunggu IT Administrator</span> @endif
-                    @if ($dt->status == 'RITADM') <span class='badge badge-danger'>Ditolak & Menunggu Alasan Dari IT Administrator</span> @endif
+                    @if ($dt->status == null) <span class='badge badge-light'>Menunggu IT Administrator</span> @endif
                     @if ($dt->status == 'AITADM') <span class='badge badge-success'>Diterima IT Administrator</span> @endif
+                    @if ($dt->status == 'ITADM') <span class='badge badge-info'>Diteruskan ke IT Administrator</span> @endif
                     @if ($dt->status == 'ITSP') <span class='badge badge-info'>Diteruskan ke IT Support</span> @endif
-                    @if ($dt->status == 'RITSP') <span class='badge badge-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator</span> @endif
-                    @if ($dt->status == 'AITSP') <span class='badge badge-warning'>Menunggu Solusi Dari IT Support</span> @endif
-                    @if ($dt->status == 'ITOPS') <span class='badge badge-warning'>Menunggu Solusi Dari IT OPS</span> @endif
-                    @if ($dt->status == 'CLOSE') <span class='badge badge-success'>Keluhan Ditutup</span> @endif
+                    @if ($dt->status == 'RITADM') <span class='badge badge-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Administrator</span> @endif
+                    @if ($dt->status == 'RITSP') <span class='badge badge-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> @endif
+                    @if ($dt->status == 'AITSP') <span class='badge badge-warning'>Menunggu Tindakan Dari IT Support</span> @endif
+                    @if ($dt->status == 'ITOPS') <span class='badge badge-warning'>Menunggu Tindakan Dari IT OPS</span> @endif
+                    @if ($dt->status == 'CLOSE') <span class='badge badge-success'>Keluhan Selesai</span> @endif
                     @if ($dt->status == 'SLITADM') <span class='badge badge-success'>Solusi Telah Diberikan IT Administrator</span> @endif
                     @if ($dt->status == 'SLITOPS') <span class='badge badge-success'>Solusi Telah Diberikan IT OPS</span> @endif
                     @if ($dt->status == 'SLITSP') <span class='badge badge-success'>Solusi Telah Diberikan IT Support</span> @endif
-                    @if ($dt->status == 'LITOPS') <span class='badge badge-info'>IT OPS Menuju ke Lokasi</span> @endif
-                    @if ($dt->status == 'LITSP') <span class='badge badge-info'>IT Support Menuju ke Lokasi</span> @endif
+                    @if ($dt->status == 'LITADM') <span class='badge badge-info'>IT Administrator Menuju ke Lokasi</span></br><small><b>Oleh : {{$dt->assign_it_admin_relation->name??""}}</b></small> @endif
+                    @if ($dt->status == 'LITOPS') <span class='badge badge-info'>IT OPS Menuju ke Lokasi</span></br><small><b>Oleh : {{$dt->assign_it_ops_relation->name??""}}</b></small> @endif
+                    @if ($dt->status == 'LITSP') <span class='badge badge-info'>IT Support Menuju ke Lokasi</span></br><small><b>Oleh : {{$dt->assign_it_support_relation->name??""}}</b></small> @endif
+                    @if ($dt->status == 'DLITADM') <span class='badge badge-warning'>Sedang Dalam Tindakan IT Administrator</span> @endif
                     @if ($dt->status == 'DLITOPS') <span class='badge badge-warning'>Sedang Dalam Tindakan IT OPS</span> @endif
                     @if ($dt->status == 'DLITSP') <span class='badge badge-warning'>Sedang Dalam Tindakan IT Support</span> @endif
                     @if ($dt->status == 'RT') <span class='badge badge-warning'>User Telah Memberi Rating</span> @endif
@@ -232,9 +237,9 @@
                     <td>{{$dt->category->cat_name}}</td>
                     <td style="padding-top: 30px;">{!! $dt->prob_desc !!}</td>
                     <td>
-                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$key}}" uk-toggle>Buka</a></center>
+                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$dt->id}}" uk-toggle>Buka</a></br>@if(($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_admin != null && $dt->complete_by == $dt->assign_it_admin))<span class="badge badge-pill badge-warning">Beri Penilaian</span>@endif </center>
 
-                       <div id="modal-open-solution{{$key}}" uk-modal>
+                       <div id="modal-open-solution{{$dt->id}}" uk-modal>
                         <div class="uk-modal-dialog">
                           <button class="uk-modal-close-default" type="button" uk-close></button>
 
@@ -246,7 +251,7 @@
                             {!! $dt->solution_desc !!}
                         </div>
                         <div class="uk-modal-footer uk-text-right">
-                            @if(($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops))
+                            @if(($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_admin != null && $dt->complete_by == $dt->assign_it_admin))
                             <a href="#modal-rating{{$key}}" class="uk-button uk-button-danger" uk-toggle>Penilaian</a>
                             @endif                   
                         </div>
@@ -299,14 +304,23 @@
           </div>
         </div>
 
-        <div class="col-lg-4 col-md-12">
+        <div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-header card-header-success">
               <h4 class="card-title">Histori Tiket</h4>
             </div>
 
-            <div class="card-body">
+            <div class="card-body"> 
               <table class="table" style="table-layout: fixed;">
+                <thead>
+                    <tr>
+                      <th></th>
+                      <th>Deskripsi Keluhan</th>
+                      <th>Solusi Keluhan</th>
+                      <th>User Yang Menangani</th>
+                      <th>Waktu Selesai</th>
+                    </tr>
+                </thead>
                 <tbody>
                  @forelse($ticket_done as $key => $dt)
                   <tr>
@@ -321,6 +335,9 @@
                       </div>
                     </td>
                     <td>{!! $dt->prob_desc !!}</td>
+                    <td>{!! $dt->solution_desc !!}</td>
+                    <td>{!! $dt->complete->name !!}</td>
+                    <td>{!! $dt->complete_date !!}</td>
                   </tr>
                 @empty
                   <tr>

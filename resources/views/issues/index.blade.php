@@ -6,7 +6,14 @@
             <h1 class="pull-right">
                 <div class="btn-group">
                     <a class="btn btn-warning" style="margin-top: -10px;margin-bottom: 5px" href="/exportpdf/{{Crypt::encrypt('issues')}}">Export To PDF</a>
-                    <a class="btn btn-primary" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('issues.create') !!}">Add New</a>
+                    @hasrole('IT Administrator|IT Non Public|User')
+                        <a class="btn btn-primary" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('issues.create') !!}">Add New</a>
+                    @endhasrole
+                    @hasrole('IT Support')
+                        @if ($status_jam == 1)
+                            <a class="btn btn-primary" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('issues.create') !!}">Add New</a>
+                        @endif
+                    @endhasrole
                 </div>
             </h1>
     </section>

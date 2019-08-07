@@ -37,7 +37,7 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
 
     Route::resource('ratings', 'ratingController');
 
-    Route::resource('roles', 'rolesController');
+    Route::resource('roles', 'rolesController',['only' => ['index', 'show']]);
 
     Route::resource('catInventories', 'cat_inventoryController');
     Route::resource('inventories', 'inventoryController');
@@ -67,3 +67,5 @@ Route::resource('invenPembelians', 'inven_pembelianController');
 Route::resource('pemeriksaanPerangkats', 'pemeriksaan_perangkatController');
 
 Route::resource('unitKerjas', 'unit_kerjaController');
+
+Route::get('/notif', 'notifikasiController@realtime_notification');

@@ -152,10 +152,6 @@
             <li class=""><a href="{!! route('laporans.index') !!}"><i class="fa fa-circle-o"></i> Laporan Bulanan</a></li>
             <li class="{{ isset($_GET['n']) ? 'active' : '' }}"><a href="/inventories?n=a"><i class="fa fa-circle-o"></i> Laporan Inventaris</a></li>
 
-            <li class="{{ Request::is('inventories*') ? 'active' : '' }}">
-              <a href="{!! route('inventories.index') !!}"><i class="fa fa-circle-o"></i> Inventaris</a>
-            </li>
-
             <li class="{{ Request::is('categories*') ? 'active' : '' }}"><a href="{!! route('categories.index') !!}"><i class="fa fa-circle-o"></i><span>Kategori</span></a></li>
 
             <li class="{{ Request::is('roles*') ? 'active' : '' }}">

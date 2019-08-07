@@ -54,6 +54,7 @@ class issuesController extends AppBaseController
         $this->data['sernum'] = $sernum;
         $this->data['data_user'] = \App\User::role('User')->pluck('name','id');
         $this->data['data_unit'] = \App\Models\unit_kerja::pluck('nama_uk','id');
+
         // echo "<pre>";
         // return print_r($this->data['sernum']);
     }
@@ -80,9 +81,28 @@ class issuesController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
+        // $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
+        if(Auth::check()){
+            $user = Auth::user();
+            $roles = $user->getRoleNames();
+            if(($roles[0] == "IT Administrator") || ($roles[0] == "IT Support" && $request->status_jam == 1)){
+                    $get_petugas = User::whereHas("roles", function($q){ $q->where("name", "IT Administrator")->orWhere("name", "IT Support"); })->get()->sortBy(function ($user, $key) {
+                    return $user->roles->pluck('id')->min();
+                });
+            }elseif($roles[0] == "IT Non Public"){
+                    $get_petugas = User::whereHas("roles", function($q){ $q->where("name", "IT Administrator")->orWhere("name", "IT Support")->orWhere("name", "IT Support")->orWhere("name", "IT Operasional"); })->get()->sortBy(function ($user, $key) {
+                    return $user->roles->pluck('id')->min();
+                });
+            }
+        }
+        $this->data['petugas'] =[];
+        if(isset($get_petugas)){
+            foreach ($get_petugas as $key => $value) {
+                $this->data['petugas'][$value['id']] = $value['name'].' | '.$value['roles'][0]['name'];
+            }
+        }
         return view('issues.create')->with($this->data);
     }
 
@@ -97,10 +117,30 @@ class issuesController extends AppBaseController
     {
         $input = $request->all();
         $input['issue_date'] = $this->waktu_sekarang;
+
+        if($request->untuk_user){
+            $input['request_id'] = $request->request_id_user;
+        }
+
+        if($request->assign_petugas){
+            $user = User::where('id','=',$request->assign_petugas)->first();
+            $roles = $user->getRoleNames();
+            if($roles[0] == "IT Administrator"){
+                $input['status'] = 'ITADM';
+                $input['assign_it_admin'] = $request->assign_petugas;
+            }elseif($roles[0] == "IT Support"){
+                $input['status'] = 'ITSP';
+                $input['assign_it_support'] = $request->assign_petugas;
+            }else{
+                $input['status'] = 'ITOPS';
+                $input['assign_it_ops'] = $request->assign_petugas;
+            }
+        }
+
         $issues = $this->issuesRepository->create($input);
         $kode = $issues->id.$issues->request_id.$this->mytime->format('ymdhis');
         $this->issuesRepository->update(['issue_id'=>$kode], $issues->id);
-        $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id);
+        $this->notifikasiController->create_notifikasi("KELUHAN", $issues->status,$issues->id, $issues->request_id);
         if(isset($input['usr'])){
             Alert::success('Tiket Berhasil Dikirim', 'Sukses')->autoclose(4000);
             return redirect('/beranda');
@@ -125,9 +165,10 @@ class issuesController extends AppBaseController
             $this->notifikasiController->update_baca($request->n);
         }
 
-        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','rating','unit_kerja'])->findWithoutFail($id);
+        $this->data['issues'] = $this->issuesRepository->with(['category','priority','request','complete','assign_it_support_relation','assign_it_ops_relation','assign_it_admin_relation','rating','unit_kerja'])->findWithoutFail($id);
         $this->data['it_support'] = User::role('IT Support')->pluck('name','id');
         $this->data['it_ops'] = User::role('IT Operasional')->pluck('name','id');
+        $this->data['it_admin'] = User::role('IT Administrator')->pluck('name','id');
         if (empty($this->data['issues'])) {
             Flash::error('Issues not found');
 
@@ -179,10 +220,10 @@ class issuesController extends AppBaseController
         if($input['status'] == 'CLOSE'){
             $input['complete_date'] = $this->waktu_sekarang;
         }
-        if($input['status'] == 'DLITOPS' || $input['status'] == 'DLITSP'){
+        if($input['status'] == 'DLITOPS' || $input['status'] == 'DLITSP' || $input['status'] == 'DLITADM'){
             $input['waktu_tindakan'] = $this->waktu_sekarang;
         }
-        if($input['status'] == 'SLITOPS' || $input['status'] == 'SLITSP'){
+        if($input['status'] == 'SLITOPS' || $input['status'] == 'SLITSP' || $input['status'] == 'SLITADM'){
             $input['complete_by'] = \Auth::User()->id;
             $input['solution_date'] = $this->waktu_sekarang;
         }
@@ -199,7 +240,7 @@ class issuesController extends AppBaseController
             if($input['usr'] == 'a'){
                 Alert::success('Penilain Berhasil Dikirim', 'Terima Kasih')->autoclose(4000);
             }else{
-                Alert::success('Keluhan Telah Selesai', 'Terima Kasih')->autoclose(4000);
+                Alert::success('Keluhan Telah Selesai', 'Terima Kasih telah memberikan nilai')->autoclose(4000);
             }
             return redirect('/beranda');
         }
