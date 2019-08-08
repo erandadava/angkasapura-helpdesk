@@ -172,7 +172,10 @@ class pdfController extends Controller
                 ->where([['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
                 ->orderBy('issue_date', 'DESC')
-                ->get();
+                ->get()
+                ->sortByDesc(function($product){
+                    return $product->laporan;
+                });
             }else{
                 $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
                 ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
@@ -182,7 +185,10 @@ class pdfController extends Controller
                 ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
                 ->orderBy('issue_date', 'DESC')
-                ->get();
+                ->get()
+                ->sortByDesc(function($product){
+                    return $product->laporan;
+                });
             }
 
             
@@ -200,7 +206,7 @@ class pdfController extends Controller
                 $date = Carbon::createFromFormat('Y-m-d H:i:s', $value->issue_date)->format('H:i:s');
             }
 
-            if($date >= '00:00:00' && $date <= '19:00:00'){
+            if($date >='07:00:00' && $date <= '19:00:00'){
                 $id_group = 1;
                 $name_group = "Laporan Siang";
             }else{

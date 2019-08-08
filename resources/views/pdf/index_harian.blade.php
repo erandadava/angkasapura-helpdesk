@@ -88,7 +88,6 @@ tr.group,
             <div class="table">
                 <table class="paleBlueRows" style="width:100%">
                     <tr>
-                        <th>No</th>
                         @foreach($head as $dt)
                             <th>
                                 {{$dt}}
@@ -111,7 +110,6 @@ tr.group,
                                         </tr>
                                     @endif
                             <tr>
-                            <td><center>{{$key+1}}</center></td>
                                 @foreach($dt as $key2 => $dt2)
                                     <td>
                                         {!! $dt2 !!}
