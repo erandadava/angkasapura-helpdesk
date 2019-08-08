@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    tr.group,
+    tr.group:hover {
+        background-color: #16a085 !important;
+        color:white;
+    }
+    </style>
     <section class="content-header">
         <h1 class="pull-left">Laporan Harian</h1>
             <h1 class="pull-right">

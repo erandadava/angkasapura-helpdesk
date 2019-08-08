@@ -48,9 +48,6 @@ class laporanhariDataTable extends DataTable
             $totalDuration = $finish->diffInSeconds(Carbon::parse($inquiry->waktu_tindakan));
             return gmdate('H:i:s', $totalDuration);
         })
-        // ->editColumn('waktu_tindakan', function ($inquiry) {
-        //     return $inquiry->waktu_tindakan.' - '.$inquiry->complete_date;
-        // })
         ->rawColumns(['status','prob_desc','solution_desc','reason_desc','action']);
     }
 
@@ -73,7 +70,7 @@ class laporanhariDataTable extends DataTable
             ->orWhereColumn('assign_it_support', 'complete_by')
             ->where([['status','=','CLOSE']])
             ->whereDate('complete_date','=',$now->format('Y-m-d'))
-            ->newQuery();
+            ->newQuery();  
         }
         return $model->with(['category','priority','request','unit_kerja','complete'])
                                                                                     ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
@@ -82,6 +79,7 @@ class laporanhariDataTable extends DataTable
                                                                                     ->whereDate('complete_date','=',$now->format('Y-m-d'))
                                                                                     ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
                                                                                     ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                                                                                    ->orderBy('laporan','desc')
                                                                                     ->newQuery();
 
     }
@@ -99,12 +97,34 @@ class laporanhariDataTable extends DataTable
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'     => 'Blfrtip',
-                'order'   => [[0, 'desc']],
+                'order'   => [2, 'DESC'],
+                "columnDefs" => [
+                    [ "visible" => false, "targets" => [2] ]
+                ],
                 'buttons' => [
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
                 ],
+                    'initComplete' => "function () {
+                    var rows = this.api().rows( {page:'current'} ).nodes();
+                    var last=[];
+                    this.api().column(2, {page:'current'} ).data().each( function ( group, i ) {
+                        var found =  $.map(last, function(value, key) {
+                                         if (value == group)
+                                         {
+                                            return value;
+                                         }
+                                    });
+                        if ( found.length == 0 ) {
+                            $(rows).eq( i ).before(
+                                '<tr class=group><td colspan=11>'+group+'</td></tr>'
+                            );
+         
+                            last.push(group);
+                        }
+                    } );
+                }",
             ]);
     }
 
@@ -118,6 +138,7 @@ class laporanhariDataTable extends DataTable
         return [
             ['data' => 'id','visible' => false],
             ['data' => 'request.name', 'title' => 'Name'],
+            ['data' => 'laporan', 'title' => 'Waktu Laporan',  'orderable' => false, 'searchable' => false],
             // ['data' => 'location', 'title' => 'Lokasi'],
             ['data' => 'unit_kerja.nama_uk', 'title' => 'Unit Kerja'],
             ['data' => 'prob_desc', 'title' => 'Keluhan'],
@@ -126,7 +147,7 @@ class laporanhariDataTable extends DataTable
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
             ['data' => 'waktu_tindakan', 'title' => 'Waktu Penanganan'],
             ['data' => 'solution_date', 'title' => 'Waktu Selesai'],
-            ['data' => 'waktu_tanggap', 'title' => 'Waktu Tanggap', 'searchable' => false],
+            ['data' => 'waktu_tanggap', 'title' => 'Waktu Tanggap', 'orderable' => false, 'searchable' => false],
             ['data' => 'solution_desc', 'title' => 'Solusi'],
         ];
     }

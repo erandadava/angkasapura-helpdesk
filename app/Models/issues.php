@@ -33,7 +33,7 @@ class issues extends Model
 
 
     protected $dates = ['deleted_at'];
-    protected $appends = ['statusalert'];
+    protected $appends = ['statusalert','laporan'];
 
     public $fillable = [
         'issue_id',
@@ -154,6 +154,18 @@ class issues extends Model
             return $status;
         }
     }
+
+    public function getLaporanAttribute()
+    {
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->issue_date)->format('H:i:s');
+    
+            if ($date >='07:00:00' && $date <= '19:00:00') {
+                return "Laporan Siang";
+            }
+            return "Laporan Malam";
+
+    }
+
 
     public function inventory()
     {
