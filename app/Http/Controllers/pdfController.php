@@ -160,6 +160,7 @@ class pdfController extends Controller
             ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
             ->whereDate('complete_date','=',$now->format('Y-m-d'))
             ->whereIn('id',$arr_export)
+            ->orderBy('issue_date', 'DESC')
             ->get();
         }else{
             if($roles[0] == "IT Non Public"){
@@ -170,6 +171,7 @@ class pdfController extends Controller
                 ->orWhereColumn('assign_it_support', 'complete_by')
                 ->where([['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->orderBy('issue_date', 'DESC')
                 ->get();
             }else{
                 $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
@@ -179,17 +181,32 @@ class pdfController extends Controller
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
                 ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->orderBy('issue_date', 'DESC')
                 ->get();
             }
 
             
         }
+
         $head = ['Nama', 'Unit Kerja',  'Keluhan', 'Petugas', 'No. HP', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
         $title = 'Laporan Harian';
+        $group = [];
         foreach ($get as $key => $value) {;
             $finish = Carbon::parse($value->solution_date);
             $totalDuration = $finish->diffInSeconds(Carbon::parse($value->waktu_tindakan));
             $tanggap = gmdate('H:i:s', $totalDuration);
+            $date="";
+            if($value->issue_date){
+                $date = Carbon::createFromFormat('Y-m-d H:i:s', $value->issue_date)->format('H:i:s');
+            }
+
+            if($date >= '00:00:00' && $date <= '19:00:00'){
+                $id_group = 1;
+                $name_group = "Laporan Siang";
+            }else{
+                $id_group = 2;
+                $name_group = "Laporan Malam";
+            }
             $isinya[$key]=[
                 0 => $value['request']['name'],
                 1 => $value['unit_kerja']['nama_uk'],
@@ -202,11 +219,21 @@ class pdfController extends Controller
                 8 => $tanggap,
                 9 => $value['solution_desc']
             ];   
+            $group[$key]= [
+                0 => $id_group,
+                1 => $name_group
+            ];   
         }
-        $values = $isinya;
-        //return view('pdf.index')->with(['head'=>$head,'title'=>$title,'value'=>$values]);
-        $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values])->setPaper('a4', 'landscape');
-        return $pdf->stream('laporan_harian'.time().'.pdf', array("Attachment" => false));
-        //$pdf->download('laporan_harian'.time().'.pdf');
+        // $values = $isinya;
+        // //return view('pdf.index')->with(['head'=>$head,'title'=>$title,'value'=>$values]);
+        // $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values])->setPaper('a4', 'landscape');
+        // return $pdf->stream('laporan_harian'.time().'.pdf', array("Attachment" => false));
+        // //$pdf->download('laporan_harian'.time().'.pdf');
+
+        $values = $isinya; 
+        return view('pdf.index_harian')->with(['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group]);
+        // $pdf = PDF::loadview('pdf.index_formasi',['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group])->setPaper('a4', 'landscape');
+        // // return $pdf->download($tabel.time().'.pdf');
+        // return $pdf->stream($tabel.time().'.pdf', array("Attachment" => false));
     }
 }
