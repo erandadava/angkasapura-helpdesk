@@ -231,9 +231,9 @@ class pdfController extends Controller
         // //$pdf->download('laporan_harian'.time().'.pdf');
 
         $values = $isinya; 
-        return view('pdf.index_harian')->with(['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group]);
-        // $pdf = PDF::loadview('pdf.index_formasi',['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group])->setPaper('a4', 'landscape');
-        // // return $pdf->download($tabel.time().'.pdf');
-        // return $pdf->stream($tabel.time().'.pdf', array("Attachment" => false));
+        // return view('pdf.index_harian')->with(['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group]);
+        $pdf = PDF::loadview('pdf.index_harian',['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group])->setPaper('a4', 'landscape');
+        // return $pdf->download($tabel.time().'.pdf');
+        return $pdf->stream('laporan_harian'.'.pdf', array("Attachment" => false));
     }
 }
