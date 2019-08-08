@@ -34,4 +34,14 @@ class User extends Authenticatable implements CanVerifyEmailContract
     public function unit_kerja(){
         return $this->hasOne('App\Models\unit_kerja','id','id_unit_kerja');
     }
+
+    public function model_has_roles()
+    {
+        return $this->hasOne('App\Models\model_has_roles','model_id','id');
+    }
+
+    public function rating()
+    {
+        return $this->hasMany('App\Models\rating','target_id','id');
+    }
 }

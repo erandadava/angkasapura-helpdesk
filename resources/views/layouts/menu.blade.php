@@ -163,9 +163,14 @@
                 <a href="{!! route('priorities.index') !!}"><i class="fa fa-circle-o"></i><span>Prioritas</span></a>
             </li>
 
-            <li class="{{ Request::is('users*') ? 'active' : '' }}">
+            <li class="{{ (Request::is('users*') && !isset($_GET['np'])) ? 'active' : '' }}">
                 <a href="{!! route('users.index') !!}"><i class="fa fa-circle-o"></i><span>Pengguna</span></a>
             </li>
+
+            <li class="{{ (Request::is('users*') && isset($_GET['np'])) ? 'active' : '' }}">
+              <a href="/users?np=1"><i class="fa fa-circle-o"></i><span>Penilaian</span></a>
+            </li>
+
 
           </ul>
 </li>
