@@ -160,7 +160,7 @@ class issues extends Model
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->issue_date)->format('H:i:s');
     
             if ($date >='07:00:00' && $date <= '19:00:00') {
-                return "Laporan Siang";
+                return "Laporan Pagi";
             }
             return "Laporan Malam";
 

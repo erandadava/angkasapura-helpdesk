@@ -63,24 +63,39 @@ class laporanhariDataTable extends DataTable
         $user = Auth::user();
         $roles = $user->getRoleNames();
         if($roles[0] == "IT Non Public"){
-            return $model->with(['category','priority','request','unit_kerja','complete'])
+            $hasil = \App\Models\issues::select('*',
+            \DB::raw('(CASE 
+                        WHEN DATE_FORMAT(issue_date,"%H:%i:%s") >= "07:00:00" &&  DATE_FORMAT(issue_date,"%H:%i:%s") <= "19:00:00" THEN "Laporan Pagi" 
+                        ELSE "Laporan Malam" 
+                        END) AS status_laporan')
+            )
+            ->with(['category','priority','request','unit_kerja','complete'])
             ->whereColumn('assign_it_ops', 'complete_by')
             ->where([['status','=','CLOSE']])
             ->whereDate('complete_date','=',$now->format('Y-m-d'))
             ->orWhereColumn('assign_it_support', 'complete_by')
             ->where([['status','=','CLOSE']])
             ->whereDate('complete_date','=',$now->format('Y-m-d'))
-            ->newQuery();  
+            ->orderBy('status_laporan','desc')
+            ->newQuery();
+            return $hasil;
         }
-        return $model->with(['category','priority','request','unit_kerja','complete'])
-                                                                                    ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
-                                                                                    ->whereDate('complete_date','=',$now->format('Y-m-d'))
-                                                                                    ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
-                                                                                    ->whereDate('complete_date','=',$now->format('Y-m-d'))
-                                                                                    ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
-                                                                                    ->whereDate('complete_date','=',$now->format('Y-m-d'))
-                                                                                    ->orderBy('laporan','desc')
-                                                                                    ->newQuery();
+        $hasil = \App\Models\issues::select('*',
+            \DB::raw('(CASE 
+                        WHEN DATE_FORMAT(issue_date,"%H:%i:%s") >= "07:00:00" &&  DATE_FORMAT(issue_date,"%H:%i:%s") <= "19:00:00" THEN "Laporan Pagi" 
+                        ELSE "Laporan Malam" 
+                        END) AS status_laporan')
+            )
+            ->with(['category','priority','request','unit_kerja','complete'])
+            ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->orderBy('status_laporan','desc')
+            ->newQuery();
+            return $hasil;
 
     }
 
@@ -97,7 +112,6 @@ class laporanhariDataTable extends DataTable
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'     => 'Blfrtip',
-                'order'   => [2, 'DESC'],
                 "columnDefs" => [
                     [ "visible" => false, "targets" => [2] ]
                 ],
@@ -138,7 +152,7 @@ class laporanhariDataTable extends DataTable
         return [
             ['data' => 'id','visible' => false],
             ['data' => 'request.name', 'title' => 'Name'],
-            ['data' => 'laporan', 'title' => 'Waktu Laporan',  'orderable' => false, 'searchable' => false],
+            ['data' => 'status_laporan', 'title' => 'Waktu Laporan',  'orderable' => false, 'searchable' => false],
             // ['data' => 'location', 'title' => 'Lokasi'],
             ['data' => 'unit_kerja.nama_uk', 'title' => 'Unit Kerja'],
             ['data' => 'prob_desc', 'title' => 'Keluhan'],

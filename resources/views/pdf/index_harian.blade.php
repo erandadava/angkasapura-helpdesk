@@ -24,8 +24,6 @@ th{
 }
 table.paleBlueRows {
   border: 1px solid #FFFFFF;
-  width: 350px;
-  height: 200px;
   text-align: center;
   border-collapse: collapse;
 }

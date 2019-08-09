@@ -161,16 +161,21 @@ class pdfController extends Controller
             ->whereDate('complete_date','=',$now->format('Y-m-d'))
             ->whereIn('id',$arr_export)
             ->orderBy('issue_date', 'DESC')
-            ->get();
+            ->get()
+            ->sortByDesc(function($product){
+                return $product->laporan;
+            });
         }else{
             if($roles[0] == "IT Non Public"){
                 $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
                 ->whereColumn('assign_it_ops', 'complete_by')
                 ->where([['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
                 ->orWhereColumn('assign_it_support', 'complete_by')
                 ->where([['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
                 ->orderBy('issue_date', 'DESC')
                 ->get()
                 ->sortByDesc(function($product){
@@ -180,10 +185,13 @@ class pdfController extends Controller
                 $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
                 ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
                 ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
                 ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
                 ->orderBy('issue_date', 'DESC')
                 ->get()
                 ->sortByDesc(function($product){
@@ -208,7 +216,7 @@ class pdfController extends Controller
 
             if($date >='07:00:00' && $date <= '19:00:00'){
                 $id_group = 1;
-                $name_group = "Laporan Siang";
+                $name_group = "Laporan Pagi";
             }else{
                 $id_group = 2;
                 $name_group = "Laporan Malam";
