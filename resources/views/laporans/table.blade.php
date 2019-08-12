@@ -2,7 +2,9 @@
     @include('layouts.datatables_css')
 @endsection
 
-{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped table-bordered']) !!}
+<div class="table-responsive">
+    {!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped table-bordered']) !!}
+</div>
 
 {!! Form::open(['url' => 'exportpdflaporanharian', 'method' => 'post', 'class' => 'formcheck']) !!}
     {!! Form::hidden('exportid', null, ['id' => 'val-export-id']) !!}
