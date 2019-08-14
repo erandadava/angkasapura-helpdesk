@@ -11,6 +11,7 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use \App\Models\issues;
+use \App\User;
 use \App\Models\notifikasi;
 use Illuminate\Support\Facades\Crypt;
 use Auth;
@@ -58,7 +59,7 @@ class notifikasiController extends AppBaseController
      *
      * @return Response
      */
-    public function create_notifikasi($tipe, $status, $id_konten)
+    public function create_notifikasi($tipe, $status, $id_konten, $permintaan)
     {
 
 
@@ -66,13 +67,13 @@ class notifikasiController extends AppBaseController
             $input['status'] = $tipe;
             $input['konten_id'] = $id_konten;
             $keluhan = issues::find($id_konten);
-            // $name = issues::find($permintaan);
+            $name = User::find($permintaan);
             // dd($permintaan);
             // $id_konten = Crypt::encrypt($id_konten);
             $link = "/issues";
             switch ($status) {
                 case 'ITADM':
-                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dari $name->name dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->assign_it_admin;
                     $notifikasi = $this->notifikasiRepository->create($input);
                     $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
@@ -81,7 +82,7 @@ class notifikasiController extends AppBaseController
                     $input['user_id'] = $keluhan->request_id;
                     break;
                 case 'ITSP':
-                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dari $name->name dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->assign_it_support;
                     $notifikasi = $this->notifikasiRepository->create($input);
                     $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
@@ -90,7 +91,7 @@ class notifikasiController extends AppBaseController
                     $input['user_id'] = $keluhan->request_id;
                     break;
                 case 'ITOPS':
-                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan baru</span> dari $name->name dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->assign_it_ops;
                     $notifikasi = $this->notifikasiRepository->create($input);
                     $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);

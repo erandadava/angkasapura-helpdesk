@@ -7,6 +7,7 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Auth;
 use Carbon\Carbon;
+
 class usersDataTable extends DataTable
 {
     /**
@@ -32,7 +33,7 @@ class usersDataTable extends DataTable
                 if(count($dt->rating) != 0){
                     $rate = $rate/count($dt->rating);
                 }
-                if($rolesnya == 'IT Support' || $rolesnya == 'IT Operasional'){
+                if($rolesnya == 'IT Support' || $rolesnya == 'IT Operasional' || $rolesnya == 'IT Administrator'){
                     return "<span class='glyphicon glyphicon-star' style='color:orange'></span> ".substr((String)$rate,0,4);
                 }
             }
@@ -50,7 +51,7 @@ class usersDataTable extends DataTable
                     $rate = $rate/count($dt->rating);
                    
                 }
-                if($rolesnya == 'IT Support' || $rolesnya == 'IT Operasional'){
+                if($rolesnya == 'IT Support' || $rolesnya == 'IT Operasional' || $rolesnya == 'IT Administrator'){
                     
                     return "<span class='glyphicon glyphicon-star' style='color:orange'></span> ".substr((String)$rate,0,4);
                 }
@@ -70,6 +71,10 @@ class usersDataTable extends DataTable
         $roles = $user->getRoleNames();
         if($roles[0] == "User"){
             return $model->with(['model_has_roles.roles','rating'])->where('id','=',$user->id)->newQuery();
+        }else if($roles[0] == "IT Non Public" && $this->np != null){
+            return \App\User::with(['model_has_roles.roles','rating'])->whereHas('roles', function ($query) {
+                return $query->where('name', 'IT Administrator')->orWhere('name', 'IT Support')->orWhere('name', 'IT Operasional');
+            })->newQuery();
         }
         return $model->with(['model_has_roles.roles'])->newQuery();
     }
@@ -103,6 +108,28 @@ class usersDataTable extends DataTable
      */
     protected function getColumns()
     {
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        if($roles[0] == "IT Non Public"){
+           if($this->np != null){
+            return [
+                ['data' => 'id', 'visible' => false],
+                ['data' => 'name', 'title' => 'Nama'],
+                ['data' => 'rate_tahun', 'title' => 'Rata Rata Peringkat Tahun Ini', 'searchable' => false],
+                ['data' => 'rate_bulan', 'title' => 'Rata Rata Peringkat Bulan Ini', 'searchable' => false],
+                ['data' => 'email', 'title' => 'Email'],
+                ['data' => 'model_has_roles.roles.name', 'title' => 'Tugas'],
+            ];
+           }else{
+                return [
+                    ['data' => 'id', 'visible' => false],
+                    ['data' => 'name', 'title' => 'Nama'],
+                    ['data' => 'email', 'title' => 'Email'],
+                    ['data' => 'model_has_roles.roles.name', 'title' => 'Tugas'],
+                ];
+           }
+        }
+
         return [
             ['data' => 'id', 'visible' => false],
             ['data' => 'name', 'title' => 'Nama'],

@@ -13,6 +13,8 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRole;
 use Response;
 use Spatie\Permission\Models\Role;
+use Illuminate\Http\Request;
+
 class usersController extends AppBaseController
 {
     /** @var  usersRepository */
@@ -30,9 +32,12 @@ class usersController extends AppBaseController
      * @param usersDataTable $usersDataTable
      * @return Response
      */
-    public function index(usersDataTable $usersDataTable)
+    public function index(usersDataTable $usersDataTable, Request $request)
     {
-        return $usersDataTable->render('users.index');
+        if($request->np){
+            return $usersDataTable->with('np', $request->np??null)->render('users.index_penilaian');
+        }
+        return $usersDataTable->with('np', $request->np??null)->render('users.index');
     }
 
     /**

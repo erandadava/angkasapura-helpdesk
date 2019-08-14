@@ -8,7 +8,7 @@ use Yajra\DataTables\EloquentDataTable;
 use Auth;
 use App\Models\inventory;
 use Carbon\Carbon;
-
+use DB;
 class laporanhariDataTable extends DataTable
 {
     /**
@@ -48,9 +48,6 @@ class laporanhariDataTable extends DataTable
             $totalDuration = $finish->diffInSeconds(Carbon::parse($inquiry->waktu_tindakan));
             return gmdate('H:i:s', $totalDuration);
         })
-        // ->editColumn('waktu_tindakan', function ($inquiry) {
-        //     return $inquiry->waktu_tindakan.' - '.$inquiry->complete_date;
-        // })
         ->rawColumns(['status','prob_desc','solution_desc','reason_desc','action']);
     }
 
@@ -62,8 +59,43 @@ class laporanhariDataTable extends DataTable
      */
     public function query(issues $model)
     {
-       $now = Carbon::now();
-       return $model->with(['category','priority','request','unit_kerja','complete'])->whereDate('complete_date', '=', $now->format('Y-m-d'))->newQuery();
+        $now = Carbon::now();
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        if($roles[0] == "IT Non Public"){
+            $hasil = \App\Models\issues::select('*',
+            \DB::raw('(CASE 
+                        WHEN DATE_FORMAT(issue_date,"%H:%i:%s") >= "07:00:00" &&  DATE_FORMAT(issue_date,"%H:%i:%s") <= "19:00:00" THEN "Laporan Pagi" 
+                        ELSE "Laporan Malam" 
+                        END) AS status_laporan')
+            )
+            ->with(['category','priority','request','unit_kerja','complete'])
+            ->whereColumn('assign_it_ops', 'complete_by')
+            ->where([['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->orWhereColumn('assign_it_support', 'complete_by')
+            ->where([['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->orderBy('status_laporan','desc')
+            ->newQuery();
+            return $hasil;
+        }
+        $hasil = \App\Models\issues::select('*',
+            \DB::raw('(CASE 
+                        WHEN DATE_FORMAT(issue_date,"%H:%i:%s") >= "07:00:00" &&  DATE_FORMAT(issue_date,"%H:%i:%s") <= "19:00:00" THEN "Laporan Pagi" 
+                        ELSE "Laporan Malam" 
+                        END) AS status_laporan')
+            )
+            ->with(['category','priority','request','unit_kerja','complete'])
+            ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->orderBy('status_laporan','desc')
+            ->newQuery();
+            return $hasil;
 
     }
 
@@ -80,12 +112,33 @@ class laporanhariDataTable extends DataTable
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'     => 'Blfrtip',
-                'order'   => [[0, 'desc']],
+                "columnDefs" => [
+                    [ "visible" => false, "targets" => [2] ]
+                ],
                 'buttons' => [
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
                 ],
+                    'initComplete' => "function () {
+                    var rows = this.api().rows( {page:'current'} ).nodes();
+                    var last=[];
+                    this.api().column(2, {page:'current'} ).data().each( function ( group, i ) {
+                        var found =  $.map(last, function(value, key) {
+                                         if (value == group)
+                                         {
+                                            return value;
+                                         }
+                                    });
+                        if ( found.length == 0 ) {
+                            $(rows).eq( i ).before(
+                                '<tr class=group><td colspan=11>'+group+'</td></tr>'
+                            );
+         
+                            last.push(group);
+                        }
+                    } );
+                }",
             ]);
     }
 
@@ -99,6 +152,7 @@ class laporanhariDataTable extends DataTable
         return [
             ['data' => 'id','visible' => false],
             ['data' => 'request.name', 'title' => 'Name'],
+            ['data' => 'status_laporan', 'title' => 'Waktu Laporan',  'orderable' => false, 'searchable' => false],
             // ['data' => 'location', 'title' => 'Lokasi'],
             ['data' => 'unit_kerja.nama_uk', 'title' => 'Unit Kerja'],
             ['data' => 'prob_desc', 'title' => 'Keluhan'],
@@ -107,7 +161,7 @@ class laporanhariDataTable extends DataTable
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
             ['data' => 'waktu_tindakan', 'title' => 'Waktu Penanganan'],
             ['data' => 'solution_date', 'title' => 'Waktu Selesai'],
-            ['data' => 'waktu_tanggap', 'title' => 'Waktu Tanggap', 'searchable' => false],
+            ['data' => 'waktu_tanggap', 'title' => 'Waktu Tanggap', 'orderable' => false, 'searchable' => false],
             ['data' => 'solution_desc', 'title' => 'Solusi'],
         ];
     }
