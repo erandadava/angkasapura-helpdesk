@@ -64,7 +64,8 @@ class laporanDataTable extends DataTable
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'     => 'Blfrtip',
-                'order'   => [[0, 'desc']],
+                'order'   => [[0, 'asc']],
+                "pageLength" => 50,
                 'buttons' => [
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -80,16 +81,16 @@ class laporanDataTable extends DataTable
      */
     protected function getColumns()
     {
-        // $SLA = \DB::select( \DB::raw('SELECT count(issues.id) as "Jumlah Keluhan", inventory.nama_perangkat, 100-((count(issues.dev_ser_num)/30)*100) as SLA FROM issues RIGHT JOIN inventory ON issues.dev_ser_num = inventory.id GROUP BY inventory.id'));
 
         return [
             ['data' => 'id','visible' => false],
+            ['data' => 'nama_user', 'title' => 'Nama user'],
             ['data' => 'nama_perangkat', 'title' => 'Nama Perangkat'],
-            // ['data' => 'inventory.sernum', 'title' => 'Serial Number'],
+            ['data' => 'sernum', 'title' => 'Serial Number'],
+            ['data' => 'merk', 'title' => 'Merk'],
+            ['data' => 'nama_perangkat_full', 'title' => 'Nama Perangkat Full'],
             ['data' => 'issuesjml_count', 'title' => 'Jumlah Keluhan', 'searchable' => false],
             ['data' => 'issuesjmlsla_count', 'title' => 'SLA','searchable' => false],
-            // ['data' =>  'SLA', 'title' => 'SLA'],
-            // ['data' => 'complete_date', 'title' => 'Tanggal Selesai'],
         ];
     }
 

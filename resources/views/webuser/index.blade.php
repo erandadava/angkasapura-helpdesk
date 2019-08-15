@@ -3,6 +3,7 @@
   <head>
   	<title>AP-HELPDESK</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
     <!-- BOOTSTRAP 4.1.3 CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -31,6 +32,19 @@
         .ck-editor__editable {
             min-height: 300px;
         }
+    .select2-container--default .select2-selection--single{
+        max-width: 100%;
+        width: 100%;
+        border: 0 none;
+        padding: 0 10px;
+        border-radius: 0px;
+        background: #fff;
+        color: #666;
+        border: 1px solid #e5e5e5;
+        transition: .2s ease-in-out;
+        transition-property: color,background-color,border;
+    }
+
     </style>
   </head>
   
@@ -43,7 +57,13 @@
 
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
   <script>
+      try {
+      $('select').select2();
+    } catch (e) {
+
+    }
     //For notification
     var previous_notif = 0 ;
         function get_notif(){

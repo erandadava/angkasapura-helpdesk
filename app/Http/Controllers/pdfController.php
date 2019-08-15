@@ -70,7 +70,7 @@ class pdfController extends Controller
             case 'laporan_bulanan' :
                 $now = Carbon::now();
                 $get = \App\Models\inventory::with(['issues'])->withCount(['issuesjml','issuesjmlsla'])->get();
-                $head = ['Nama Perangkat', 'Jumlah Keluhan', 'SLA'];
+                $head = ['Nama User','Nama Perangkat','Serial Number','Merk','Nama Perangkat Full','Jumlah Keluhan', 'SLA'];
                 $title = 'Laporan Bulanan';
                 foreach ($get as $key => $value) {
                     $hasilrusak = 0;
@@ -85,9 +85,13 @@ class pdfController extends Controller
 
 
                     $isinya[$key]=[
-                        0 => $value['nama_perangkat'],
-                        1 => $value['issuesjml_count'],
-                        2 => $hasil
+                        0 => $value['nama_user'],
+                        1 => $value['nama_perangkat'],
+                        2 => $value['sernum'],
+                        3 => $value['merk'],
+                        4 => $value['nama_perangkat_full'],
+                        5 => $value['issuesjml_count'],
+                        6 => $hasil
                     ];   
                 }
             break;
