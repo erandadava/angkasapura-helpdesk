@@ -6,8 +6,8 @@
 
 <!-- Pos Unit Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('pos_unit', 'Posisi Unit Device:') !!}
-    {!! Form::text('pos_unit', null, ['class' => 'form-control']) !!}
+    {!! Form::label('nama_perangkat', 'Nama Perangkat:') !!}
+    {!! Form::text('nama_perangkat', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Lokasi Field -->
@@ -22,33 +22,17 @@
     {!! Form::text('nama_user', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Nama Perangkat Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('nama_perangkat', 'Nama Perangkat:') !!}
-    {!! Form::text('nama_perangkat', null, ['class' => 'form-control']) !!}
-</div>
-
 <!-- Merk Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('merk', 'Merk:') !!}
     {!! Form::text('merk', null, ['class' => 'form-control']) !!}
 </div>
 
-<div class="form-group col-sm-6">
-    {!! Form::label('tgl_pembelian', 'Tanggal Pembelian:') !!}
-    {!! Form::text('tgl_pembelian', null, ['class' => 'form-control','id'=>'tgl_pembelian']) !!}
-</div>
-
-<div class="form-group col-sm-6">
-    {!! Form::label('tgl_penyerahan', 'Tanggal Penyerahan:') !!}
-    {!! Form::text('tgl_penyerahan', null, ['class' => 'form-control','id'=>'tgl_penyerahan']) !!}
-</div>
-
 <!-- Type Alat Field -->
-<!-- <div class="form-group col-sm-6">
+<div class="form-group col-sm-6">
     {!! Form::label('type_alat', 'Type Alat:') !!}
     {!! Form::text('type_alat', null, ['class' => 'form-control']) !!}
-</div> -->
+</div>
 
 <!-- Sernum Field -->
 <div class="form-group col-sm-6">
@@ -56,89 +40,93 @@
     {!! Form::text('sernum', null, ['class' => 'form-control' , 'placeholder' => 'optional']) !!}
 </div>
 
+<!-- Nama Perangkat Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('made_in', 'Made in:') !!}
+    {!! Form::text('made_in', null, ['class' => 'form-control']) !!}
+</div>
+
+
+<div class="form-group col-sm-6">
+    {!! Form::label('made_year', 'Made Year:') !!}
+    {!! Form::text('made_year', null, ['class' => 'form-control',  'id' => 'made_year']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('condition', 'Condition:') !!}
+    {!! Form::text('condition', null, ['class' => 'form-control']) !!}
+</div>
+
+
+<div class="form-group col-sm-6">
+    {!! Form::label('nama_perangkat_full', 'Nama Perangkat Full:') !!}
+    {!! Form::text('nama_perangkat_full', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Osver Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('osver', 'OS Version:') !!}
-    {!! Form::text('osver', null, ['class' => 'form-control' , 'placeholder' => 'optional']) !!}
+    {!! Form::label('join_domain', 'Join Domain:') !!}
+    {!! Form::text('join_domain', null, ['class' => 'form-control' , 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Os License Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('os_license', 'OS License:') !!}
-    {!! Form::text('os_license', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+    {!! Form::label('update_kasp', 'update kasp:') !!}
+    {!! Form::text('update_kasp', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Os Status Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('os_status', 'OS Status:') !!}
-    {!! Form::text('os_status', null, ['class' => 'form-control' , 'placeholder' => 'optional']) !!}
+    {!! Form::label('ip_addr', 'IP address:') !!}
+    {!! Form::text('ip_addr', null, ['class' => 'form-control' , 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Av Type Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('av_type', 'Antivirus Type:') !!}
-    {!! Form::text('av_type', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+    {!! Form::label('mask', 'Mask:') !!}
+    {!! Form::text('mask', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Av License Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('av_license', 'Antivirus License:') !!}
-    {!! Form::text('av_license', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+    {!! Form::label('gateway', 'Gateway:') !!}
+    {!! Form::text('gateway', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Ms Ver Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('ms_ver', 'MS Office Version:') !!}
-    {!! Form::text('ms_ver', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+    {!! Form::label('dns1', 'DNS 1:') !!}
+    {!! Form::text('dns1', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Ms Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('ms_id', 'MS Office Product ID:') !!}
-    {!! Form::text('ms_id', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+    {!! Form::label('dns2', 'DNS 2:') !!}
+    {!! Form::text('dns2', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Ms Status Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('ms_status', 'MS Office Status:') !!}
-    {!! Form::text('ms_status', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+    {!! Form::label('dns3', 'DNS 3:') !!}
+    {!! Form::text('dns3', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Tech Key Field -->
-<!-- <div class="form-group col-sm-6">
-    {!! Form::label('tech_key', 'Data Teknis Key:') !!}
-    {!! Form::text('tech_key', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+<div class="form-group col-sm-6">
+    {!! Form::label('ip_type', 'IP Type:') !!}
+    {!! Form::text('ip_type', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
- -->
 <!-- Tech Kode Field -->
-<!-- <div class="form-group col-sm-6">
-    {!! Form::label('tech_kode', 'Data Teknis Kode:') !!}
-    {!! Form::text('tech_kode', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
-</div> -->
+<div class="form-group col-sm-6">
+    {!! Form::label('conn_type', 'Connection Type:') !!}
+    {!! Form::text('conn_type', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+</div>
 
 <!-- Made In Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('made_in', 'Made In:') !!}
-    {!! Form::text('made_in', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
+    {!! Form::label('mac_addr', 'Mac Address :') !!}
+    {!! Form::text('mac_addr', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
-
-<!-- Made Year Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('made_year', 'Made Year:') !!}
-    {!! Form::text('made_year', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
-</div>
-
-<!-- Vendor Name Field -->
-<!-- <div class="form-group col-sm-6">
-    {!! Form::label('vendor_name', 'Vendor Name:') !!}
-    {!! Form::text('vendor_name', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
-</div> -->
-
-<!-- <div class="form-group col-sm-6">
-    {!! Form::label('tgl_pembayaran', 'Tanggal Pembayaran:') !!}
-    {!! Form::text('tgl_pembayaran', null, ['class' => 'form-control', 'placeholder' => 'optional','id'=>'tgl_pembayaran']) !!}
-</div> -->
-
 
 <div class="form-group col-sm-6">
     {!! Form::label('is_active', 'Status:') !!}
@@ -155,7 +143,7 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $('#tgl_pembelian').datetimepicker({
+        $('#made_year').datetimepicker({
             format: 'Y-MM-DD',
             useCurrent: false
         });

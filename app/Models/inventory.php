@@ -51,61 +51,59 @@ class inventory extends Model
 
     public $fillable = [
         'cat_id',
-        'pos_unit',
+        'nama_perangkat',
         'lokasi',
         'nama_user',
-        'nama_perangkat',
         'merk',
         'type_alat',
         'sernum',
-        'osver',
-        'os_license',
-        'os_status',
-        'av_type',
-        'av_license',
-        'ms_ver',
-        'ms_id',
-        'ms_status',
-        'tech_key',
-        'tech_kode',
         'made_in',
         'made_year',
-        'vendor_name',
+        'condition',
+        'nama_perangkat_full',
+        'join_domain',
+        'update_kasp',
+        'ip_addr',
+        'mask',
+        'gateway',
+        'dns1',
+        'dns2',
+        'dns3',
+        'ip_type',
+        'conn_type',
+        'mac_addr',
         'is_active',
-        'tgl_pembelian',
-        'tgl_penyerahan'
     ];
-
-    /**
+        /**
      * The attributes that should be casted to native types.
      *
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
         'cat_id' => 'integer',
-        'pos_unit' => 'string',
+        'nama_perangkat' => 'string',
         'lokasi' => 'string',
         'nama_user' => 'string',
-        'nama_perangkat' => 'string',
         'merk' => 'string',
         'type_alat' => 'string',
         'sernum' => 'string',
-        'osver' => 'string',
-        'os_license' => 'string',
-        'os_status' => 'string',
-        'av_type' => 'string',
-        'av_license' => 'string',
-        'ms_ver' => 'string',
-        'ms_id' => 'string',
-        'ms_status' => 'string',
-        'tech_key' => 'string',
-        'tech_kode' => 'string',
         'made_in' => 'string',
         'made_year' => 'string',
-        'vendor_name' => 'string',
-        'is_active' => 'boolean'
-    ];
+        'condition' => 'float',
+        'nama_perangkat_full' => 'string',
+        'join_domain' => 'string',
+        'update_kasp' => 'string',
+        'ip_addr' => 'string',
+        'mask' => 'string',
+        'gateway' => 'string',
+        'dns1' => 'string',
+        'dns2' => 'string',
+        'dns3' => 'string',
+        'ip_type' => 'string',
+        'conn_type' => 'string',
+        'mac_addr' => 'string',
+        'is_active'=> 'boolean',
+];
 
     /**
      * Validation rules
@@ -115,7 +113,6 @@ class inventory extends Model
     public static $rules = [
 
         'cat_id' => 'required',
-        'pos_unit' => 'required',
         'lokasi' => 'required',
         'nama_user' => 'required',
         'nama_perangkat' => 'required',
