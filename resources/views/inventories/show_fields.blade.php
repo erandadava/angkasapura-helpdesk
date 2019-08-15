@@ -35,7 +35,7 @@
 
 <div class="form-group">
     {!! Form::label('condition', 'Condition:') !!}
-    <p>{!! $inventory->conditon !!}</p>
+    <p>{!! $inventory->condition !!}</p>
 </div>
 
 
