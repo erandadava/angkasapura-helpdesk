@@ -74,8 +74,8 @@ class laporanInventoryDataTable extends DataTable
             ['data' => 'cat_inventory.nama_cat', 'title' => 'Kategori Inventaris'],
             ['data' => 'lokasi', 'title' => 'Lokasi'],
             ['data' => 'merk', 'title' => 'Merk'],
-            ['data' => 'tgl_pembelian', 'title' => 'Tanggal Pembelian'],
-            ['data' => 'tgl_penyerahan', 'title' => 'Tanggal Penyerahan'],
+            // ['data' => 'tgl_pembelian', 'title' => 'Tanggal Pembelian'],
+            // ['data' => 'tgl_penyerahan', 'title' => 'Tanggal Penyerahan'],
             ['data' => 'is_active', 'title' => 'Status'],
         ];
     }

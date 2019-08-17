@@ -46,6 +46,12 @@ class issuesDataTable extends DataTable
             ->setRowClass(function($dataTable) {
                 return $dataTable->status_alert == 0 ? '' : 'danger';
             })
+            ->editColumn('issue_date', function ($inquiry) {
+                return \Carbon\Carbon::parse($inquiry->issue_date)->formatLocalized('%d %B %Y | %H:%M:%S');
+            })
+            ->with('all_data', function() use ($query) {
+                return $query->get();
+            })
             ->rawColumns(['status','action']);
         }
 
@@ -70,6 +76,9 @@ class issuesDataTable extends DataTable
                 if ($inquiry->status == 'DLITSP') return "<span class='label label-warning'>Sedang Dalam Tindakan IT Support</span>";
                 if ($inquiry->status == 'RT') return "<span class='label label-warning'>User Telah Memberi Rating</span>";
                 return 'Cancel';
+        })
+        ->editColumn('issue_date', function ($inquiry) {
+             return \Carbon\Carbon::parse($inquiry->issue_date)->formatLocalized('%d %B %Y | %H:%M:%S');
         })
         ->with('all_data', function() use ($query) {
             return $query->get();

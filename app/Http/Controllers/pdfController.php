@@ -21,32 +21,41 @@ class pdfController extends Controller
         $isinya = [];
         switch ($tabel) {
             case 'issues':
-                if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
+                if($roles[0] == "IT Administrator" || $roles[0] == "Admin" || ($roles[0] == "IT Support" && request()->status_jam == 1)){
                     $get = \App\Models\issues::with(['category','priority','request'])->whereIn('id',$arr_export)->get();
                 }elseif($roles[0] == "IT Non Public"){
-                    $get = \App\Models\issues::with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->whereIn('id',$arr_export)->get();
+                    $get = \App\Models\issues::with(['category','priority','request'])->whereIn('id',$arr_export)->get();
                 }else{
                     $get = \App\Models\issues::with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->whereIn('id',$arr_export)->get();
                 }
                 $head = ['Kode', 'Permintaan Oleh', 'Prioritas', 'Waktu Keluhan', 'Kategori', 'Lokasi', 'Status'];
                 $title = 'Ticket';
                 foreach ($get as $key => $value) {
-                    if ($value['status'] == null){ $status = 'Menunggu IT Administrator';};
-                    if ($value['status'] == 'RITADM'){ $status = "Ditolak & Menunggu Alasan Dari IT Administrator";}
-                    if ($value['status'] == 'AITADM'){ $status = "Diterima IT Administrator";}
-                    if ($value['status'] == 'ITSP'){ $status = "Diteruskan ke IT Support";}
-                    if ($value['status'] == 'RITSP'){ $status = "Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator";}
-                    if ($value['status'] == 'AITSP'){ $status = "Menunggu Solusi Dari IT Support";}
-                    if ($value['status'] == 'ITOPS'){ $status = "Menunggu Solusi Dari IT OPS";}
-                    if ($value['status'] == 'CLOSE'){ $status = "Keluhan Ditutup";}
-                    if ($value['status'] == 'SLITADM'){ $status = "Solusi Telah Diberikan IT Administrator";}
-                    if ($value['status'] == 'SLITOPS'){ $status = "Solusi Telah Diberikan IT OPS";}
-                    if ($value['status'] == 'RT'){ $status = "User Telah Memberi Rating";}
+
+                    if ($value['status'] == null){ $status="Menunggu IT Administrator"; }
+                    if ($value['status'] == 'AITADM'){ $status="Diterima IT Administrator"; }
+                    if ($value['status'] == 'ITADM'){ $status="Diteruskan ke IT Administrator"; }
+                    if ($value['status'] == 'ITSP'){ $status="Diteruskan ke IT Support"; }
+                    if ($value['status'] == 'RITADM'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Administrator"; }
+                    if ($value['status'] == 'RITSP'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Support"; }
+                    if ($value['status'] == 'AITSP'){ $status="Menunggu Tindakan Dari IT Support"; }
+                    if ($value['status'] == 'ITOPS'){ $status="Menunggu Tindakan Dari IT OPS"; }
+                    if ($value['status'] == 'CLOSE'){ $status="Keluhan Selesai"; }
+                    if ($value['status'] == 'SLITADM'){ $status="Solusi Telah Diberikan IT Administrator"; }
+                    if ($value['status'] == 'SLITOPS'){ $status="Solusi Telah Diberikan IT OPS"; }
+                    if ($value['status'] == 'SLITSP'){ $status="Solusi Telah Diberikan IT Support"; }
+                    if ($value['status'] == 'LITADM'){ $status="IT Administrator Menuju ke Lokasi"; }
+                    if ($value['status'] == 'LITOPS'){ $status="IT OPS Menuju ke Lokasi"; }
+                    if ($value['status'] == 'LITSP'){ $status="IT Support Menuju ke Lokasi"; }
+                    if ($value['status'] == 'DLITADM'){ $status="Sedang Dalam Tindakan IT Administrator"; }
+                    if ($value['status'] == 'DLITOPS'){ $status="Sedang Dalam Tindakan IT OPS"; }
+                    if ($value['status'] == 'DLITSP'){ $status="Sedang Dalam Tindakan IT Support"; }
+                    if ($value['status'] == 'RT'){ $status="User Telah Memberi Rating"; }
                     $isinya[$key]=[
                         0 => $value['issue_id'],
                         1 => $value['request']['name'],
                         2 => $value['priority']['prio_name'],
-                        3 => $value['issue_date'],
+                        3 => \Carbon\Carbon::parse($value['issue_date'])->formatLocalized('%d %B %Y | %H:%M:%S'),
                         4 => $value['category']['cat_name'],
                         5 => $value['location'],
                         6 => $status
@@ -99,7 +108,7 @@ class pdfController extends Controller
             break;
             case 'laporan_inventaris': 
                 $get = \App\Models\inventory::with('cat_inventory')->whereIn('id',$arr_export)->get();
-                $head = ['Kategori Inventaris', 'Lokasi', 'Merk', 'Tanggal Pembelian', 'Tanggal Penyerahan', 'Status'];
+                $head = ['Kategori Inventaris', 'Lokasi', 'Merk', 'Status'];
                 $title = 'Laporan Inventaris';
                 foreach ($get as $key => $value) {
                     if ($value['is_active'] == 0){ $status = 'Non Aktif';};
@@ -108,9 +117,9 @@ class pdfController extends Controller
                         0 => $value['cat_inventory']['nama_cat'],
                         1 => $value['lokasi'],
                         2 => $value['merk'],
-                        3 => $value['tgl_pembelian'],
-                        4 => $value['tgl_penyerahan'],
-                        5 => $status,
+                        // 3 => $value['tgl_pembelian'],
+                        // 4 => $value['tgl_penyerahan'],
+                        3 => $status,
                     ];   
                 }
             break;
@@ -123,17 +132,25 @@ class pdfController extends Controller
                 $head = ['Kategori', 'Kode', 'Prioritas', 'Permintaan', 'Penialaian', 'Status', 'Waktu Keluhan'];
                 $title = 'Penilaian';
                 foreach ($get as $key => $value) {
-                    if ($value['status'] == null){ $status = 'Menunggu IT Administrator';};
-                    if ($value['status'] == 'RITADM'){ $status = "Ditolak & Menunggu Alasan Dari IT Administrator";}
-                    if ($value['status'] == 'AITADM'){ $status = "Diterima IT Administrator";}
-                    if ($value['status'] == 'ITSP'){ $status = "Diteruskan ke IT Support";}
-                    if ($value['status'] == 'RITSP'){ $status = "Keluhan Tidak Dapat Diatasi Oleh IT Support & Menunggu Konfirmasi Dari IT Administrator";}
-                    if ($value['status'] == 'AITSP'){ $status = "Menunggu Solusi Dari IT Support";}
-                    if ($value['status'] == 'ITOPS'){ $status = "Menunggu Solusi Dari IT OPS";}
-                    if ($value['status'] == 'CLOSE'){ $status = "Keluhan Ditutup";}
-                    if ($value['status'] == 'SLITADM'){ $status = "Solusi Telah Diberikan IT Administrator";}
-                    if ($value['status'] == 'SLITOPS'){ $status = "Solusi Telah Diberikan IT OPS";}
-                    if ($value['status'] == 'RT'){ $status = "User Telah Memberi Rating";}
+                    if ($value['status'] == null){ $status="Menunggu IT Administrator"; }
+                    if ($value['status'] == 'AITADM'){ $status="Diterima IT Administrator"; }
+                    if ($value['status'] == 'ITADM'){ $status="Diteruskan ke IT Administrator"; }
+                    if ($value['status'] == 'ITSP'){ $status="Diteruskan ke IT Support"; }
+                    if ($value['status'] == 'RITADM'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Administrator"; }
+                    if ($value['status'] == 'RITSP'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Support"; }
+                    if ($value['status'] == 'AITSP'){ $status="Menunggu Tindakan Dari IT Support"; }
+                    if ($value['status'] == 'ITOPS'){ $status="Menunggu Tindakan Dari IT OPS"; }
+                    if ($value['status'] == 'CLOSE'){ $status="Keluhan Selesai"; }
+                    if ($value['status'] == 'SLITADM'){ $status="Solusi Telah Diberikan IT Administrator"; }
+                    if ($value['status'] == 'SLITOPS'){ $status="Solusi Telah Diberikan IT OPS"; }
+                    if ($value['status'] == 'SLITSP'){ $status="Solusi Telah Diberikan IT Support"; }
+                    if ($value['status'] == 'LITADM'){ $status="IT Administrator Menuju ke Lokasi"; }
+                    if ($value['status'] == 'LITOPS'){ $status="IT OPS Menuju ke Lokasi"; }
+                    if ($value['status'] == 'LITSP'){ $status="IT Support Menuju ke Lokasi"; }
+                    if ($value['status'] == 'DLITADM'){ $status="Sedang Dalam Tindakan IT Administrator"; }
+                    if ($value['status'] == 'DLITOPS'){ $status="Sedang Dalam Tindakan IT OPS"; }
+                    if ($value['status'] == 'DLITSP'){ $status="Sedang Dalam Tindakan IT Support"; }
+                    if ($value['status'] == 'RT'){ $status="User Telah Memberi Rating"; }
                     $isinya[$key]=[
                         0 => $value['category']['cat_name'],
                         1 => $value['issue_id'],
@@ -141,7 +158,7 @@ class pdfController extends Controller
                         3 => $value['request']['name'],
                         4 => $value['rating']['rate'].' Bintang',
                         5 => $status,
-                        6 => $value['issue_date'],
+                        6 => \Carbon\Carbon::parse($value['issue_date'])->formatLocalized('%d %B %Y | %H:%M:%S'),
                     ];   
                 }
             break; 
@@ -236,9 +253,9 @@ class pdfController extends Controller
                 2 => $value['prob_desc'],
                 3 => $value['complete']['name'],
                 4 => $value['no_tlp'],   
-                5 => $value['issue_date'],
-                6 => $value['waktu_tindakan'],
-                7 => $value['solution_date'],
+                5 => \Carbon\Carbon::parse($value['issue_date'])->formatLocalized('%d %B %Y | %H:%M:%S'),
+                6 => \Carbon\Carbon::parse($value['waktu_tindakan'])->formatLocalized('%d %B %Y | %H:%M:%S'),
+                7 => \Carbon\Carbon::parse($value['solution_date'])->formatLocalized('%d %B %Y | %H:%M:%S'),
                 8 => $tanggap,
                 9 => $value['solution_desc']
             ];   

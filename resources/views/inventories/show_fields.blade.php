@@ -9,7 +9,11 @@
     {!! Form::label('nama_perangkat', 'Nama Perangkat:') !!}
     <p>{!! $inventory->nama_perangkat !!}</p>
 </div>
-
+<div class="form-group">
+        {!! Form::label('lokasi', 'Lokasi:') !!}
+        <p>{!! $inventory->lokasi !!}</p>
+    </div>
+    
 <!-- Type Alat Field -->
 <div class="form-group">
     {!! Form::label('type_alat', 'Type Alat:') !!}

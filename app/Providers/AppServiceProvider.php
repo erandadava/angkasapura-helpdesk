@@ -18,6 +18,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        setlocale(LC_TIME, 'id');
+        \Carbon\Carbon::setLocale('id');
         date_default_timezone_set('Asia/Jakarta');
         $date = date('H:i:s', time());
         $this->data['status_jam'] = 0;

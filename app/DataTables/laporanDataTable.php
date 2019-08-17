@@ -15,7 +15,7 @@ class laporanDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-        return $dataTable->addColumn('action', 'laporans.datatables_actions')
+        return $dataTable->addColumn('action', 'laporans.datatables_actions_bulanan')
         // return $dataTable->editColumn('sernum', function ($inquiry)
         // {
         //     return (int) $inquiry->sernum_count;
