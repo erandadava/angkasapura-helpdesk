@@ -25,7 +25,9 @@
                 var old_check = false;
                 $('.check:button').click(function(){
                     if(old_check == false){
-                        $('input:checkbox').attr('checked','checked');
+                        $('input:checkbox').each(function() {
+                            this.checked = true;
+                        });
                         $(this).val('Uncheck All');
                         old_value = [];
                         all.forEach(element => {
@@ -34,7 +36,9 @@
                         old_check = true;
                         check_all = true;
                     }else{
-                        $('input:checkbox').removeAttr('checked');
+                        $('input:checkbox').each(function() {
+                            this.checked = false;
+                        });
                         $(this).val('Check All');
                         old_check = false;
                         check_all = false;
