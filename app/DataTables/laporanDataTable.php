@@ -33,7 +33,9 @@ class laporanDataTable extends DataTable
             $hasil = number_format($hasil, 2, '.', ' ');
             return $hasil.'%';
         })
-
+        ->with('all_data', function() use ($query) {
+            return $query->get();
+        })
         ->rawColumns(['status','action','prob_desc']);
     }
 

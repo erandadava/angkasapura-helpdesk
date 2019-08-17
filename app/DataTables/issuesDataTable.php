@@ -71,6 +71,9 @@ class issuesDataTable extends DataTable
                 if ($inquiry->status == 'RT') return "<span class='label label-warning'>User Telah Memberi Rating</span>";
                 return 'Cancel';
         })
+        ->with('all_data', function() use ($query) {
+            return $query->get();
+        })
         ->rawColumns(['status','action']);
 
     }

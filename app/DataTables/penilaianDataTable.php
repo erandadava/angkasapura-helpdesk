@@ -48,6 +48,9 @@ class penilaianDataTable extends DataTable
             if ($inquiry->rating->rate == '5') return "<p><span class='glyphicon glyphicon-star' style='color:orange'></span><span class='glyphicon glyphicon-star' style='color:orange'></span><span class='glyphicon glyphicon-star' style='color:orange'></span><span class='glyphicon glyphicon-star' style='color:orange'></span><span class='glyphicon glyphicon-star' style='color:orange'></span></p>";
             return '0';
         })
+        ->with('all_data', function() use ($query) {
+            return $query->get();
+        })
         ->rawColumns(['status','rating.rate','action']);
     }
 

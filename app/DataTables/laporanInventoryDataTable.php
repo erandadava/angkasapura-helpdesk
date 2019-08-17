@@ -23,6 +23,9 @@ class laporanInventoryDataTable extends DataTable
             if ($inquiry->is_active == 1) return "<span class='label label-success'>Aktif</span>";
             return 'Cancel';
         })
+        ->with('all_data', function() use ($query) {
+            return $query->get();
+        })
         ->rawColumns(['is_active','action']);
     }
 

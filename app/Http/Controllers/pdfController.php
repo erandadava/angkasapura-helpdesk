@@ -12,19 +12,21 @@ use Carbon\Carbon;
 
 class pdfController extends Controller
 {
-    public function make_pdf($tabel){
+    public function make_pdf($tabel, Request $request){
         $user = Auth::user();
         $roles = $user->getRoleNames();
-        $tabel = \Crypt::decrypt($tabel);
+        // $tabel = \Crypt::decrypt($tabel);
+        $myString = $request->exportid;
+        $arr_export = explode(',', $myString);
         $isinya = [];
         switch ($tabel) {
             case 'issues':
                 if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
-                    $get = \App\Models\issues::with(['category','priority','request'])->get();
+                    $get = \App\Models\issues::with(['category','priority','request'])->whereIn('id',$arr_export)->get();
                 }elseif($roles[0] == "IT Non Public"){
-                    $get = \App\Models\issues::with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->get();
+                    $get = \App\Models\issues::with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->whereIn('id',$arr_export)->get();
                 }else{
-                    $get = \App\Models\issues::with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->get();
+                    $get = \App\Models\issues::with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->whereIn('id',$arr_export)->get();
                 }
                 $head = ['Kode', 'Permintaan Oleh', 'Prioritas', 'Waktu Keluhan', 'Kategori', 'Lokasi', 'Status'];
                 $title = 'Ticket';
@@ -52,7 +54,7 @@ class pdfController extends Controller
                 }
                 break; 
             case 'inventories': 
-                $get = \App\Models\inventory::with('cat_inventory')->get();
+                $get = \App\Models\inventory::with('cat_inventory')->whereIn('id',$arr_export)->get();
                 $head = ['Kategori Inventaris', 'Lokasi', 'Nama Perangkat', 'Merk', 'Status'];
                 $title = 'Inventaris';
                 foreach ($get as $key => $value) {
@@ -69,7 +71,7 @@ class pdfController extends Controller
                 break;
             case 'laporan_bulanan' :
                 $now = Carbon::now();
-                $get = \App\Models\inventory::with(['issues'])->withCount(['issuesjml','issuesjmlsla'])->get();
+                $get = \App\Models\inventory::with(['issues'])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
                 $head = ['Nama User','Nama Perangkat','Serial Number','Merk','Nama Perangkat Full','Jumlah Keluhan', 'SLA'];
                 $title = 'Laporan Bulanan';
                 foreach ($get as $key => $value) {
@@ -96,7 +98,7 @@ class pdfController extends Controller
                 }
             break;
             case 'laporan_inventaris': 
-                $get = \App\Models\inventory::with('cat_inventory')->get();
+                $get = \App\Models\inventory::with('cat_inventory')->whereIn('id',$arr_export)->get();
                 $head = ['Kategori Inventaris', 'Lokasi', 'Merk', 'Tanggal Pembelian', 'Tanggal Penyerahan', 'Status'];
                 $title = 'Laporan Inventaris';
                 foreach ($get as $key => $value) {
@@ -114,9 +116,9 @@ class pdfController extends Controller
             break;
             case 'penilaian':        
                 if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
-                    return $model->with(['category','priority','request','rating'])->where('status','=','RT')->newQuery();
+                    $get = \App\Models\issues::with(['category','priority','request','rating'])->where('status','=','RT')->orWhere('status','=','CLOSE')->whereIn('id',$arr_export)->get();
                 }else{
-                    $get = \App\Models\issues::with(['category','priority','request','rating'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['assign_it_ops','=',$user->id],['status','=','RT']])->orWhere([['assign_it_support','=',$user->id],['status','=','RT']])->get();
+                    $get = \App\Models\issues::with(['category','priority','request','rating'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['request_id','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_ops','=',$user->id],['status','=','RT']])->orWhere([['assign_it_ops','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_support','=',$user->id],['status','=','RT']])->orWhere([['assign_it_support','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_admin','=',$user->id],['status','=','RT']])->orWhere([['assign_it_admin','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->get();
                 }
                 $head = ['Kategori', 'Kode', 'Prioritas', 'Permintaan', 'Penialaian', 'Status', 'Waktu Keluhan'];
                 $title = 'Penilaian';

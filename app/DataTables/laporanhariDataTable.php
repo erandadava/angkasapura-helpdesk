@@ -48,6 +48,9 @@ class laporanhariDataTable extends DataTable
             $totalDuration = $finish->diffInSeconds(Carbon::parse($inquiry->waktu_tindakan));
             return gmdate('H:i:s', $totalDuration);
         })
+        ->with('all_data', function() use ($query) {
+            return $query->get();
+        })
         ->rawColumns(['status','prob_desc','solution_desc','reason_desc','action']);
     }
 

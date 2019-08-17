@@ -5,8 +5,9 @@
         <h1 class="pull-left">Inventaris</h1>
         <h1 class="pull-right">
             <div class="btn-group">
-                <a class="btn btn-warning" style="margin-top: -10px;margin-bottom: 5px" href="/exportpdf/{{Crypt::encrypt('inventories')}}">Export To PDF</a>
-                <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('inventories.create') !!}">Add New</a>
+                <a class="btn btn-warning" style="margin-top: -10px;margin-bottom: 5px" onclick="submitcheck('/exportpdf/inventories')" target="_blank">Export To PDF</a>
+                <a class="btn btn-primary" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('inventories.create') !!}">Add New</a>
+                <input type="button" style="margin-top: -10px;margin-bottom: 5px" class="check btn btn-default" value="Check All" />
             </div>
         </h1>
     </section>
