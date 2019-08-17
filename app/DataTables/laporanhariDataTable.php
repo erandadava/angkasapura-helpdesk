@@ -65,7 +65,7 @@ class laporanhariDataTable extends DataTable
         $now = Carbon::now();
         $user = Auth::user();
         $roles = $user->getRoleNames();
-        if($roles[0] == "IT Non Public"){
+        if($roles[0] == "IT Non Public" || $roles[0] == "IT Operasional" || $roles[0] == "Admin"){
             $hasil = \App\Models\issues::select('*',
             \DB::raw('(CASE 
                         WHEN DATE_FORMAT(issue_date,"%H:%i:%s") >= "07:00:00" &&  DATE_FORMAT(issue_date,"%H:%i:%s") <= "19:00:00" THEN "Laporan Pagi" 
@@ -77,6 +77,9 @@ class laporanhariDataTable extends DataTable
             ->where([['status','=','CLOSE']])
             ->whereDate('complete_date','=',$now->format('Y-m-d'))
             ->orWhereColumn('assign_it_support', 'complete_by')
+            ->where([['status','=','CLOSE']])
+            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->orWhereColumn('assign_it_admin', 'complete_by')
             ->where([['status','=','CLOSE']])
             ->whereDate('complete_date','=',$now->format('Y-m-d'))
             ->orderBy('status_laporan','desc')

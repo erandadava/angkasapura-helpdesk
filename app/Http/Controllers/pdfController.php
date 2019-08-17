@@ -161,24 +161,27 @@ class pdfController extends Controller
         $myString = $request->exportid;
         $arr_export = explode(',', $myString);
         $now = Carbon::now();
-        if($roles[0] == 'IT Operasional'){
-            $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
-            ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
-            ->whereDate('complete_date','=',$now->format('Y-m-d'))
-            ->whereIn('id',$arr_export)
-            ->orderBy('issue_date', 'DESC')
-            ->get()
-            ->sortByDesc(function($product){
-                return $product->laporan;
-            });
-        }else{
-            if($roles[0] == "IT Non Public"){
+        // if($roles[0] == 'IT Operasional'){
+        //     $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
+        //     ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
+        //     ->whereDate('complete_date','=',$now->format('Y-m-d'))
+        //     ->whereIn('id',$arr_export)
+        //     ->orderBy('issue_date', 'DESC')
+        //     ->get()
+        //     ->sortByDesc(function($product){
+        //         return $product->laporan;
+        //     });
+        // }else{
+            if($roles[0] == "IT Non Public" || $roles[0] == "IT Operasional"){
                 $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
                 ->whereColumn('assign_it_ops', 'complete_by')
                 ->where([['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
                 ->whereIn('id',$arr_export)
                 ->orWhereColumn('assign_it_support', 'complete_by')
+                ->where([['status','=','CLOSE']])
+                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->orWhereColumn('assign_it_admin', 'complete_by')
                 ->where([['status','=','CLOSE']])
                 ->whereDate('complete_date','=',$now->format('Y-m-d'))
                 ->whereIn('id',$arr_export)
@@ -203,7 +206,7 @@ class pdfController extends Controller
                 ->sortByDesc(function($product){
                     return $product->laporan;
                 });
-            }
+            // }
 
             
         }
