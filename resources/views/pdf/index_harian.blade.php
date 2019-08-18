@@ -122,7 +122,7 @@
                                             $sebelumnya = $group[$key][0];   
                                         @endphp
                                         <tr class="group">
-                                            <td colspan="11">
+                                            <td colspan="10">
                                                 {{ $group[$key][1] }}
                                             </td>
                                         </tr>
