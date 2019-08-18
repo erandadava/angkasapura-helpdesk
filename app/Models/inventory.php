@@ -127,11 +127,11 @@ class inventory extends Model
     public function getSernumidAttribute()
     {
         if($this->sernum == null && $this->tech_kode != null){
-            return 'Teknisi Kode : ' .$this->tech_kode;
+            return $this->tech_kode;
         }elseif($this->sernum != null && $this->tech_kode == null){
-            return 'Sernum : '.$this->sernum;
+            return $this->sernum;
         }else{
-            return 'Sernum : '. $this->sernum . ' | Teknisi Kode : ' . $this->tech_kode;
+            return $this->tech_kode;
         }
     }
 

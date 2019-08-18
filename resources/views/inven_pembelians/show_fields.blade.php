@@ -9,7 +9,7 @@
 <!-- Unit Kerja Field -->
 <div class="form-group">
     {!! Form::label('unit_kerja', 'Unit Kerja:') !!}
-    <p>{!! $invenPembelian->unit_kerjas->nama_uk ?? '' !!}</p>
+    <p>{!! $invenPembelian->unit_kerja !!}</p>
 </div>
 
 <!-- Nama Alat Field -->

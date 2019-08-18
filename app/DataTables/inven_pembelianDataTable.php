@@ -65,7 +65,7 @@ class inven_pembelianDataTable extends DataTable
         return [
             // 'id_inventory_fk',
             ['data' => 'nama_perangkat', 'title' => 'Nama Perangkat'],
-            ['data' => 'unit_kerjas.nama_uk', 'title' => 'Nama Perangkat'],
+            ['data' => 'unit_kerja', 'title' => 'Unit Kerja'],
             ['data' => 'nama_alat', 'title' => 'Nama Alat'],
             ['data' => 'keperluan', 'title' => 'Keperluan'],
             ['data' => 'tgl_pembelian', 'title' => 'Tanggal Pembelian'],
