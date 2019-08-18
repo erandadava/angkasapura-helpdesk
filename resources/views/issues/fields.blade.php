@@ -41,6 +41,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('dev_ser_num', 'Serial Number/ID Perangkat:') !!}
     <select class="form-control" name="dev_ser_num">
+    <option name="dev_ser_num" value="0"> - </option>
         @foreach($sernum as $key => $val)
         <optgroup label="{{$val->nama_cat}}">
             @foreach($val->inventory as $dt)
