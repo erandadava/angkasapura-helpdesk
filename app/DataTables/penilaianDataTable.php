@@ -51,9 +51,6 @@ class penilaianDataTable extends DataTable
         ->with('all_data', function() use ($query) {
             return $query->get();
         })
-        ->editColumn('issue_date', function ($inquiry) {
-            return \Carbon\Carbon::parse($inquiry->issue_date)->formatLocalized('%d %B %Y | %H:%M:%S');
-       })
         ->rawColumns(['status','rating.rate','action']);
     }
 

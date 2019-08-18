@@ -100,7 +100,7 @@
     <div class="row">
         <div class='col-sm-12'>
             <h1>{{$title}}</h1>
-            <small>{!! \Carbon\Carbon::now() !!}</small>
+            <small>{!!\Carbon\Carbon::parse(\Carbon\Carbon::now())->formatLocalized('%d %B %Y') !!}</small>
         </div>
         <div class="col-sm-12">
             <div class="table">

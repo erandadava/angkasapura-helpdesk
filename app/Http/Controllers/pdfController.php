@@ -55,7 +55,7 @@ class pdfController extends Controller
                         0 => $value['issue_id'],
                         1 => $value['request']['name'],
                         2 => $value['priority']['prio_name'],
-                        3 => \Carbon\Carbon::parse($value['issue_date'])->formatLocalized('%d %B %Y | %H:%M:%S'),
+                        3 => $value['issue_date'],
                         4 => $value['category']['cat_name'],
                         5 => $value['location'],
                         6 => $status
@@ -158,7 +158,7 @@ class pdfController extends Controller
                         3 => $value['request']['name'],
                         4 => $value['rating']['rate'].' Bintang',
                         5 => $status,
-                        6 => \Carbon\Carbon::parse($value['issue_date'])->formatLocalized('%d %B %Y | %H:%M:%S'),
+                        6 => $value['issue_date'],
                     ];   
                 }
             break; 
@@ -253,9 +253,9 @@ class pdfController extends Controller
                 2 => $value['prob_desc'],
                 3 => $value['complete']['name'],
                 4 => $value['no_tlp'],   
-                5 => \Carbon\Carbon::parse($value['issue_date'])->formatLocalized('%d %B %Y | %H:%M:%S'),
-                6 => \Carbon\Carbon::parse($value['waktu_tindakan'])->formatLocalized('%d %B %Y | %H:%M:%S'),
-                7 => \Carbon\Carbon::parse($value['solution_date'])->formatLocalized('%d %B %Y | %H:%M:%S'),
+                5 => $value['issue_date'],
+                6 => $value['waktu_tindakan'],
+                7 => $value['solution_date'],
                 8 => $tanggap,
                 9 => $value['solution_desc']
             ];   

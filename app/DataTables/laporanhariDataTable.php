@@ -48,18 +48,6 @@ class laporanhariDataTable extends DataTable
             $totalDuration = $finish->diffInSeconds(Carbon::parse($inquiry->waktu_tindakan));
             return gmdate('H:i:s', $totalDuration);
         })
-        ->editColumn('waktu_tindakan', function ($inquiry) {
-            return \Carbon\Carbon::parse($inquiry->waktu_tindakan)->formatLocalized('%d %B %Y | %H:%M:%S');
-       })
-        ->editColumn('issue_date', function ($inquiry) {
-        return \Carbon\Carbon::parse($inquiry->issue_date)->formatLocalized('%d %B %Y | %H:%M:%S');
-        })
-        ->editColumn('solution_date', function ($inquiry) {
-            return \Carbon\Carbon::parse($inquiry->solution_date)->formatLocalized('%d %B %Y | %H:%M:%S');
-        })
-        ->editColumn('issue_date', function ($inquiry) {
-            return \Carbon\Carbon::parse($inquiry->issue_date)->formatLocalized('%d %B %Y | %H:%M:%S');
-        })
         ->with('all_data', function() use ($query) {
             return $query->get();
         })
