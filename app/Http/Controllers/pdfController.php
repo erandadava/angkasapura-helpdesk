@@ -29,7 +29,7 @@ class pdfController extends Controller
                     $get = \App\Models\issues::with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->whereIn('id',$arr_export)->get();
                 }
                 $head = ['Kode', 'Permintaan Oleh', 'Prioritas', 'Waktu Keluhan', 'Kategori', 'Lokasi', 'Status'];
-                $title = 'Ticket';
+                $title = 'Tiket';
                 foreach ($get as $key => $value) {
 
                     if ($value['status'] == null){ $status="Menunggu IT Administrator"; }
