@@ -30,7 +30,7 @@
 
 @hasrole('Admin')
 <div class="form-group">
-    {!! Form::label('roles', 'Roles:') !!}
+    {!! Form::label('roles', 'Tugas:') !!}
     <p>{!! $users->model_has_roles->roles->name !!}</p>
 </div>
 <!-- Created At Field -->
