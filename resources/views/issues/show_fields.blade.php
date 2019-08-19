@@ -671,7 +671,7 @@
 </div>
 
   @endif
-  @if($issues->status == 'RITSP' || $issues->status == 'RITADM')
+  @if(($issues->status == 'RITSP' || $issues->status == 'RITADM') && $status_jam == 1)
   <div class="form-group col-md-2 col-sm-12">
           <button class='btn btn-default btn-md' data-toggle="modal" data-target="#myModalItOPS">
               <i class="glyphicon glyphicon-share"></i> Ajukan ke IT OPS
@@ -773,51 +773,52 @@
 @endhasrole
 
 
+@hasrole('User')
 {{-- UNTUK USER --}}
-    @if ((Auth::check()) && ($issues->request_id == Auth::user()->id))
-      @if(($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_admin != null && $issues->complete_by == $issues->assign_it_admin)) 
-      <!-- Button untuk IT NP -->
-      <div class="form-group col-md-2 col-sm-12">
-      
-              <button class='btn btn-warning btn-md' data-toggle="modal" data-target="#rate">
-                  <i class="glyphicon glyphicon-star"></i> Beri Penilaian
-              </button>
-      
-      </div>
-      <!-- ---------------------- -->
-    <!-- Modal -->
-    <div id="rate" class="modal fade" role="dialog">
-      <div class="modal-dialog modal-lg">
+@if ((Auth::check()) && ($issues->request_id == Auth::user()->id))
+@if(($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_admin != null && $issues->complete_by == $issues->assign_it_admin)) 
+<!-- Button untuk IT NP -->
+<div class="form-group col-md-2 col-sm-12">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Penilaian</h4>
+        <button class='btn btn-warning btn-md' data-toggle="modal" data-target="#rate">
+            <i class="glyphicon glyphicon-star"></i> Beri Penilaian
+        </button>
+
+</div>
+<!-- ---------------------- -->
+<!-- Modal -->
+<div id="rate" class="modal fade" role="dialog">
+<div class="modal-dialog modal-lg">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Penilaian</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+      {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
+      {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
+          <div class="form-group col-sm-12 col-lg-12">
+              <center>
+                <h3>Beri rating untuk pelayanan kami</h3>
+                </br>
+                <input id="input-id" name="rate" type="text" class="rating" data-size="lg" data-min="1" data-max="5" data-step="1">
+              </center>
           </div>
-          <div class="modal-body">
-            <div class="row">
-            {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
-            {!! Form::hidden('status', 'CLOSE', ['class' => 'form-control'])!!}
-                <div class="form-group col-sm-12 col-lg-12">
-                    <center>
-                      <h3>Beri rating untuk pelayanan kami</h3>
-                      </br>
-                      <input id="input-id" name="rate" type="text" class="rating" data-size="lg" data-min="1" data-max="5" data-step="1">
-                    </center>
-                </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Kirim</button>
-          </div>
-        </div>
-        {!! Form::close() !!}
       </div>
     </div>
-    @endif
-    @endif
-
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-default" onclick="return confirm('Yakin?')">Kirim</button>
+    </div>
+  </div>
+  {!! Form::close() !!}
+</div>
+</div>
+@endif
+@endif
+@endhasrole
 
 {{-- UNTUK IT NON PUBLIC --}}
 @hasrole('IT Non Public')
@@ -839,7 +840,7 @@
     <div class="form-group col-md-2 col-sm-12">
     
             <button class='btn btn-warning btn-md' data-toggle="modal" data-target="#rate">
-                <i class="glyphicon glyphicon-star"></i> Penilaian
+                <i class="glyphicon glyphicon-star"></i> Beri Penilaian
             </button>
     
     </div>

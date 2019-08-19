@@ -34,7 +34,8 @@ class users extends Model
         'remember_token',
         'username',
         'verified',
-        'id_unit_kerja'
+        'id_unit_kerja',
+        'nip'
     ];
 
     /**

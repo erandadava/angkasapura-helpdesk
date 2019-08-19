@@ -73,6 +73,7 @@ class inventory extends Model
         'conn_type',
         'mac_addr',
         'is_active',
+        'id_pemilik_perangkat'
     ];
         /**
      * The attributes that should be casted to native types.
@@ -148,5 +149,10 @@ class inventory extends Model
     public function issuesjmlsla()
     {
         return $this->hasMany('App\Models\issues','dev_ser_num','id');
+    }
+
+    public function pemilik_perangkat()
+    {
+        return $this->hasOne('App\Models\users','id','id_pemilik_perangkat');
     }
 }

@@ -1,3 +1,7 @@
+<div class="form-group col-sm-6">
+    {!! Form::label('id_pemilik_perangkat', 'NIP Pemilik Perangkat:') !!}
+    {!! Form::select('id_pemilik_perangkat', $pemilik, null, ['class' => 'form-control']) !!}
+</div>
 <!-- Cat Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('cat_id', 'Category/Type Device:') !!}
