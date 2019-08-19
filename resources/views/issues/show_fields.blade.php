@@ -804,7 +804,7 @@
               <center>
                 <h3>Beri rating untuk pelayanan kami</h3>
                 </br>
-                <input id="input-id" name="rate" type="text" class="rating" data-size="lg" data-min="1" data-max="5" data-step="1">
+                <input id="input-id" name="rate" type="text" class="rating" data-size="lg" data-min="0" data-max="5" data-step="1">
               </center>
           </div>
       </div>
@@ -863,7 +863,7 @@
                   <center>
                     <h3>Beri rating untuk pelayanan kami</h3>
                     </br>
-                    <input id="input-id" name="rate" type="text" class="rating" data-size="lg" data-min="1" data-max="5" data-step="1">
+                    <input id="input-id" name="rate" type="text" class="rating" data-size="lg" data-min="0" data-max="5" data-step="1">
                   </center>
               </div>
           </div>
