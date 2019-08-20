@@ -69,3 +69,4 @@ Route::resource('pemeriksaanPerangkats', 'pemeriksaan_perangkatController');
 Route::resource('unitKerjas', 'unit_kerjaController');
 
 Route::get('/notif', 'notifikasiController@realtime_notification');
+Route::get('/get_sernum/{id}', 'issuesController@get_sernum');
