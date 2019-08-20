@@ -3,7 +3,7 @@
     <a href="{{ route('issues.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
     </a>
-    @hasrole('IT Operasional')
+    @hasrole('IT Operasional|IT Non Public')
         &nbsp;&nbsp;<input type='checkbox' name='exportid[]' id='checkexport{{$id}}' onclick = "tocheck({{$id}})">
     @endhasrole
 </div>
