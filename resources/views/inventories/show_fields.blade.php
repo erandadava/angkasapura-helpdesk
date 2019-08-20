@@ -31,18 +31,18 @@
 
 <!-- Sernum Field -->
 <div class="form-group col-md-3">
-    {!! Form::label('sernum', 'Sernum:') !!}
+    {!! Form::label('sernum', 'Serial Number:') !!}
     <p>{!! $inventory->sernum !!}</p>
 </div>
 
 <!-- Nama Perangkat Field -->
 <div class="form-group col-md-3">
-    {!! Form::label('made_in', 'Made in:') !!}
+    {!! Form::label('made_in', 'Dibuat di:') !!}
     <p>{!! $inventory->made_in !!}</p>
 </div>
 
 <div class="form-group col-md-3">
-    {!! Form::label('made_year', 'Made Year:') !!}
+    {!! Form::label('made_year', 'Tahun Dibuat:') !!}
     <p>{!! $inventory->made_year !!}</p>
 </div>
 </div>
@@ -50,7 +50,7 @@
 
 <div class="row">
     <div class="form-group col-md-3">
-        {!! Form::label('condition', 'Condition:') !!}
+        {!! Form::label('condition', 'Kondisi:') !!}
         <p>{!! $inventory->condition !!}</p>
     </div>
     
@@ -68,7 +68,7 @@
     
     <!-- Os License Field -->
     <div class="form-group col-md-3">
-        {!! Form::label('update_kasp', 'update kasp:') !!}
+        {!! Form::label('update_kasp', 'Update Kaspersky:') !!}
         <p>{!! $inventory->update_kasp !!}</p>
     </div>
 </div>
