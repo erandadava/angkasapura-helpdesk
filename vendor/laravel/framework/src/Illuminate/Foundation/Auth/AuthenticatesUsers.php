@@ -94,6 +94,7 @@ trait AuthenticatesUsers
                 
                     $create_user = \App\User::insert([
                         'username' => $hasil['username'],
+                        'nip' => $hasil['nip'],
                         'name' => $hasil['name'],
                         'password' => bcrypt($request->password),
                         'verified' => 1,
