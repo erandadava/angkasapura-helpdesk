@@ -11,10 +11,10 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('issues.show_fields')
-                    <div class="row" style="padding-left: 15px">
-                        <div class="col-md-12">
-                            <a href="{!! route('issues.index') !!}" class="btn btn-default">Back</a>
-                        </div>
+                </div>
+                <div class="row" style="padding-left: 20px">
+                    <div class="col-md-12">
+                        <a href="{!! route('issues.index') !!}" class="btn btn-default">Back</a>
                     </div>
                 </div>
             </div>
