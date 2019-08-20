@@ -10,6 +10,6 @@
         </a>
     </div>
     @endhasrole
-
+    &nbsp;&nbsp;<input type='checkbox' name='exportid[]' id='checkexport{{$id}}' onclick = "tocheck({{$id}})">
 
 

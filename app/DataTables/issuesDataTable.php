@@ -30,7 +30,7 @@ class issuesDataTable extends DataTable
                 if ($inquiry->status == 'RITSP') return "<span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span>";
                 if ($inquiry->status == 'AITSP') return "<span class='label label-warning'>Menunggu Tindakan Dari IT Support</span>";
                 if ($inquiry->status == 'ITOPS') return "<span class='label label-warning'>Menunggu Tindakan Dari IT OPS</span>";
-                if ($inquiry->status == 'CLOSE') return "<span class='label label-success'>Hasil Tindakan</span>";
+                if ($inquiry->status == 'CLOSE') return "<span class='label label-success'>Keluhan Selesai</span>";
                 if ($inquiry->status == 'SLITADM') return "<span class='label label-success'>Solusi Telah Diberikan IT Administrator</span>";
                 if ($inquiry->status == 'SLITOPS') return "<span class='label label-success'>Solusi Telah Diberikan IT OPS</span>";
                 if ($inquiry->status == 'SLITSP') return "<span class='label label-success'>Solusi Telah Diberikan IT Support</span>";
@@ -45,6 +45,9 @@ class issuesDataTable extends DataTable
             })
             ->setRowClass(function($dataTable) {
                 return $dataTable->status_alert == 0 ? '' : 'danger';
+            })
+            ->with('all_data', function() use ($query) {
+                return $query->get();
             })
             ->rawColumns(['status','action']);
         }
@@ -70,6 +73,9 @@ class issuesDataTable extends DataTable
                 if ($inquiry->status == 'DLITSP') return "<span class='label label-warning'>Sedang Dalam Tindakan IT Support</span>";
                 if ($inquiry->status == 'RT') return "<span class='label label-warning'>User Telah Memberi Rating</span>";
                 return 'Cancel';
+        })
+        ->with('all_data', function() use ($query) {
+            return $query->get();
         })
         ->rawColumns(['status','action']);
 

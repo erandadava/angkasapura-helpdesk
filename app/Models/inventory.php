@@ -73,6 +73,7 @@ class inventory extends Model
         'conn_type',
         'mac_addr',
         'is_active',
+        'id_pemilik_perangkat'
     ];
         /**
      * The attributes that should be casted to native types.
@@ -127,11 +128,11 @@ class inventory extends Model
     public function getSernumidAttribute()
     {
         if($this->sernum == null && $this->tech_kode != null){
-            return 'Teknisi Kode : ' .$this->tech_kode;
+            return $this->tech_kode;
         }elseif($this->sernum != null && $this->tech_kode == null){
-            return 'Sernum : '.$this->sernum;
+            return $this->sernum;
         }else{
-            return 'Sernum : '. $this->sernum . ' | Teknisi Kode : ' . $this->tech_kode;
+            return $this->tech_kode;
         }
     }
 
@@ -148,5 +149,10 @@ class inventory extends Model
     public function issuesjmlsla()
     {
         return $this->hasMany('App\Models\issues','dev_ser_num','id');
+    }
+
+    public function pemilik_perangkat()
+    {
+        return $this->hasOne('App\Models\users','id','id_pemilik_perangkat');
     }
 }

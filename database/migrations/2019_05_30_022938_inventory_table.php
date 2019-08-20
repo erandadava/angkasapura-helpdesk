@@ -16,6 +16,7 @@ class InventoryTable extends Migration
         Schema::create('inventory', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cat_id')->nullable();
+            $table->integer('id_pemilik_perangkat')->nullable();
             $table->string('nama_perangkat')->nullable();
             $table->string('lokasi')->nullable();
             $table->string('nama_user')->nullable();

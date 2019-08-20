@@ -25,7 +25,7 @@ Auth::routes();
 Route::get('register/verify', 'Auth\RegisterController@verify')->name('verifyEmailLink');
 Route::get('register/verify/resend', 'Auth\RegisterController@showResendVerificationEmailForm')->name('showResendVerificationEmailForm');
 Route::post('register/verify/resend', 'Auth\RegisterController@resendVerificationEmail')->name('resendVerificationEmail');
-Route::get('/exportpdf/{table}', 'pdfController@make_pdf');
+Route::post('/exportpdf/{table}', 'pdfController@make_pdf');
 Route::post('/exportpdflaporanharian', 'pdfController@make_pdf_laporan_harian');
 
 Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|Admin|IT Non Public','isEmailVerified']], function ()
@@ -69,3 +69,4 @@ Route::resource('pemeriksaanPerangkats', 'pemeriksaan_perangkatController');
 Route::resource('unitKerjas', 'unit_kerjaController');
 
 Route::get('/notif', 'notifikasiController@realtime_notification');
+Route::get('/get_sernum/{id}', 'issuesController@get_sernum');

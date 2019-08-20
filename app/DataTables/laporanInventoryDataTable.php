@@ -23,6 +23,9 @@ class laporanInventoryDataTable extends DataTable
             if ($inquiry->is_active == 1) return "<span class='label label-success'>Aktif</span>";
             return 'Cancel';
         })
+        ->with('all_data', function() use ($query) {
+            return $query->get();
+        })
         ->rawColumns(['is_active','action']);
     }
 
@@ -71,8 +74,8 @@ class laporanInventoryDataTable extends DataTable
             ['data' => 'cat_inventory.nama_cat', 'title' => 'Kategori Inventaris'],
             ['data' => 'lokasi', 'title' => 'Lokasi'],
             ['data' => 'merk', 'title' => 'Merk'],
-            ['data' => 'tgl_pembelian', 'title' => 'Tanggal Pembelian'],
-            ['data' => 'tgl_penyerahan', 'title' => 'Tanggal Penyerahan'],
+            // ['data' => 'tgl_pembelian', 'title' => 'Tanggal Pembelian'],
+            // ['data' => 'tgl_penyerahan', 'title' => 'Tanggal Penyerahan'],
             ['data' => 'is_active', 'title' => 'Status'],
         ];
     }

@@ -11,5 +11,6 @@
         'class' => 'btn btn-danger btn-xs',
         'onclick' => "return confirm('Are you sure?')"
     ]) !!}
+    &nbsp;&nbsp;<input type='checkbox' name='exportid[]' id='checkexport{{$id}}' onclick = "tocheck({{$id}})">
 </div>
 {!! Form::close() !!}

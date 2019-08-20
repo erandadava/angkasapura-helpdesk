@@ -1,3 +1,7 @@
+<div class="form-group col-sm-6">
+    {!! Form::label('id_pemilik_perangkat', 'NIP Pemilik Perangkat:') !!}
+    {!! Form::select('id_pemilik_perangkat', $pemilik, null, ['class' => 'form-control']) !!}
+</div>
 <!-- Cat Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('cat_id', 'Category/Type Device:') !!}
@@ -30,30 +34,30 @@
 
 <!-- Type Alat Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('type_alat', 'Type Alat:') !!}
+    {!! Form::label('type_alat', 'Tipe Alat:') !!}
     {!! Form::text('type_alat', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Sernum Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('sernum', 'Sernum:') !!}
+    {!! Form::label('sernum', 'Serial Number:') !!}
     {!! Form::text('sernum', null, ['class' => 'form-control' , 'placeholder' => 'optional']) !!}
 </div>
 
 <!-- Nama Perangkat Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('made_in', 'Made in:') !!}
+    {!! Form::label('made_in', 'Dibuat di:') !!}
     {!! Form::text('made_in', null, ['class' => 'form-control']) !!}
 </div>
 
 
 <div class="form-group col-sm-6">
-    {!! Form::label('made_year', 'Made Year:') !!}
+    {!! Form::label('made_year', 'Tahun dibuat:') !!}
     {!! Form::text('made_year', null, ['class' => 'form-control',  'id' => 'made_year']) !!}
 </div>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('condition', 'Condition:') !!}
+    {!! Form::label('condition', 'Kondisi:') !!}
     {!! Form::text('condition', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -71,7 +75,7 @@
 
 <!-- Os License Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('update_kasp', 'update kasp:') !!}
+    {!! Form::label('update_kasp', 'Update Kaspersky:') !!}
     {!! Form::text('update_kasp', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 

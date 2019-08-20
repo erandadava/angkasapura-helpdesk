@@ -12,6 +12,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 use App\Models\cat_inventory;
+use App\Models\users;
 use App\Models\inven_pembelian;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,11 @@ class inventoryController extends AppBaseController
     {
         $this->inventoryRepository = $inventoryRepo;
         $this->data['cat_inventory'] = cat_inventory::where('is_active','=',1)->pluck('nama_cat','id');
+        $pemilik = users::where('nip','!=',null)->get();
+        $this->data['pemilik'] = [];
+        foreach ($pemilik as $key => $value) {
+            $this->data['pemilik'][$value['id']] = $value['nip'].' - '.$value['name'];
+        }
     }
 
     /**

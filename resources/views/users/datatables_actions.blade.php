@@ -3,7 +3,7 @@
     <a href="{{ route('users.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
     </a>
-    @hasrole('Admin')
+    @hasrole('Admin|IT Non Public')
     <a href="{{ route('users.edit', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-edit"></i>
     </a>

@@ -15,7 +15,7 @@ class laporanDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-        return $dataTable->addColumn('action', 'laporans.datatables_actions')
+        return $dataTable->addColumn('action', 'laporans.datatables_actions_bulanan')
         // return $dataTable->editColumn('sernum', function ($inquiry)
         // {
         //     return (int) $inquiry->sernum_count;
@@ -33,7 +33,9 @@ class laporanDataTable extends DataTable
             $hasil = number_format($hasil, 2, '.', ' ');
             return $hasil.'%';
         })
-
+        ->with('all_data', function() use ($query) {
+            return $query->get();
+        })
         ->rawColumns(['status','action','prob_desc']);
     }
 

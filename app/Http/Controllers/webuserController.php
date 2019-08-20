@@ -29,12 +29,23 @@ class webuserController extends Controller
         $roles = $user->getRoleNames();
         $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
         $this->data['priority'] = priority::where('is_active','=',1)->pluck('prio_name','id');
-        $sernum = cat_inventory::with('inventory')->get();
+        $sernum = cat_inventory::with(['inventory' => function ($query) {
+            $query->where([['id_pemilik_perangkat', '=', \Auth::id()],['is_active','=',1]]);
+        }])->get();
+
+        $check_inventory = inventory::where([['id_pemilik_perangkat', '=', \Auth::id()],['is_active','=',1]])->get();
+        if(count($check_inventory) == 0){
+            $sernum = cat_inventory::with(with(['inventory' => function ($query) {
+                $query->where('is_active','=',1);
+            }]))->get();
+        }
+
         foreach ($sernum as $key => $value) {
             foreach ($value->inventory as $keys => $val) {
-                $sernum[$key]['inventory'][$keys]['sernumid']= $val->sernumid;
+                $sernum[$key]['inventory'][$keys]['sernum']= $val->sernum;
             }
         }
+        
         $this->data['sernum'] = $sernum;
         $this->data['ticket_solution']=issues::with(['category','priority','request','assign_it_support_relation','assign_it_ops_relation'])->where([['request_id','=',$user->id],['status','=','SLITSP']])->orWhere([['status','=','SLITOPS']])->orWhere([['status','=','SLITADM']])->get();
         $this->data['open_ticket']=issues::with(['category','priority','request','assign_it_support_relation','assign_it_ops_relation'])->where([['request_id','=',$user->id],['status','!=','CLOSE'], ['status','!=','RT']])->orWhere([['status','=',null]])->get();

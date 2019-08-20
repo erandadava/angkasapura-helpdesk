@@ -40,14 +40,8 @@
 <!-- Cat Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('dev_ser_num', 'Serial Number/ID Perangkat:') !!}
-    <select class="form-control" name="dev_ser_num">
-        @foreach($sernum as $key => $val)
-        <optgroup label="{{$val->nama_cat}}">
-            @foreach($val->inventory as $dt)
-                <option value="{{$dt->id}}">{{$dt->sernumid}}</option>
-            @endforeach
-        </optgroup>
-        @endforeach
+    <select class="form-control select-perangkat" name="dev_ser_num">
+        <option name="dev_ser_num" value="0"> - </option>
     </select>
 </div>
 <div class="form-group col-sm-6">
@@ -137,7 +131,7 @@
         </br>
         <div class="select-data-user">
                 {!! Form::label('request_id_user', 'Request Oleh:') !!}
-                {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+                {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2 select-user', 'style'=>'width:100%;']) !!}
         </div>
     </div>
     @endif
@@ -150,7 +144,7 @@
         </br>
         <div class="select-data-user">
                 {!! Form::label('request_id_user', 'Request Oleh:') !!}
-                {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+                {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2 select-user', 'style'=>'width:100%;']) !!}
         </div>
     </div>
     @endhasrole
@@ -163,16 +157,53 @@
 @section('scripts')
     <script type="text/javascript">
         var status = 0;
+        var auth = {{Auth::id()}};
         $(".select-data-user").hide();
         var us = function untuk_user(){
             $(".select-data-user").val('');
             if(status == 0){
                 status = 1;
                 $(".select-data-user").show();
+                change_auth($('.select-user option:selected').val());
             }else{
                 status = 0;
                 $(".select-data-user").hide();
+                change_auth({{Auth::id()}});
             }
         };
+
+
+        function get_sernum(){
+            $('.select-perangkat').select2({
+                placeholder: '-',
+                allowClear: true,
+                ajax: { 
+                url: function () {
+                    return "/get_sernum/"+auth;
+                },
+                type: "get",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                    results: data.data
+                    };
+                },
+                cache: true
+                }
+            });
+        }
+
+        function change_auth(id){
+            auth = id;
+        }
+
+        $('.select-user').on("select2:selecting", function(e) { 
+            change_auth(e.params.args.data.id);
+        });
+        
+        $(document).ready(function(){
+            get_sernum();
+        });
     </script>
 @endsection

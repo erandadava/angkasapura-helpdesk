@@ -45,13 +45,6 @@ class issuesController extends AppBaseController
         $this->waktu_sekarang = $this->mytime->toDateTimeString();
         $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
         $this->data['priority'] = priority::where('is_active','=',1)->pluck('prio_name','id');
-        $sernum = cat_inventory::with('inventory')->get();
-        foreach ($sernum as $key => $value) {
-            foreach ($value->inventory as $keys => $val) {
-                $sernum[$key]['inventory'][$keys]['sernumid']= $val->sernumid;
-            }
-        }
-        $this->data['sernum'] = $sernum;
         $this->data['data_user'] = \App\User::role('User')->pluck('name','id');
         $this->data['data_unit'] = \App\Models\unit_kerja::pluck('nama_uk','id');
 
@@ -288,5 +281,42 @@ class issuesController extends AppBaseController
     public function laporan_hari(laporanhariDataTable $laporanhariDataTable, Request $request)
     {
         return $laporanhariDataTable->render('laporans.laporanhari');
+    }
+
+    public function get_sernum($id){
+        $user = \App\User::find($id);
+        $roles = $user->getRoleNames();
+        if($roles[0] == "User"){
+            $sernum = cat_inventory::with(['inventory' => function ($query) use ($id){
+                $query->where([['id_pemilik_perangkat', '=', $id],['is_active','=',1]]);
+            }])->get();
+    
+            $check_inventory = inventory::where([['id_pemilik_perangkat', '=', $id],['is_active','=',1]])->get();
+            if(count($check_inventory) == 0){
+                $sernum = cat_inventory::with(with(['inventory' => function ($query) {
+                    $query->where('is_active','=',1);
+                }]))->get();
+            }
+        }else{
+            $sernum = cat_inventory::with(with(['inventory' => function ($query) {
+                $query->where('is_active','=',1);
+            }]))->get();
+        } 
+
+        foreach ($sernum as $key => $value) {
+            foreach ($value->inventory as $keys => $val) {
+                $sernum[$key]['inventory'][$keys]['sernum']= $val->sernum;
+            }
+        }
+
+        $hasil = [];
+        foreach($sernum as $key => $val){
+            $hasil[$key]['text'] = $val->nama_cat;
+            foreach($val->inventory as $keys =>  $dt){
+                 $hasil[$key]['children'][$keys] = ['id' => $dt->id,'text'=>$dt->sernumid];
+            }
+        }
+        
+        return $this->sendResponse($hasil, 'Get Sernum retrieved successfully');
     }
 }
