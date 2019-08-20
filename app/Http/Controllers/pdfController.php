@@ -228,7 +228,7 @@ class pdfController extends Controller
             
         }
 
-        $head = ['Nama', 'Unit Kerja',  'Keluhan', 'Petugas', 'No. HP', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
+        $head = ['Nama', 'Unit Kerja',  'Keluhan', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
         $title = 'Laporan Harian';
         $group = [];
         foreach ($get as $key => $value) {;
@@ -251,13 +251,11 @@ class pdfController extends Controller
                 0 => $value['request']['name'],
                 1 => $value['unit_kerja']['nama_uk'],
                 2 => $value['prob_desc'],
-                3 => $value['complete']['name'],
-                4 => $value['no_tlp'],   
-                5 => $value['issue_date'],
-                6 => $value['waktu_tindakan'],
-                7 => $value['solution_date'],
-                8 => $tanggap,
-                9 => $value['solution_desc']
+                3 => $value['issue_date'],
+                4 => $value['waktu_tindakan'],
+                5 => $value['solution_date'],
+                6 => $tanggap,
+                7 => $value['solution_desc']
             ];   
             $group[$key]= [
                 0 => $id_group,
