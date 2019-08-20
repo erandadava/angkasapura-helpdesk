@@ -774,7 +774,7 @@
 @hasrole('User')
 {{-- UNTUK USER --}}
 @if ((Auth::check()) && ($issues->request_id == Auth::user()->id))
-@if(($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_admin != null && $issues->complete_by == $issues->assign_it_admin)) 
+@if(($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_support != null)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_ops != null)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_admin != null)) 
 <!-- Button untuk IT NP -->
 <div class="form-group col-md-2 col-sm-12">
 
@@ -832,8 +832,8 @@
           </div>
       @endif
     @endif
-
-    @if(($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_support != null && $issues->complete_by == $issues->assign_it_support)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_ops != null && $issues->complete_by == $issues->assign_it_ops)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_admin != null && $issues->complete_by == $issues->assign_it_admin)&&($issues->request_id == Auth::id())) 
+    @if ((Auth::check()) && ($issues->request_id == Auth::user()->id))
+    @if(($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_support != null)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_ops != null)||($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' && $issues->assign_it_admin != null)&&($issues->request_id == Auth::id())) 
     <!-- Button untuk IT NP -->
     <div class="form-group col-md-2 col-sm-12">
     
@@ -873,6 +873,7 @@
       {!! Form::close() !!}
     </div>
   </div>
+  @endif
   @endif
 @endhasrole
 

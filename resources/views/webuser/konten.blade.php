@@ -238,7 +238,7 @@
                     <td>{{$dt->category->cat_name}}</td>
                     <td style="padding-top: 30px;">{!! $dt->prob_desc !!}</td>
                     <td>
-                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$dt->id}}" uk-toggle>Buka</a></br>@if(($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_admin != null && $dt->complete_by == $dt->assign_it_admin))<span class="badge badge-pill badge-warning">Beri Penilaian</span>@endif </center>
+                      <center><a class="uk-button uk-button-default" href="#modal-open-solution{{$dt->id}}" uk-toggle>Buka</a></br>@if(($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by != null)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by != null)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_admin != null && $dt->complete_by != null))<span class="badge badge-pill badge-warning">Beri Penilaian</span>@endif </center>
 
                        <div id="modal-open-solution{{$dt->id}}" uk-modal>
                         <div class="uk-modal-dialog">
@@ -252,7 +252,7 @@
                             {!! $dt->solution_desc !!}
                         </div>
                         <div class="uk-modal-footer uk-text-right">
-                            @if(($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by == $dt->assign_it_support)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by == $dt->assign_it_ops)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_admin != null && $dt->complete_by == $dt->assign_it_admin))
+                            @if(($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_support != null && $dt->complete_by != null)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_ops != null && $dt->complete_by != null)||($dt->status == 'SLITADM' || $dt->status == 'SLITSP' || $dt->status == 'SLITOPS' && $dt->assign_it_admin != null && $dt->complete_by != null))
                             <a href="#modal-rating{{$key}}" class="uk-button uk-button-danger" uk-toggle>Penilaian</a>
                             @endif                   
                         </div>
