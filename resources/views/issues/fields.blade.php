@@ -131,7 +131,7 @@
         </br>
         <div class="select-data-user">
                 {!! Form::label('request_id_user', 'Request Oleh:') !!}
-                {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2', 'style'=>'width:100%;']) !!}
+                {!! Form::select('request_id_user', $data_user, null, ['class' => 'form-control select2 select-user', 'style'=>'width:100%;']) !!}
         </div>
     </div>
     @endif
