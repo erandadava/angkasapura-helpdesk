@@ -47,7 +47,7 @@ class webuserController extends Controller
         }
         
         $this->data['sernum'] = $sernum;
-        $this->data['ticket_solution']=issues::with(['category','priority','request','assign_it_support_relation','assign_it_ops_relation'])->where([['request_id','=',$user->id],['status','=','SLITSP']])->orWhere([['status','=','SLITOPS']])->orWhere([['status','=','SLITADM']])->get();
+        $this->data['ticket_solution']=issues::with(['category','priority','request','assign_it_support_relation','assign_it_ops_relation'])->where([['request_id','=',$user->id],['status','=','SLITSP']])->orWhere([['request_id','=',$user->id],['status','=','SLITOPS']])->orWhere([['request_id','=',$user->id],['status','=','SLITADM']])->get();
         $this->data['open_ticket']=issues::with(['category','priority','request','assign_it_support_relation','assign_it_ops_relation'])->where([['request_id','=',$user->id],['status','!=','CLOSE'], ['status','!=','RT']])->orWhere([['status','=',null]])->get();
         $this->data['ticket']=issues::with(['category','priority','request'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['request_id','=',$user->id],['status','=','SLITOPS']])->orWhere([['request_id','=',$user->id],['status','=','SLITSP']])->orWhere([['request_id','=',$user->id],['status','=','SLITADM']])->get();
         $this->data['ticket_done']=issues::with(['category','priority','request'])->where([['request_id','=',$user->id],['status','=','CLOSE']])->get();
