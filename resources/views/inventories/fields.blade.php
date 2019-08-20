@@ -16,7 +16,7 @@
 
 <!-- Lokasi Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('lokasi', 'Lokasi Device:') !!}
+    {!! Form::label('lokasi', 'Lokasi:') !!}
     {!! Form::text('lokasi', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -32,11 +32,11 @@
     {!! Form::text('merk', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Type Alat Field -->
+{{-- <!-- Type Alat Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('type_alat', 'Tipe Alat:') !!}
     {!! Form::text('type_alat', null, ['class' => 'form-control']) !!}
-</div>
+</div> --}}
 
 <!-- Sernum Field -->
 <div class="form-group col-sm-6">
@@ -46,18 +46,18 @@
 
 <!-- Nama Perangkat Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('made_in', 'Dibuat di:') !!}
+    {!! Form::label('made_in', 'Buatan:') !!}
     {!! Form::text('made_in', null, ['class' => 'form-control']) !!}
 </div>
 
 
 <div class="form-group col-sm-6">
-    {!! Form::label('made_year', 'Tahun dibuat:') !!}
+    {!! Form::label('made_year', 'Tahun Pembuatan:') !!}
     {!! Form::text('made_year', null, ['class' => 'form-control',  'id' => 'made_year']) !!}
 </div>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('condition', 'Kondisi:') !!}
+    {!! Form::label('condition', 'Kondisi (%):') !!}
     {!! Form::text('condition', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -117,12 +117,12 @@
 
 <!-- Tech Key Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('ip_type', 'IP Type:') !!}
+    {!! Form::label('ip_type', 'Tipe Ip Type:') !!}
     {!! Form::text('ip_type', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 <!-- Tech Kode Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('conn_type', 'Connection Type:') !!}
+    {!! Form::label('conn_type', 'Tipe Koneksi:') !!}
     {!! Form::text('conn_type', null, ['class' => 'form-control', 'placeholder' => 'optional']) !!}
 </div>
 
