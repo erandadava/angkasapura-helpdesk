@@ -26,13 +26,13 @@
 
 <!-- Tgl Pembelian Field -->
 <div class="form-group">
-    {!! Form::label('tgl_pembelian', 'Tgl Pembelian:') !!}
+    {!! Form::label('tgl_pembelian', 'Tanggal Pembelian:') !!}
     <p>{!! $invenPembelian->tgl_pembelian !!}</p>
 </div>
 
 <!-- Tgl Penyerahan Field -->
 <div class="form-group">
-    {!! Form::label('tgl_penyerahan', 'Tgl Penyerahan:') !!}
+    {!! Form::label('tgl_penyerahan', 'Tanggal Penyerahan:') !!}
     <p>{!! $invenPembelian->tgl_penyerahan !!}</p>
 </div>
 
