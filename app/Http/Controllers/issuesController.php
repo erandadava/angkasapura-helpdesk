@@ -300,10 +300,27 @@ class issuesController extends AppBaseController
         }elseif($roles[0] == "IT Non Public"){
             $sernum = cat_inventory::with(['inventory' => function ($query) use ($id){
                 $query->where([['id_pemilik_perangkat', '=', $id],['is_active','=',1]]);
+            }])->withCount(['inventory' => function ($query) use ($id){
+                $query->where([['id_pemilik_perangkat', '=', $id],['is_active','=',1]]);
             }])->get();
-            $sernum2 = cat_inventory::with(['inventory' => function ($query) use ($id){
-                $query->where([['id_pemilik_perangkat', '!=', $id],['is_active','=',1]]);
-            }])->get();
+
+            $status_sernum = false;
+            foreach ($sernum as $key => $value) {
+                if($value->inventory_count != 0){
+                    $status_sernum = true;
+                }
+            }
+
+            if($status_sernum==false){
+                $sernum = cat_inventory::with(['inventory' => function ($query) use ($id){
+                    $query->where([['id_pemilik_perangkat', '!=', $id],['is_active','=',1]]);
+                }])->get();
+            }else{
+                $sernum2 = cat_inventory::with(['inventory' => function ($query) use ($id){
+                    $query->where([['id_pemilik_perangkat', '!=', $id],['is_active','=',1]])->orWhere([['id_pemilik_perangkat', '=', null],['is_active','=',1]]);
+                }])->get();
+            }
+            
 
             $check_inventory = inventory::where([['id_pemilik_perangkat', '=', $id],['is_active','=',1]])->get();
             if(count($check_inventory) == 0){
