@@ -29,7 +29,7 @@ use App\DataTables\laporanhariDataTable;
 use App\Models\inventory;
 use App\Models\cat_inventory;
 use Alert;
-
+use DB;
 class issuesController extends AppBaseController
 {
     /** @var  issuesRepository */
@@ -297,7 +297,22 @@ class issuesController extends AppBaseController
                     $query->where('is_active','=',1);
                 }]))->get();
             }
-        }else{
+        }elseif($roles[0] == "IT Non Public"){
+            $sernum = cat_inventory::with(['inventory' => function ($query) use ($id){
+                $query->where([['id_pemilik_perangkat', '=', $id],['is_active','=',1]]);
+            }])->get();
+            $sernum2 = cat_inventory::with(['inventory' => function ($query) use ($id){
+                $query->where([['id_pemilik_perangkat', '!=', $id],['is_active','=',1]]);
+            }])->get();
+
+            $check_inventory = inventory::where([['id_pemilik_perangkat', '=', $id],['is_active','=',1]])->get();
+            if(count($check_inventory) == 0){
+                $sernum = cat_inventory::with(with(['inventory' => function ($query) {
+                    $query->where('is_active','=',1);
+                }]))->get();
+            }
+        }
+        else{
             $sernum = cat_inventory::with(with(['inventory' => function ($query) {
                 $query->where('is_active','=',1);
             }]))->get();
@@ -309,13 +324,50 @@ class issuesController extends AppBaseController
             }
         }
 
-        $hasil = [];
-        foreach($sernum as $key => $val){
-            $hasil[$key]['text'] = $val->nama_cat;
-            foreach($val->inventory as $keys =>  $dt){
-                 $hasil[$key]['children'][$keys] = ['id' => $dt->id,'text'=>$dt->sernumid];
+        if(isset($sernum2)){
+            foreach ($sernum2 as $key => $value) {
+                foreach ($value->inventory as $keys => $val) {
+                    $sernum2[$key]['inventory'][$keys]['sernum']= $val->sernum;
+                }
             }
         }
+
+        $hasil = [];
+        $oldkey = 0;
+        $oldkeys = 0;
+        foreach($sernum as $key => $val){
+            $oldkey=$key;
+            if(isset($sernum2)){
+                $hasil[$key]['text'] = $val->nama_cat.' - IT Non Public';
+            }else{
+                $hasil[$key]['text'] = $val->nama_cat;
+            }
+            
+            foreach($val->inventory as $keys =>  $dt){
+                $oldkeys=$keys;
+                 $hasil[$key]['children'][$keys] = ['id' => $dt->id,'text'=>$dt->sernumid];
+            }
+
+            if(count($val->inventory)==0){
+                $hasil[$key]['children'][0] = [];
+            }
+        }
+
+        if(isset($sernum2)){
+            
+            foreach($sernum2 as $key => $val){
+                $oldkey++;
+                $hasil[$oldkey]['text'] = $val->nama_cat;
+                foreach($val->inventory as $keys =>  $dt){
+                     $hasil[$oldkey]['children'][$keys] = ['id' => $dt->id,'text'=>$dt->sernumid];
+                }
+
+                if(count($val->inventory)==0){
+                    $hasil[$key]['children'][0] = [];
+                }
+            }
+        }
+
         
         return $this->sendResponse($hasil, 'Get Sernum retrieved successfully');
     }
