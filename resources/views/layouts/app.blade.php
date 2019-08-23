@@ -335,7 +335,7 @@
                 var kurang = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
                 var alert_delegasi = readCookie('alertdelegasi');
                 if(alert_delegasi == null){
-                    if(today.getTime() >= lebih.getTime() && today.getTime() <= kurang.getTime())
+                    if((today.getTime() >= lebih.getTime() && today.getTime() <= kurang.getTime()) || (today.getDay() == 6 || today.getDay() == 0))
                     {
                         clearInterval(t);
                         if(!alert('Waktunya delegasi IT Administrator  diberikan ke IT Support. \nTekan OK untuk memperbarui hak akses')){
