@@ -170,21 +170,21 @@ class notifikasiController extends AppBaseController
 
                     break;
                 case 'RITSP':
-                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['pesan'] = "<p><span class='label label-danger'>Tiket diteruskan ke IT Operasional</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = null;
                     $notifikasi = $this->notifikasiRepository->create($input);
                     $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
                     $this->notifikasiRepository->update($input, $notifikasi->id);
-                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['pesan'] = "<p><span class='label label-danger'>Tiket diteruskan ke IT Operasional</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->request_id;
                     break;
                 case 'RITADM':
-                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Administrator</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['pesan'] = "<p><span class='label label-danger'> Tiket diteruskan ke IT Operasional</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = null;
                     $notifikasi = $this->notifikasiRepository->create($input);
                     $input['link_id'] = $link.'/'.$id_konten.'?n='.Crypt::encrypt($notifikasi->id);
                     $this->notifikasiRepository->update($input, $notifikasi->id);
-                    $input['pesan'] = "<p><span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Administrator</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
+                    $input['pesan'] = "<p><span class='label label-danger'> Tiket diteruskan ke IT Operasional</span> dengan nomor keluhan <b>$keluhan->issue_id</b></p>";
                     $input['user_id'] = $keluhan->request_id;
                     break;
                 default:

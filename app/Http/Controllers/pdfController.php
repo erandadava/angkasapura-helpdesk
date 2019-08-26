@@ -36,8 +36,8 @@ class pdfController extends Controller
                     if ($value['status'] == 'AITADM'){ $status="Diterima IT Administrator"; }
                     if ($value['status'] == 'ITADM'){ $status="Diteruskan ke IT Administrator"; }
                     if ($value['status'] == 'ITSP'){ $status="Diteruskan ke IT Support"; }
-                    if ($value['status'] == 'RITADM'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Administrator"; }
-                    if ($value['status'] == 'RITSP'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Support"; }
+                    if ($value['status'] == 'RITADM'){ $status="Tiket diteruskan ke IT Operasional"; }
+                    if ($value['status'] == 'RITSP'){ $status="Tiket diteruskan ke IT Operasional"; }
                     if ($value['status'] == 'AITSP'){ $status="Menunggu Tindakan Dari IT Support"; }
                     if ($value['status'] == 'ITOPS'){ $status="Menunggu Tindakan Dari IT OPS"; }
                     if ($value['status'] == 'CLOSE'){ $status="Keluhan Selesai"; }
@@ -136,8 +136,8 @@ class pdfController extends Controller
                     if ($value['status'] == 'AITADM'){ $status="Diterima IT Administrator"; }
                     if ($value['status'] == 'ITADM'){ $status="Diteruskan ke IT Administrator"; }
                     if ($value['status'] == 'ITSP'){ $status="Diteruskan ke IT Support"; }
-                    if ($value['status'] == 'RITADM'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Administrator"; }
-                    if ($value['status'] == 'RITSP'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Support"; }
+                    if ($value['status'] == 'RITADM'){ $status="Tiket diteruskan ke IT Operasional"; }
+                    if ($value['status'] == 'RITSP'){ $status="Tiket diteruskan ke IT Operasional"; }
                     if ($value['status'] == 'AITSP'){ $status="Menunggu Tindakan Dari IT Support"; }
                     if ($value['status'] == 'ITOPS'){ $status="Menunggu Tindakan Dari IT OPS"; }
                     if ($value['status'] == 'CLOSE'){ $status="Keluhan Selesai"; }
