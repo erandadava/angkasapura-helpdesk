@@ -194,8 +194,8 @@
                     @if ($dt->status == 'AITADM') <span class='badge badge-success'>Diterima IT Administrator</span> @endif
                     @if ($dt->status == 'ITADM') <span class='badge badge-info'>Diteruskan ke IT Administrator</span> @endif
                     @if ($dt->status == 'ITSP') <span class='badge badge-info'>Diteruskan ke IT Support</span> @endif
-                    @if ($dt->status == 'RITADM') <span class='badge badge-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Administrator</span> @endif
-                    @if ($dt->status == 'RITSP') <span class='badge badge-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span> @endif
+                    @if ($dt->status == 'RITADM') <span class='badge badge-danger'>Tiket diteruskan ke IT Operasional</span> @endif
+                    @if ($dt->status == 'RITSP') <span class='badge badge-danger'>Tiket diteruskan ke IT Operasional</span> @endif
                     @if ($dt->status == 'AITSP') <span class='badge badge-warning'>Menunggu Tindakan Dari IT Support</span> @endif
                     @if ($dt->status == 'ITOPS') <span class='badge badge-warning'>Menunggu Tindakan Dari IT OPS</span> @endif
                     @if ($dt->status == 'CLOSE') <span class='badge badge-success'>Keluhan Selesai</span> @endif
