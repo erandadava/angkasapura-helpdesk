@@ -38,13 +38,8 @@
   <div class="col-md-3">
     <!-- Location Field -->
     <div class="form-group">
-<<<<<<< HEAD
         {!! Form::label('location', 'Lokasi (tempat anda bekerja):') !!}
         <p>{!! $issues->location !!}</p>
-=======
-      {!! Form::label('location', 'Lokasi:') !!}
-      <p>{!! $issues->location !!}</p>
->>>>>>> bb4bbcda80436e0adbe40a8e11528c7c26ee2026
     </div>
   </div>
 
