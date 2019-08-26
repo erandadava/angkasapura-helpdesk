@@ -146,7 +146,7 @@ class issuesDataTable extends DataTable
             ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
             ['data' => 'category.cat_name', 'title' => 'Kategori'],
-            ['data' => 'location', 'title' => 'Lokasi'],
+            ['data' => 'location', 'title' => 'Lokasi (ruangan anda bekerja)'],
             ['data' => 'status', 'title' => 'Status'],
 
         ];

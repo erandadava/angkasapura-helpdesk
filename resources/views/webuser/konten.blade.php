@@ -132,27 +132,27 @@
                   </div>
                 </div>
                 <div class="uk-margin uk-form-grid-medium uk-width-1-2">
-                  <label class="uk-form-label" for="form-stacked-select">Lokasi</label>
+                  <label class="uk-form-label" for="form-stacked-select">Lokasi (ruangan anda bekerja)</label>
                   <div class="uk-form-controls">
                   {!! Form::text('location', null, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
 
                   </div>
                 </div>
-                <div class="uk-margin uk-form-grid-medium uk-width-1-4@s">
+                {{-- <div class="uk-margin uk-form-grid-medium uk-width-1-4@s">
                   <label class="uk-form-label" for="form-stacked-select">Unit Kerja</label>
                   <div class="uk-form-controls">
                   {!!  \Auth::user()->unit_kerja->nama_uk ?? ''!!}
                   {!! Form::hidden('id_unit_kerja', \Auth::user()->id_unit_kerja, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
 
                   </div>
-                </div>
-                <div class="uk-margin uk-form-grid-medium uk-width-1-4@s">
+                </div> --}}
+                {{-- <div class="uk-margin uk-form-grid-medium uk-width-1-4@s">
                   <label class="uk-form-label" for="form-stacked-select">Perangkat Lain</label>
                   <div class="uk-form-controls">
                   {!! Form::text('other_device', null, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
 
                   </div>
-                </div>
+                </div> --}}
                 <div class="uk-margin uk-form-grid-medium uk-width-1-2">
                     <label class="uk-form-label" for="form-stacked-select">Nomor Telepon</label>
                     <div class="uk-form-controls">

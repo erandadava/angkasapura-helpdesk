@@ -53,7 +53,7 @@ class issues extends Model
         'assign_it_ops',
         'assign_it_admin',
         'dev_ser_num',
-        'other_device',
+        // 'other_device',
         'id_unit_kerja',
         'waktu_tindakan',
         'solution_date',
