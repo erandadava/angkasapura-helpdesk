@@ -25,6 +25,12 @@ class webuserController extends Controller
      */
     public function index()
     {
+        //Untuk Dashboard 
+        $this->data['jumlah_keluhan'] = issues::where('request_id','=',Auth::id())->get()->count();
+        $this->data['jumlah_selesai'] = issues::where([['status','=','CLOSE'],['request_id','=',Auth::id()]])->orWhere([['status','=','RT'],['request_id','=',Auth::id()]])->count();
+        $this->data['jumlah_belum'] = issues::where([['status','!=','CLOSE'],['status','!=','RT'],['request_id','=',Auth::id()]])->orWhere([['status','=',null],['request_id','=',Auth::id()]])->count();
+
+
         $user = Auth::user();
         $roles = $user->getRoleNames();
         $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
