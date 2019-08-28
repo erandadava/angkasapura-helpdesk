@@ -45,7 +45,7 @@
         transition-property: color,background-color,border;
     }
     .main-panel>.content {
-        margin-top: 0px;
+        margin-top: 25px;
     }
     .logo > img{
             width: 100%;
@@ -57,6 +57,44 @@
         .logo > img{
             width: 70%;
         }
+        .logo{
+            text-align: center;
+        }
+        .navbar .navbar-nav .nav-item .nav-link {
+    position: relative;
+    color: inherit;
+    padding: 0.9375rem;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-radius: 3px;
+    line-height: 20px;
+    width: 50px;
+}
+.navbar .dropdown.show .dropdown-menu, .navbar .dropdown .dropdown-menu {
+    background-color: white;
+    border: 0;
+    padding-bottom: 15px;
+    transition: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transform: none !important;
+    width: 90%;
+    margin-bottom: 15px;
+    padding-top: 0;
+    height: auto;
+    animation: none;
+    opacity: 1;
+    overflow-y: scroll;
+}
+.navbar .dropdown-menu .dropdown-item {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.dropdown-menu .dropdown-item, .dropdown-menu li>a {
+    width: 100%;
+}
+        
     }
 
     </style>
@@ -92,7 +130,7 @@
 
                         $.each(data.data.data_notif, function( key, element ) {
                             $("#notif").append("<a class='dropdown-item' href='"+element.link_id+"'>"+element.pesan+"</a>");
-                            $('.count_notif').append("<span class='notification number_notif animated heartBeat'>"+data.data.count_notif+"</span>");
+                            $('.count_notif').append("<span class='uk-badge uk-text-top notification number_notif animated heartBeat'>"+data.data.count_notif+"</span>");
                         });
                         
                     }

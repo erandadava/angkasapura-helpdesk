@@ -15,10 +15,49 @@
                       <img src="{{asset('img/logo-ap2.jpeg')}}" style="padding :5px;">
                     </div>
               </div>
+              <div class="offset-md-5 col-md-3 col-12">
+                  <div class="row">
+                      <div class="col-12 col-md-6">
+                          <a class="navbar-brand" href="/beranda">IT - Helpdesk</a>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                              <a class="nav-link count_notif" href="http://example.com" id="navbarDropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">notifications</i>
+                                <p class="d-lg-none d-md-block">
+                                </p>
+                              </a>
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="notif">
+              
+                              </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <i class="material-icons">person</i>
+                                <p class="d-lg-none d-md-block">
+                                </p>
+                              </a>
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                                <!-- <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Settings</a> -->
+                                <!-- <div class="dropdown-divider"></div> -->
+                                <a href="{!! url('/logout') !!}" class="dropdown-item"
+                                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a>
+                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                  {{ csrf_field() }}</form>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                  </div>
+                </div>
             </div>
-            <a class="navbar-brand" href="/beranda">IT - Helpdesk</a>
+            
           </div>
-          <div class="collapse navbar-collapse justify-content-end">
+          {{-- <div class="collapse navbar-collapse justify-content-end">
             <!-- <form class="navbar-form">
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Search...">
@@ -28,39 +67,8 @@
                 </button>
               </div>
             </form> -->
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="nav-link count_notif" href="http://example.com" id="navbarDropdownMenuLink"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="notif">
-
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="material-icons">person</i>
-                  <p class="d-lg-none d-md-block">
-                    Akun
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <!-- <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a> -->
-                  <!-- <div class="dropdown-divider"></div> -->
-                  <a href="{!! url('/logout') !!}" class="dropdown-item"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a>
-                  <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}</form>
-                </div>
-              </li>
-            </ul>
-          </div>
+            
+          </div> --}}
         </div>
       </nav>
       <!-- End Navbar -->
