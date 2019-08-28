@@ -194,17 +194,8 @@
       <p>{!! $issues->solution_date !!}</p>
     </div>
   </div>
-  <div class="col-md-3">
-      <!-- Created At Field -->
-      <div class="form-group">
-        {!! Form::label('created_at', 'Dibuat Pada:') !!}
-        <p>{!! $issues->created_at !!}</p>
-      </div>
-    </div>
 
 </div>
-
-
 
 <div class="row">
   <div class="col-md-3">
@@ -227,14 +218,6 @@
       <p>{!! $issues->complete_date !!}</p>
     </div>
   </div>
-  <div class="col-md-3">
-      <!-- Updated At Field -->
-      <div class="form-group">
-        {!! Form::label('updated_at', 'Diubah Pada:') !!}
-        <p>{!! $issues->updated_at !!}</p>
-      </div>
-    </div>
-  
 </div>
 
 <div class="row">
