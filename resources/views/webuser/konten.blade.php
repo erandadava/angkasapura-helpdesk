@@ -2,39 +2,22 @@
 
 @section('content')
 
-<body class="">
+<body class="" style="background-color:#f7f7f7">
   <div class="wrapper ">
-    <div class="sidebar" data-color="azure" data-background-color="white">
-
-      <div class="logo">
-        <img src="{{asset('img/logo-ap2.jpeg')}}" style="width: 100%;">
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item active  ">
-            <a class="nav-link" href="/beranda">
-              <i class="material-icons">dashboard</i>
-              <p>IT - Helpdesk</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="main-panel">
+    <div class="main-panel" style="width:100%">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <nav class="navbar navbar-expand-lg navbar-transparent ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
+            <div class="row">
+              <div class="col-md-4 col-12">
+                  <div class="logo">
+                      <img src="{{asset('img/logo-ap2.jpeg')}}" style="padding :5px;">
+                    </div>
+              </div>
+            </div>
             <a class="navbar-brand" href="/beranda">IT - Helpdesk</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
           <div class="collapse navbar-collapse justify-content-end">
             <!-- <form class="navbar-form">
               <div class="input-group no-border">

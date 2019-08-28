@@ -44,6 +44,20 @@
         transition: .2s ease-in-out;
         transition-property: color,background-color,border;
     }
+    .main-panel>.content {
+        margin-top: 0px;
+    }
+    .logo > img{
+            width: 100%;
+        }
+    @media only screen and (max-width: 600px) {
+        body {
+            background-color: lightblue;
+        }
+        .logo > img{
+            width: 70%;
+        }
+    }
 
     </style>
   </head>
