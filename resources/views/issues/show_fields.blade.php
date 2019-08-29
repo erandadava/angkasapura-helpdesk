@@ -91,6 +91,13 @@
       </p>
     </div>
   </div>
+  <div class="col-md-3">
+    <!-- Complete By Field -->
+    <div class="form-group">
+      {!! Form::label('unit_kerja', 'Unit Kerja:') !!}
+      <p>{!! $issues->unit_kerja->nama_uk ?? '' ?? ''!!}</p>
+    </div>
+  </div>
 </div>
 <style type="text/css">
   .rowlight {
@@ -181,17 +188,17 @@
     </div>
   </div>
   <div class="col-md-3">
-    <!-- Complete By Field -->
+    <!-- Complete Date Field -->
     <div class="form-group">
-      {!! Form::label('unit_kerja', 'Unit Kerja:') !!}
-      <p>{!! $issues->unit_kerja->nama_uk ?? '' ?? ''!!}</p>
+      {!! Form::label('solution_date', 'Waktu Solusi Diberikan:') !!}
+      <p>{!! $issues->solution_date !!}</p>
     </div>
   </div>
   <div class="col-md-3">
     <!-- Complete Date Field -->
     <div class="form-group">
-      {!! Form::label('solution_date', 'Waktu Solusi Diberikan:') !!}
-      <p>{!! $issues->solution_date !!}</p>
+      {!! Form::label('complete_date', 'Waktu Selesai:') !!}
+      <p>{!! $issues->complete_date !!}</p>
     </div>
   </div>
 
@@ -212,12 +219,13 @@
     </div>
   </div>
   <div class="col-md-3">
-    <!-- Complete Date Field -->
+    <!-- Complete By Field -->
     <div class="form-group">
-      {!! Form::label('complete_date', 'Waktu Selesai:') !!}
-      <p>{!! $issues->complete_date !!}</p>
+      {!! Form::label('complete_by', 'Selesai Oleh:') !!}
+      <p>{!! $issues->complete->name ?? '' ?? ''!!}</p>
     </div>
   </div>
+  
 </div>
 
 <div class="row">
@@ -235,13 +243,7 @@
       <p>{!! $issues->waktu_tindakan !!}</p>
     </div>
   </div>
-  <div class="col-md-3">
-    <!-- Complete By Field -->
-    <div class="form-group">
-      {!! Form::label('complete_by', 'Selesai Oleh:') !!}
-      <p>{!! $issues->complete->name ?? '' ?? ''!!}</p>
-    </div>
-  </div>
+  
 
 
   
