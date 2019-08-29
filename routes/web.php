@@ -57,6 +57,7 @@ Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|
     Route::get('/history', 'issuesController@historyticket');
     Route::resource('issues', 'issuesController');
     Route::resource('dashboard', 'dashboardController');
+    Route::resource('users', 'usersController',['only' => ['edit','update']]);
 });
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     \Aschmelyun\Larametrics\Larametrics::routes();

@@ -131,13 +131,21 @@ class usersController extends AppBaseController
 
             return redirect(route('users.index'));
         }
+        
         $input = $request->all();
+        if($request->ubah_password){
+            $input['password'] = bcrypt($input['password']);
+        }
         $input['username'] = substr($input['email'], 0, strpos($input['email'], '@'));
         // $input['password'] = bcrypt($input['password']);
         $users = $this->usersRepository->update($input, $id);
-        $akun = \App\User::find($users->id);
-        $akun->removeRole($akun->roles->first());
-        $akun->assignRole($input['roles']);
+        
+        if(isset($input['roles'])){
+            $akun = \App\User::find($users->id);
+            $akun->removeRole($akun->roles->first());
+            $akun->assignRole($input['roles']);
+        }
+        
 
         Flash::success('Users updated successfully.');
 
