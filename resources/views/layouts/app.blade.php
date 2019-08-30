@@ -112,7 +112,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                    <a href="/users/{{Auth::id()}}/edit" class="btn btn-default btn-flat">Ubah Profil dan Password</a>
+                                    <a href="/users/{{Auth::id()}}/edit" class="btn btn-default btn-flat">Profil</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
