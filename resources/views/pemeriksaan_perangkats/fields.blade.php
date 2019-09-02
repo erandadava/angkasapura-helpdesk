@@ -36,7 +36,7 @@
 </div>
 
 <!-- Selesai Jam Pengecekan Field -->
-<div class="form-group col-sm-6">
+{{-- <div class="form-group col-sm-6">
     {!! Form::label('selesai_jam_pengecekan', 'Jam Selesai Pengecekan:') !!}
     <div class="input-group clockpicker" data-align="top" data-autoclose="true">
         <input type="text" name="selesai_jam_pengecekan" class="form-control">
@@ -44,7 +44,13 @@
             <span class="glyphicon glyphicon-time"></span>
         </span>
     </div>
+</div> --}}
+
+<div class="form-group col-sm-6">
+    {!! Form::label('selesai_jam_pengecekan', 'selesai pengecekan:') !!}
+    {!! Form::text('selesai_jam_pengecekan', null, ['class' => 'form-control','id'=>'jam_selesai']) !!}
 </div>
+
 
 <!-- Full Computer Name Field -->
 <div class="form-group col-sm-6">
@@ -238,7 +244,7 @@
             useCurrent: false
         });
         $('#jam_selesai').datetimepicker({
-            format: 'hh:mm:ss',
+            format: 'Y-MM-DD hh:mm:ss',
             useCurrent: false
         });
 
