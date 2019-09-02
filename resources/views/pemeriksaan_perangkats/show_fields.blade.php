@@ -31,7 +31,7 @@
 
 <!-- Selesai Jam Pengecekan Field -->
 <div class="form-group">
-    {!! Form::label('selesai_jam_pengecekan', 'Selesai Jam Pengecekan:') !!}
+    {!! Form::label('selesai_jam_pengecekan', 'Selesai Pengecekan:') !!}
     <p>{!! $pemeriksaanPerangkat->selesai_jam_pengecekan !!}</p>
 </div>
 
