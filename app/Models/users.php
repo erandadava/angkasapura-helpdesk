@@ -76,6 +76,11 @@ class users extends Model
         return $this->hasOne('App\Models\model_has_roles','model_id','id');
     }
 
+     public function inventory()
+    {
+        return $this->hasMany('App\Models\inventory','id_pemilik_perangkat','id')->where('is_active', 1);
+    }
+
     public function rating()
     {
         return $this->hasMany('App\Models\rating','target_id','id');

@@ -37,7 +37,7 @@ class inventoryDataTable extends DataTable
      */
     public function query(inventory $model)
     {
-        return $model->with('cat_inventory')->newQuery();
+        return $model->with('cat_inventory', 'pemilik_perangkat')->newQuery();
     }
 
     /**
@@ -71,6 +71,7 @@ class inventoryDataTable extends DataTable
     {
         return [
             ['data' => 'id','visible' => false],
+            ['data' => 'pemilik_perangkat.name', 'title' => 'Pemilik Perangkat'],
             ['data' => 'cat_inventory.nama_cat', 'title' => 'Kategori Inventaris'],
             ['data' => 'lokasi', 'title' => 'Lokasi'],
             ['data' => 'nama_perangkat', 'title' => 'Nama Perangkat'],
