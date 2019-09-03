@@ -155,7 +155,6 @@
                       <label class="uk-form-label" for="form-stacked-select">Serial Number/ID Perangkat</label>
                       <div class="uk-form-controls">
                         <select class='uk-select select-sernum' id='form-stacked-select' name="dev_ser_num">
-                          <option name="dev_ser_num" value="0"> - </option>
                           @foreach($sernum as $key => $val)
                           <optgroup label="{{$val->nama_cat}}">
                             @foreach($val->inventory as $dt)

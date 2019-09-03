@@ -147,7 +147,6 @@
             if(teks == "cpu (pc)" || teks == "cpu(pc)" || teks == "cpu"){
                 $('.select-sernum').prop('disabled', false);
             }else{
-                $('.select-sernum').val('0').trigger('change');
                 $('.select-sernum').prop('disabled', true);
             }
         });
