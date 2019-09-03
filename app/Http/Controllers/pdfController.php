@@ -63,25 +63,26 @@ class pdfController extends Controller
                 }
                 break; 
             case 'inventories': 
-                $get = \App\Models\inventory::with('cat_inventory')->whereIn('id',$arr_export)->get();
-                $head = ['Kategori Inventaris', 'Lokasi', 'Nama Perangkat', 'Merk', 'Status'];
+                $get = \App\Models\inventory::with(['pemilik_perangkat','cat_inventory'])->whereIn('id',$arr_export)->get();
+                $head = ['Pemilik Perangkat','Kategori Inventaris', 'Lokasi', 'Nama Perangkat', 'Merk', 'Status'];
                 $title = 'Inventaris';
                 foreach ($get as $key => $value) {
                     if ($value['is_active'] == 0){ $status = 'Non Aktif';};
                     if ($value['is_active'] == 1){ $status = "Aktif";}
                     $isinya[$key]=[
-                        0 => $value['cat_inventory']['nama_cat'],
-                        1 => $value['lokasi'],
-                        2 => $value['nama_perangkat'],
-                        3 => $value['merk'],
-                        4 => $status,
+                        0 => $value['pemilik_perangkat']['name'],
+                        1 => $value['cat_inventory']['nama_cat'],
+                        2 => $value['lokasi'],
+                        3 => $value['nama_perangkat'],
+                        4 => $value['merk'],
+                        5 => $status,
                     ];   
                 }
                 break;
             case 'laporan_bulanan' :
                 $now = Carbon::now();
                 $get = \App\Models\inventory::with(['issues' => function($query) use($now){
-                    $query->whereMonth('issue_date',$now->month);
+                    $query->where('cat_id','=',2)->whereMonth('issue_date',$now->month);
                 }])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
                 $head = ['Nama User','Nama Perangkat','Serial Number','Merk','Nama Perangkat Full','Jumlah Keluhan', 'SLA'];
                 $title = 'Laporan Bulanan';

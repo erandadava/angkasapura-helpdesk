@@ -142,7 +142,16 @@
                 
             });
         }
-        
+        $('.select-kategori').on("select2:selecting", function(e) { 
+            var teks = e.params.args.data.text.toLowerCase();
+            if(teks == "cpu (pc)" || teks == "cpu(pc)" || teks == "cpu"){
+                $('.select-sernum').prop('disabled', false);
+            }else{
+                $('.select-sernum').val('0').trigger('change');
+                $('.select-sernum').prop('disabled', true);
+            }
+        });
+        $('.select-sernum').prop('disabled', true);
         get_notif();
         setInterval(function(){
             get_notif();

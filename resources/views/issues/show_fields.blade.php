@@ -766,8 +766,8 @@
 @endif
 @endhasrole
 
-
-@hasrole('User')
+{{-- untuk penilaiain it admin, user  --}}
+@hasrole('User|IT Administrator')
 {{-- UNTUK USER --}}
 @if ((Auth::check()) && ($issues->request_id == Auth::user()->id))
 @if(($issues->status == 'SLITSP' || $issues->status == 'SLITOPS' || $issues->status == 'SLITADM' &&

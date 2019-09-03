@@ -50,7 +50,7 @@ class laporanDataTable extends DataTable
        $now = Carbon::now();
     //    return $model->withCount('sernum')->whereMonth('complete_date', '=', $now->month)->newQuery();
        return $model->with(['issues' => function($query) use($now){
-           $query->whereMonth('issue_date',$now->month);
+           $query->where('cat_id','=',2)->whereMonth('issue_date',$now->month);
        }])->withCount(['issuesjml','issuesjmlsla'])->newQuery();
 
     }
