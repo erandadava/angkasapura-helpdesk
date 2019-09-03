@@ -142,7 +142,7 @@
                       </div>
                     </div>
 
-                    <div class="uk-form-grid-medium uk-width-1-4@s">
+                    <div class="div-request uk-form-grid-medium uk-width-1-4@s">
                       <label class="uk-form-label" for="form-stacked-select">Prioritas</label>
                       <div class="uk-form-controls">
                         {!! Form::hidden('request_id', Auth::id(), ['class' => 'form-control']) !!}
@@ -151,9 +151,9 @@
                         'id'=>'form-stacked-select']) !!}
                       </div>
                     </div>
-                    <div class="uk-form-grid-medium uk-width-1-4@s">
+                    <div class="uk-form-grid-medium uk-width-1-4@s ">
                       <label class="uk-form-label" for="form-stacked-select">Serial Number/ID Perangkat</label>
-                      <div class="uk-form-controls">
+                      <div class="uk-form-controls div-sernum">
                         <select class='uk-select select-sernum' id='form-stacked-select' name="dev_ser_num">
                           @foreach($sernum as $key => $val)
                           <optgroup label="{{$val->nama_cat}}">

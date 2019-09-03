@@ -146,11 +146,15 @@
             var teks = e.params.args.data.text.toLowerCase();
             if(teks == "cpu (pc)" || teks == "cpu(pc)" || teks == "cpu"){
                 $('.select-sernum').prop('disabled', false);
+                $('.div-sernum').show();
             }else{
                 $('.select-sernum').prop('disabled', true);
+                $('.div-sernum').hide();
             }
         });
+        $('.div-sernum').hide();
         $('.select-sernum').prop('disabled', true);
+        
         get_notif();
         setInterval(function(){
             get_notif();
