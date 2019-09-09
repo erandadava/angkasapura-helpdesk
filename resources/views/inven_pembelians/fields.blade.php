@@ -25,7 +25,7 @@
 <!-- Tgl Pembelian Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('tgl_pembelian', 'Tgl Pembelian:') !!}
-    {!! Form::date('tgl_pembelian', null, ['class' => 'form-control','id'=>'tgl_pembelian']) !!}
+    {!! Form::text('tgl_pembelian', null, ['class' => 'form-control','id'=>'tgl_pembelian','autocomplete'=>'off']) !!}
 </div>
 
 
@@ -33,7 +33,7 @@
 <!-- Tgl Penyerahan Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('tgl_penyerahan', 'Tgl Penyerahan:') !!}
-    {!! Form::date('tgl_penyerahan', null, ['class' => 'form-control','id'=>'tgl_penyerahan']) !!}
+    {!! Form::text('tgl_penyerahan', null, ['class' => 'form-control','id'=>'tgl_penyerahan','autocomplete'=>'off']) !!}
 </div>
 
 
