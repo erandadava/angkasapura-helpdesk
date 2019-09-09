@@ -253,6 +253,10 @@
     try {
       $('select').select2();
       $('.clockpicker').clockpicker();
+      $('#tgl-range').datetimepicker({
+            format: 'Y-MM-DD',
+            useCurrent: true
+        });
     } catch (e) {
 
     }

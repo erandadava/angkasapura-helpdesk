@@ -280,7 +280,11 @@ class issuesController extends AppBaseController
 
     public function laporan_hari(laporanhariDataTable $laporanhariDataTable, Request $request)
     {
-        return $laporanhariDataTable->render('laporans.laporanhari');
+        return $laporanhariDataTable->with([
+            'tgl' => $request->tgl
+        ])->render('laporans.laporanhari',[
+            'tgl' => $request->tgl
+        ]);
     }
 
     public function get_sernum($id){
