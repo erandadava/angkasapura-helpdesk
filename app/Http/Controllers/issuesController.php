@@ -275,7 +275,12 @@ class issuesController extends AppBaseController
 
     public function laporan(laporanDataTable $laporanDataTable, Request $request)
     {
-        return $laporanDataTable->render('laporans.index');
+        // return $laporanDataTable->render('laporans.index');
+         return $laporanDataTable->with([
+            'tgl' => $request->tgl
+        ])->render('laporans.index',[
+            'tgl' => $request->tgl
+        ]);
     }
 
     public function laporan_hari(laporanhariDataTable $laporanhariDataTable, Request $request)

@@ -249,6 +249,16 @@
             get_notif();
         },60000);
 
+    try {
+      $('select').select2();
+      $('.clockpicker').clockpicker();
+      $('#tgl-range-bulan').datetimepicker({
+            format: 'MM-YYYY',
+            useCurrent: true
+        });
+    } catch (e) {
+
+    }
 
     try {
       $('select').select2();
