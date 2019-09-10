@@ -253,7 +253,7 @@
       $('select').select2();
       $('.clockpicker').clockpicker();
       $('#tgl-range-bulan').datetimepicker({
-            format: 'MM-YYYY',
+            format: 'Y-MM',
             useCurrent: true
         });
     } catch (e) {

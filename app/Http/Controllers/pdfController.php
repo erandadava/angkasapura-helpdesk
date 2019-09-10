@@ -84,11 +84,11 @@ class pdfController extends Controller
                 if(isset($request->tgl) && $request->tgl != null){
                     $now = new Carbon($request->tgl);
                     $get = \App\Models\inventory::with(['issues' => function($query) use($now){
-                        $query->where('cat_id','=',2)->whereMonth('issue_date',$now->month);
+                        $query->where('cat_id','=',2)->whereYear('issue_date',$now->year)->whereMonth('issue_date',$now->month);
                     }])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
                 }else{
                     $get = \App\Models\inventory::with(['issues' => function($query) use($now){
-                        $query->where('cat_id','=',2)->whereMonth('issue_date',$now->month);
+                        $query->where('cat_id','=',2)->whereYear('issue_date',$now->year)->whereMonth('issue_date',$now->month);
                     }])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
                 }
                 
