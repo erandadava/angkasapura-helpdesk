@@ -277,6 +277,7 @@
 
 {{-- UNTUK IT SUPPORT --}}
 @hasrole('IT Support')
+@if ($issues->assign_it_support == Auth::id())
 @if($issues->status == 'ITSP')
 <div class="form-group col-md-2 col-sm-12">
   {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
@@ -370,6 +371,8 @@
     {!! Form::close() !!}
   </div>
 </div>
+@endif
+
 @endif
 @endhasrole
 
@@ -491,6 +494,7 @@
 @endhasrole
 
 @hasrole('IT Administrator')
+@if ($issues->assign_it_admin == Auth::id())
 @if($issues->status == 'ITADM')
 <div class="form-group col-md-2 col-sm-12">
   {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
@@ -584,6 +588,8 @@
     {!! Form::close() !!}
   </div>
 </div>
+@endif
+
 @endif
 @endhasrole
 
@@ -751,6 +757,7 @@ $issues->status == 'SLITADM' && $issues->assign_it_admin != null)&&($issues->req
 
 {{-- UNTUK IT OPS --}}
 @hasrole('IT Operasional')
+@if ($issues->assign_it_ops == Auth::id())
 @if($issues->status=="ITOPS")
 <div class="form-group col-md-2 col-sm-12">
   {!! Form::open(['route' => ['issues.update', $issues->id], 'method' => 'patch']) !!}
@@ -810,6 +817,8 @@ $issues->status == 'SLITADM' && $issues->assign_it_admin != null)&&($issues->req
     {!! Form::close() !!}
   </div>
 </div>
+@endif
+
 @endif
 @endhasrole
 
