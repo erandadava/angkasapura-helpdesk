@@ -11,7 +11,7 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('inventories.show_fields')
-                    <a href="{!! route('inventories.index') !!}" class="btn btn-default">Back</a>
+                    <a href="{!! url()->previous() !!}" class="btn btn-default">Back</a>
                 </div>
             </div>
         </div>

@@ -14,7 +14,7 @@
                 </div>
                 <div class="row" style="padding-left: 20px">
                     <div class="col-md-12">
-                        <a href="{!! route('issues.index') !!}" class="btn btn-default">Back</a>
+                        <a href="{!! url()->previous() !!}" class="btn btn-default">Back</a>
                     </div>
                 </div>
             </div>
