@@ -26,8 +26,8 @@ class laporanhariDataTable extends DataTable
                 if ($inquiry->status == 'AITADM') return "<span class='label label-success'>Diterima IT Administrator</span>";
                 if ($inquiry->status == 'ITADM') return "<span class='label label-info'>Diteruskan ke IT Administrator</span>";
                 if ($inquiry->status == 'ITSP') return "<span class='label label-info'>Diteruskan ke IT Support</span>";
-                if ($inquiry->status == 'RITADM') return "<span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Administrator</span>";
-                if ($inquiry->status == 'RITSP') return "<span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span>";
+                if ($inquiry->status == 'RITADM') return "<span class='label label-danger'>Tiket diteruskan ke IT Operasional</span>";
+                if ($inquiry->status == 'RITSP') return "<span class='label label-danger'>Tiket diteruskan ke IT Operasional</span>";
                 if ($inquiry->status == 'AITSP') return "<span class='label label-warning'>Menunggu Tindakan Dari IT Support</span>";
                 if ($inquiry->status == 'ITOPS') return "<span class='label label-warning'>Menunggu Tindakan Dari IT OPS</span>";
                 if ($inquiry->status == 'CLOSE') return "<span class='label label-success'>Keluhan Selesai</span>";
@@ -65,6 +65,12 @@ class laporanhariDataTable extends DataTable
         $now = Carbon::now();
         $user = Auth::user();
         $roles = $user->getRoleNames();
+        if($this->tgl){
+            $tglnya = $this->tgl;
+        }else{
+            $tglnya = $now->format('Y-m-d');
+        }
+        
         if($roles[0] == "IT Non Public" || $roles[0] == "IT Operasional" || $roles[0] == "Admin"){
             $hasil = \App\Models\issues::select('*',
             \DB::raw('(CASE 
@@ -75,13 +81,31 @@ class laporanhariDataTable extends DataTable
             ->with(['category','priority','request','unit_kerja','complete'])
             ->whereColumn('assign_it_ops', 'complete_by')
             ->where([['status','=','CLOSE']])
-            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['status','=','SLITOPS']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['status','=','SLITSP']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['status','=','SLITADM']])
+            ->whereDate('complete_date','=',$tglnya)
             ->orWhereColumn('assign_it_support', 'complete_by')
             ->where([['status','=','CLOSE']])
-            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['status','=','SLITOPS']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['status','=','SLITSP']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['status','=','SLITADM']])
+            ->whereDate('complete_date','=',$tglnya)
             ->orWhereColumn('assign_it_admin', 'complete_by')
             ->where([['status','=','CLOSE']])
-            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['status','=','SLITOPS']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['status','=','SLITSP']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['status','=','SLITADM']])
+            ->whereDate('complete_date','=',$tglnya)
             ->orderBy('status_laporan','desc')
             ->newQuery();
             return $hasil;
@@ -94,11 +118,29 @@ class laporanhariDataTable extends DataTable
             )
             ->with(['category','priority','request','unit_kerja','complete'])
             ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
-            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITOPS']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITSP']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITADM']])
+            ->whereDate('complete_date','=',$tglnya)
             ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
-            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITOPS']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITSP']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITADM']])
+            ->whereDate('complete_date','=',$tglnya)
             ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
-            ->whereDate('complete_date','=',$now->format('Y-m-d'))
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITOPS']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITSP']])
+            ->whereDate('complete_date','=',$tglnya)
+            ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITADM']])
+            ->whereDate('complete_date','=',$tglnya)
             ->orderBy('status_laporan','desc')
             ->newQuery();
             return $hasil;

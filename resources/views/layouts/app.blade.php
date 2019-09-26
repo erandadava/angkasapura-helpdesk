@@ -112,7 +112,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="/users/{{Auth::id()}}/edit" class="btn btn-default btn-flat">Profil</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
@@ -249,10 +249,24 @@
             get_notif();
         },60000);
 
+    try {
+      $('select').select2();
+      $('.clockpicker').clockpicker();
+      $('#tgl-range-bulan').datetimepicker({
+            format: 'Y-MM',
+            useCurrent: true
+        });
+    } catch (e) {
+
+    }
 
     try {
       $('select').select2();
       $('.clockpicker').clockpicker();
+      $('#tgl-range').datetimepicker({
+            format: 'Y-MM-DD',
+            useCurrent: true
+        });
     } catch (e) {
 
     }
@@ -335,7 +349,7 @@
                 var kurang = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
                 var alert_delegasi = readCookie('alertdelegasi');
                 if(alert_delegasi == null){
-                    if(today.getTime() >= lebih.getTime() && today.getTime() <= kurang.getTime())
+                    if((today.getTime() >= lebih.getTime() && today.getTime() <= kurang.getTime()) || (today.getDay() == 6 || today.getDay() == 0))
                     {
                         clearInterval(t);
                         if(!alert('Waktunya delegasi IT Administrator  diberikan ke IT Support. \nTekan OK untuk memperbarui hak akses')){

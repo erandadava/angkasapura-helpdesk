@@ -18,6 +18,19 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
+                 <div class="row" style="margin-bottom:10px;">
+                        <div class="col-md-6">
+                            {!! Form::open(['url' => 'laporanbulanan','method'=>'GET','class'=>'form-inline']) !!}
+
+                                <div class="form-group">
+                                    {!! Form::label('tgl', 'Tanggal:') !!}
+                                    <input type="text" name="tgl" id='tgl-range-bulan' class="form-control" value='{{$tgl??''}}' autocomplete='off'>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Lihat</button>
+        
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
                     @include('inventories.table')
             </div>
         </div>

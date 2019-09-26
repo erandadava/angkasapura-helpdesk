@@ -65,7 +65,7 @@ class pemeriksaan_perangkatDataTable extends DataTable
             ['data' => 'nama_pengguna_pc', 'title' => 'Nama Pengguna Komputer'],
             'lokasi',
             'serial_number',
-            'selesai_jam_pengecekan',
+            ['data' => 'selesai_jam_pengecekan', 'title' => 'Selesai Pengecekan'],
             ['data' => 'full_computer_name', 'title' => 'Nama Komputer Lengkap'],
         ];
     }

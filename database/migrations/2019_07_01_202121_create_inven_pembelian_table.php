@@ -20,7 +20,7 @@ class CreateInvenPembelianTable extends Migration
             $table->string('nama_alat');
             $table->text('keperluan');
             $table->date('tgl_pembelian');
-            $table->date('tgl_penyerahan');
+            $table->date('tgl_penyerahan')->nullable();
             $table->timestamps();
         });
     }

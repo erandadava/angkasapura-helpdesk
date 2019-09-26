@@ -25,6 +25,12 @@ class webuserController extends Controller
      */
     public function index()
     {
+        //Untuk Dashboard 
+        $this->data['jumlah_keluhan'] = issues::where('request_id','=',Auth::id())->get()->count();
+        $this->data['jumlah_selesai'] = issues::where([['status','=','CLOSE'],['request_id','=',Auth::id()]])->orWhere([['status','=','RT'],['request_id','=',Auth::id()]])->count();
+        $this->data['jumlah_belum'] = issues::where([['status','!=','CLOSE'],['status','!=','RT'],['request_id','=',Auth::id()]])->orWhere([['status','=',null],['request_id','=',Auth::id()]])->count();
+
+
         $user = Auth::user();
         $roles = $user->getRoleNames();
         $this->data['category'] = category::where('is_active','=',1)->pluck('cat_name','id');
@@ -47,7 +53,7 @@ class webuserController extends Controller
         }
         
         $this->data['sernum'] = $sernum;
-        $this->data['ticket_solution']=issues::with(['category','priority','request','assign_it_support_relation','assign_it_ops_relation'])->where([['request_id','=',$user->id],['status','=','SLITSP']])->orWhere([['status','=','SLITOPS']])->orWhere([['status','=','SLITADM']])->get();
+        $this->data['ticket_solution']=issues::with(['category','priority','request','assign_it_support_relation','assign_it_ops_relation'])->where([['request_id','=',$user->id],['status','=','SLITSP']])->orWhere([['request_id','=',$user->id],['status','=','SLITOPS']])->orWhere([['request_id','=',$user->id],['status','=','SLITADM']])->get();
         $this->data['open_ticket']=issues::with(['category','priority','request','assign_it_support_relation','assign_it_ops_relation'])->where([['request_id','=',$user->id],['status','!=','CLOSE'], ['status','!=','RT']])->orWhere([['status','=',null]])->get();
         $this->data['ticket']=issues::with(['category','priority','request'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['request_id','=',$user->id],['status','=','SLITOPS']])->orWhere([['request_id','=',$user->id],['status','=','SLITSP']])->orWhere([['request_id','=',$user->id],['status','=','SLITADM']])->get();
         $this->data['ticket_done']=issues::with(['category','priority','request'])->where([['request_id','=',$user->id],['status','=','CLOSE']])->get();

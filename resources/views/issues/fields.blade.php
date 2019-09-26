@@ -26,16 +26,16 @@
 
 <!-- Location Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('location', 'Lokasi:') !!}
+    {!! Form::label('location', 'Lokasi (tempat anda bekerja):') !!}
     {!! Form::text('location', null, ['class' => 'form-control']) !!}
 </div>
 
 
-
+{{-- 
 <div class="form-group col-sm-6">
     {!! Form::label('other_device', 'Perangkat Lain:') !!}
     {!! Form::text('other_device', null, ['class' => 'form-control']) !!}
-</div>
+</div> --}}
 
 <!-- Cat Id Field -->
 <div class="form-group col-sm-6">
@@ -49,12 +49,12 @@
     {!! Form::text('no_tlp', null, ['class' => 'form-control', 'pattern' => '\d*']) !!}
 </div>
 
-<div class="form-group col-sm-6">
+{{-- <div class="form-group col-sm-6">
     {!! Form::label('id_unit_kerja', 'Unit Kerja:') !!}
     </br>
     {!!  \Auth::user()->unit_kerja->nama_uk ?? ''!!}
     {!! Form::hidden('id_unit_kerja', \Auth::user()->id_unit_kerja, ['class' => 'uk-input', 'id'=>'form-stacked-text']) !!}
-</div>
+</div> --}}
 {{-- <div class="form-group col-sm-6">
     {!! Form::label('id_unit_kerja', 'Unit Kerja:') !!}
     {!! Form::select('id_unit_kerja', $data_unit, null, ['class' => 'form-control']) !!}

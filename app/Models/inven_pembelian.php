@@ -51,8 +51,6 @@ class inven_pembelian extends Model
         'unit_kerja' => 'string',
         'nama_alat' => 'string',
         'keperluan' => 'string',
-        'tgl_pembelian' => 'date',
-        'tgl_penyerahan' => 'date'
     ];
 
     /**
@@ -65,8 +63,7 @@ class inven_pembelian extends Model
         'unit_kerja' => 'required',
         'nama_alat' => 'required',
         'keperluan' => 'required',
-        'tgl_pembelian' => 'required',
-        'tgl_penyerahan' => 'required'
+        'tgl_pembelian' => 'required'
     ];
 
     public function unit_kerjas(){

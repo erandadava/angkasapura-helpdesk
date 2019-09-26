@@ -71,6 +71,15 @@ class CategoryTableSeeder extends Seeder
                 'updated_at' => '2019-05-19 16:00:47',
                 'deleted_at' => NULL,
             ),
+            6 => 
+            array (
+                'id' => 7,
+                'cat_name' => 'Lainnya',
+                'is_active' => 1,
+                'created_at' => '2019-08-27 08:25:26',
+                'updated_at' => '2019-08-27 08:25:26',
+                'deleted_at' => NULL,
+            ),
         ));
         
         

@@ -25,7 +25,7 @@ class inventoryRepository extends BaseRepository
         'lokasi',
         'nama_user',
         'merk',
-        'type_alat',
+        // 'type_alat',
         'sernum',
         'made_in',
         'made_year',

@@ -3,6 +3,7 @@
 @endsection
 {!! Form::open(['url' => 'exportpdflaporanharian', 'method' => 'post', 'class' => 'formcheck', 'target' => '_blank']) !!}
     {!! Form::hidden('exportid', null, ['id' => 'val-export-id']) !!}
+    {!! Form::hidden('tgl', $tgl??'') !!}
 {!! Form::close() !!}
 
 <div class="table-responsive">

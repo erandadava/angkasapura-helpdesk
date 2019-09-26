@@ -24,10 +24,10 @@
 <div class="row">
    
 <!-- Type Alat Field -->
-<div class="form-group col-md-3">
+{{-- <div class="form-group col-md-3">
     {!! Form::label('type_alat', 'Type Alat:') !!}
     <p>{!! $inventory->type_alat !!}</p>   
-</div>
+</div> --}}
 
 <!-- Sernum Field -->
 <div class="form-group col-md-3">
@@ -37,12 +37,12 @@
 
 <!-- Nama Perangkat Field -->
 <div class="form-group col-md-3">
-    {!! Form::label('made_in', 'Dibuat di:') !!}
+    {!! Form::label('made_in', 'Buatan:') !!}
     <p>{!! $inventory->made_in !!}</p>
 </div>
 
 <div class="form-group col-md-3">
-    {!! Form::label('made_year', 'Tahun Dibuat:') !!}
+    {!! Form::label('made_year', 'Tahun Pembuatan:') !!}
     <p>{!! $inventory->made_year !!}</p>
 </div>
 </div>
@@ -50,7 +50,7 @@
 
 <div class="row">
     <div class="form-group col-md-3">
-        {!! Form::label('condition', 'Kondisi:') !!}
+        {!! Form::label('condition', 'Kondisi (%):') !!}
         <p>{!! $inventory->condition !!}</p>
     </div>
     
@@ -114,12 +114,12 @@
 
 <!-- Tech Key Field -->
 <div class="form-group col-md-3">
-    {!! Form::label('ip_type', 'IP Type:') !!}
+    {!! Form::label('ip_type', 'Tipe IP:') !!}
     <p>{!! $inventory->ip_type !!}</p>
 </div>
 <!-- Tech Kode Field -->
  <div class="form-group col-md-3">
-    {!! Form::label('conn_type', 'Connection Type:') !!}
+    {!! Form::label('conn_type', 'Tipe Koneksi:') !!}
     <p>{!! $inventory->conn_type !!}</p>
 </div>
 </div>

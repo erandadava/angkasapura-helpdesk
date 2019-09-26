@@ -36,8 +36,8 @@ class pdfController extends Controller
                     if ($value['status'] == 'AITADM'){ $status="Diterima IT Administrator"; }
                     if ($value['status'] == 'ITADM'){ $status="Diteruskan ke IT Administrator"; }
                     if ($value['status'] == 'ITSP'){ $status="Diteruskan ke IT Support"; }
-                    if ($value['status'] == 'RITADM'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Administrator"; }
-                    if ($value['status'] == 'RITSP'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Support"; }
+                    if ($value['status'] == 'RITADM'){ $status="Tiket diteruskan ke IT Operasional"; }
+                    if ($value['status'] == 'RITSP'){ $status="Tiket diteruskan ke IT Operasional"; }
                     if ($value['status'] == 'AITSP'){ $status="Menunggu Tindakan Dari IT Support"; }
                     if ($value['status'] == 'ITOPS'){ $status="Menunggu Tindakan Dari IT OPS"; }
                     if ($value['status'] == 'CLOSE'){ $status="Keluhan Selesai"; }
@@ -63,24 +63,35 @@ class pdfController extends Controller
                 }
                 break; 
             case 'inventories': 
-                $get = \App\Models\inventory::with('cat_inventory')->whereIn('id',$arr_export)->get();
-                $head = ['Kategori Inventaris', 'Lokasi', 'Nama Perangkat', 'Merk', 'Status'];
+                $get = \App\Models\inventory::with(['pemilik_perangkat','cat_inventory'])->whereIn('id',$arr_export)->get();
+                $head = ['Pemilik Perangkat','Kategori Inventaris', 'Lokasi', 'Nama Perangkat', 'Merk', 'Status'];
                 $title = 'Inventaris';
                 foreach ($get as $key => $value) {
                     if ($value['is_active'] == 0){ $status = 'Non Aktif';};
                     if ($value['is_active'] == 1){ $status = "Aktif";}
                     $isinya[$key]=[
-                        0 => $value['cat_inventory']['nama_cat'],
-                        1 => $value['lokasi'],
-                        2 => $value['nama_perangkat'],
-                        3 => $value['merk'],
-                        4 => $status,
+                        0 => $value['pemilik_perangkat']['name'],
+                        1 => $value['cat_inventory']['nama_cat'],
+                        2 => $value['lokasi'],
+                        3 => $value['nama_perangkat'],
+                        4 => $value['merk'],
+                        5 => $status,
                     ];   
                 }
                 break;
             case 'laporan_bulanan' :
                 $now = Carbon::now();
-                $get = \App\Models\inventory::with(['issues'])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
+                if(isset($request->tgl) && $request->tgl != null){
+                    $now = new Carbon($request->tgl);
+                    $get = \App\Models\inventory::with(['issues' => function($query) use($now){
+                        $query->where('cat_id','=',2)->whereYear('issue_date',$now->year)->whereMonth('issue_date',$now->month);
+                    }])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
+                }else{
+                    $get = \App\Models\inventory::with(['issues' => function($query) use($now){
+                        $query->where('cat_id','=',2)->whereYear('issue_date',$now->year)->whereMonth('issue_date',$now->month);
+                    }])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
+                }
+                
                 $head = ['Nama User','Nama Perangkat','Serial Number','Merk','Nama Perangkat Full','Jumlah Keluhan', 'SLA'];
                 $title = 'Laporan Bulanan';
                 foreach ($get as $key => $value) {
@@ -136,8 +147,8 @@ class pdfController extends Controller
                     if ($value['status'] == 'AITADM'){ $status="Diterima IT Administrator"; }
                     if ($value['status'] == 'ITADM'){ $status="Diteruskan ke IT Administrator"; }
                     if ($value['status'] == 'ITSP'){ $status="Diteruskan ke IT Support"; }
-                    if ($value['status'] == 'RITADM'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Administrator"; }
-                    if ($value['status'] == 'RITSP'){ $status="Keluhan Tidak Dapat Diatasi Oleh IT Support"; }
+                    if ($value['status'] == 'RITADM'){ $status="Tiket diteruskan ke IT Operasional"; }
+                    if ($value['status'] == 'RITSP'){ $status="Tiket diteruskan ke IT Operasional"; }
                     if ($value['status'] == 'AITSP'){ $status="Menunggu Tindakan Dari IT Support"; }
                     if ($value['status'] == 'ITOPS'){ $status="Menunggu Tindakan Dari IT OPS"; }
                     if ($value['status'] == 'CLOSE'){ $status="Keluhan Selesai"; }
@@ -193,14 +204,31 @@ class pdfController extends Controller
                 $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
                 ->whereColumn('assign_it_ops', 'complete_by')
                 ->where([['status','=','CLOSE']])
-                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
+                ->orWhere([['status','=','SLITOPS']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['status','=','SLITSP']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['status','=','SLITADM']])
+                ->whereIn('id',$arr_export)
                 ->whereIn('id',$arr_export)
                 ->orWhereColumn('assign_it_support', 'complete_by')
                 ->where([['status','=','CLOSE']])
-                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
+                ->orWhere([['status','=','SLITOPS']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['status','=','SLITSP']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['status','=','SLITADM']])
+                ->whereIn('id',$arr_export)
                 ->orWhereColumn('assign_it_admin', 'complete_by')
                 ->where([['status','=','CLOSE']])
-                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
+                ->orWhere([['status','=','SLITOPS']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['status','=','SLITSP']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['status','=','SLITADM']])
                 ->whereIn('id',$arr_export)
                 ->orderBy('issue_date', 'DESC')
                 ->get()
@@ -210,13 +238,30 @@ class pdfController extends Controller
             }else{
                 $get = \App\Models\issues::with(['category','priority','request','unit_kerja','complete'])
                 ->where([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
-                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
+                ->orWhere([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITOPS']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITSP']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['assign_it_ops','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITADM']])
+                ->whereIn('id',$arr_export)
                 ->whereIn('id',$arr_export)
                 ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
-                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
+                ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITOPS']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITSP']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['assign_it_support','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITADM']])
+                ->whereIn('id',$arr_export)
                 ->whereIn('id',$arr_export)
                 ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','CLOSE']])
-                ->whereDate('complete_date','=',$now->format('Y-m-d'))
+                ->whereIn('id',$arr_export)
+                ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITOPS']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITSP']])
+                ->whereIn('id',$arr_export)
+                ->orWhere([['assign_it_admin','=',Auth::user()->id],['complete_by','=',Auth::user()->id],['status','=','SLITADM']])
                 ->whereIn('id',$arr_export)
                 ->orderBy('issue_date', 'DESC')
                 ->get()
@@ -228,7 +273,7 @@ class pdfController extends Controller
             
         }
 
-        $head = ['Nama', 'Unit Kerja',  'Keluhan', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
+        $head = ['Nama', 'Lokasi',  'Keluhan', 'Waktu Keluhan', 'Waktu Penanganan', 'Waktu Selesai', 'Waktu Tanggap', 'Solusi'];
         $title = 'Laporan Harian';
         $group = [];
         foreach ($get as $key => $value) {;
@@ -249,7 +294,7 @@ class pdfController extends Controller
             }
             $isinya[$key]=[
                 0 => $value['request']['name'],
-                1 => $value['unit_kerja']['nama_uk'],
+                1 => $value['location'],
                 2 => $value['prob_desc'],
                 3 => $value['issue_date'],
                 4 => $value['waktu_tindakan'],

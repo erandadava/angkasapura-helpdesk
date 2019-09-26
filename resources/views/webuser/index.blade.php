@@ -44,6 +44,58 @@
         transition: .2s ease-in-out;
         transition-property: color,background-color,border;
     }
+    .main-panel>.content {
+        margin-top: 25px;
+    }
+    .logo > img{
+            width: 100%;
+        }
+    @media only screen and (max-width: 600px) {
+        body {
+            background-color: lightblue;
+        }
+        .logo > img{
+            width: 70%;
+        }
+        .logo{
+            text-align: center;
+        }
+        .navbar .navbar-nav .nav-item .nav-link {
+    position: relative;
+    color: inherit;
+    padding: 0.9375rem;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-radius: 3px;
+    line-height: 20px;
+    width: 50px;
+}
+.navbar .dropdown.show .dropdown-menu, .navbar .dropdown .dropdown-menu {
+    background-color: white;
+    border: 0;
+    padding-bottom: 15px;
+    transition: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transform: none !important;
+    width: 90%;
+    margin-bottom: 15px;
+    padding-top: 0;
+    height: auto;
+    animation: none;
+    opacity: 1;
+    overflow-y: scroll;
+}
+.navbar .dropdown-menu .dropdown-item {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.dropdown-menu .dropdown-item, .dropdown-menu li>a {
+    width: 100%;
+}
+        
+    }
 
     </style>
   </head>
@@ -78,7 +130,7 @@
 
                         $.each(data.data.data_notif, function( key, element ) {
                             $("#notif").append("<a class='dropdown-item' href='"+element.link_id+"'>"+element.pesan+"</a>");
-                            $('.count_notif').append("<span class='notification number_notif animated heartBeat'>"+data.data.count_notif+"</span>");
+                            $('.count_notif').append("<span class='uk-badge uk-text-top notification number_notif animated heartBeat'>"+data.data.count_notif+"</span>");
                         });
                         
                     }
@@ -90,6 +142,18 @@
                 
             });
         }
+        $('.select-kategori').on("select2:selecting", function(e) { 
+            var teks = e.params.args.data.text.toLowerCase();
+            if(teks == "cpu (pc)" || teks == "cpu(pc)" || teks == "cpu"){
+                $('.select-sernum').prop('disabled', false);
+                $('.div-sernum').show();
+            }else{
+                $('.select-sernum').prop('disabled', true);
+                $('.div-sernum').hide();
+            }
+        });
+        $('.div-sernum').hide();
+        $('.select-sernum').prop('disabled', true);
         
         get_notif();
         setInterval(function(){

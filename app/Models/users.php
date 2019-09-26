@@ -67,11 +67,18 @@ class users extends Model
     public static $rulesUpdate = [
         'name' => 'required',
         'email' => 'required',
+        'password' => 'min:6',
+        'password_confirmation' => 'same:password|min:6'
     ];
 
     public function model_has_roles()
     {
         return $this->hasOne('App\Models\model_has_roles','model_id','id');
+    }
+
+     public function inventory()
+    {
+        return $this->hasMany('App\Models\inventory','id_pemilik_perangkat','id')->where('is_active', 1);
     }
 
     public function rating()

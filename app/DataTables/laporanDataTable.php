@@ -47,9 +47,25 @@ class laporanDataTable extends DataTable
      */
     public function query(inventory $model)
     {
-       //$now = Carbon::now();
+       
+       if($this->tgl){
+            $tglnya = new Carbon($this->tgl);
+        }else{
+            $now = Carbon::now();
+            $tglnya = $now;
+        }
     //    return $model->withCount('sernum')->whereMonth('complete_date', '=', $now->month)->newQuery();
-       return $model->with(['issues'])->withCount(['issuesjml','issuesjmlsla'])->newQuery();
+       return $model->with(['issues' => function($query) use($tglnya)
+       {
+            $query->where('cat_id','=',2)
+            ->whereYear('issue_date',$tglnya->year)    
+            ->whereMonth('issue_date',$tglnya->month);
+       }]
+       )->withCount(['issuesjml' => function($query) use($tglnya){
+            $query->where('cat_id','=',2)
+            ->whereYear('issue_date',$tglnya->year)    
+            ->whereMonth('issue_date',$tglnya->month);
+       },'issuesjmlsla'])->newQuery();
 
     }
 

@@ -57,8 +57,8 @@ class issuesDataTable extends DataTable
                 if ($inquiry->status == 'AITADM') return "<span class='label label-success'>Diterima IT Administrator</span>";
                 if ($inquiry->status == 'ITADM') return "<span class='label label-info'>Diteruskan ke IT Administrator</span>";
                 if ($inquiry->status == 'ITSP') return "<span class='label label-info'>Diteruskan ke IT Support</span>";
-                if ($inquiry->status == 'RITADM') return "<span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Administrator</span>";
-                if ($inquiry->status == 'RITSP') return "<span class='label label-danger'>Keluhan Tidak Dapat Diatasi Oleh IT Support</span>";
+                if ($inquiry->status == 'RITADM') return "<span class='label label-danger'>Tiket diteruskan ke IT Operasional</span>";
+                if ($inquiry->status == 'RITSP') return "<span class='label label-danger'>Tiket diteruskan ke IT Operasional</span>";
                 if ($inquiry->status == 'AITSP') return "<span class='label label-warning'>Menunggu Tindakan Dari IT Support</span>";
                 if ($inquiry->status == 'ITOPS') return "<span class='label label-warning'>Menunggu Tindakan Dari IT OPS</span>";
                 if ($inquiry->status == 'CLOSE') return "<span class='label label-success'>Keluhan Selesai</span>";
@@ -146,7 +146,7 @@ class issuesDataTable extends DataTable
             ['data' => 'priority.prio_name', 'title' => 'Prioritas'],
             ['data' => 'issue_date', 'title' => 'Waktu Keluhan'],
             ['data' => 'category.cat_name', 'title' => 'Kategori'],
-            ['data' => 'location', 'title' => 'Lokasi'],
+            ['data' => 'location', 'title' => 'Lokasi (ruangan anda bekerja)'],
             ['data' => 'status', 'title' => 'Status'],
 
         ];

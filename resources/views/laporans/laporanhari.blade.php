@@ -27,6 +27,19 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
+                    <div class="row" style="margin-bottom:10px;">
+                        <div class="col-md-6">
+                            {!! Form::open(['url' => 'laporanhari','method'=>'GET','class'=>'form-inline']) !!}
+
+                                <div class="form-group">
+                                    {!! Form::label('tgl', 'Tanggal:') !!}
+                                    <input type="text" name="tgl" id='tgl-range' class="form-control" value='{{$tgl??''}}' autocomplete='off'>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Lihat</button>
+        
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
                     @include('laporans.table')
             </div>
         </div>
@@ -35,4 +48,7 @@
         </div>
     </div>
 @endsection
+
+
+
 
