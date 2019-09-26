@@ -24,10 +24,10 @@
 <div class="row">
    
 <!-- Type Alat Field -->
-{{-- <div class="form-group col-md-3">
-    {!! Form::label('type_alat', 'Type Alat:') !!}
-    <p>{!! $inventory->type_alat !!}</p>   
-</div> --}}
+<div class="form-group col-md-3">
+    {!! Form::label('nama_user', 'nama user:') !!}
+    <p>{!! $inventory->nama_user !!}</p>   
+</div> 
 
 <!-- Sernum Field -->
 <div class="form-group col-md-3">
