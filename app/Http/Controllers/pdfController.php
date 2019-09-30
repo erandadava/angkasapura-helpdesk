@@ -26,7 +26,7 @@ class pdfController extends Controller
                 }elseif($roles[0] == "IT Non Public"){
                     $get = \App\Models\issues::with(['category','priority','request'])->whereIn('id',$arr_export)->get();
                 }else{
-                    $get = \App\Models\issues::with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->whereIn('id',$arr_export)->get();
+                    $get = \App\Models\issues::with(['category','priority','request'])->whereIn('id',$arr_export)->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->whereIn('id',$arr_export)->orWhere('assign_it_support','=',$user->id)->whereIn('id',$arr_export)->get();
                 }
                 $head = ['Kode', 'Permintaan Oleh', 'Prioritas', 'Waktu Keluhan', 'Kategori', 'Lokasi', 'Status'];
                 $title = 'Tiket';
@@ -138,7 +138,7 @@ class pdfController extends Controller
                 if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
                     $get = \App\Models\issues::with(['category','priority','request','rating'])->where('status','=','RT')->orWhere('status','=','CLOSE')->whereIn('id',$arr_export)->get();
                 }else{
-                    $get = \App\Models\issues::with(['category','priority','request','rating'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['request_id','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_ops','=',$user->id],['status','=','RT']])->orWhere([['assign_it_ops','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_support','=',$user->id],['status','=','RT']])->orWhere([['assign_it_support','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_admin','=',$user->id],['status','=','RT']])->orWhere([['assign_it_admin','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->get();
+                    $get = \App\Models\issues::with(['category','priority','request','rating'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['request_id','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->orWhere([['assign_it_ops','=',$user->id],['status','=','RT']])->whereIn('id',$arr_export)->orWhere([['assign_it_ops','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->orWhere([['assign_it_support','=',$user->id],['status','=','RT']])->whereIn('id',$arr_export)->orWhere([['assign_it_support','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->orWhere([['assign_it_admin','=',$user->id],['status','=','RT']])->whereIn('id',$arr_export)->orWhere([['assign_it_admin','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->get();
                 }
                 $head = ['Kategori', 'Kode', 'Prioritas', 'Permintaan', 'Penialaian', 'Status', 'Waktu Keluhan'];
                 $title = 'Penilaian';
