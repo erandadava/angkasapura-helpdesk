@@ -28,9 +28,9 @@
 <div class="form-group col-sm-6">
     {!! Form::label('mulai_jam_pengecekan', 'Jam Mulai Pengecekan:') !!}
     <div class="input-group clockpicker" data-align="top" data-autoclose="true">
-        <input type="text" name="mulai_jam_pengecekan" class="form-control">
+        <input type="text" name="mulai_jam_pengecekan" class="form-control" value="{{ $pemeriksaanPerangkat->mulai_jam_pengecekan }}">
         <span class="input-group-addon">
-            <span class="glyphicon glyphicon-time"></span>
+        <span class="glyphicon glyphicon-time"></span>
         </span>
     </div>
 </div>
