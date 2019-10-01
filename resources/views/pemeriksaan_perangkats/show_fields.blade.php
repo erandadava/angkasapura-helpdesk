@@ -62,7 +62,11 @@
     <div class="col-md-3">
     <div class="form-group">
         {!! Form::label('join_domain', 'Join Domain:') !!}
-        <p>{!! $pemeriksaanPerangkat->join_domain !!}</p>
+        @if ($pemeriksaanPerangkat->join_domain == 1)
+            <p>Yes</p>
+        @elses
+           <p>No</p> 
+        @endif
     </div>
 </div>
 
@@ -72,7 +76,11 @@
     <div class="col-md-3">
      <div class="form-group">
         {!! Form::label('update_kaspersky', 'Update Kaspersky:') !!}
-        <p>{!! $pemeriksaanPerangkat->update_kaspersky !!}</p>
+        @if ($pemeriksaanPerangkat->update_kaspersky == 1)
+            <p>Yes</p>
+        @else
+           <p>No</p> 
+        @endif
     </div>
 </div>
 
