@@ -85,11 +85,19 @@ class pdfController extends Controller
                     $now = new Carbon($request->tgl);
                     $get = \App\Models\inventory::with(['issues' => function($query) use($now){
                         $query->where('cat_id','=',2)->whereYear('issue_date',$now->year)->whereMonth('issue_date',$now->month);
-                    }])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
+                    }])->withCount(['issuesjml' => function($query) use($now){
+                        $query->where('cat_id','=',2)
+                        ->whereYear('issue_date',$now->year)    
+                        ->whereMonth('issue_date',$now->month);
+                   },'issuesjmlsla'])->whereIn('id',$arr_export)->get();
                 }else{
                     $get = \App\Models\inventory::with(['issues' => function($query) use($now){
                         $query->where('cat_id','=',2)->whereYear('issue_date',$now->year)->whereMonth('issue_date',$now->month);
-                    }])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
+                    }])->withCount(['issuesjml' => function($query) use($now){
+                        $query->where('cat_id','=',2)
+                        ->whereYear('issue_date',$now->year)    
+                        ->whereMonth('issue_date',$now->month);
+                   },'issuesjmlsla'])->whereIn('id',$arr_export)->get();
                 }
                 
                 $head = ['Nama User','Nama Perangkat','Serial Number','Merk','Nama Perangkat Full','Jumlah Keluhan', 'SLA'];
