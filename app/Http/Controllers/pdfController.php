@@ -186,8 +186,13 @@ class pdfController extends Controller
                 break;
         }
         $values = $isinya;
-        $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values]);
-        return $pdf->stream($tabel.time().'.pdf');
+        // $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values]);
+        // return $pdf->stream($tabel.time().'.pdf');
+        $pdf = \PDF::loadView('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values]);
+        $pdf->setPaper('a4');
+        $pdf->setOrientation('landscape');
+        $pdf->setOption('disable-javascript', true);
+        return $pdf->stream($tabel.time().time().'.pdf');
     }
 
     public function make_pdf_laporan_harian(Request $request){
@@ -323,8 +328,13 @@ class pdfController extends Controller
 
         $values = $isinya; 
         // return view('pdf.index_harian')->with(['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group]);
-        $pdf = PDF::loadview('pdf.index_harian',['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group])->setPaper('a4', 'landscape');
-        // return $pdf->download($tabel.time().'.pdf');
-        return $pdf->stream('laporan_harian'.'.pdf', array("Attachment" => false));
+        // $pdf = PDF::loadview('pdf.index_harian',['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group])->setPaper('a4', 'landscape');
+        // // return $pdf->download($tabel.time().'.pdf');
+        // return $pdf->stream('laporan_harian'.'.pdf', array("Attachment" => false));
+        $pdf = \PDF::loadView('pdf.index_harian',['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group]);
+        $pdf->setPaper('a4');
+        $pdf->setOrientation('landscape');
+        $pdf->setOption('disable-javascript', true);
+        return $pdf->stream('laporan_harian'.time().'.pdf');
     }
 }
