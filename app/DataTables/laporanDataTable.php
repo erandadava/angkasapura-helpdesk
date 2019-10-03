@@ -61,7 +61,7 @@ class laporanDataTable extends DataTable
             ->whereYear('issue_date',$tglnya->year)    
             ->whereMonth('issue_date',$tglnya->month);
        }]
-       )->withCount(['issuesjml' => function($query) use($tglnya){
+       )->withCount(['issues' => function($query) use($tglnya){
             $query->where('cat_id','=',2)
             ->whereYear('issue_date',$tglnya->year)    
             ->whereMonth('issue_date',$tglnya->month);
@@ -107,7 +107,7 @@ class laporanDataTable extends DataTable
             ['data' => 'sernum', 'title' => 'Serial Number'],
             ['data' => 'merk', 'title' => 'Merk'],
             ['data' => 'nama_perangkat_full', 'title' => 'Nama Perangkat Full'],
-            ['data' => 'issuesjml_count', 'title' => 'Jumlah Keluhan', 'searchable' => false],
+            ['data' => 'issues_count', 'title' => 'Jumlah Keluhan', 'searchable' => false],
             ['data' => 'issuesjmlsla_count', 'title' => 'SLA','searchable' => false],
         ];
     }

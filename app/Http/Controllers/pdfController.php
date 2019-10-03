@@ -85,7 +85,7 @@ class pdfController extends Controller
                     $now = new Carbon($request->tgl);
                     $get = \App\Models\inventory::with(['issues' => function($query) use($now){
                         $query->where('cat_id','=',2)->whereYear('issue_date',$now->year)->whereMonth('issue_date',$now->month);
-                    }])->withCount(['issuesjml' => function($query) use($now){
+                    }])->withCount(['issues' => function($query) use($now){
                         $query->where('cat_id','=',2)
                         ->whereYear('issue_date',$now->year)    
                         ->whereMonth('issue_date',$now->month);
@@ -93,7 +93,7 @@ class pdfController extends Controller
                 }else{
                     $get = \App\Models\inventory::with(['issues' => function($query) use($now){
                         $query->where('cat_id','=',2)->whereYear('issue_date',$now->year)->whereMonth('issue_date',$now->month);
-                    }])->withCount(['issuesjml' => function($query) use($now){
+                    }])->withCount(['issues' => function($query) use($now){
                         $query->where('cat_id','=',2)
                         ->whereYear('issue_date',$now->year)    
                         ->whereMonth('issue_date',$now->month);
@@ -120,7 +120,7 @@ class pdfController extends Controller
                         2 => $value['sernum'],
                         3 => $value['merk'],
                         4 => $value['nama_perangkat_full'],
-                        5 => $value['issuesjml_count'],
+                        5 => $value['issues_count'],
                         6 => $hasil
                     ];   
                 }
