@@ -14,48 +14,56 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-orange"><i class="fa fa-file"></i></span>
-
-                            <div class="info-box-content">
-                            <span class="info-box-text">Tiket</span>
-                            <span class="info-box-number">{{$jumlah_keluhan}}</span>
+                        <a href="/issues" style="text-decoration:none;color:black">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-orange"><i class="fa fa-file"></i></span>
+    
+                                <div class="info-box-content">
+                                <span class="info-box-text">Tiket</span>
+                                <span class="info-box-number">{{$jumlah_keluhan}}</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
+                        </a>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon {{ $performa>50 ? 'bg-green' : 'bg-red' }}"><i class="fa fa-tachometer"></i></span>
+                        <a href="/issues" style="text-decoration:none;color:black">
+                            <div class="info-box">
+                                <span class="info-box-icon {{ $performa>50 ? 'bg-green' : 'bg-red' }}"><i class="fa fa-tachometer"></i></span>
 
-                            <div class="info-box-content">
-                            <span class="info-box-text">Performa</span>
-                            <span class="info-box-number">{{$performa}}%</span>
+                                <div class="info-box-content">
+                                <span class="info-box-text">Performa</span>
+                                <span class="info-box-number">{{$performa}}%</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
+                        </a>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-red"><i class="fa fa-remove"></i></span>
+                        <a href="/issues" style="text-decoration:none;color:black">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-red"><i class="fa fa-remove"></i></span>
 
-                            <div class="info-box-content">
-                            <span class="info-box-text">Tiket Belum Selesai</span>
-                            <span class="info-box-number">{{$jumlah_belum}}</span>
+                                <div class="info-box-content">
+                                <span class="info-box-text">Tiket Belum Selesai</span>
+                                <span class="info-box-number">{{$jumlah_belum}}</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
+                        </a>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-blue"><i class="fa fa-check-square-o"></i></span>
+                        <a href="/issues" style="text-decoration:none;color:black">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-blue"><i class="fa fa-check-square-o"></i></span>
 
-                            <div class="info-box-content">
-                            <span class="info-box-text">Tiket Selesai</span>
-                            <span class="info-box-number">{{$jumlah_keluhan_selesai}}</span>
+                                <div class="info-box-content">
+                                <span class="info-box-text">Tiket Selesai</span>
+                                <span class="info-box-number">{{$jumlah_keluhan_selesai}}</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <div class="row">
