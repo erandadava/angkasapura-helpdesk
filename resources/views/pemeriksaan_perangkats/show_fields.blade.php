@@ -64,7 +64,7 @@
         {!! Form::label('join_domain', 'Join Domain:') !!}
         @if ($pemeriksaanPerangkat->join_domain == 1)
             <p>Yes</p>
-        @elses
+        @else
            <p>No</p> 
         @endif
     </div>
