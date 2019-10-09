@@ -50,8 +50,8 @@
 
 .sidenav {
     height: 100%;
-    background: rgb(39,107,183);
-    background: radial-gradient(circle, rgba((39,107,183,1) 22%, rgba(0,116,200,1) 93%));
+    background: rgb(87,135,189);
+    background: radial-gradient(circle, rgba(87,135,189,1) 0%, rgba(39,107,183,1) 48%);
     overflow-x: hidden;
     padding-top: 20px;
 }
@@ -84,6 +84,7 @@ input{
 }
 #main2{
         display: block;
+        margin-right: 10%;
 }
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
@@ -122,6 +123,7 @@ input{
     }
     .login-main-text img{
     height: 100vh;
+
 }
     #main2{
         display: none;
@@ -142,8 +144,8 @@ input{
 }
 
 
-.btn-black{
-    background-color: #005399 !important;
+.btn-green{
+    background-color: #1c993d !important;
     color: #fff;
     font-size: medium;
     font-weight: bold;
@@ -154,7 +156,7 @@ input{
 
 <div class="main" id="main2">
         <div class="login-main-text">
-            <img src="{{asset('img/background_kanan.png')}}" style="width: 100%;">
+            <img src="{{asset('img/background_kiri.png')}}" style="width: 100%;">
         </div>
 </div>
 <div class="sidenav">
@@ -189,7 +191,7 @@ input{
                             @endif
                         </div>
                         
-                        <button type="submit" class="btn btn-success">Log In</button>
+                        <button type="submit" class="btn btn-green">Log In</button>
                        <!--  <button type="submit" class="btn btn-secondary">Register</button> -->
                     
                     </form>
@@ -197,7 +199,7 @@ input{
             </div>
             <div class="col-md-offset-2 col-md-8 col-sm-12 div-teks">
                 <center>
-                        <p>Soekarno-Hatta Internasional Airport</br>HRMS&copy;V.1 2019</p>
+                        <p>Soekarno-Hatta Airport RUBI&copy;V.1 2019</p>
                 </center>
             </div>
     
