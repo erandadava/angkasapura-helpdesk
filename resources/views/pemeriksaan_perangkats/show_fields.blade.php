@@ -1,57 +1,63 @@
 
 <div class="row">
     <!-- Nama Pengguna Pc Field -->
-    <div class="col-md-3">
-    <div class="form-group">
-        {!! Form::label('nama_pengguna_pc', 'Nama Pengguna Pc:') !!}
-        <p>{!! $pemeriksaanPerangkat->nama_pengguna_pc !!}</p>
+    <div class="col-md-12">
+        <div class="form-group">
+            {!! Form::label('nama_pengguna_pc', 'Nama Pengguna Pc:') !!}
+            {!! $pemeriksaanPerangkat->nama_pengguna_pc !!}
+        </div>
     </div>
-</div>
+
 
     <!-- Lokasi Field -->
-    <div class="col-md-3">
-    <div class="form-group">
-        {!! Form::label('lokasi', 'Lokasi:') !!}
-        <p>{!! $pemeriksaanPerangkat->lokasi !!}</p>
+    <div class="col-md-12">
+        <div class="form-group">
+            {!! Form::label('lokasi', 'Lokasi:') !!}
+            <p>{!! $pemeriksaanPerangkat->lokasi !!}</p>
+        </div>
     </div>
-</div>
 
     <!-- Serial Number Field -->
-    <div class="col-md-3">
-    <div class="form-group">
-        {!! Form::label('serial_number', 'Serial Number:') !!}
-        <p>{!! $pemeriksaanPerangkat->serial_number !!}</p>
+    <div class="col-md-12">
+        <div class="form-group">
+            {!! Form::label('serial_number', 'Serial Number:') !!}
+            <p>{!! $pemeriksaanPerangkat->serial_number !!}</p>
+        </div>
     </div>
-</div>
 
     <!-- Tanggal Pengecekan Field -->
-    <div class="col-md-3">
-    <div class="form-group">
-        {!! Form::label('tanggal_pengecekan', 'Tanggal Pengecekan:') !!}
-        <p>{!! $pemeriksaanPerangkat->tanggal_pengecekan !!}</p>
+    <div class="col-md-12">
+        <div class="form-group">
+            {!! Form::label('tanggal_pengecekan', 'Tanggal Pengecekan:') !!}
+            <p>{!! $pemeriksaanPerangkat->tanggal_pengecekan !!}</p>
+        </div>
     </div>
-</div>
-</div>
 
-<div class="row">
     <!-- Mulai Jam Pengecekan Field -->
     <div class="col-md-3">
-    <div class="form-group">
-        {!! Form::label('mulai_jam_pengecekan', 'Mulai Jam Pengecekan:') !!}
-        <p>{!! $pemeriksaanPerangkat->mulai_jam_pengecekan !!}</p>
+        <div class="form-group">
+            {!! Form::label('mulai_jam_pengecekan', 'Mulai Jam Pengecekan:') !!}
+            <p>{!! $pemeriksaanPerangkat->mulai_jam_pengecekan !!}</p>
+        </div>
+        
     </div>
-</div>
 
     <!-- Selesai Jam Pengecekan Field -->
     <div class="col-md-3">
-    <div class="form-group">
-        {!! Form::label('selesai_jam_pengecekan', 'Selesai Pengecekan:') !!}
-        <p>{!! $pemeriksaanPerangkat->selesai_jam_pengecekan !!}</p>
+        <div class="form-group">
+            {!! Form::label('selesai_jam_pengecekan', 'Selesai Pengecekan:') !!}
+            <p>{!! $pemeriksaanPerangkat->selesai_jam_pengecekan !!}</p>
+        </div>
     </div>
 </div>
 
+<hr>
+
+<div class="row">
+
+
     <!-- Full Computer Name Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('full_computer_name', 'Full Computer Name:') !!}
         <p>{!! $pemeriksaanPerangkat->full_computer_name !!}</p>
@@ -59,7 +65,7 @@
 </div>
 
     <!-- Join Domain Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('join_domain', 'Join Domain:') !!}
         @if ($pemeriksaanPerangkat->join_domain == 1)
@@ -73,7 +79,7 @@
 </div>
 <div class="row">
      <!-- Update Kaspersky Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
      <div class="form-group">
         {!! Form::label('update_kaspersky', 'Update Kaspersky:') !!}
         @if ($pemeriksaanPerangkat->update_kaspersky == 1)
@@ -85,7 +91,7 @@
 </div>
 
     <!-- Tanggal Update Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('tanggal_update', 'Tanggal Update:') !!}
         <p>{!! $pemeriksaanPerangkat->tanggal_update !!}</p>
@@ -93,7 +99,7 @@
 </div>
 
     <!-- Tipe Koneksi Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('tipe_koneksi', 'Tipe Koneksi:') !!}
         <p>{!! $pemeriksaanPerangkat->tipe_koneksi !!}</p>
@@ -101,7 +107,7 @@
 </div>
 
     <!-- Tipe Ip Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('tipe_ip', 'Tipe Ip:') !!}
         <p>{!! $pemeriksaanPerangkat->tipe_ip !!}</p>
@@ -111,7 +117,7 @@
 
 <div class="row">
     <!-- Mac Address Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('mac_address', 'Mac Address:') !!}
         <p>{!! $pemeriksaanPerangkat->mac_address !!}</p>
@@ -119,7 +125,7 @@
 </div>
 
     <!-- Ip Address Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('ip_address', 'Ip Address:') !!}
         <p>{!! $pemeriksaanPerangkat->ip_address !!}</p>
@@ -127,7 +133,7 @@
 </div>
 
     <!-- Subnet Mask Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('subnet_mask', 'Subnet Mask:') !!}
         <p>{!! $pemeriksaanPerangkat->subnet_mask !!}</p>
@@ -135,7 +141,7 @@
 </div>
 
     <!-- Gateway Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('gateway', 'Gateway:') !!}
         <p>{!! $pemeriksaanPerangkat->gateway !!}</p>
@@ -145,7 +151,7 @@
 </div>
 <div class="row">
     <!-- Dns1 Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('dns1', 'Dns1:') !!}
         <p>{!! $pemeriksaanPerangkat->dns1 !!}</p>
@@ -153,7 +159,7 @@
 </div>
 
     <!-- Dns2 Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('dns2', 'Dns2:') !!}
         <p>{!! $pemeriksaanPerangkat->dns2 !!}</p>
@@ -161,7 +167,7 @@
 </div>
 
     <!-- Dns3 Field -->
-    <div class="col-md-3">
+    <div class="col-md-12">
     <div class="form-group">
         {!! Form::label('dns3', 'Dns3:') !!}
         <p>{!! $pemeriksaanPerangkat->dns3 !!}</p>
@@ -171,7 +177,7 @@
 
 <div class="row">
     <!-- Ttd It Senior Field -->
-    <div class="col-md-6">
+    <div class="col-md-3">
     <div class="form-group">
         {!! Form::label('ttd_it_senior', 'Ttd It Senior:') !!}
         </br>
@@ -180,7 +186,7 @@
 </div>
 
     <!-- Ttd Admin Aps Field -->
-    <div class="col-md-6">
+    <div class="col-md-3">
     <div class="form-group">
         {!! Form::label('ttd_admin_aps', 'Ttd Admin Aps:') !!}
         </br>
@@ -192,7 +198,7 @@
 
 <div class="row">
     <!-- Teknisi Aps Field -->
-    <div class="col-md-6">
+    <div class="col-md-3">
     <div class="form-group">
         {!! Form::label('teknisi_aps', 'Teknisi Aps:') !!}
         </br>
@@ -201,7 +207,7 @@
 </div>
 
     <!-- User Field -->
-    <div class="col-md-6">
+    <div class="col-md-3">
     <div class="form-group">
         {!! Form::label('user', 'User:') !!}
         </br>
@@ -213,7 +219,7 @@
 <div class="row">
     
     <!-- It Non Public Field -->
-    <div class="col-md-6">
+    <div class="col-md-3">
     <div class="form-group">
         {!! Form::label('it_non_public', 'It Non Public:') !!}
         </br>
@@ -221,7 +227,7 @@
     </div>
 </div>
 
-    <div class="col-md-6">
+    <div class="col-md-3">
     <div class="form-group">
         {!! Form::label('foto', 'Foto:') !!}
         </br>
