@@ -51,7 +51,7 @@
     </div>
 </div>
 
-<hr>
+<hr style="height:1px;border:none;color:#333;background-color:#333;">
 
 <div class="row">
 
