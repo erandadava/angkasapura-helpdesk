@@ -337,4 +337,15 @@ class pdfController extends Controller
         $pdf->setOption('disable-javascript', true);
         return $pdf->stream('laporan_harian'.time().'.pdf');
     }
+
+    public function make_pdf_pemeriksaan($id){
+        
+        $id = \Crypt::decrypt($id);
+        $values = \App\Models\pemeriksaan_perangkat::where('id',$id)->first();
+        // return view('pdf.pemeriksaan_perangkat')->with('value',$values);
+        $pdf = \PDF::loadView('pdf.pemeriksaan_perangkat',['value'=>$values]);
+        $pdf->setPaper('a4');
+        $pdf->setOption('disable-javascript', true);
+        return $pdf->stream('pemeriksaan_perangkat'.time().'.pdf');
+    }
 }
