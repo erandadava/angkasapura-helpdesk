@@ -409,6 +409,17 @@
             </table>
         </div>
     </div>
+    <div style="page-break-inside: avoid;">
+        <center><h2>FOTO</h2></center>
+        <div class="div-foto">
+            @if(isset($value['Foto']))
+                @foreach($value['Foto'] as $key => $dt)
+                <img src="{{ public_path().'/storage/'.$dt}}" width="100%" alt="" srcset="">
+                </br>
+                @endforeach
+            @endif
+        </div>
+    </div>
 </body>
 
 </html>
