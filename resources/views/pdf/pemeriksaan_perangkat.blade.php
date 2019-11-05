@@ -391,35 +391,55 @@
                 </tr>
                 <tr>
                     <td>
-                        <center></center><img src="{{ public_path().'/storage/'.$value->ttd_it_senior}}" alt="" style="width:100%"></center>
+                        @if ($value->ttd_it_senior != null)
+                            <center></center><img src="{{ public_path().'/storage/'.$value->ttd_it_senior}}" alt="" style="width:100%"></center> 
+                        @else
+                            <div style="height:100px"></div>
+                        @endif
                     </td>
                     <td>
-                        <center><img src="{{ public_path().'/storage/'.$value->ttd_admin_aps}}" alt="" style="width:100%"></center>
+                        @if ($value->ttd_admin_aps != null)
+                            <center><img src="{{ public_path().'/storage/'.$value->ttd_admin_aps}}" alt="" style="width:100%"></center>
+                        @else
+                            <div style="height:100px"></div>
+                        @endif
                     </td>
                     <td>
-                        <center><img src="{{ public_path().'/storage/'.$value->teknisi_aps}}" alt="" style="width:100%"></center>
+                        @if ($value->teknisi_aps != null)
+                            <center><img src="{{ public_path().'/storage/'.$value->teknisi_aps}}" alt="" style="width:100%"></center>
+                        @else
+                            <div style="height:100px"></div>
+                        @endif
                     </td>
                     <td>
-                        <center><img src="{{ public_path().'/storage/'.$value->user}}" alt="" style="width:100%"></center>
+                        @if ($value->user != null)
+                            <center><img src="{{ public_path().'/storage/'.$value->user}}" alt="" style="width:100%"></center>
+                        @endif
                     </td>
                     <td>
-                        <center><img src="{{ public_path().'/storage/'.$value->it_non_public}}" alt="" style="width:100%"></center>
+                        @if ($value->it_non_public != null)
+                            <center><img src="{{ public_path().'/storage/'.$value->it_non_public}}" alt="" style="width:100%"></center>
+                        @else
+                            <div style="height:100px"></div>
+                        @endif
                     </td>   
                 </tr>
             </table>
         </div>
     </div>
-    <div style="page-break-inside: avoid;">
-        <center><h2>FOTO</h2></center>
-        <div class="div-foto">
-            @if(isset($value['Foto']))
-                @foreach($value['Foto'] as $key => $dt)
-                <img src="{{ public_path().'/storage/'.$dt}}" width="100%" alt="" srcset="">
-                </br>
-                @endforeach
-            @endif
+    @if(isset($value['Foto']))
+        <div style="page-break-inside: avoid;">
+            <center><h2>FOTO</h2></center>
+            <div class="div-foto">
+                
+                    @foreach($value['Foto'] as $key => $dt)
+                    <img src="{{ public_path().'/storage/'.$dt}}" width="100%" alt="" srcset="">
+                    </br>
+                    @endforeach
+                
+            </div>
         </div>
-    </div>
+    @endif
 </body>
 
 </html>
