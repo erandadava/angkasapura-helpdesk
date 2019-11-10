@@ -80,6 +80,10 @@
         .td-header{
             padding:5px;
         }
+
+        .new-page {
+            page-break-before: always;
+        }
     </style>
 </head>
 
@@ -428,15 +432,13 @@
         </div>
     </div>
     @if(isset($value['Foto']))
-        <div style="page-break-inside: avoid;">
+        <div class="new-page">
             <center><h2>FOTO</h2></center>
             <div class="div-foto">
-                
                     @foreach($value['Foto'] as $key => $dt)
                     <img src="{{ public_path().'/storage/'.$dt}}" width="100%" alt="" srcset="">
                     </br>
                     @endforeach
-                
             </div>
         </div>
     @endif
