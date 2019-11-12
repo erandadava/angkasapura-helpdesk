@@ -48,7 +48,13 @@
 
 <div class="form-group col-sm-6">
     {!! Form::label('selesai_jam_pengecekan', 'selesai pengecekan:') !!}
-    {!! Form::text('selesai_jam_pengecekan', null, ['class' => 'form-control','id'=>'jam_selesai']) !!}
+    {{-- {!! Form::text('selesai_jam_pengecekan', null, ['class' => 'form-control','id'=>'jam_selesai']) !!} --}}
+    <div class="input-group clockpicker" data-align="top" data-autoclose="true">
+        <input type="text" name="selesai_jam_pengecekan" class="form-control" value="{{ $pemeriksaanPerangkat->selesai_jam_pengecekan??'' }}">
+        <span class="input-group-addon">
+        <span class="glyphicon glyphicon-time"></span>
+        </span>
+    </div>
 </div>
 
 
@@ -244,7 +250,7 @@
             useCurrent: false
         });
         $('#jam_selesai').datetimepicker({
-            format: 'Y-MM-DD hh:mm:ss',
+            format: 'hh:mm:ss',
             useCurrent: false
         });
 

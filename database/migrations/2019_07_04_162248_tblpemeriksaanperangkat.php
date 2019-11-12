@@ -20,7 +20,7 @@ class Tblpemeriksaanperangkat extends Migration
             $table->string('serial_number')->nullable();
             $table->date('tanggal_pengecekan')->nullable();
             $table->time('mulai_jam_pengecekan')->nullable();
-            $table->datetime('selesai_jam_pengecekan')->nullable();
+            $table->time('selesai_jam_pengecekan')->nullable();
             $table->string('full_computer_name')->nullable();
             $table->boolean('join_domain')->default(0)->nullable();
             $table->boolean('update_kaspersky')->default(0)->nullable();

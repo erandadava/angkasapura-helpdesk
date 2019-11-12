@@ -7,6 +7,7 @@
     "require": {
         "php": ">=7.0.0",
         "aschmelyun/larametrics": "^1.1",
+        "barryvdh/laravel-dompdf": "^0.8.5",
         "barryvdh/laravel-snappy": "^0.4.5",
         "fideloper/proxy": "~3.3",
         "guzzlehttp/guzzle": "^6.3",
