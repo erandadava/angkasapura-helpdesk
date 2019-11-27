@@ -6,6 +6,7 @@ use App\Models\pemeriksaan_perangkat;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
+use Carbon\Carbon;
 class pemeriksaan_perangkatDataTable extends DataTable
 {
     /**
@@ -18,7 +19,11 @@ class pemeriksaan_perangkatDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'pemeriksaan_perangkats.datatables_actions');
+        // return $dataTable->addColumn('action', 'pemeriksaan_perangkats.datatables_actions');
+        return $dataTable->addColumn('action', 'pemeriksaan_perangkats.datatables_actions')->editColumn('selesai_jam_pengecekan', function ($inquiry) {
+            return $inquiry->tanggal_pengecekan->format('d-m-Y').'  '.$inquiry->selesai_jam_pengecekan;
+        });
+
     }
 
     /**
