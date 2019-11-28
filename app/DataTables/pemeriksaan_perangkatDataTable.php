@@ -21,7 +21,7 @@ class pemeriksaan_perangkatDataTable extends DataTable
 
         // return $dataTable->addColumn('action', 'pemeriksaan_perangkats.datatables_actions');
         return $dataTable->addColumn('action', 'pemeriksaan_perangkats.datatables_actions')->editColumn('selesai_jam_pengecekan', function ($inquiry) {
-            return $inquiry->tanggal_pengecekan->format('d-m-Y').'  '.$inquiry->selesai_jam_pengecekan;
+            return ($inquiry->tanggal_pengecekan->format('d-m-Y')?? '') .'  '.($inquiry->selesai_jam_pengecekan ?? '');
         });
 
     }
