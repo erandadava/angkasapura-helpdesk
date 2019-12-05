@@ -55,7 +55,7 @@ class pemeriksaan_perangkatDataTable extends DataTable
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'     => 'Blfrtip',
-                'order'   => [[3, 'desc']],
+                'order'   => [[3, 'desc'], [4, 'desc']],
                 'buttons' => [
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -75,6 +75,7 @@ class pemeriksaan_perangkatDataTable extends DataTable
             ['data' => 'nama_pengguna_pc', 'title' => 'Nama Pengguna Komputer'],
             'lokasi',
             'serial_number',
+            ['data' => 'tanggal_pengecekan', 'title' => 'Tanggal Pengecekan', 'visible' => false],
             ['data' => 'selesai_jam_pengecekan', 'title' => 'Selesai Pengecekan'],
             ['data' => 'full_computer_name', 'title' => 'Nama Komputer Lengkap'],
         ];
