@@ -40,7 +40,7 @@
                         </a>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <a href="/issues" style="text-decoration:none;color:black">
+                        <a href="/issues?s=n" style="text-decoration:none;color:black">
                             <div class="info-box">
                                 <span class="info-box-icon bg-red"><i class="fa fa-remove"></i></span>
 
@@ -53,7 +53,7 @@
                         </a>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <a href="/issues" style="text-decoration:none;color:black">
+                        <a href="/issues?s=y" style="text-decoration:none;color:black">
                             <div class="info-box">
                                 <span class="info-box-icon bg-blue"><i class="fa fa-check-square-o"></i></span>
 
