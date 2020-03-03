@@ -6,6 +6,7 @@ use App\Models\pemeriksaan_perangkat;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
+use Carbon\Carbon;
 class pemeriksaan_perangkatDataTable extends DataTable
 {
     /**
@@ -18,7 +19,16 @@ class pemeriksaan_perangkatDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'pemeriksaan_perangkats.datatables_actions');
+        // return $dataTable->addColumn('action', 'pemeriksaan_perangkats.datatables_actions');
+        return $dataTable->addColumn('action', 'pemeriksaan_perangkats.datatables_actions')->editColumn('selesai_jam_pengecekan', function ($inquiry) {
+             if ($inquiry->tanggal_pengecekan != null){
+                 return $inquiry->tanggal_pengecekan->format('d-m-Y').'  '.$inquiry->selesai_jam_pengecekan;
+             }
+             else {
+                 return "-".$inquiry->selesai_jam_pengecekan ;
+             }
+        });
+
     }
 
     /**
@@ -45,7 +55,7 @@ class pemeriksaan_perangkatDataTable extends DataTable
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'     => 'Blfrtip',
-                'order'   => [[0, 'desc']],
+                'order'   => [[3, 'desc'], [4, 'desc']],
                 'buttons' => [
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -65,6 +75,7 @@ class pemeriksaan_perangkatDataTable extends DataTable
             ['data' => 'nama_pengguna_pc', 'title' => 'Nama Pengguna Komputer'],
             'lokasi',
             'serial_number',
+            ['data' => 'tanggal_pengecekan', 'title' => 'Tanggal Pengecekan', 'visible' => false],
             ['data' => 'selesai_jam_pengecekan', 'title' => 'Selesai Pengecekan'],
             ['data' => 'full_computer_name', 'title' => 'Nama Komputer Lengkap'],
         ];

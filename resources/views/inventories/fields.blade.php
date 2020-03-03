@@ -1,6 +1,6 @@
 <div class="form-group col-sm-6">
     {!! Form::label('id_pemilik_perangkat', 'NIP Pemilik Perangkat:') !!}
-    {!! Form::select('id_pemilik_perangkat', $pemilik, null, ['class' => 'form-control']) !!}
+    {!! Form::select('id_pemilik_perangkat', $pemilik, null, ['class' => 'form-control', 'placeholder' => '-']) !!}
 </div>
 <!-- Cat Id Field -->
 <div class="form-group col-sm-6">

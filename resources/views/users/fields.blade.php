@@ -47,7 +47,7 @@
 <!-- Remember Token Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('roles', 'Roles:') !!}
-    {!! Form::select('roles', $role, null, ['class' => 'form-control']) !!}
+    {!! Form::select('roles', $role, $role_id??0, ['class' => 'form-control']) !!}
 </div>
 @endhasrole
 

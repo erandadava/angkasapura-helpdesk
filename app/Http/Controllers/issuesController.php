@@ -64,7 +64,12 @@ class issuesController extends AppBaseController
             return $this->notifikasiController->update_baca($request->n);
         }
         if($request->p){
-            return $penilaianDataTable->render('issues.indexpenilaian');;
+            return $penilaianDataTable->render('issues.indexpenilaian');
+        }
+        if($request->s){
+            return $issuesDataTable->with([
+                's' => $request->s
+            ])->render('issues.index');
         }
         return $issuesDataTable->render('issues.index');
     }

@@ -104,13 +104,13 @@ class usersController extends AppBaseController
     public function edit($id)
     {
         $this->data['users'] = $this->usersRepository->findWithoutFail($id);
-
+        $user = \App\User::where('id',$id)->with('roles')->first();
         if (empty($this->data['users'])) {
             Flash::error('Users not found');
 
             return redirect(route('users.index'));
         }
-
+        $this->data['role_id'] = $user['roles'][0]['id'];
         return view('users.edit')->with($this->data);
     }
 

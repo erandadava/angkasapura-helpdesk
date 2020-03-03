@@ -27,6 +27,7 @@ Route::get('register/verify/resend', 'Auth\RegisterController@showResendVerifica
 Route::post('register/verify/resend', 'Auth\RegisterController@resendVerificationEmail')->name('resendVerificationEmail');
 Route::post('/exportpdf/{table}', 'pdfController@make_pdf');
 Route::post('/exportpdflaporanharian', 'pdfController@make_pdf_laporan_harian');
+Route::get('/exportpdfpemeriksaan/{id}', 'pdfController@make_pdf_pemeriksaan');
 
 Route::group(['middleware' => ['role:IT Administrator|IT Support|IT Operasional|Admin|IT Non Public','isEmailVerified']], function ()
 {

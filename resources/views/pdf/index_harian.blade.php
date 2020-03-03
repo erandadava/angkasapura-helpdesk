@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+    <!DOCTYPE html>
+    <html>
     <style>
         /*!
      * Generated using the Bootstrap Customizer (https://getbootstrap.com/docs/3.4/customize/)
@@ -18,12 +20,11 @@
     }
     td{
         border : 1px solid black;
-        padding : 4px;
     }
     th{
         text-align:center;
         border : 1px solid black;
-        padding : 4px;
+        font-size: 16pt;
     }
     *{
         text-align: center;
@@ -39,7 +40,7 @@
       padding: 3px 2px;
     }
     table.paleBlueRows tbody td {
-      font-size: 13px;
+      font-size: 12pt;
       border : 1px solid #424242;
     }
     table.paleBlueRows tr:nth-child(even) {
@@ -50,7 +51,7 @@
       border-bottom: 5px solid #FFFFFF;
     }
     table.paleBlueRows thead th {
-      font-size: 17px;
+      font-size: 24pt;
       font-weight: bold;
       color: #FFFFFF;
       text-align: center;
@@ -70,21 +71,23 @@
     table.paleBlueRows tfoot td {
       font-size: 14px;
     }
-    
+    .logo{
+        right: 0;
+        float: right;
+        position: absolute;
+    }
+    .logo img{
+        width : 250px;
+    }
+    .row-title{
+        padding-top: 5px;
+    }
     tr.group,
         tr.group:hover {
             background-color: #16a085 !important;
             color:white;
             text-align: left;
         }
-    
-    .logo{
-        right: 0;
-        float: right;
-    }
-    .logo img{
-        width : 200px;
-    }
     </style>
     <head>
         <title>PDF</title>
@@ -98,9 +101,9 @@
                     </div>
                 </div>
     <div class="row">
-        <div class='col-sm-12'>
-            <h1>{{$title}}</h1>
-            <small>{!!\Carbon\Carbon::parse(\Carbon\Carbon::now())->formatLocalized('%d %B %Y') !!}</small>
+        <div class='col-sm-12 row-title'>
+            <h1 style="font-size:24pt">{{$title}}</h1>
+            <small style="font-size:14pt">{!! \Carbon\Carbon::parse(\Carbon\Carbon::now())->formatLocalized('%d %B %Y'); !!}</small>
         </div>
         <div class="col-sm-12">
             <div class="table">

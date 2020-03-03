@@ -26,7 +26,7 @@ class pdfController extends Controller
                 }elseif($roles[0] == "IT Non Public"){
                     $get = \App\Models\issues::with(['category','priority','request'])->whereIn('id',$arr_export)->get();
                 }else{
-                    $get = \App\Models\issues::with(['category','priority','request'])->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->orWhere('assign_it_support','=',$user->id)->whereIn('id',$arr_export)->get();
+                    $get = \App\Models\issues::with(['category','priority','request'])->whereIn('id',$arr_export)->where('request_id','=',$user->id)->orWhere('assign_it_ops','=',$user->id)->whereIn('id',$arr_export)->orWhere('assign_it_support','=',$user->id)->whereIn('id',$arr_export)->get();
                 }
                 $head = ['Kode', 'Permintaan Oleh', 'Prioritas', 'Waktu Keluhan', 'Kategori', 'Lokasi', 'Status'];
                 $title = 'Tiket';
@@ -85,11 +85,19 @@ class pdfController extends Controller
                     $now = new Carbon($request->tgl);
                     $get = \App\Models\inventory::with(['issues' => function($query) use($now){
                         $query->where('cat_id','=',2)->whereYear('issue_date',$now->year)->whereMonth('issue_date',$now->month);
-                    }])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
+                    }])->withCount(['issues' => function($query) use($now){
+                        $query->where('cat_id','=',2)
+                        ->whereYear('issue_date',$now->year)    
+                        ->whereMonth('issue_date',$now->month);
+                   },'issuesjmlsla'])->whereIn('id',$arr_export)->get();
                 }else{
                     $get = \App\Models\inventory::with(['issues' => function($query) use($now){
                         $query->where('cat_id','=',2)->whereYear('issue_date',$now->year)->whereMonth('issue_date',$now->month);
-                    }])->withCount(['issuesjml','issuesjmlsla'])->whereIn('id',$arr_export)->get();
+                    }])->withCount(['issues' => function($query) use($now){
+                        $query->where('cat_id','=',2)
+                        ->whereYear('issue_date',$now->year)    
+                        ->whereMonth('issue_date',$now->month);
+                   },'issuesjmlsla'])->whereIn('id',$arr_export)->get();
                 }
                 
                 $head = ['Nama User','Nama Perangkat','Serial Number','Merk','Nama Perangkat Full','Jumlah Keluhan', 'SLA'];
@@ -112,7 +120,7 @@ class pdfController extends Controller
                         2 => $value['sernum'],
                         3 => $value['merk'],
                         4 => $value['nama_perangkat_full'],
-                        5 => $value['issuesjml_count'],
+                        5 => $value['issues_count'],
                         6 => $hasil
                     ];   
                 }
@@ -138,7 +146,7 @@ class pdfController extends Controller
                 if($roles[0] == "IT Administrator" || $roles[0] == "Admin"){
                     $get = \App\Models\issues::with(['category','priority','request','rating'])->where('status','=','RT')->orWhere('status','=','CLOSE')->whereIn('id',$arr_export)->get();
                 }else{
-                    $get = \App\Models\issues::with(['category','priority','request','rating'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['request_id','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_ops','=',$user->id],['status','=','RT']])->orWhere([['assign_it_ops','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_support','=',$user->id],['status','=','RT']])->orWhere([['assign_it_support','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_admin','=',$user->id],['status','=','RT']])->orWhere([['assign_it_admin','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->get();
+                    $get = \App\Models\issues::with(['category','priority','request','rating'])->where([['request_id','=',$user->id],['status','=','RT']])->orWhere([['request_id','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->orWhere([['assign_it_ops','=',$user->id],['status','=','RT']])->whereIn('id',$arr_export)->orWhere([['assign_it_ops','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->orWhere([['assign_it_support','=',$user->id],['status','=','RT']])->whereIn('id',$arr_export)->orWhere([['assign_it_support','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->orWhere([['assign_it_admin','=',$user->id],['status','=','RT']])->whereIn('id',$arr_export)->orWhere([['assign_it_admin','=',$user->id],['status','=','CLOSE']])->whereIn('id',$arr_export)->get();
                 }
                 $head = ['Kategori', 'Kode', 'Prioritas', 'Permintaan', 'Penialaian', 'Status', 'Waktu Keluhan'];
                 $title = 'Penilaian';
@@ -178,8 +186,13 @@ class pdfController extends Controller
                 break;
         }
         $values = $isinya;
-        $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values]);
-        return $pdf->stream($tabel.time().'.pdf');
+        // $pdf = PDF::loadview('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values]);
+        // return $pdf->stream($tabel.time().'.pdf');
+        $pdf = \PDF::loadView('pdf.index',['head'=>$head,'title'=>$title,'value'=>$values]);
+        $pdf->setPaper('a4');
+        $pdf->setOrientation('landscape');
+        $pdf->setOption('disable-javascript', true);
+        return $pdf->stream($tabel.time().time().'.pdf');
     }
 
     public function make_pdf_laporan_harian(Request $request){
@@ -315,8 +328,24 @@ class pdfController extends Controller
 
         $values = $isinya; 
         // return view('pdf.index_harian')->with(['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group]);
-        $pdf = PDF::loadview('pdf.index_harian',['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group])->setPaper('a4', 'landscape');
-        // return $pdf->download($tabel.time().'.pdf');
-        return $pdf->stream('laporan_harian'.'.pdf', array("Attachment" => false));
+        // $pdf = PDF::loadview('pdf.index_harian',['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group])->setPaper('a4', 'landscape');
+        // // return $pdf->download($tabel.time().'.pdf');
+        // return $pdf->stream('laporan_harian'.'.pdf', array("Attachment" => false));
+        $pdf = \PDF::loadView('pdf.index_harian',['head'=>$head,'title'=>$title,'value'=>$values,'group'=>$group]);
+        $pdf->setPaper('a4');
+        $pdf->setOrientation('landscape');
+        $pdf->setOption('disable-javascript', true);
+        return $pdf->stream('laporan_harian'.time().'.pdf');
+    }
+
+    public function make_pdf_pemeriksaan($id){
+        
+        $id = \Crypt::decrypt($id);
+        $values = \App\Models\pemeriksaan_perangkat::where('id',$id)->first();
+        // return view('pdf.pemeriksaan_perangkat')->with('value',$values);
+        $pdf = \PDF::loadView('pdf.pemeriksaan_perangkat',['value'=>$values]);
+        $pdf->setPaper('a4');
+        $pdf->setOption('disable-javascript', true);
+        return $pdf->stream('pemeriksaan_perangkat'.time().'.pdf');
     }
 }

@@ -215,6 +215,7 @@
 <script src="{{asset('js/jsignature-master/src/jSignature.js')}}"></script>
 
 <script src="{{asset('js/clockpicker/dist/bootstrap-clockpicker.min.js')}}"></script>
+<script src="{{asset('js/html2canvas.js')}}"></script>
     <script>
     $(document).ready(function(){
       $.fn.dataTable.ext.errMode = 'none';
@@ -309,6 +310,29 @@
                                 .catch( error => {
                                         //console.error( error );
                                 } );
+                                $(document).ready(function(){
+                                    var status_klik = false;
+                                    $('.print-btn-detail').click(function(){
+                                        if (status_klik == false) {
+                                            $(".print-btn-detail").attr("disabled", "disabled");
+                                            status_klik = true;
+                                            html2canvas($(".content-wrapper").get(0)).then(canvas => {  
+                                                var dataURL = canvas.toDataURL();
+                                                var width = canvas.width;
+                                                var printWindow = window.open("");
+                                                $(printWindow.document.body)
+                                                .html("<img id='Image' src=" + dataURL + " style='" + width + "'></img>")
+                                                .ready(function() {
+                                                    $(".print-btn-detail").removeAttr("disabled");
+                                                    status_klik = false;
+                                                    printWindow.focus();
+                                                    printWindow.print();
+                                                });
+                                                
+                                            });
+                                        }
+                                    });
+                                });
     </script>
     @hasrole('IT Administrator|IT Support')
         <script>

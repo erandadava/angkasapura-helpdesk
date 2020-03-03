@@ -19,7 +19,6 @@ class issuesDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         $user = Auth::user();
         $roles = $user->getRoleNames();
-
         if($roles[0] == "IT Non Public" || $roles[0] == "Admin"){
             return $dataTable->addColumn('action', 'issues.datatables_actions')->editColumn('status', function ($inquiry) {
                 if ($inquiry->status == null) return "<span class='label label-default'>Menunggu IT Administrator</span>";
@@ -91,6 +90,28 @@ class issuesDataTable extends DataTable
     {
         $user = Auth::user();
         $roles = $user->getRoleNames();
+
+        if($this->s){
+            if($this->s == 'y'){
+                if(($roles[0] == "IT Administrator" || $roles[0] == "Admin") || ($roles[0] == "IT Support" && request()->status_jam == 1)){
+                    return $model->with(['category','priority','request'])->where([['status','=','CLOSE']])->newQuery();
+                }
+                if($roles[0] == "IT Non Public"){
+                    // return $model->with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->orWhere('request_id','=',$user->id)->orWhere('status','=',null)->newQuery();
+                    return $model->with(['category','priority','request'])->where([['status','=','CLOSE']])->newQuery();
+                }
+                return $model->with(['category','priority','request'])->where([['request_id','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_ops','=',$user->id],['status','=','CLOSE']])->orWhere([['assign_it_support','=',$user->id],['status','=','CLOSE']])->newQuery();
+            }else{
+                if(($roles[0] == "IT Administrator" || $roles[0] == "Admin") || ($roles[0] == "IT Support" && request()->status_jam == 1)){
+                    return $model->with(['category','priority','request'])->where([['status','!=','CLOSE'],['status','!=','RT']])->newQuery();
+                }
+                if($roles[0] == "IT Non Public"){
+                    // return $model->with(['category','priority','request'])->where('complete_by','=',\DB::raw('assign_it_ops'))->orWhere('request_id','=',$user->id)->orWhere('status','=',null)->newQuery();
+                    return $model->with(['category','priority','request'])->where([['status','!=','CLOSE'],['status','!=','RT']])->newQuery();
+                }
+                return $model->with(['category','priority','request'])->where([['request_id','=',$user->id],['status','!=','CLOSE'],['status','!=','RT']])->orWhere([['assign_it_ops','=',$user->id],['status','!=','CLOSE'],['status','!=','RT']])->orWhere([['assign_it_support','=',$user->id],['status','!=','CLOSE'],['status','!=','RT']])->newQuery(); 
+            }
+        }
 
         if(($roles[0] == "IT Administrator" || $roles[0] == "Admin") || ($roles[0] == "IT Support" && request()->status_jam == 1)){
             return $model->with(['category','priority','request'])->newQuery();
